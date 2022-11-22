@@ -1,0 +1,54 @@
+input, textarea{
+  width: 100% !important;
+  padding: 1rem 1.3rem;
+  border: none;
+  // border: 1px solid $black;
+  box-shadow: $shadow-small;
+  border-radius: 3px;
+  font-size: 1.6rem;
+  letter-spacing: 1.5px;
+
+  &:focus, &:focus-visible{
+    outline: none;
+  }
+
+}
+.input--icon{
+  position: absolute;
+  right: .8rem;
+  top: .8rem;
+
+  cursor: pointer;
+
+  &:hover{
+    color: $color-header;
+  }
+}
+
+
+.btn-icon{
+  cursor: pointer;
+  color: $color-highlight;
+  font-size: 2.6rem;
+  position: absolute;
+  right: 6px;
+  top: 6px;
+
+  &:hover{
+    color: $color-highlight;
+  }
+}
+
+input[type="radio"]{
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 50% !important;
+  background-color: $color-highlight-purple;
+  box-shadow: none;
+  cursor: pointer;
+
+  &:checked{
+    background-color: $color-highlight-green !important;
+  }
+}
+

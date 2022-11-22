@@ -1,0 +1,18 @@
+.form-field{
+  display: flex;
+  align-items: center;
+  // flex-wrap: wrap;
+  row-gap: 1.5rem;
+
+  &__label{
+    display: block;
+    font-size: 2rem;
+    letter-spacing: 1.5px;
+    min-width: 15rem;
+  }
+
+  &__btn{
+    width: 15rem;
+    font-size: 1.8rem;
+  }
+}

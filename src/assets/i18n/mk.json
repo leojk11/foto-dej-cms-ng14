@@ -1,0 +1,73 @@
+{
+  "login": {
+    "email": "Емаил",
+    "password": "Лозинка",
+    "login": "Најави се",
+    "forgotPassword": "Ја заборaвивте лозината?"
+  },
+  "albums": {
+    "addNewAlbum": "Додај албум",
+    "selectClient": "Избери клиент",
+    "uploadImages": "Прикачи слики",
+    "noImagesSelected": "Сеуште немате избрано слики",
+    "noImages": "Овој албум сеуште не содржи слики"
+  },
+  "common": {
+    "name": "Фото Деј",
+    "add": "Додај",
+    "albums": "Албуми",
+    "users": "Корисници",
+    "settings": "Поставки",
+    "home": "Дома",
+    "clients": "Клиенти",
+    "select": "Избери",
+    "calendar": "Календар",
+    "upload": "Прикачи",
+    "chooseImages": "Избери слики",
+    "edit": "Измени",
+    "mk": "МК",
+    "en": "АН",
+    "chooseImage": "Избери слика",
+    "chooseVideo": "Избери видео",
+    "save": "Зачувај",
+    "cancel": "Откажи",
+    "imageSizeInfo": "Сликата може да биде максимум 2mb.",
+    "imagesSizeInfo": "Сликите може да бидат максимум 2mb."
+  },
+  "properties": {
+    "title": "Наслов",
+    "description": "Опис",
+    "date": "Датум",
+    "time": "Час",
+    "assignTo": "Додели на",
+    "assignedTo": "Доделено на",
+    "client": "Клиент",
+    "email": "Емаил",
+    "phoneNumber": "Телефон",
+    "status": "Статус",
+    "numAlbums": "Број на албуми",
+    "image": "Слика",
+    "createdBy": "Додадено од",
+    "createdDate": "Додадено на",
+    "firstname": "Име",
+    "lastname": "Презиме",
+    "password": "Лозинка",
+    "username": "Корисничко име",
+    "numImages": "Број на слики",
+    "location": "Локација",
+    "contactNumber": "Контакт телефон",
+    "mainImage": "Главна слика",
+    "mainTitle": "Главен наслов",
+    "secondTitle": "Спореден наслов",
+    "promoImages": "Промо слики",
+    "promoVideo": "Промо видео",
+    "contactFormLabel": "Ознака на контакт формата",
+    "address": "Адреса"
+  },
+  "clients": {
+    "newClient": "Додај клиент"
+  },
+  "calendar": {
+    "newSchedule": "Додај нов настан"
+  }
+}

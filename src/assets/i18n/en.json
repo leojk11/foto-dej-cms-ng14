@@ -1,0 +1,73 @@
+{
+  "login": {
+    "email": "Email",
+    "password": "Password",
+    "login": "Login",
+    "forgotPassword": "Forgot password?"
+  },
+  "albums": {
+    "addNewAlbum": "New album",
+    "selectClient": "Select Client",
+    "uploadImages": "Upload images",
+    "noImagesSelected": "No images have been selected yet",
+    "noImages": "This album does not have any images"
+  },
+  "common": {
+    "name": "Foto Dej",
+    "add": "Add",
+    "albums": "Albums",
+    "users": "Users",
+    "settings": "Settings",
+    "home": "Home",
+    "clients": "Clients",
+    "select": "Select",
+    "calendar": "Calendar",
+    "upload": "Upload",
+    "chooseImages": "Choose images",
+    "edit": "Edit",
+    "mk": "MK",
+    "en": "EN",
+    "chooseImage": "Choose image",
+    "chooseVideo": "Choose video",
+    "save": "Save",
+    "cancel": "Cancel",
+    "imageSizeInfo": "Image size can be maximum 2mb.",
+    "imagesSizeInfo": "Images size can be maximum 2mb."
+  },
+  "properties": {
+    "title": "Title",
+    "description": "Description",
+    "date": "Date",
+    "time": "Time",
+    "assignTo": "Assign to",
+    "assignedTo": "Assigned to",
+    "client": "Client",
+    "email": "Email",
+    "phoneNumber": "Phone number",
+    "status": "Status",
+    "numAlbums": "Number of albums",
+    "image": "Image",
+    "createdBy": "Created by",
+    "createdDate": "Created date",
+    "firstname": "Firstname",
+    "lastname": "Lastname",
+    "password": "Password",
+    "username": "Username",
+    "numImages": "Number of images",
+    "location": "Location",
+    "contactNumber": "Contact number",
+    "mainImage": "Main image",
+    "mainTitle": "Main title",
+    "secondTitle": "Second title",
+    "promoImages": "Promo images",
+    "promoVideo": "Promo video",
+    "contactFormLabel": "Contact form label",
+    "address": "Address"
+  },
+  "clients": {
+    "newClient": "Add new client"
+  },
+  "calendar": {
+    "newSchedule": "Add new schedule"
+  }
+}

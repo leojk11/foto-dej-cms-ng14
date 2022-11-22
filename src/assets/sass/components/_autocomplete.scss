@@ -1,0 +1,22 @@
+.autocomplete{
+  width: 100% !important;
+  position: relative;
+
+  &__input{
+    width: 100% !important;
+  }
+
+  &__btn{
+    background-color: transparent;
+    border: none;
+    width: 4rem;
+    height: 4rem;
+    position: absolute;
+    top: 0p;
+    right: 0;
+
+    &--icon{
+      font-size: 3rem;
+    }
+  }
+}

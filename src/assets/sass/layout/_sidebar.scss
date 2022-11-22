@@ -1,0 +1,95 @@
+.sidebar{
+  height: 100%;
+  width: 23rem;
+  background-color: $sidebar-bg;
+  position: fixed;
+  left: 0;
+  top: 0rem;
+  z-index: 10;
+  padding: 2rem;
+  box-shadow: $shadow-right;
+  // padding-top: 8rem;
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  &.hide{
+    visibility: hidden ;
+    opacity: 0;
+  }
+   
+  &__brand {
+    display: flex;
+    align-items: center;
+
+    &--name {
+      font-size: 2.4rem;
+      letter-spacing: 1.5px;
+    }
+  }
+
+  &__logo-wrapper {
+    width: 6rem;
+    height: 6rem;
+    display: flex;
+    align-items: center;
+
+    &--img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__list{
+    list-style: none;
+    margin-top: 5rem;
+
+    &--item{
+      margin: 2rem 0;
+      padding: 1rem 0;
+    }
+  }
+
+  &__link{
+    display: flex;
+    align-items: center;
+    font-size: 2.4rem;
+    gap: 1rem;
+    color: $color-header;
+    text-decoration: none;
+    cursor: pointer;
+
+    &--icon{
+      box-shadow: $shadow-icon;
+      padding: .8rem;
+      border-radius: 5px;
+    }
+
+    &--title{
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    &:hover{
+      color: $black;
+    }
+
+    &.active-link {
+      color: $black;
+    }
+  }
+
+  .lang-wrapper{
+    .lang-text{
+      font-size: 2.7rem;
+      line-height: 2.7rem;
+    }
+    &.lang-selected{
+      .lang-text{
+        font-size: 3.2rem;
+      }
+    }
+  }
+}

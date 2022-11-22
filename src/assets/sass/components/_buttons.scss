@@ -1,0 +1,114 @@
+.btn{
+  font-size: 1.6rem;
+  font-family: 'Noto Serif', serif;
+  letter-spacing: 1.5px;
+  font-weight: 500;
+  padding: .7rem 1rem;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  min-width: 10rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  height: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+
+  &__back {
+    background-color: transparent;
+    &:hover{
+      background-color: $color-dark;
+    }
+  }
+
+  &__main{
+    background-color: rgba($color-dark, 0.8);
+    font-size: 1.7rem;
+    min-width: 15rem;
+
+    &:hover{
+      background-color: $color-dark;
+    }
+
+    &--sm{
+      min-width: 3.6rem !important;
+    }
+
+    &--icon{
+      background-color: transparent;
+      color: $color-dark;
+      min-width: 2rem;
+
+      &--red{
+        color: $red;
+
+        &:hover{
+          color: rgba($red, 0.8)
+        }
+      }
+    }
+
+    &--outline{
+      background-color: transparent;
+      color: $color-dark;
+      border: 1px solid rgba($color-dark, 0.8);
+      font-size: 1.8rem;
+      transition: all 0.2s;
+
+      &:hover{
+        font-weight: bold;
+      }
+    }
+
+    &--text{
+      background-color: transparent;
+      color: $color-dark;
+      border: 1px solid transparent;
+      font-size: 1.8rem;
+      transition: all 0.2s;
+
+      &:hover{
+        border: 1px solid rgba($color-dark, 0.8);
+        font-weight: bold;
+      }
+    }
+
+    &:disabled {
+      background-color: rgba($color-dark, 0.4);
+      cursor: not-allowed;
+    }
+  }
+
+  &__icon{
+    padding: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: transparent;
+    color: $black;
+    min-width: 3.6rem !important;
+
+    border: 0.5px solid rgba($color-dark, 0.7);
+    box-shadow: $shadow-small;
+    border-radius: 5px;
+
+    transition: all 0.3s;
+
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgba($color-dark, 0.3);
+    }
+  }
+
+  &__brown{
+    background-color: $color-1;
+  }
+
+  &__green{
+    background-color: $color-highlight-green;
+  }
+}

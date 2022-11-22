@@ -1,0 +1,57 @@
+.client {
+  padding: 3rem 3rem;
+  // border: 1px solid rgba(60,60,59,0.19);
+  border-radius: 10px;
+  box-shadow: $shadow-small;
+  margin-bottom: 1rem;
+  font-size: 1.6rem;
+  // height: 12rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 2rem;
+
+  @media (min-width: 666px) {
+    padding: 1rem 3rem;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    &__name, &__info{
+      justify-content: start;
+
+    }
+  }
+
+  &__name{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    width: 25rem;
+  }
+
+  &__img {
+    width: 6rem;
+    height: 6rem;
+    border-radius: 50%;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__info {
+    font-size: inherit;
+    display: flex;
+    flex-direction: column;
+    gap: .3rem;
+    width: 15rem;
+  }
+}

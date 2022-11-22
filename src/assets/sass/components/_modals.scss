@@ -1,0 +1,159 @@
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1999;
+
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: $black;
+
+  &__img {
+    width: 65vw;
+    z-index: 999;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+
+    .image {
+      width: 90%;
+
+      img {
+        width: 100%;
+        height: 100%;
+        
+        object-fit: cover;
+      }
+    }
+  }
+
+  &__top-buttons {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 2rem;
+
+    padding: 2rem;
+
+    z-index: 999;
+
+    button {
+      background-color: rgba(white, 0.3) !important;
+    }
+  }
+
+  &__bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 998;
+  }
+
+  &__content, &__content--small, &__content--md, &__content--xsmall {
+    font-family: 'Noto Serif', serif;
+    position: fixed;
+    background-color: $white;
+    z-index: 1111;
+    border-radius: .6rem;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.15);
+
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    max-height: 90vh;
+
+    &--top {
+      width: 100%;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      border-bottom: 1px solid #ccc;
+      padding: 1.5rem 2rem;
+
+      .title {
+        margin: 0;
+        padding: 0;
+        font-size: 2.2rem;
+        letter-spacing: 1px;
+      }
+
+      .close-button {
+        background-color: white;
+        color: #032b2f;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: none;
+        margin: 0;
+        padding: 0;
+        cursor: pointer;
+        transition: all 0.2s;
+
+        &:hover {
+          color: #999;
+        }
+      }
+    }
+
+    &--body{
+      padding: 1rem 2rem 3rem;
+
+      .modal-title{
+        font-family: 'Poppins';
+        font-size: 3rem;
+        font-weight: 700;
+        line-height: 118.3%;
+
+        i{
+          font-size: 2.2rem;
+        }
+      }
+    }
+
+  //   .buttons {
+  //     width: 100%;
+
+  //     display: flex;
+  //     justify-content: flex-end;
+  //     align-items: center;
+  //     gap: 1rem;
+  //   }
+  // }
+
+  }
+  &__content{
+    width: 70%;
+    overflow-y: auto;
+  }
+
+  &__content--small, &__content--md{
+    width: 55%;
+  }
+  //
+  //&__content--md{
+  //  height: 35%;
+  //}
+
+  &__content--xsmall{
+    width: 30%;
+    min-height: 30vh;
+  }
+}

@@ -1,0 +1,36 @@
+// calculate em => XXXpx / 16px = YYem
+
+//576px
+@mixin screen-sm {
+  @media (min-width: 36em) {
+    @content;
+  }
+}
+
+//768px
+@mixin screen-md {
+  @media (min-width: 48em) {
+    @content;
+  }
+}
+
+//992px
+@mixin screen-lg {
+  @media (min-width: 62em) {
+    @content;
+  }
+}
+
+//1200px
+@mixin screen-xl{
+  @media (min-width: 75em) {
+    @content;
+  }
+}
+
+//1400px
+@mixin desktop-xxl{
+  @media (min-width: 87.5em) {
+    @content;
+  }
+}

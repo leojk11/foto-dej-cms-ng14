@@ -1,0 +1,27 @@
+@import './abstracts/mixins';
+@import './abstracts/variables';
+
+@import './base/base';
+@import './base/containers';
+@import './base/typography';
+@import './base/utility';
+
+@import './pages/login-user';
+@import './pages/albums';
+@import './pages/clients';
+@import './pages/calendar';
+@import './pages/configuration';
+
+@import './components/buttons';
+@import './components/forms';
+@import './components/inputs';
+@import './components/autocomplete';
+@import './components/table';
+@import './components/modals';
+@import './components/spinner';
+@import './components/client-card';
+
+@import './layout/navbar';
+@import './layout/sidebar';
+// @import './components';
+// @import './pages';

@@ -1,0 +1,29 @@
+.forgot-password{
+  font-size: 1.6rem;
+  letter-spacing: 1px;
+  font-style: italic;
+  margin: 1.5rem 0;
+  margin-left: auto;
+  cursor: pointer;
+
+  &:hover{
+    color: $color-highlight;
+  }
+}
+
+.isActive{
+  background-color: #c8e7c8;
+  color: #246028;
+  padding: .7rem 1.5rem;
+  border-radius: 15px;
+}
+
+.isExpired{
+  background-color: #ffccd3;
+  color: #c63755;
+}
+
+.text-light{
+  font-size: 1.3rem;
+  color: rgba($black, 0.9);
+}

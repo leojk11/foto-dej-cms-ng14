@@ -1,0 +1,53 @@
+// .fc-body .fc-row { min-height: 45px !important; }
+.fc-view-harness {
+  font-size: 1.5rem !important;
+}
+
+.fc .fc-toolbar.fc-header-toolbar {
+  margin-bottom: 0 !important;
+  padding: 1rem !important;
+}
+
+// .fc-daygrid-day {
+
+//   min-height: unset !important;
+//   height: 1rem !important;
+// }
+
+.fc-daygrid-day-frame {
+  cursor: pointer;
+
+  min-height: 0px !important;
+  max-height: 50px !important;
+}
+
+.fc-daygrid-day {
+  max-height: 50px !important;
+}
+
+.fc-daygrid-event {
+  cursor: pointer;
+}
+
+.add-new-schedule {
+  &__top {
+    width: 100%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ececec;
+
+    padding-bottom: 1rem;
+
+    &__title {
+      font-size: 2rem;
+    }
+  }
+
+  &__inner {
+    width: 95%;
+    margin: 1rem auto;
+    padding: 1rem 0rem;
+  }
+}
