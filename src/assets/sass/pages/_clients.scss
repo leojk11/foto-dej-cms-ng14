@@ -30,14 +30,15 @@
         right: 0;
         top: 0;
 
-        width: 4rem;
-        height: 4rem;
+        width: 4.4rem;
+        height: 4.4rem;
+        font-size: 1.8rem;
         display: flex;
         align-items: center;
         justify-content: center;
         background-color: $sidebar-bg;
         color: $color-dark;
-
+        cursor: pointer;
       }
     }
   }
