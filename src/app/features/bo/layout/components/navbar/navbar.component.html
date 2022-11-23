@@ -1,0 +1,21 @@
+<div class="navbar">
+  <div 
+    class="toggle" 
+    (click)="toggleSidebar.emit(); showToggle = true"
+  >
+    <span class="material-symbols-outlined">
+      menu
+      </span>
+  </div>
+  <div class="text">
+    {{ appVersion }}
+  </div>
+
+  <div class="navbar__buttons" (click)="logout()">
+    <button class="btn btn__icon c-white">
+      <span class="material-symbols-outlined">
+        logout
+      </span>
+    </button>
+  </div>
+</div>

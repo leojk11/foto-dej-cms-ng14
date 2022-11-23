@@ -9,6 +9,7 @@ import { StorageService } from 'src/app/core/services/storage.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { SpinnerComponent } from 'src/app/shared/components/loading/spinner/spinner.component';
+import {InputTextModule} from 'primeng/inputtext';
 
 @Component({
   selector: 'app-user-login',
@@ -18,7 +19,8 @@ import { SpinnerComponent } from 'src/app/shared/components/loading/spinner/spin
     FormsModule,
     ReactiveFormsModule,
     TranslateModule,
-    SpinnerComponent
+    SpinnerComponent,
+    InputTextModule
   ],
   templateUrl: './user-login.component.html',
   styleUrls: ['./user-login.component.scss']

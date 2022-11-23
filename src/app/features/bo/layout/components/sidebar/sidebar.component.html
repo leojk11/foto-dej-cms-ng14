@@ -1,0 +1,60 @@
+<div class="sidebar" [class.hide]="hideSidebar" >
+  <div>
+    <div class="sidebar__brand">
+      <div class="sidebar__logo-wrapper">
+        <img 
+          src="../../../../../../assets/img/logo.png" 
+          alt="" 
+          class="sidebar__logo-wrapper--img"
+        >
+      </div>
+      <span class="sidebar__brand--name"> {{ 'common.name' | translate }}</span>
+    </div>
+  
+    <ul class="sidebar__list">
+      <li 
+        class="sidebar__list--item" 
+        *ngFor="let item of sidebarItems"
+      >
+        <a 
+          class="sidebar__link" 
+          [routerLink]="item.redirectTo"
+          [routerLinkActive]="'active-link'"
+        >
+          <span class="material-symbols-outlined sidebar__link--icon">
+            {{ item.icon }}
+          </span>
+          <p class="sidebar__link--title">
+            {{ item.title | translate }}
+          </p>
+        </a>
+      </li>
+    </ul>
+      
+  </div>
+
+  <div class="container__flex gap-1 justify-center">
+    <div 
+      class="lang-wrapper" 
+      [class.lang-selected]="selectedLang === 'mk'"
+    >
+      <span 
+        class="lang-text"
+        (click)="changeLang('mk')"
+      >
+        {{ 'common.mk' | translate }}
+      </span>
+    </div>
+    <div
+      class="lang-wrapper" 
+      [class.lang-selected]="selectedLang === 'en'"
+    >
+      <span 
+        class="lang-text"
+        (click)="changeLang('en')"
+      >
+        {{ 'common.en' | translate }}
+      </span>
+    </div>
+  </div>
+</div>

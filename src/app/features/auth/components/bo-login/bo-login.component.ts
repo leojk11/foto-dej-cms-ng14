@@ -9,6 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
 import { SpinnerComponent } from 'src/app/shared/components/loading/spinner/spinner.component';
+import {InputTextModule} from 'primeng/inputtext';
 
 @Component({
   selector: 'app-bo-login',
@@ -18,7 +19,8 @@ import { SpinnerComponent } from 'src/app/shared/components/loading/spinner/spin
     FormsModule,
     ReactiveFormsModule,
     TranslateModule,
-    SpinnerComponent
+    SpinnerComponent,
+    InputTextModule
   ],
   templateUrl: './bo-login.component.html',
   styleUrls: ['./bo-login.component.scss']
