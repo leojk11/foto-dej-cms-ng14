@@ -71,7 +71,7 @@ export class NewClientComponent implements OnInit {
           // this.toastService.success(res.message);
           this.clientsStore.patchExistingClientSingle(this.config.data);
 
-          this.dialogRef.close();
+          this.dialogRef.close('update');
         },
         error: error => {
           // this.toastService.error(error.error.message);

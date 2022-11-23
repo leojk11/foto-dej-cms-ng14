@@ -41,6 +41,10 @@
       color: $color-dark;
       min-width: 2rem;
 
+      i{
+        font-size: 1.6rem;
+      }
+
       &--red{
         color: $red;
 

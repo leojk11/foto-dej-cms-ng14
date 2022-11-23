@@ -1,16 +1,14 @@
 <div class="new-client">
-  <div class="new-client__close">
-    <span
-      class="material-symbols-outlined cp"
+  <!-- <div class="new-client__close">
+    <i
+      class="pi pi-times cp"
       (click)="dialogRef.close()"
-    >
-      close
-    </span>
-  </div>
+    ></i>
+  </div> -->
 
   <div class="new-client__inner">
     <form [formGroup]="form" (submit)="onSubmit()">
-      <div class="container__flex-col gap-4 justify-center" >
+      <div class="container__flex gap-3 wrap" >
         <div class="form-field">
           <label class="form-field__label">
             {{ 'properties.firstname' | translate }}:
@@ -20,7 +18,6 @@
             type="text"
             pInputText
             formControlName="firstname"
-            placeholder="{{ 'properties.firstname' | translate | lowercase }}..."
           >
         </div>
 
@@ -33,7 +30,6 @@
             type="text"
             pInputText
             formControlName="lastname"
-            placeholder="{{ 'properties.lastname' | translate | lowercase }}..."
           >
         </div>
 
@@ -46,7 +42,6 @@
             type="text"
             pInputText
             formControlName="username"
-            placeholder="{{ 'properties.username' | translate | lowercase }}..."
           >
         </div>
 
@@ -59,7 +54,6 @@
             type="text"
             pInputText
             formControlName="email"
-            placeholder="{{ 'properties.email' | translate | lowercase }}..."
           >
         </div>
 
@@ -72,7 +66,6 @@
             type="text"
             pInputText
             formControlName="password"
-            placeholder="{{ 'properties.password' | translate | lowercase }}..."
           >
         </div>
 
@@ -85,24 +78,23 @@
             type="text"
             pInputText
             formControlName="phone_number"
-            placeholder="{{ 'properties.phoneNumber' | translate | lowercase }}..."
           >
         </div>
 
-        <div class="form-field justify-center mt-5">
-          <button
-            class="btn btn__main"
-            type="submit"
-            [disabled]="form.invalid"
-          >
-            <ng-container *ngIf="editMode">
-              {{ 'common.edit' | translate }}
-            </ng-container>
-            <ng-container *ngIf="!editMode">
-              {{ 'common.add' | translate }}
-            </ng-container>
-          </button>
-        </div>
+      </div>
+      <div class="container__flex justify-center mt-5">
+        <button
+          class="btn btn__main"
+          type="submit"
+          [disabled]="form.invalid"
+        >
+          <ng-container *ngIf="editMode">
+            {{ 'common.edit' | translate }}
+          </ng-container>
+          <ng-container *ngIf="!editMode">
+            {{ 'common.add' | translate }}
+          </ng-container>
+        </button>
       </div>
     </form>
   </div>

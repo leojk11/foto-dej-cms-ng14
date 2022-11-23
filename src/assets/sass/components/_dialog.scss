@@ -2,4 +2,16 @@
   .p-dialog-content{
     padding: 0 !important;
   }
+
+  .p-dialog-header{
+    box-shadow: $shadow-bottom;
+    padding-bottom: 1.5rem !important;
+    border-bottom: 1px solid rgba($black, 0.2);
+    .p-dialog-title{
+      font-size: 1.8rem !important;
+      font-family: 'Poppins', sans-serif !important;
+      letter-spacing: 1.5px;
+      font-weight: 500;
+    }
+  }
 }
