@@ -43,7 +43,14 @@ export class AlbumsComponent implements OnInit {
   openAddModal(): void {
     this.dialog.open(NewAlbumComponent, {
       width: '60%',
+      showHeader: false
       // height: '50%'
     } );
+  }
+
+  onPageChange(event: any): void {
+    console.log(event);
+    this.albumStore.patchParams(event.page + 1);
+    this.albumStore.getAllAlbums();
   }
 }

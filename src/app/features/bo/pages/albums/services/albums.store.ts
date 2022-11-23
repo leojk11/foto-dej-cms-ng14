@@ -5,7 +5,6 @@ import { BasicParams } from 'src/app/shared/models/basicParams.model';
 import { Client } from '../../clients/models/client.model';
 import { Album } from '../models/album.model';
 import { AlbumsService } from './albums.service';
-import {Image} from "../models/image.model";
 import {GetAlumImagesResponse} from "../models/getAlumImagesResponse.model";
 import { AdminLayoutService } from '../../../layout/services/admin-layout.service';
 
@@ -29,7 +28,7 @@ export const initialState: AlbumsState = {
   list: [],
   params: {
     page: 1,
-    take: 20 // 20 just to test
+    take: 6 // 20 just to test
   },
   total: 0,
 
@@ -134,6 +133,12 @@ export class AlbumsStore extends ComponentStore<AlbumsState> {
       list,
       total: this.state.total + 1
     });
+  }
+
+  patchParams(page: number): void {
+    const newParams = { ...this.state.params, page };
+
+    this.patchState({ params: newParams });
   }
 
   deleteImage(image: string, index: number): void {

@@ -28,5 +28,12 @@
         ></app-client-card>
       </div>
     </div>
+
+    <p-paginator
+      *ngIf="state.total > state.params.take"
+      [rows]="state.params.take"
+      [totalRecords]="state.total"
+      (onPageChange)="onPageChange($event)"
+    ></p-paginator>
   </div>
 </div>

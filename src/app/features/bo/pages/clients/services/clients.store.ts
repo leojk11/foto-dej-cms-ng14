@@ -17,7 +17,7 @@ export const initialState: ClientsState = {
   list: [],
   params: {
     page: 1,
-    take: 10
+    take: 5
   },
   total: 0,
 
@@ -77,6 +77,12 @@ export class ClientsStore extends ComponentStore<ClientsState> {
     list[index] = client;
 
     this.patchState({ list });
+  }
+
+  patchParams(page: number): void {
+    const newParams = { ...this.state.params, page };
+
+    this.patchState({ params: newParams });
   }
 
   addNewClient(payload: AddNewClientPayload): void {
