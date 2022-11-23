@@ -32,6 +32,7 @@ export class AlbumsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.albumStore.getAllAlbums();
   }
 
   openAddModal(): void {

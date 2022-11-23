@@ -47,6 +47,9 @@
               "node_modules/primeicons/primeicons.css",
               "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
               "node_modules/primeng/resources/primeng.min.css",
+              "./node_modules/@fullcalendar/common/main.css",
+              "./node_modules/@fullcalendar/daygrid/main.css",
+              "./node_modules/@fullcalendar/list/main.css",
               "src/styles.scss"
             ],
             "scripts": []

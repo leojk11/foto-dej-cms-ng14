@@ -31,6 +31,11 @@ export const BO_ROUTES: Route[] = [
         loadComponent: () => import('./pages/configurations/containers/configuration/configuration.component')
           .then((m) => m.ConfigurationComponent)
       },
+      {
+        path: 'calendar',
+        loadComponent: () => import('./pages/calendar/containers/calendar/calendar.component')
+          .then((m) => m.CalendarComponent)
+      },
     ]
   }
 ]
