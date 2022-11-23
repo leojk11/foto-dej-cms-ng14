@@ -1,24 +1,26 @@
 <div class="container__full">
-  <app-sidebar
-    [hideSidebar]="showSidebar"
+  <app-sidebar 
+    [hideSidebar]="hideSidebar"
+    [isMobile]="isMobile"
+    (onHide)="hideSidebar = false"
   ></app-sidebar>
 
-    <div 
-      class="container__bo--inner container__flex-col"
-      [class.container-mobile]="showSidebar"
-    >
-      <app-navbar
-        [showToggle]="showSidebar"
-        (toggleSidebar)="toggleSidebar()"
-      ></app-navbar>
+  <div 
+    class="container__bo--inner container__flex-col"
+    [class.container-mobile]="hideSidebar && !isMobile"
+  >
+    <app-navbar
+      [showToggle]="hideSidebar"
+      (toggleSidebar)="toggleSidebar()"
+    ></app-navbar>
 
-      <div class="container__bo--content-wrapper">
-        <app-header></app-header>
-        <div class="container__bo--router-wrapper">
-          <router-outlet></router-outlet>
-        </div>
+    <div class="container__bo--content-wrapper">
+      <app-header></app-header>
+      <div class="container__bo--router-wrapper">
+        <router-outlet></router-outlet>
       </div>
     </div>
+  </div>
 
   <!-- <app-image-overview></app-image-overview> -->
 </div>

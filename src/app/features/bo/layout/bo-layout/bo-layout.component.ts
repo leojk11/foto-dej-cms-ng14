@@ -6,7 +6,9 @@ import { SidebarComponent } from '../components/sidebar/sidebar.component';
 import { NavbarComponent } from '../components/navbar/navbar.component';
 import { HeaderComponent } from '../components/header/header.component';
 import { RouterModule } from '@angular/router';
-
+import { SidebarModule } from 'primeng/sidebar';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserModule } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-bo-layout',
@@ -16,7 +18,8 @@ import { RouterModule } from '@angular/router';
     SidebarComponent,
     NavbarComponent,
     HeaderComponent,
-    RouterModule
+    RouterModule,
+    SidebarModule,
   ],
   templateUrl: './bo-layout.component.html',
   styleUrls: ['./bo-layout.component.scss']
@@ -29,18 +32,19 @@ export class BoLayoutComponent implements OnInit {
       shareReplay()
     );
 
-  showSidebar: boolean = true;
+  hideSidebar: boolean = false;
+  isMobile: boolean = false;
 
   constructor(
     private brakepointObserver: BreakpointObserver
   ) { }
 
   ngOnInit(): void {
-    this.isMobile$.subscribe(res => this.showSidebar = res)
+    this.isMobile$.subscribe(res => this.isMobile = res)
   }
 
   toggleSidebar(): void {
-    this.showSidebar = !this.showSidebar;
+    this.hideSidebar = !this.hideSidebar;
   }
 
 }

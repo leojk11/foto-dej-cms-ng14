@@ -1,13 +1,13 @@
 .sidebar{
-  height: 100%;
+  height: 100vh;
   width: 23rem;
   background-color: $sidebar-bg;
   position: fixed;
   left: 0;
   top: 0rem;
-  z-index: 10;
   padding: 2rem;
   box-shadow: $shadow-right;
+
   // padding-top: 8rem;
   
   display: flex;
@@ -17,6 +17,7 @@
   &.hide{
     visibility: hidden ;
     opacity: 0;
+    display: none;
   }
    
   &__brand {
@@ -91,5 +92,16 @@
         font-size: 3.2rem;
       }
     }
+  }
+}
+
+.p-sidebar{
+  .p-sidebar-header, .p-sidebar-footer{
+    display: none !important;
+  }
+
+  .p-sidebar-content{
+    padding: 0 !important;
+    width: 23rem !important;
   }
 }

@@ -1,9 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { SIDEBAR_ITEMS } from '../../data/sidebar-items';
 import { StorageService } from 'src/app/core/services/storage.service';
 import { RouterModule } from '@angular/router';
+import {SidebarModule} from 'primeng/sidebar';
 
 @Component({
   selector: 'app-sidebar',
@@ -11,16 +12,20 @@ import { RouterModule } from '@angular/router';
   imports: [
     CommonModule,
     TranslateModule,
-    RouterModule
+    RouterModule,
+    SidebarModule
   ],
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss']
 })
-export class SidebarComponent implements OnInit {
+export class SidebarComponent implements OnInit, OnChanges {
 
   selectedLang: string | null = 'mk';
   sidebarItems = SIDEBAR_ITEMS;
+  @Input() isMobile: boolean = false;
   @Input() hideSidebar: boolean = false;
+
+  @Output() onHide = new EventEmitter();
 
   constructor(
     private storageService: StorageService,
@@ -29,6 +34,13 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit(): void {
     this.selectedLang = this.storageService.getItem('lang');
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log('IS MOBILE', this.isMobile);
+    console.log('HIDE SIDEBAR', this.hideSidebar);
+    
+    
   }
 
   changeLang(lang:string): void {
@@ -45,4 +57,11 @@ export class SidebarComponent implements OnInit {
     this.selectedLang = this.storageService.getItem('lang')
   }
 
+  onHideSidebar(e: any): void {
+    console.log('HIDE EVENT', e);
+    
+    // this.hideSidebar = !this.hideSidebar;
+    console.log('HIDE SIDEBAR FUNC', this.hideSidebar);
+    
+  }
 }
