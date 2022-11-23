@@ -1,0 +1,86 @@
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Client } from '../../models/client.model';
+import { ClientsStore } from '../../services/clients.store';
+import { ClientsService } from '../../services/clients.service';
+import { DynamicDialogRef } from 'primeng/dynamicdialog';
+import { DynamicDialogConfig } from 'primeng/dynamicdialog';
+import { TranslateModule } from '@ngx-translate/core';
+import { InputTextModule } from 'primeng/inputtext';
+
+
+@Component({
+  selector: 'app-new-client',
+  standalone: true,
+  imports: [
+    CommonModule,
+    TranslateModule,
+    ReactiveFormsModule,
+    InputTextModule
+  ],
+  templateUrl: './new-client.component.html',
+  styleUrls: ['./new-client.component.scss']
+})
+export class NewClientComponent implements OnInit {
+
+  form: FormGroup = this.fb.group({
+    firstname: ['', Validators.required],
+    lastname: ['', Validators.required],
+    username: ['', Validators.required],
+    email: ['', Validators.required],
+    password: ['', Validators.required],
+    phone_number: ['', Validators.required]
+  });
+
+  editMode: boolean = false;
+
+  constructor(
+    public config: DynamicDialogConfig,
+    private fb: FormBuilder,
+    private clientsStore: ClientsStore,
+    private clientsService: ClientsService,
+    public dialogRef: DynamicDialogRef,
+  ) { }
+
+  ngOnInit(): void {
+    if (this.config.data) {
+      this.editMode = true;
+
+      this.form.patchValue({ ...this.config.data });
+      this.form.removeControl('password');
+    } else {
+      this.editMode = false;
+    }
+  }
+
+  onSubmit(): void {
+    if (!this.editMode) {
+      this.clientsService.addNewClient(this.form.value).subscribe({
+        next: res => {
+          // this.toastService.success(res.message);
+          this.clientsStore.pathExistingClients(res.client);
+
+          this.dialogRef.close();
+        },
+        error: error => {
+          // this.toastService.error(error.error.message);
+        }
+      });
+    } else {
+      this.clientsService.editClient(this.config.data.id, this.form.value).subscribe({
+        next: res => {
+          // this.toastService.success(res.message);
+          this.clientsStore.patchExistingClientSingle(this.config.data);
+
+          this.dialogRef.close();
+        },
+        error: error => {
+          // this.toastService.error(error.error.message);
+        }
+      });
+    }
+  }
+
+
+}

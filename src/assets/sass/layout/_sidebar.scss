@@ -84,12 +84,12 @@
 
   .lang-wrapper{
     .lang-text{
-      font-size: 2.7rem;
+      font-size: 2.5rem;
       line-height: 2.7rem;
     }
     &.lang-selected{
       .lang-text{
-        font-size: 3.2rem;
+        font-size: 2.8rem !important;
       }
     }
   }

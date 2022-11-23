@@ -1,0 +1,110 @@
+<div class="new-client">
+  <div class="new-client__close">
+    <span
+      class="material-symbols-outlined cp"
+      (click)="dialogRef.close()"
+    >
+      close
+    </span>
+  </div>
+
+  <div class="new-client__inner">
+    <form class="mt-2" [formGroup]="form" (submit)="onSubmit()">
+      <div class="container__flex-col gap-4 justify-center" >
+        <div class="form-field">
+          <label class="form-field__label">
+            {{ 'properties.firstname' | translate }}:
+          </label>
+
+          <input
+            type="text"
+            pInputText
+            formControlName="firstname"
+            placeholder="{{ 'properties.firstname' | translate | lowercase }}..."
+          >
+        </div>
+
+        <div class="form-field">
+          <label class="form-field__label">
+            {{ 'properties.lastname' | translate }}:
+          </label>
+
+          <input
+            type="text"
+            pInputText
+            formControlName="lastname"
+            placeholder="{{ 'properties.lastname' | translate | lowercase }}..."
+          >
+        </div>
+
+        <div class="form-field">
+          <label class="form-field__label">
+            {{ 'properties.username' | translate }}:
+          </label>
+
+          <input
+            type="text"
+            pInputText
+            formControlName="username"
+            placeholder="{{ 'properties.username' | translate | lowercase }}..."
+          >
+        </div>
+
+        <div class="form-field">
+          <label class="form-field__label">
+            {{ 'properties.email' | translate }}:
+          </label>
+
+          <input
+            type="text"
+            pInputText
+            formControlName="email"
+            placeholder="{{ 'properties.email' | translate | lowercase }}..."
+          >
+        </div>
+
+        <div class="form-field" *ngIf="!editMode">
+          <label class="form-field__label">
+            {{ 'properties.password' | translate }}:
+          </label>
+
+          <input
+            type="text"
+            pInputText
+            formControlName="password"
+            placeholder="{{ 'properties.password' | translate | lowercase }}..."
+          >
+        </div>
+
+        <div class="form-field">
+          <label class="form-field__label">
+            {{ 'properties.phoneNumber' | translate }}:
+          </label>
+
+          <input
+            type="text"
+            pInputText
+            formControlName="phone_number"
+            placeholder="{{ 'properties.phoneNumber' | translate | lowercase }}..."
+          >
+        </div>
+
+        <div class="form-field justify-center mt-5">
+          <button
+            class="btn btn__main"
+            type="submit"
+            [disabled]="form.invalid"
+          >
+            <ng-container *ngIf="editMode">
+              {{ 'common.edit' | translate }}
+            </ng-container>
+            <ng-container *ngIf="!editMode">
+              {{ 'common.add' | translate }}
+            </ng-container>
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+

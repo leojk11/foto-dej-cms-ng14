@@ -15,7 +15,10 @@ export const BO_ROUTES: Route[] = [
         path: '',
         loadComponent: () => import('./pages/home/containers/home/home.component').then((m) => m.HomeComponent)
       },
-      
+      {
+        path: 'clients',
+        loadComponent: () => import('./pages/clients/containers/clients/clients.component').then((m) => m.ClientsComponent)
+      },
     ]
   }
 ]

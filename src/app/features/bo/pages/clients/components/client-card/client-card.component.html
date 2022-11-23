@@ -1,0 +1,53 @@
+<div class="client">
+  <div class="client__name">
+    <div class="client__img">
+      <img
+        src="../../../../../../../assets/img/wedding_detail.jpeg"
+        alt=""
+      >
+    </div>
+    <span>
+      {{ client.fullname }}
+    </span>
+  </div>
+
+  <div class="client__info">
+    <span class="text">
+      {{ client.email }}
+    </span>
+
+    <span class="text-light">
+      {{ client.phone_number }}
+    </span>
+  </div>
+
+  <div class="client__status">
+    <span [ngClass]="client.account_status === 'ACTIVE' ? 'isActive' : 'isExpired'">
+      {{ client.account_status }}
+    </span>
+  </div>
+
+  <div class="text-light">
+    {{ client.created_date | date: "dd/MM/YYYY" }}
+  </div>
+
+  <div class="container__flex">
+    <button 
+      class="btn btn__main--icon" 
+      (click)="openEditModal(client)"
+    >
+      <span class="material-symbols-outlined">
+        edit
+      </span>
+    </button>
+
+    <button 
+      class="btn btn__main--icon" 
+      (click)="deleteClient(client)"
+    >
+      <span class="material-symbols-outlined c-red">
+        delete
+      </span>
+    </button>
+  </div>
+</div>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { AdminLayoutService } from 'src/app/features/bo/layout/services/admin-layout.service';
 
 @Component({
   selector: 'app-home',
@@ -10,9 +11,12 @@ import { CommonModule } from '@angular/common';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private adminLayoutService: AdminLayoutService
+  ) { }
 
   ngOnInit(): void {
+    this.adminLayoutService.setTitle('common.home');
   }
 
 }

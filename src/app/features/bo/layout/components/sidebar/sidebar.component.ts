@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { SIDEBAR_ITEMS } from '../../data/sidebar-items';
@@ -18,7 +18,7 @@ import {SidebarModule} from 'primeng/sidebar';
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss']
 })
-export class SidebarComponent implements OnInit, OnChanges {
+export class SidebarComponent implements OnInit {
 
   selectedLang: string | null = 'mk';
   sidebarItems = SIDEBAR_ITEMS;
@@ -34,13 +34,6 @@ export class SidebarComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.selectedLang = this.storageService.getItem('lang');
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log('IS MOBILE', this.isMobile);
-    console.log('HIDE SIDEBAR', this.hideSidebar);
-    
-    
   }
 
   changeLang(lang:string): void {
