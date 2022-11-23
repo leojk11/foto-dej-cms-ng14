@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { ComponentStore } from '@ngrx/component-store';
-import { ToastrService } from 'ngx-toastr';
 import { BasicParams } from 'src/app/shared/models/basicParams.model';
-import { AdminLayoutService } from '../../../layout-admin/services/admin-layout.service';
 import { Client } from '../../clients/models/client.model';
 import { Album } from '../models/album.model';
 import { AlbumsService } from './albums.service';
 import {Image} from "../models/image.model";
 import {GetAlumImagesResponse} from "../models/getAlumImagesResponse.model";
+import { AdminLayoutService } from '../../../layout/services/admin-layout.service';
 
 export interface AlbumsState {
   list: Album[],
@@ -53,7 +52,6 @@ export class AlbumsStore extends ComponentStore<AlbumsState> {
 
   constructor(
     private albumsService: AlbumsService,
-    private toastService: ToastrService,
     private router: Router,
     private albumLayoutService: AdminLayoutService
   ) {
@@ -88,7 +86,7 @@ export class AlbumsStore extends ComponentStore<AlbumsState> {
       },
       error: error => {
         this.setLoading(false);
-        this.toastService.error(error.error.message);
+        // this.toastService.error(error.error.message);
       }
     });
   }
@@ -111,13 +109,13 @@ export class AlbumsStore extends ComponentStore<AlbumsState> {
           },
           error: error => {
             this.setLoading(false);
-            this.toastService.error(error.error.message);
+            // this.toastService.error(error.error.message);
           }
         });
       },
       error: error => {
         this.setLoading(false);
-        this.toastService.error(error.error.message);
+        // this.toastService.error(error.error.message);
       }
     });
   }
@@ -147,11 +145,11 @@ export class AlbumsStore extends ComponentStore<AlbumsState> {
         if(images?.imagesCount) {
           images.imagesCount = images.imagesCount - 1;
         }
-        this.toastService.success('Images has been deleted');
+        // this.toastService.success('Images has been deleted');
         this.patchState({ images });
       },
       error: error => {
-        this.toastService.error(error.error.message);
+        // this.toastService.error(error.error.message);
       }
     });
 

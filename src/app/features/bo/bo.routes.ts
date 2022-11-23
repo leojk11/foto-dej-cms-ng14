@@ -13,11 +13,23 @@ export const BO_ROUTES: Route[] = [
     children: [
       {
         path: '',
-        loadComponent: () => import('./pages/home/containers/home/home.component').then((m) => m.HomeComponent)
+        loadComponent: () => import('./pages/home/containers/home/home.component')
+          .then((m) => m.HomeComponent)
       },
       {
         path: 'clients',
-        loadComponent: () => import('./pages/clients/containers/clients/clients.component').then((m) => m.ClientsComponent)
+        loadComponent: () => import('./pages/clients/containers/clients/clients.component')
+          .then((m) => m.ClientsComponent)
+      },
+      {
+        path: 'albums',
+        loadComponent: () => import('./pages/albums/containers/albums/albums.component')
+          .then((m) => m.AlbumsComponent)
+      },
+      {
+        path: 'configuration',
+        loadComponent: () => import('./pages/configurations/containers/configuration/configuration.component')
+          .then((m) => m.ConfigurationComponent)
       },
     ]
   }
