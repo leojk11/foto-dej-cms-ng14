@@ -18,6 +18,8 @@ import { DialogService } from 'primeng/dynamicdialog';
     TranslateModule
   ],
   providers: [
+    AlbumsStore,
+    DialogService
   ],
   templateUrl: './albums.component.html',
   styleUrls: ['./albums.component.scss']

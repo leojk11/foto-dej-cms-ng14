@@ -19,6 +19,9 @@ import { TranslateModule } from '@ngx-translate/core';
     SpinnerComponent,
     TranslateModule
   ],
+  providers: [
+    ConfigurationStore
+  ],
   templateUrl: './configuration.component.html',
   styleUrls: ['./configuration.component.scss']
 })

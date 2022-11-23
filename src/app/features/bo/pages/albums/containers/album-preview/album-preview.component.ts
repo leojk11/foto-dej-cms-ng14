@@ -19,6 +19,10 @@ import { SpinnerComponent } from 'src/app/shared/components/loading/spinner/spin
     SpinnerComponent,
     SingleImageComponent
   ],
+  providers: [
+    AlbumsStore,
+    DialogService
+  ],
   templateUrl: './album-preview.component.html',
   styleUrls: ['./album-preview.component.scss']
 })

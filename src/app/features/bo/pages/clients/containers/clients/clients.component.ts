@@ -47,16 +47,16 @@ export class ClientsComponent implements OnInit {
 
   openModal(): void {
     const ref = this.dialog.open(NewClientComponent, {
-      width: '45%',
-      height: '75%',
+      // width: '45%',
+      // height: '75%',
       showHeader: false
     });
   }
 
   openEditModal(client: Client): void {
     const ref = this.dialog.open(NewClientComponent, {
-      width: '45%',
-      height: '75%',
+      // width: '45%',
+      // height: '75%',
       data: client,
       showHeader: false
     });
