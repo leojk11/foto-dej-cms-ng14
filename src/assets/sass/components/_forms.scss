@@ -1,9 +1,11 @@
 .form-field{
   display: flex;
-  align-items: center;
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: start;
+  // flex-wrap: wrap;
   row-gap: 1.5rem;
-  gap: 3rem;
+  width: 100%;
+  // gap: 3rem;
 
   &__label{
     display: block;
@@ -18,7 +20,6 @@
   }
 
   @media (min-width: 887px) {
-    flex-wrap: nowrap;
-    gap: 3;
+    width: 45% !important;
   }
 }

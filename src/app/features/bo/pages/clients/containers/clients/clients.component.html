@@ -25,6 +25,7 @@
       <div *ngFor="let client of state.list">
         <app-client-card
           [client] = "client"
+          (clientUpdated)="clientStore.getAllClients()"
         ></app-client-card>
       </div>
     </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Client } from '../../models/client.model';
 import { ClientsStore } from '../../services/clients.store';
@@ -16,6 +16,7 @@ import { DialogService } from 'primeng/dynamicdialog';
 export class ClientCardComponent implements OnInit {
 
   @Input() client: Client = {} as Client;
+  @Output() clientUpdated = new EventEmitter();
 
   constructor(
     private clientStore: ClientsStore,
@@ -32,6 +33,14 @@ export class ClientCardComponent implements OnInit {
       data: client,
       showHeader: false
     });
+
+    ref.onClose.subscribe({
+      next: res => {
+        if(res === 'update'){
+          this.clientUpdated.emit();
+        }
+      }
+    })
   }
 
   deleteClient(client: Client): void {
