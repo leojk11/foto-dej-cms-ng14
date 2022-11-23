@@ -1,0 +1,77 @@
+<p>album-preview works!</p><div class="albums-buttons">
+  <button
+    class="btn btn__main btn__main--sm mr-2"
+    type="submit"
+    (click)="goToUpload()"
+  >
+    <span class="material-symbols-outlined">
+      file_upload
+    </span>
+  </button>
+
+  <button
+    class="btn btn__main btn__main--sm"
+    type="button"
+    (click)="openEditModal()"
+  >
+    <span class="material-symbols-outlined">
+      edit
+    </span>
+  </button>
+</div>
+
+<div class="album-preview" *ngIf="albumsStore.state$ | async as state">
+  <div class="w-full h-full flex justify-center align-center" *ngIf="state.loading">
+    <app-spinner></app-spinner>
+  </div>
+
+  <div class="album-preview__info" *ngIf="!state.loading">
+    <div class="album-preview__info__item">
+      <div class="label">{{ 'properties.title' | translate }}: </div>
+      <div class="content">{{ state.previewAlbum?.title }}</div>
+    </div>
+
+    <div class="album-preview__info__item">
+      <div class="label">{{ 'properties.date' | translate }}: </div>
+      <div class="content">{{ state.previewAlbum?.date | date: "dd/MM/YYYY" }}</div>
+    </div>
+
+    <div class="album-preview__info__item">
+      <div class="label">{{ 'properties.createdBy' | translate }}: </div>
+      <div class="content">{{ state.previewAlbum?.created_by?.fullname }}</div>
+    </div>
+
+    <div class="album-preview__info__item">
+      <div class="label">{{ 'properties.createdDate' | translate }}: </div>
+      <div class="content">{{ state.previewAlbum?.created_date | date: "dd/MM/YYYY" }}</div>
+    </div>
+
+    <div class="album-preview__info__item">
+      <div class="label">{{ 'properties.numImages' | translate }}: </div>
+      <div class="content">{{ state.images?.imagesCount }}</div>
+    </div>
+
+    <div class="album-preview__info__item">
+      <div class="label">{{ 'properties.assignedTo' | translate }}: </div>
+      <div class="content">{{ state.previewAlbum?.assigned_to?.fullname }}</div>
+    </div>
+  </div>
+
+  <div class="separator my-3" *ngIf="!state.loading"></div>
+
+  <div class="album-preview__images" *ngIf="!state.loading">
+    <p
+      class="album-preview__images__msg"
+      *ngIf="state.images?.images?.length === 0"
+    >{{ 'albums.noImages' | translate }}</p>
+
+    <div
+      class="album-image"
+       *ngFor="let image of state.images?.images; let i = index">
+      <app-single-image
+        [image]="image.name"
+        (onDelete)="deleteImage($event, i)"
+      ></app-single-image>
+    </div>
+  </div>
+</div>

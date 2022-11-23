@@ -1,0 +1,15 @@
+<div class="single-album" (click)="goToPreview()">
+  <div class="single-album__icon">
+    <img src="assets/img/folder2.png">
+  </div>
+
+  <div class="container-flex-col" >
+    <div class="single-album__title">
+      {{ album?.title }}
+    </div>
+
+    <div class="single-album__date">
+      {{ album?.date | date: "dd/MM/YYYY" }}
+    </div>
+  </div>
+</div>

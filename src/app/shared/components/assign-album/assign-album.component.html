@@ -1,0 +1,35 @@
+<div class="modal">
+  <div class="modal__bg"></div>
+  <div class="modal__content--small">
+    <div class="modal__content--top">
+      <p class="title">{{ 'albums.selectClient' | translate }}</p>
+      <button class="close-button" (click)="onCloseModal()">
+        <span class="material-symbols-outlined">
+          close
+        </span>
+      </button>
+    </div>
+    <div class="modal__content--body">
+      <ul class="client-list">
+        <li 
+          *ngFor="let client of clients; let i = index" 
+          class="client-list__item container__flex justify-between"
+          (click)="selectClient(client)"
+        >
+          <div class="client-info">
+            {{ client.fullname }}
+            <br>
+            {{ client.email }}
+          </div>
+
+          <div class="client-select">
+            <input type="radio" id="select">
+          </div>
+        </li>
+      </ul>
+      <div class="container__flex justify-center">
+        <div class="spinner" *ngIf="loading"></div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,22 @@
+<div
+  class="album-image__inner cp"
+  (click)="openPreview()">
+  <div
+    class="album-image__inner__close cp"
+    (click)="onDeleteClick($event)">
+    <span class="material-symbols-outlined">
+      close
+    </span>
+  </div>
+
+  <div class="album-image__inner__image">
+    <img
+      [src]="src"
+      (error)="toggleError()"
+    >
+  </div>
+
+  <div class="album-image__inner__name">
+    {{ image }}
+  </div>
+</div>

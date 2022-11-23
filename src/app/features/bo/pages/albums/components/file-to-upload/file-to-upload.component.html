@@ -1,0 +1,19 @@
+<div class="file-to-upload">
+  <div class="file-to-upload__info">
+    <div class="file-to-upload__info__name">
+      {{ file?.name }}
+    </div>
+    <div class="file-to-upload__info__size">
+      {{ file?.size }}
+    </div>
+  </div>
+
+  <div class="file-to-upload__remove-icon">
+    <span
+      class="material-symbols-outlined"
+      (click)="onRemove.emit()"
+    >
+      delete
+    </span>
+  </div>
+</div>
