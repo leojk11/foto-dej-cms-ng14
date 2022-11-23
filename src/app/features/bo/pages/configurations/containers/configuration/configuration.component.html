@@ -21,7 +21,8 @@
                 type="file" 
                 class="upload-input"
                 accept="image/*"
-                (change)="selectFile($event)">
+                (change)="selectFile($event)"
+                pInputText>
 
               <label 
                 class="btn btn__main upload-btn" 
@@ -102,7 +103,8 @@
               <input 
                   type="text" 
                   placeholder="{{ 'properties.mainTitle' | translate | lowercase }}..."
-                  formControlName="main_title">
+                  formControlName="main_title"
+                  pInputText>
           </div>
       </div>
   
@@ -115,7 +117,8 @@
               <input 
                   type="text" 
                   placeholder="{{ 'properties.secondTitle' | translate | lowercase }}..."
-                  formControlName="second_title">
+                  formControlName="second_title"
+                  pInputText>
           </div>
       </div>
   
@@ -132,7 +135,8 @@
                       accept="image/*"
                       class="upload-input"
                       multiple
-                      (change)="selectMultipleFiles($event)">
+                      (change)="selectMultipleFiles($event)"
+                      pInputText>
   
                   <label 
                       class="btn btn__main upload-btn" 
@@ -218,7 +222,8 @@
                       type="file" 
                       accept="video/*"
                       class="upload-input"
-                      (change)="selectVideo($event)">
+                      (change)="selectVideo($event)"
+                      pInputText>
   
                   <label 
                       class="btn btn__main upload-btn" 
@@ -282,7 +287,8 @@
               <input 
                   type="text" 
                   placeholder="{{ 'properties.contactFormLabel' | translate | lowercase }}..."
-                  formControlName="contact_form_label">
+                  formControlName="contact_form_label"
+                  pInputText>
           </div>
       </div>
   
@@ -295,7 +301,8 @@
               <input 
                   type="text" 
                   placeholder="{{ 'properties.phoneNumber' | translate | lowercase }}..."
-                  formControlName="phone_number">
+                  formControlName="phone_number"
+                  pInputText>
           </div>
       </div>
   
@@ -308,7 +315,8 @@
               <input 
                   type="text"
                   placeholder="{{ 'properties.email' | translate | lowercase }}..."
-                  formControlName="email">
+                  formControlName="email"
+                  pInputText>
           </div>
       </div>
   
@@ -321,7 +329,8 @@
               <input 
                   type="text" 
                   placeholder="{{ 'properties.address' | translate | lowercase }}..."
-                  formControlName="address">
+                  formControlName="address"
+                  pInputText>
           </div>
       </div>
 
@@ -334,7 +343,8 @@
               <input 
                   type="text" 
                   placeholder="facebook..."
-                  formControlName="facebook_link">
+                  formControlName="facebook_link"
+                  pInputText>
           </div>
       </div>
 
@@ -348,7 +358,8 @@
               <input 
                   type="text" 
                   placeholder="instagram..."
-                  formControlName="insta_link">
+                  formControlName="insta_link"
+                  pInputText>
           </div>
       </div>
 

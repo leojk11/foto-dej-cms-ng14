@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Client } from '../../../clients/models/client.model';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { DynamicDialogRef } from 'primeng/dynamicdialog';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { AlbumsStore } from '../../services/albums.store';
 import { AlbumsService } from '../../services/albums.service';
@@ -18,6 +18,10 @@ import { AssignAlbumComponent } from 'src/app/shared/components/assign-album/ass
     ReactiveFormsModule,
     TranslateModule,
     AssignAlbumComponent
+  ],
+  providers: [
+    DialogService,
+    AlbumsStore
   ],
   templateUrl: './new-album.component.html',
   styleUrls: ['./new-album.component.scss']
