@@ -7,7 +7,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { NewAlbumComponent } from '../new-album/new-album.component';
 import { DialogService } from 'primeng/dynamicdialog';
 import { AdminLayoutService } from 'src/app/features/bo/layout/services/admin-layout.service';
-
+import { PaginatorModule } from 'primeng/paginator';
 
 @Component({
   selector: 'app-albums',
@@ -16,7 +16,8 @@ import { AdminLayoutService } from 'src/app/features/bo/layout/services/admin-la
     CommonModule,
     SpinnerComponent,
     SingleAlbumComponent,
-    TranslateModule
+    TranslateModule,
+    PaginatorModule
   ],
   providers: [
     AlbumsStore,

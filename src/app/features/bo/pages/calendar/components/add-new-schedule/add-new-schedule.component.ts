@@ -6,6 +6,7 @@ import { CalendarService } from '../../services/calendar.service';
 import { Schedule } from '../../models/schedule.model';
 import * as dayjs from 'dayjs';
 import { TranslateModule } from '@ngx-translate/core';
+import { SpinnerComponent } from 'src/app/shared/components/loading/spinner/spinner.component';
 
 @Component({
   selector: 'app-add-new-schedule',
@@ -14,7 +15,8 @@ import { TranslateModule } from '@ngx-translate/core';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    TranslateModule
+    TranslateModule,
+    SpinnerComponent
   ],
   templateUrl: './add-new-schedule.component.html',
   styleUrls: ['./add-new-schedule.component.scss']
