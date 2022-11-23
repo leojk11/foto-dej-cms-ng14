@@ -6,6 +6,7 @@ import { SingleAlbumComponent } from '../../components/single-album/single-album
 import { TranslateModule } from '@ngx-translate/core';
 import { NewAlbumComponent } from '../new-album/new-album.component';
 import { DialogService } from 'primeng/dynamicdialog';
+import { AdminLayoutService } from 'src/app/features/bo/layout/services/admin-layout.service';
 
 
 @Component({
@@ -27,12 +28,15 @@ import { DialogService } from 'primeng/dynamicdialog';
 export class AlbumsComponent implements OnInit {
 
   constructor(
+    private adminLayoutService: AdminLayoutService,
     public albumStore: AlbumsStore,
     private dialog: DialogService
   ) { }
 
   ngOnInit(): void {
     this.albumStore.getAllAlbums();
+    this.albumStore.resetPreview();
+    this.adminLayoutService.setTitle('common.albums');
   }
 
   openAddModal(): void {
