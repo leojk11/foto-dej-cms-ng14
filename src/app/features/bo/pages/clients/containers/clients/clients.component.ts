@@ -9,6 +9,7 @@ import { ClientCardComponent } from '../../components/client-card/client-card.co
 import {InputTextModule} from 'primeng/inputtext';
 import {DialogService} from 'primeng/dynamicdialog';
 import { NewClientComponent } from '../new-client/new-client.component';
+import { PaginatorModule } from 'primeng/paginator';
 
 @Component({
   selector: 'app-clients',
@@ -18,7 +19,8 @@ import { NewClientComponent } from '../new-client/new-client.component';
     SpinnerComponent,
     TranslateModule,
     ClientCardComponent,
-    InputTextModule
+    InputTextModule,
+    PaginatorModule
   ],
   providers: [ 
     ClientsStore,
@@ -65,4 +67,8 @@ export class ClientsComponent implements OnInit {
     this.clientStore.deleteClient(client);
   }
 
+  onPageChange(event: any): void {
+    this.clientStore.patchParams(event.page + 1);
+    this.clientStore.getAllClients();
+  }
 }
