@@ -39,7 +39,8 @@
     // overflow: hidden;
     overflow-y: auto;
     position: relative;
-    min-height: 67vh;
+    min-height: 71vh;
+    padding-bottom: 3rem;
 
     & > * {
       background-color: $color-wrapper;
