@@ -30,6 +30,8 @@ import { NewClientComponent } from '../new-client/new-client.component';
 export class ClientsComponent implements OnInit {
 
   clients: Client[] = [];
+  isMobile: boolean = false;
+  modalWidth: string = '';
 
   constructor(
     private adminLayoutService: AdminLayoutService,
@@ -40,6 +42,13 @@ export class ClientsComponent implements OnInit {
   ngOnInit(): void {
     this.adminLayoutService.setTitle('common.clients');
     this.clientStore.getAllClients();
+
+    this.adminLayoutService.isMobile$.subscribe({
+      next: res => {
+        this.isMobile = res;
+        this.modalWidth = this.isMobile ? '90%' : '55%'
+      }
+    })
   }
 
   ngAfterViewInit() {
@@ -47,8 +56,8 @@ export class ClientsComponent implements OnInit {
 
   openModal(): void {
     const ref = this.dialog.open(NewClientComponent, {
-      // width: '45%',
-      // height: '75%',
+      width: this.modalWidth,
+      height: '90%',
       showHeader: false
     });
   }

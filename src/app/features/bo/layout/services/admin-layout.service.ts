@@ -1,5 +1,6 @@
+import { BreakpointObserver } from '@angular/cdk/layout';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, map, Observable, shareReplay } from 'rxjs';
 
 export interface AdminLayoutState {
   pageTitle: string;
@@ -19,7 +20,15 @@ export class AdminLayoutService {
   adminLayoutState = new BehaviorSubject<AdminLayoutState>(initialState);
   adminLayoutState$ = this.adminLayoutState.asObservable();
 
-  constructor() { }
+  isMobile$: Observable<boolean> = this.brakepointObserver.observe('(max-width: 887px)')
+    .pipe(
+      map(result => result.matches),
+      shareReplay()
+    );
+
+  constructor(
+    private brakepointObserver: BreakpointObserver
+  ) { }
 
   get state() {
     return this.adminLayoutState.getValue();
