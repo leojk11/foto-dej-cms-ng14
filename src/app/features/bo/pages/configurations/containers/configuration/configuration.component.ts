@@ -9,6 +9,7 @@ import { ImageOverviewService } from 'src/app/shared/services/image-overview.ser
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { SpinnerComponent } from 'src/app/shared/components/loading/spinner/spinner.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
   selector: 'app-configuration',
@@ -17,7 +18,8 @@ import { TranslateModule } from '@ngx-translate/core';
     CommonModule,
     ReactiveFormsModule,
     SpinnerComponent,
-    TranslateModule
+    TranslateModule,
+    InputTextModule
   ],
   providers: [
     ConfigurationStore

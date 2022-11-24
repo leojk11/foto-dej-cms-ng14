@@ -7,8 +7,7 @@ import { NavbarComponent } from '../components/navbar/navbar.component';
 import { HeaderComponent } from '../components/header/header.component';
 import { RouterModule } from '@angular/router';
 import { SidebarModule } from 'primeng/sidebar';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { BrowserModule } from '@angular/platform-browser';
+import { ImageOverviewComponent } from 'src/app/shared/components/image-overview/image-overview.component';
 
 @Component({
   selector: 'app-bo-layout',
@@ -20,6 +19,7 @@ import { BrowserModule } from '@angular/platform-browser';
     HeaderComponent,
     RouterModule,
     SidebarModule,
+    ImageOverviewComponent
   ],
   templateUrl: './bo-layout.component.html',
   styleUrls: ['./bo-layout.component.scss']
