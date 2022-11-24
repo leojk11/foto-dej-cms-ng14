@@ -5,10 +5,11 @@ import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { CalendarService } from '../../services/calendar.service';
 import { Schedule } from '../../models/schedule.model';
 import * as dayjs from 'dayjs';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { SpinnerComponent } from 'src/app/shared/components/loading/spinner/spinner.component';
 import { InputTextModule } from 'primeng/inputtext';
 import {InputTextareaModule} from 'primeng/inputtextarea';
+import { ConfirmationService } from 'primeng/api';
 
 @Component({
   selector: 'app-add-new-schedule',
@@ -21,6 +22,9 @@ import {InputTextareaModule} from 'primeng/inputtextarea';
     SpinnerComponent,
     InputTextModule,
     InputTextareaModule
+  ],
+  providers: [
+    ConfirmationService
   ],
   templateUrl: './add-new-schedule.component.html',
   styleUrls: ['./add-new-schedule.component.scss']
@@ -47,7 +51,9 @@ export class AddNewScheduleComponent implements OnInit {
     private fb: FormBuilder,
     private calendarService: CalendarService,
     public dialogRef: DynamicDialogRef,
-    public config: DynamicDialogConfig
+    public config: DynamicDialogConfig,
+    private confirmationService: ConfirmationService,
+    private translate: TranslateService
   ) { }
 
   ngOnInit(): void {
@@ -117,6 +123,23 @@ export class AddNewScheduleComponent implements OnInit {
 
   handleDelete(): void {
     if(this.config.data.id) {
+      // this.confirmationService.confirm({
+      //   message: this.translate.instant('messages.deleteSchedule'),
+      //   acceptButtonStyleClass: 'btn btn__red text',
+      //   rejectButtonStyleClass: 'btn btn__dark text',
+      //   accept: () => {
+      //     this.calendarService.deleteSchedule(this.config.data.id).subscribe({
+      //       next: res => {
+      //         // this.toast.success(res.message);
+      //         this.dialogRef.close();
+      //       },
+      //       error: error => {
+      //         // this.toast.error(error.error.message);
+      //       }
+      //     });
+      //   }
+      // });
+
       this.calendarService.deleteSchedule(this.config.data.id).subscribe({
         next: res => {
           // this.toast.success(res.message);
