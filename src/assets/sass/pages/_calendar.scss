@@ -5,7 +5,7 @@
 
 .fc .fc-toolbar.fc-header-toolbar {
   margin-bottom: 0 !important;
-  padding: 1rem !important;
+  padding: 1rem 2rem !important;
 }
 
 // .fc-daygrid-day {
@@ -26,7 +26,40 @@
 }
 
 .fc-daygrid-event {
+  margin-top: 3px !important;
   cursor: pointer;
+}
+
+.fc.fc-theme-standard .fc-toolbar .fc-button-group .fc-button {
+  width: 4rem !important;
+  height: 4rem !important;
+  background: $highlight !important;
+  border-color: $highlight !important;
+  margin-right: .5rem !important;
+
+  &:hover {
+    background-color: $color-medium !important;
+    border-color: $color-medium !important;
+  }
+}
+
+.fc .fc-toolbar-title{
+  font-size: 2rem !important;
+}
+
+.fc .fc-daygrid-day.fc-day-today{
+  background-color: $light-grey !important;
+}
+
+.fc.fc-theme-standard .fc-view-harness .fc-event.fc-daygrid-block-event{
+  background: $color-medium;
+  border-color: $color-medium;
+  padding: 4px;
+
+  &:hover {
+    background: $color-dark;
+  border-color: $color-dark;
+  }
 }
 
 .add-new-schedule {

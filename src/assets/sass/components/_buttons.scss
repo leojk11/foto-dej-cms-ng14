@@ -134,6 +134,10 @@
       border-color: transparent !important;
     }
   }
+
+  &__lg{
+    min-width: 15rem !important;
+  }
 }
 
 .p-button:focus {

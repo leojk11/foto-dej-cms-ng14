@@ -7,6 +7,7 @@
   },
   "albums": {
     "addNewAlbum": "Додај албум",
+    "editAlbum": "Ажурирај албум",
     "selectClient": "Избери клиент",
     "uploadImages": "Прикачи слики",
     "noImagesSelected": "Сеуште немате избрано слики",
@@ -33,7 +34,8 @@
     "cancel": "Откажи",
     "imageSizeInfo": "Сликата може да биде максимум 2mb.",
     "imagesSizeInfo": "Сликите може да бидат максимум 2mb.",
-    "confirmation": "Потврди"
+    "confirmation": "Потврди",
+    "delete": "Избриши"
   },
   "properties": {
     "title": "Наслов",
@@ -73,6 +75,7 @@
     "editClient": "Ажурирај клиент"
   },
   "calendar": {
-    "newSchedule": "Додај нов настан"
+    "newSchedule": "Додај нов настан",
+    "editSchedule": "Ажурирај настан"
   }
 }

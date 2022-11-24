@@ -9,9 +9,17 @@ import { CalendarService } from '../../services/calendar.service';
 import * as dayjs from 'dayjs';
 import { DialogService } from 'primeng/dynamicdialog';
 import { AddNewScheduleComponent } from '../../components/add-new-schedule/add-new-schedule.component';
-import { SharedModule } from 'primeng/api';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { SpinnerComponent } from 'src/app/shared/components/loading/spinner/spinner.component';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import interactionPlugin from '@fullcalendar/interaction';
+import listPlugin from '@fullcalendar/list';
+
+FullCalendarModule.registerPlugins([
+  dayGridPlugin,
+  interactionPlugin,
+  listPlugin
+]);
 
 @Component({
   selector: 'app-calendar',
@@ -22,12 +30,16 @@ import { SpinnerComponent } from 'src/app/shared/components/loading/spinner/spin
     FullCalendarModule,
     SpinnerComponent
   ],
+  providers: [
+    DialogService
+  ],
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.scss']
 })
 export class CalendarComponent implements OnInit {
 
   showCalendar: boolean = false;
+  modalWidth: string = '';
 
   events: any = [];
 
@@ -45,7 +57,7 @@ export class CalendarComponent implements OnInit {
     fixedWeekCount: false,
     eventClick: this.handleEventClick.bind(this),
     datesSet: this.handleDateChange.bind(this),
-    // dateClick: this.handleDateClick.bind(this),
+    dateClick: this.handleDateClick.bind(this),
     events: []
   };
 
@@ -61,7 +73,8 @@ export class CalendarComponent implements OnInit {
     private cd: ChangeDetectorRef,
     private authService: AuthService,
     private calendarService: CalendarService,
-    private dialog: DialogService
+    private dialog: DialogService,
+    private translate: TranslateService
   ) { }
 
   ngOnInit(): void {
@@ -70,6 +83,7 @@ export class CalendarComponent implements OnInit {
     this.isMobile$.subscribe({
       next: res => {
         console.log('observer res', res);
+        this.modalWidth = res ? '90%' : '50%';
         if (res) {
           this.showCalendar = false;
           this.calendarOptions.initialView = 'listMonth';
@@ -127,40 +141,43 @@ export class CalendarComponent implements OnInit {
 
   handleDateClick(event: any): void {
     const dialogRef = this.dialog.open(AddNewScheduleComponent, {
-      width: '60%',
-      data: { date: event.date }
+      width: this.modalWidth,
+      data: { date: event.date },
+      header: this.translate.instant('calendar.newSchedule')
     });
     
-    // dialogRef.afterClosed().subscribe({
-    //   next: () => {
-    //     const event = {
-    //       start: this.initialDates.from,
-    //       end: this.initialDates.to
-    //     };
-    //     this.handleDateChange(event);
+    dialogRef.onClose.subscribe({
+      next: () => {
+        const event = {
+          start: this.initialDates.from,
+          end: this.initialDates.to
+        };
+        this.handleDateChange(event);
         
-    //     this.cd.detectChanges();
-    //   }
-    // });
+        this.cd.detectChanges();
+      }
+    });
   }
 
   handleEventClick({ event }: any): void {
     const dialogRef = this.dialog.open(AddNewScheduleComponent, {
-      width: '60%',
-      data: { id: event._def.publicId }
+      width: this.modalWidth,
+      data: { id: event._def.publicId },
+      
+      header: this.translate.instant('calendar.editSchedule')
     });
 
-    // dialogRef.afterClosed().subscribe({
-    //   next: () => {
-    //     const event = {
-    //       start: this.initialDates.from,
-    //       end: this.initialDates.to
-    //     };
-    //     this.handleDateChange(event);
+    dialogRef.onClose.subscribe({
+      next: () => {
+        const event = {
+          start: this.initialDates.from,
+          end: this.initialDates.to
+        };
+        this.handleDateChange(event);
         
-    //     this.cd.detectChanges();
-    //   }
-    // });
+        this.cd.detectChanges();
+      }
+    });
   }
 
 }

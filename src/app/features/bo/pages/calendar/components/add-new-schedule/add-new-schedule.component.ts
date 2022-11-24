@@ -7,6 +7,8 @@ import { Schedule } from '../../models/schedule.model';
 import * as dayjs from 'dayjs';
 import { TranslateModule } from '@ngx-translate/core';
 import { SpinnerComponent } from 'src/app/shared/components/loading/spinner/spinner.component';
+import { InputTextModule } from 'primeng/inputtext';
+import {InputTextareaModule} from 'primeng/inputtextarea';
 
 @Component({
   selector: 'app-add-new-schedule',
@@ -16,7 +18,9 @@ import { SpinnerComponent } from 'src/app/shared/components/loading/spinner/spin
     FormsModule,
     ReactiveFormsModule,
     TranslateModule,
-    SpinnerComponent
+    SpinnerComponent,
+    InputTextModule,
+    InputTextareaModule
   ],
   templateUrl: './add-new-schedule.component.html',
   styleUrls: ['./add-new-schedule.component.scss']

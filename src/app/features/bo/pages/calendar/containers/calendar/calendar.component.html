@@ -1,6 +1,8 @@
-<full-calendar
-  *ngIf="showCalendar"
-  [options]="calendarOptions"
-></full-calendar>
+<div class="pt-2">
+  <full-calendar
+    *ngIf="showCalendar"
+    [options]="calendarOptions"
+  ></full-calendar>
 
-<app-spinner *ngIf="!showCalendar"></app-spinner>
+  <app-spinner *ngIf="!showCalendar"></app-spinner>
+</div>
