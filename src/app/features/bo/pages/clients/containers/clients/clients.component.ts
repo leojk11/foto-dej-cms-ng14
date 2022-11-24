@@ -58,7 +58,7 @@ export class ClientsComponent implements OnInit {
   openModal(): void {
     const ref = this.dialog.open(NewClientComponent, {
       width: this.modalWidth,
-      height: '70%',
+      // height: '70%',
       header: this.translate.instant('clients.newClient')
     });
   }

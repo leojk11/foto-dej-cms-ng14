@@ -32,7 +32,8 @@
     "save": "Save",
     "cancel": "Cancel",
     "imageSizeInfo": "Image size can be maximum 2mb.",
-    "imagesSizeInfo": "Images size can be maximum 2mb."
+    "imagesSizeInfo": "Images size can be maximum 2mb.",
+    "confirmation": "Confirmation"
   },
   "properties": {
     "title": "Title",
@@ -64,8 +65,12 @@
     "contactFormLabel": "Contact form label",
     "address": "Address"
   },
+  "messages": {
+    "deleteClient": "Are you sure you want to delete this client?"
+  },
   "clients": {
-    "newClient": "Add new client"
+    "newClient": "Add new client",
+    "editClient": "Edit client"
   },
   "calendar": {
     "newSchedule": "Add new schedule"

@@ -4,12 +4,22 @@ import { Client } from '../../models/client.model';
 import { ClientsStore } from '../../services/clients.store';
 import { NewClientComponent } from '../../containers/new-client/new-client.component';
 import { DialogService } from 'primeng/dynamicdialog';
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import {ConfirmationService} from 'primeng/api';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 
 @Component({
   selector: 'app-client-card',
   standalone: true,
-  imports: [CommonModule],
+  imports: [
+    CommonModule,
+    ConfirmDialogModule,
+    TranslateModule
+  ],
+  providers: [
+    ConfirmationService
+  ],
   templateUrl: './client-card.component.html',
   styleUrls: ['./client-card.component.scss']
 })
@@ -20,7 +30,9 @@ export class ClientCardComponent implements OnInit {
 
   constructor(
     private clientStore: ClientsStore,
-    private dialog: DialogService
+    private dialog: DialogService,
+    private confirmationService: ConfirmationService,
+    private translate: TranslateService
   ) { }
 
   ngOnInit(): void {
@@ -29,9 +41,9 @@ export class ClientCardComponent implements OnInit {
   openEditModal(client: Client): void {
     const ref = this.dialog.open(NewClientComponent, {
       width: '45%',
-      height: '65%',
+      // height: '65%',
       data: client,
-      showHeader: false
+      header: this.translate.instant('clients.editClient')
     });
 
     ref.onClose.subscribe({
@@ -44,6 +56,14 @@ export class ClientCardComponent implements OnInit {
   }
 
   deleteClient(client: Client): void {
-    this.clientStore.deleteClient(client);
+    this.confirmationService.confirm({
+      message: this.translate.instant('messages.deleteClient'),
+      acceptButtonStyleClass: 'btn btn__red text',
+      rejectButtonStyleClass: 'btn btn__dark text',
+      accept: () => {
+        //Actual logic to perform a confirmation
+        this.clientStore.deleteClient(client);
+      }
+  });
   }
 }

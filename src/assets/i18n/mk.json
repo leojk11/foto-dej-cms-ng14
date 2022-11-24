@@ -32,7 +32,8 @@
     "save": "Зачувај",
     "cancel": "Откажи",
     "imageSizeInfo": "Сликата може да биде максимум 2mb.",
-    "imagesSizeInfo": "Сликите може да бидат максимум 2mb."
+    "imagesSizeInfo": "Сликите може да бидат максимум 2mb.",
+    "confirmation": "Потврди"
   },
   "properties": {
     "title": "Наслов",
@@ -64,8 +65,12 @@
     "contactFormLabel": "Ознака на контакт формата",
     "address": "Адреса"
   },
+  "messages": {
+    "deleteClient": "Дали сте сигурни дека сакате да го избришете овој клиент?"
+  },
   "clients": {
-    "newClient": "Додај клиент"
+    "newClient": "Додај клиент",
+    "editClient": "Ажурирај клиент"
   },
   "calendar": {
     "newSchedule": "Додај нов настан"

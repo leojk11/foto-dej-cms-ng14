@@ -115,4 +115,28 @@
   &__green{
     background-color: $color-highlight-green;
   }
+
+  
+  &__dark{
+    background-color: rgba($dark, 0.8);
+
+    &:enabled:hover {
+      background: #131313 !important;
+      border-color: transparent !important;
+    }
+  }
+
+  &__red{
+    background-color: rgba($red, 0.9);
+
+    &:enabled:hover {
+      background: $red !important;
+      border-color: transparent !important;
+    }
+  }
 }
+
+.p-button:focus {
+  box-shadow: none !important;
+}
+

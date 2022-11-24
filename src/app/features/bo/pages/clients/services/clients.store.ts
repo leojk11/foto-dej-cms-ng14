@@ -103,6 +103,7 @@ export class ClientsStore extends ComponentStore<ClientsState> {
       next: res => {
         // this.toastService.success(res.message);
         this.patchExistingClientSingle(client);
+        this.getAllClients();
       },
       error: error => {
         // this.toastService.error(error.error.message);

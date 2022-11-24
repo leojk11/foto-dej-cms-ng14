@@ -1,17 +1,31 @@
 .p-dialog{
   .p-dialog-content{
     padding: 0 !important;
+    font-family: 'Poppins', sans-serif !important;
+
+    .p-confirm-dialog-message{
+      font-size: 1.6rem;
+      padding: 2rem 1rem;
+      letter-spacing: .5px;
+    }
   }
 
   .p-dialog-header{
     box-shadow: $shadow-bottom;
     padding-bottom: 1.5rem !important;
     border-bottom: 1px solid rgba($black, 0.2);
+
     .p-dialog-title{
-      font-size: 1.8rem !important;
+      font-size: 2rem !important;
       font-family: 'Poppins', sans-serif !important;
-      letter-spacing: 1.5px;
-      font-weight: 500;
+      letter-spacing: .5px;
+      font-weight: 600;
     }
+  }
+
+  .p-dialog-footer{
+    display: flex;
+    justify-content: end;
+    gap: 1rem;
   }
 }
