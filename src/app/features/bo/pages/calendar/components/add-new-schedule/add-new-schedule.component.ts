@@ -10,6 +10,8 @@ import { SpinnerComponent } from 'src/app/shared/components/loading/spinner/spin
 import { InputTextModule } from 'primeng/inputtext';
 import {InputTextareaModule} from 'primeng/inputtextarea';
 import { ConfirmationService } from 'primeng/api';
+import { DialogModule } from 'primeng/dialog';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 @Component({
   selector: 'app-add-new-schedule',
@@ -21,7 +23,9 @@ import { ConfirmationService } from 'primeng/api';
     TranslateModule,
     SpinnerComponent,
     InputTextModule,
-    InputTextareaModule
+    InputTextareaModule,
+    DialogModule,
+    ConfirmDialogModule
   ],
   providers: [
     ConfirmationService
@@ -46,6 +50,8 @@ export class AddNewScheduleComponent implements OnInit {
   loading: boolean = false;
 
   selectedSchedule: Schedule | null = null;
+
+  showDeleteDialog: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -123,33 +129,37 @@ export class AddNewScheduleComponent implements OnInit {
 
   handleDelete(): void {
     if(this.config.data.id) {
-      // this.confirmationService.confirm({
-      //   message: this.translate.instant('messages.deleteSchedule'),
-      //   acceptButtonStyleClass: 'btn btn__red text',
-      //   rejectButtonStyleClass: 'btn btn__dark text',
-      //   accept: () => {
-      //     this.calendarService.deleteSchedule(this.config.data.id).subscribe({
-      //       next: res => {
-      //         // this.toast.success(res.message);
-      //         this.dialogRef.close();
-      //       },
-      //       error: error => {
-      //         // this.toast.error(error.error.message);
-      //       }
-      //     });
-      //   }
-      // });
-
-      this.calendarService.deleteSchedule(this.config.data.id).subscribe({
-        next: res => {
-          // this.toast.success(res.message);
-          this.dialogRef.close();
-        },
-        error: error => {
-          // this.toast.error(error.error.message);
+      // this.toggleDeleteDialog();
+      this.confirmationService.confirm({
+        message: this.translate.instant('messages.deleteSchedule'),
+        acceptButtonStyleClass: 'btn btn__red text',
+        rejectButtonStyleClass: 'btn btn__dark text',
+        accept: () => {
+          this.calendarService.deleteSchedule(this.config.data.id).subscribe({
+            next: res => {
+              // this.toast.success(res.message);
+              this.dialogRef.close();
+            },
+            error: error => {
+              // this.toast.error(error.error.message);
+            }
+          });
         }
       });
+
+      // this.calendarService.deleteSchedule(this.config.data.id).subscribe({
+      //   next: res => {
+      //     // this.toast.success(res.message);
+      //     this.dialogRef.close();
+      //   },
+      //   error: error => {
+      //     // this.toast.error(error.error.message);
+      //   }
+      // });
     }
   }
 
+  toggleDeleteDialog(): void {
+    this.showDeleteDialog = !this.showDeleteDialog;
+  }
 }
