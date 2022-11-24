@@ -1,5 +1,5 @@
 <div class="add-new-album">
-  <div class="add-new-album__top">
+  <!-- <div class="add-new-album__top">
     <div class="add-new-album__top__title">
       <h3>{{ 'albums.addNewAlbum' | translate }}</h3>
     </div>
@@ -12,38 +12,38 @@
         close
       </span>
     </div>
-  </div>
+  </div> -->
 
   <div class="add-new-album__inner">
     <form class="mt-2" [formGroup]="addAlbumForm" (ngSubmit)="handleSubmit()">
-      <div class="container__flex-col gap-4 justify-center" >
-        <div class="form-field">
+      <div class="container__flex gap-3" >
+        <div class="form-field w-full">
           <label class="form-field__label">
             {{ 'properties.title' | translate }}:
           </label>
 
           <input
             type="text"
-            class="form-field__input"
+            pInputText
             formControlName="title"
             placeholder="{{ 'properties.title' | translate }}..."
           >
         </div>
 
-        <div class="form-field">
+        <div class="form-field w-full">
           <label class="form-field__label">
             {{ 'properties.date' | translate }}:
           </label>
 
           <input
             type="text"
-            class="form-field__input"
+            pInputText
             formControlName="date"
             placeholder="2022-09-10..."
           >
         </div>
 
-        <div class="form-field">
+        <div class="form-field w-full">
           <label class="form-field__label">
             {{ 'properties.assignTo' | translate }}:
           </label>
@@ -52,8 +52,8 @@
             <div class="relative w-full">
               <input
                 type="text"
-                class="form-field__input "
-                formControlName="assigned_to_id"
+                pInputText
+                formControlName="assignTo"
                 readonly
                 placeholder="{{ 'properties.assignTo' | translate }}..."
                 (click)="onSelectClient()"
@@ -78,15 +78,15 @@
           </div>
         </div>
 
-        <div class="form-field justify-center mt-5">
-          <button
-            class="btn btn__main"
-            type="submit"
-            [disabled]="addAlbumForm.invalid"
-          >
-            {{ 'common.add' | translate }}
-          </button>
-        </div>
+      </div>
+      <div class="container__flex justify-center mt-5">
+        <button
+          class="btn btn__main"
+          type="submit"
+          [disabled]="addAlbumForm.invalid"
+        >
+          {{ 'common.add' | translate }}
+        </button>
       </div>
     </form>
   </div>

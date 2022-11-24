@@ -32,7 +32,6 @@ export class AssignAlbumComponent implements OnInit {
     if(this.client){
       this.selectedClient = this.client
     }
-    console.log('SELECTED CLIENT', this.selectedClient);
     
     this.getClients();
   }
@@ -48,6 +47,7 @@ export class AssignAlbumComponent implements OnInit {
   }
 
   selectClient(client: Client): void {
+    console.log('SELECTED CLIENT', client);
     this.clientSelected.emit(client);
   }
 

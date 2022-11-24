@@ -61,7 +61,6 @@ export class ClientCardComponent implements OnInit {
       acceptButtonStyleClass: 'btn btn__red text',
       rejectButtonStyleClass: 'btn btn__dark text',
       accept: () => {
-        //Actual logic to perform a confirmation
         this.clientStore.deleteClient(client);
       }
   });

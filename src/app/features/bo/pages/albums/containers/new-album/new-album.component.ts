@@ -9,6 +9,7 @@ import { AlbumsService } from '../../services/albums.service';
 import { ClientsService } from '../../../clients/services/clients.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { AssignAlbumComponent } from 'src/app/shared/components/assign-album/assign-album.component';
+import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
   selector: 'app-new-album',
@@ -17,7 +18,8 @@ import { AssignAlbumComponent } from 'src/app/shared/components/assign-album/ass
     CommonModule,
     ReactiveFormsModule,
     TranslateModule,
-    AssignAlbumComponent
+    AssignAlbumComponent,
+    InputTextModule
   ],
   providers: [
     DialogService,
@@ -31,7 +33,8 @@ export class NewAlbumComponent implements OnInit {
   addAlbumForm: FormGroup = this.fb.group({
     title: ['', Validators.required],
     date: ['', Validators.required],
-    assigned_to_id: ['']
+    assigned_to_id: [''],
+    assignTo: ['']
   });
 
   openSelectClient: boolean = false;
@@ -54,11 +57,17 @@ export class NewAlbumComponent implements OnInit {
     if (this.config.data) {
       this.editMode = true;
 
-      if (this.config.data.assigned_to) {
-        this.clientService.getSingleClient(this.config.data.assigned_to.id).subscribe({
+      if (this.config.data.assigned_to_id) {
+        this.clientService.getSingleClient(this.config.data.assigned_to_id).subscribe({
           next: client => {
+            console.log('CLIENT', client);
+            
             this.selectedClient = client;
             this.hasClient = true;
+            this.addAlbumForm.patchValue({
+              assigned_to_id: client.id,
+              assignTo: client.fullname
+            });
           },
           error: error => {
             // this.toastService.error(error.error.message);
@@ -69,6 +78,7 @@ export class NewAlbumComponent implements OnInit {
       this.addAlbumForm.patchValue({
         ...this.config.data
       });
+      
     }
   }
 
@@ -77,7 +87,10 @@ export class NewAlbumComponent implements OnInit {
       this.addAlbumForm.patchValue({
         assigned_to_id: this.selectedClient.id
       });
+
+      this.addAlbumForm.removeControl('assignTo');
     }
+
 
     if (this.editMode) {
       this.albumsService.editAlbum(
@@ -109,29 +122,31 @@ export class NewAlbumComponent implements OnInit {
     }
   }
 
-  patchAsignee(value: string): void {
+  patchAsignee(name: string, id: string): void {
     this.addAlbumForm.patchValue({
-      assignTo: value
+      assignTo: name,
+      assigned_to_id: id
     });
   }
 
   onSelectClient(): void {
     this.openSelectClient = true;
   }
+
   onCloseModal(): void {
     this.openSelectClient = false;
   }
 
   onClientSelected(client: Client): void {
     this.openSelectClient = false;
-    this.patchAsignee(client.fullname);
+    this.patchAsignee(client.fullname, client.id);
     this.selectedClient = client;
     this.hasClient = true;
   }
 
   removeSelectedClient(): void {
     this.selectedClient = {} as Client;
-    this.patchAsignee('');
+    this.patchAsignee('', '');
 
     this.hasClient = false;
   }

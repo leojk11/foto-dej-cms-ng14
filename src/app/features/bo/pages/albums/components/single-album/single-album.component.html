@@ -9,7 +9,7 @@
     </div>
 
     <div class="single-album__date">
-      {{ album?.date | date: "dd/MM/YYYY" }}
+      {{ album?.date?.split('-')?.sort()?.join('/')  }}
     </div>
   </div>
 </div>

@@ -5,7 +5,7 @@ import { AdminLayoutService } from 'src/app/features/bo/layout/services/admin-la
 import { ActivatedRoute, Router } from '@angular/router';
 import { DialogService } from 'primeng/dynamicdialog';
 import { NewAlbumComponent } from '../new-album/new-album.component';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { SingleImageComponent } from '../../components/single-image/single-image.component';
 import { SpinnerComponent } from 'src/app/shared/components/loading/spinner/spinner.component';
 
@@ -28,21 +28,33 @@ import { SpinnerComponent } from 'src/app/shared/components/loading/spinner/spin
 })
 export class AlbumPreviewComponent implements OnInit {
 
+  albumId: string = '';
+  modalWidth: string = '';
+  isMobile: boolean = false;
+
   constructor(
     public albumsStore: AlbumsStore,
     private adminLayoutService: AdminLayoutService,
     private route: ActivatedRoute,
     private router: Router,
-    private dialog: DialogService
+    private dialog: DialogService,
+    private translate: TranslateService
   ) { }
 
   ngOnInit(): void {
     this.route.params.subscribe({
       next: params => {
         if(params['id']) {
+          this.albumId = params['id'];
           this.albumsStore.getSingleAlbum(params['id']);
         }
       }
+    });
+
+    this.adminLayoutService.isMobile$.subscribe(res =>{ 
+      this.isMobile = res;
+      console.log('IS MOBILE', this.isMobile);
+      this.modalWidth = this.isMobile ? '90%' : '40%';
     });
   }
 
@@ -59,10 +71,18 @@ export class AlbumPreviewComponent implements OnInit {
   }
 
   openEditModal(): void {
-    this.dialog.open(NewAlbumComponent,{
-      width: '60%',
-      height: '50%',
+    const ref = this.dialog.open(NewAlbumComponent, {
+      width: this.modalWidth,
+      header: this.translate.instant('albums.addNewAlbum'),
       data: this.albumsStore.state.previewAlbum
+    });
+
+    ref.onClose.subscribe({
+      next: res => {
+        if(res === 'update'){
+          this.albumsStore.getSingleAlbum(this.albumId)
+        }
+      }
     });
   }
 
