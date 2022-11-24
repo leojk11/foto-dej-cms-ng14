@@ -94,7 +94,7 @@
 // WIDTH HEIGHT
 
 .w-full{
-  width: 100%;
+  width: 100% !important;
 }
 
 .w-10 {
@@ -153,6 +153,7 @@
   color: $white !important;
 }
 // OVERFLOW 
+
 .overflow-x-scroll{
   // overflow-x: scroll;
   height: 70rem;

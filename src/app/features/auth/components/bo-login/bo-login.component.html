@@ -9,7 +9,7 @@
     </div>
     <form [formGroup]="loginForm" (ngSubmit)="loginAdmin()">
       <div class="container__flex-col gap-2">
-        <div class="form-field wrap">
+        <div class="form-field wrap w-full">
           <label 
             class="form-field__label"
             for="email"
@@ -40,13 +40,12 @@
               formControlName="password"
               placeholder="*********"
             >
-            <span 
-              class="material-symbols-outlined btn-icon" 
+            <i 
+              class="pi btn-icon btn-icon--brown"
+              [ngClass]="showPass ? 'pi-eye-slash' : 'pi-eye'" 
               #seePass 
               (click)="viewPassword()"
-            >
-              visibility
-            </span>
+            ></i>
           </div>
         </div>
 
@@ -54,7 +53,7 @@
           {{ 'login.forgotPassword' | translate }}
         </a>
 
-        <div class="form-field justify-center" *ngIf="!loading">
+        <div class="container__flex justify-center" *ngIf="!loading">
           <button 
             class="btn btn__brown form-field__btn"
             type="submit"
@@ -72,12 +71,6 @@
 
     <div class="container__flex justify-center gap-1 mt-3">
       <div class="lang-wrapper" [class.lang-selected]="selectedLang === 'mk'">
-        <!-- <img 
-          src="../../../../../assets/img/mk-flag.png" 
-          alt="MK" 
-          class="lang-img"
-          (click)="changeLang('mk')"
-        > -->
         <span 
           class="lang-text"
           (click)="changeLang('mk')"
@@ -86,12 +79,6 @@
         </span>
       </div>
       <div class="lang-wrapper" [class.lang-selected]="selectedLang === 'en'">
-        <!-- <img 
-          src="../../../../../assets/img/uk-flag.png" 
-          alt="EN" 
-          class="lang-img"
-          (click)="changeLang('en')"
-        > -->
         <span 
           class="lang-text"
           (click)="changeLang('en')"

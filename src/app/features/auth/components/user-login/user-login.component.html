@@ -9,7 +9,7 @@
     </div>
     <form [formGroup]="loginForm" (ngSubmit)="login()">
       <div class="container__flex-col gap-2">
-        <div class="form-field wrap">
+        <div class="form-field wrap w-full">
           <label 
             class="form-field__label"
             for="email"
@@ -24,7 +24,7 @@
             placeholder="example@gmail.com"
           >
         </div>
-        <div class="form-field wrap">
+        <div class="form-field wrap w-full">
           <label 
             class="form-field__label"
             for="password"
@@ -40,20 +40,19 @@
               formControlName="password"
               placeholder="*********"
             >
-            <span 
-              class="material-symbols-outlined btn-icon" 
+            <i 
+              class="pi btn-icon btn-icon--green"
+              [ngClass]="showPass ? 'pi-eye-slash' : 'pi-eye'" 
               #seePass 
               (click)="viewPassword()"
-            >
-              visibility
-            </span>
+            ></i>
           </div>
         </div>
         <a class="forgot-password"> 
           {{ 'login.forgotPassword' | translate }}
         </a>
 
-        <div class="form-field justify-center" *ngIf="!loading">
+        <div class="container__flex justify-center" *ngIf="!loading">
           <button 
             class="btn btn__green form-field__btn"
             type="submit"

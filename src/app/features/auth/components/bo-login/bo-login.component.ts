@@ -38,6 +38,8 @@ export class BoLoginComponent implements OnInit {
 
   loading: boolean = false;
 
+  showPass: boolean = false;
+
   @ViewChild('seePass') seePass!: ElementRef;
   @ViewChild('password') password!: ElementRef;
 
@@ -54,13 +56,15 @@ export class BoLoginComponent implements OnInit {
   }
 
   viewPassword(): void{
+    this.showPass = !this.showPass;
+
     if(this.seePass && this.password){
       if(this.password.nativeElement.type === 'password'){
         this.password.nativeElement.type = 'text';
-        this.seePass.nativeElement.innerText = 'visibility_off'
+        // this.seePass.nativeElement.innerText = 'visibility_off'
       } else {
         this.password.nativeElement.type = 'password';
-        this.seePass.nativeElement.innerText = 'visibility'
+        // this.seePass.nativeElement.innerText = 'visibility'
       }
     }
   }
