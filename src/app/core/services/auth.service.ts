@@ -47,6 +47,7 @@ export class AuthService {
       return false;
     }
   }
+
   isLoggedInUser(): boolean {
     const token = this.storageService.getItem('token');
     const user = this.storageService.getItem('user');
@@ -98,6 +99,7 @@ export class AuthService {
 
     this.router.navigate(['/auth/user']).then();
   }
+  
   boLogout(): void {
     this.storageService.removeItem('boUser');
     this.storageService.removeItem('boToken');

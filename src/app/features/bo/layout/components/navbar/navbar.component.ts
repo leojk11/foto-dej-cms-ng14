@@ -17,10 +17,13 @@ export class NavbarComponent implements OnInit {
   @Output() toggleSidebar = new EventEmitter();
 
   constructor(
-    private authService: AuthService
+    public authService: AuthService
   ) { }
 
   ngOnInit(): void {
+
+    console.log('USER', this.authService.user);
+    
    
   }
 

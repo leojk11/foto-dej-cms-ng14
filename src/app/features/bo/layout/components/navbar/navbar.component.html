@@ -11,11 +11,18 @@
     {{ appVersion }}
   </div>
 
-  <div class="navbar__buttons" (click)="logout()">
-    <button class="btn btn__icon shadow-small">
-      <span class="material-symbols-outlined">
-        logout
-      </span>
-    </button>
+  <div class="container__flex">
+    <div *ngIf="authService.user$ | async as user">
+      <p class="c-white text-lg">
+        {{ user.firstname }} {{ user.lastname }}
+      </p>
+    </div>
+    <div class="navbar__buttons" (click)="logout()">
+      <button class="btn btn__icon shadow-small">
+        <span class="material-symbols-outlined">
+          logout
+        </span>
+      </button>
+    </div>
   </div>
 </div>
