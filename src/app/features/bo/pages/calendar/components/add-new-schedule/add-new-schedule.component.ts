@@ -51,8 +51,6 @@ export class AddNewScheduleComponent implements OnInit {
 
   selectedSchedule: Schedule | null = null;
 
-  showDeleteDialog: boolean = false;
-
   constructor(
     private fb: FormBuilder,
     private calendarService: CalendarService,
@@ -129,7 +127,6 @@ export class AddNewScheduleComponent implements OnInit {
 
   handleDelete(): void {
     if(this.config.data.id) {
-      // this.toggleDeleteDialog();
       this.confirmationService.confirm({
         message: this.translate.instant('messages.deleteSchedule'),
         acceptButtonStyleClass: 'btn btn__red text',
@@ -146,20 +143,6 @@ export class AddNewScheduleComponent implements OnInit {
           });
         }
       });
-
-      // this.calendarService.deleteSchedule(this.config.data.id).subscribe({
-      //   next: res => {
-      //     // this.toast.success(res.message);
-      //     this.dialogRef.close();
-      //   },
-      //   error: error => {
-      //     // this.toast.error(error.error.message);
-      //   }
-      // });
     }
-  }
-
-  toggleDeleteDialog(): void {
-    this.showDeleteDialog = !this.showDeleteDialog;
   }
 }

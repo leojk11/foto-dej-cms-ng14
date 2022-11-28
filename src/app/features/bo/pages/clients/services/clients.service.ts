@@ -24,7 +24,7 @@ export class ClientsService {
     return this.http.get<GetAllClientsResponse>(path);
   }
 
-  getSingleClient(id: string): Observable<Client> {
+  getSingleClient(id: any): Observable<Client> {
     const path = `${ this.apiUrl }/client/${ id }`;
     return this.http.get<Client>(path);
   }

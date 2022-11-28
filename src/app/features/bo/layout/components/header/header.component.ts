@@ -15,7 +15,7 @@ import { TranslateModule } from '@ngx-translate/core';
       class="page-header"
       *ngIf="adminLayoutService.adminLayoutState$ | async as state">
       <button
-        class="btn btn__icon border-none"
+        class="btn btn__icon btn__icon--dark shadow-small border-none"
         (click)="location.back()"
       >
         <span class="material-symbols-outlined">arrow_back_ios_new</span>

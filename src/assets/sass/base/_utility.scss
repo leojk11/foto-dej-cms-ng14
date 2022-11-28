@@ -160,6 +160,15 @@
 .c-white{
   color: $white !important;
 }
+
+.c-orange{
+  color: $color-1 !important;
+}
+
+.c-dark{
+  color: $dark !important;
+}
+
 // OVERFLOW 
 
 .overflow-x-scroll{
@@ -176,4 +185,20 @@
 
 .text{
   font-size: 1.4rem !important;
+}
+
+.text-lg{
+  font-size: 1.8rem !important;
+}
+
+// SHADOW
+.shadow-small{
+  border: 0.5px solid rgba($color-dark, 0.7);
+  box-shadow: $shadow-small;
+}
+
+// FONT WEIGHT
+
+.fw-500{
+  font-weight: 500;
 }

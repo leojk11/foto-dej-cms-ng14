@@ -1,5 +1,6 @@
 import { Route } from "@angular/router";
 import { BoLayoutComponent } from "./layout/bo-layout/bo-layout.component";
+import { CLIENT_ROUTES } from "./pages/clients/client.routes";
 
 export const BO_ROUTES: Route[] = [
   {
@@ -18,8 +19,7 @@ export const BO_ROUTES: Route[] = [
       },
       {
         path: 'clients',
-        loadComponent: () => import('./pages/clients/containers/clients/clients.component')
-          .then((m) => m.ClientsComponent)
+        children: [ ...CLIENT_ROUTES ]
       },
       {
         path: 'albums',

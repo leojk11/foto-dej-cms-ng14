@@ -92,19 +92,58 @@
     align-items: center;
 
     background-color: transparent;
-    color: $black;
     min-width: 3.6rem !important;
 
-    border: 0.5px solid rgba($color-dark, 0.7);
-    box-shadow: $shadow-small;
     border-radius: 5px;
 
     transition: all 0.3s;
 
     cursor: pointer;
 
-    &:hover {
-      background-color: rgba($color-dark, 0.3);
+    
+
+    &--dark{
+      color: $dark;
+
+      &:hover {
+        .pi {
+          font-weight: 600 !important;
+        }
+        background-color: rgba($dark, 0.1);
+      }
+    }
+
+    &--orange{
+      color: $color-1;
+
+      &:hover {
+        .pi {
+          font-weight: 600 !important;
+        }
+        background-color: rgba($color-1, 0.1);
+      }
+    }
+
+    &--red{
+      color: $red;
+
+      &:hover {
+        .pi {
+          font-weight: 600 !important;
+        }
+        background-color: rgba($red, 0.1);
+      }
+    }
+
+    &--blue{
+      color: $color-dark;
+
+      &:hover {
+        .pi {
+          font-weight: 600 !important;
+        }
+        background-color: rgba($color-dark, 0.1);
+      }
     }
   }
 

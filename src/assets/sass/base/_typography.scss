@@ -14,13 +14,19 @@
 .isActive{
   background-color: #c8e7c8;
   color: #246028;
-  padding: .7rem 1.5rem;
+  padding: 0 1.5rem;
   border-radius: 15px;
+  width: 10rem !important;
+  text-align: center;
 }
 
 .isExpired{
   background-color: #ffccd3;
   color: #c63755;
+  padding: 0 1.5rem;
+  border-radius: 15px;
+  width: 10rem !important;
+  text-align: center;
 }
 
 .text-light{

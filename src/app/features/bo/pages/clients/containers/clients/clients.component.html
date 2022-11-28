@@ -21,8 +21,8 @@
       <app-spinner></app-spinner>
     </div>
 
-    <div *ngIf="!state.loading">
-      <div *ngFor="let client of state.list">
+    <div *ngIf="!state.loading" class="container__flex gap-2 wrap">
+      <div *ngFor="let client of state.list" >
         <app-client-card
           [client] = "client"
           (clientUpdated)="clientStore.getAllClients()"

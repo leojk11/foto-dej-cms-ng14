@@ -7,6 +7,7 @@ import { DialogService } from 'primeng/dynamicdialog';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {ConfirmationService} from 'primeng/api';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { RouterModule } from '@angular/router';
 
 
 @Component({
@@ -15,7 +16,8 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
   imports: [
     CommonModule,
     ConfirmDialogModule,
-    TranslateModule
+    TranslateModule,
+    RouterModule
   ],
   providers: [
     ConfirmationService

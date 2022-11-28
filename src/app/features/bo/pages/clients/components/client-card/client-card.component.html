@@ -1,4 +1,4 @@
-<div class="client">
+<div class="client" >
   <div class="client__name">
     <div class="client__img">
       <img
@@ -9,9 +9,14 @@
     <span>
       {{ client.fullname }}
     </span>
+    <div class="client__status">
+      <p [ngClass]="client.account_status === 'ACTIVE' ? 'isActive' : 'isExpired'">
+        {{ client.account_status | titlecase }}
+      </p>
+    </div>
   </div>
 
-  <div class="client__info">
+  <!-- <div class="client__info">
     <span class="text">
       {{ client.email }}
     </span>
@@ -19,36 +24,46 @@
     <span class="text-light">
       {{ client.phone_number }}
     </span>
-  </div>
+  </div> -->
 
-  <div class="client__status">
-    <span [ngClass]="client.account_status === 'ACTIVE' ? 'isActive' : 'isExpired'">
-      {{ client.account_status }}
-    </span>
-  </div>
+  
 
-  <div class="text-light">
+  <!-- <div class="text-light">
     {{ client.created_date | date: "dd/MM/YYYY" }}
-  </div>
+  </div> -->
 
-  <div class="container__flex">
-    <button 
-      class="btn btn__main--icon" 
+  <div class="client__actions">
+    <!-- <button 
+      class="btn btn__icon btn__icon--orange" 
       (click)="openEditModal(client)"
     >
-      <i class="pi pi-pencil"></i>
+      <i class="pi pi-pencil fw-500 text-lg"></i>
+    </button> -->
+
+    <button 
+      class="btn btn__icon btn__icon--blue" 
+      (click)="deleteClient(client)"
+    >
+      <i class="pi pi-envelope fw-500 text-lg"></i>
     </button>
 
     <button 
-      class="btn btn__main--icon" 
+      class="btn btn__icon btn__icon--dark" 
+      [routerLink]="['details', client.id]"
+    >
+      <i class="pi pi-info-circle fw-500 text-lg"></i>
+    </button>
+
+    <button 
+      class="btn btn__icon btn__icon--red" 
       (click)="deleteClient(client)"
     >
-      <i class="pi pi-trash c-red"></i>
+      <i class="pi pi-trash fw-500 text-lg"></i>
     </button>
   </div>
 </div>
+
 <p-confirmDialog 
   header="{{ 'common.confirmation' | translate }}" 
-  [style]="{width: '50%',  padding: '1rem'}"
-  
+  [style]="{width: '50%',  padding: '1rem'}"  
 ></p-confirmDialog>
