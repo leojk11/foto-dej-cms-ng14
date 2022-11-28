@@ -43,4 +43,9 @@ export class ClientsService {
     const path = `${ this.apiUrl }/client/delete/${ id }`;
     return this.http.delete<any>(path);
   }
+
+  inviteClient(id: string): Observable<any> {
+    const path = `${ this.apiUrl }/client/${ id }`;
+    return this.http.post<EditClientResponse>(path, {});
+  }
 }

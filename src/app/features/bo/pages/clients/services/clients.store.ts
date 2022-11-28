@@ -70,6 +70,7 @@ export class ClientsStore extends ComponentStore<ClientsState> {
       total: this.state.total + 1
     });
   }
+  
   patchExistingClientSingle(client: Client): void {
     const list = this.state.list;
 
@@ -104,6 +105,19 @@ export class ClientsStore extends ComponentStore<ClientsState> {
         // this.toastService.success(res.message);
         this.patchExistingClientSingle(client);
         this.getAllClients();
+      },
+      error: error => {
+        // this.toastService.error(error.error.message);
+      }
+    })
+  }
+
+  inviteClient(id: string): void {
+    this.clientsService.deleteClient(id).subscribe({
+      next: res => {
+        // this.toastService.success(res.message);
+        console.log('INVITE RES', res);
+        
       },
       error: error => {
         // this.toastService.error(error.error.message);

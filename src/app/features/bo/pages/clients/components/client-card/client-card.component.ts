@@ -59,12 +59,29 @@ export class ClientCardComponent implements OnInit {
 
   deleteClient(client: Client): void {
     this.confirmationService.confirm({
+      key: 'delete',
       message: this.translate.instant('messages.deleteClient'),
       acceptButtonStyleClass: 'btn btn__red text',
       rejectButtonStyleClass: 'btn btn__dark text',
+      acceptLabel: this.translate.instant('common.yes'),
+      rejectLabel: this.translate.instant('common.no'),
       accept: () => {
         this.clientStore.deleteClient(client);
       }
-  });
+    });
+  }
+
+  sendInvite(id: string): void {
+    this.confirmationService.confirm({
+      key: 'invite',
+      message: this.translate.instant('messages.inviteClient'),
+      acceptButtonStyleClass: 'btn btn__red text',
+      rejectButtonStyleClass: 'btn btn__dark text',
+      acceptLabel: this.translate.instant('common.yes'),
+      rejectLabel: this.translate.instant('common.no'),
+      accept: () => {
+        this.clientStore.inviteClient(id);
+      }
+    });
   }
 }
