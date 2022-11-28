@@ -57,7 +57,7 @@ export class ClientCardComponent implements OnInit {
     })
   }
 
-  deleteClient(client: Client): void {
+  deleteClient(): void {
     this.confirmationService.confirm({
       key: 'delete',
       message: this.translate.instant('messages.deleteClient'),
@@ -66,12 +66,12 @@ export class ClientCardComponent implements OnInit {
       acceptLabel: this.translate.instant('common.yes'),
       rejectLabel: this.translate.instant('common.no'),
       accept: () => {
-        this.clientStore.deleteClient(client);
+        this.clientStore.deleteClient(this.client);
       }
     });
   }
 
-  sendInvite(id: string): void {
+  sendInvite(): void {
     this.confirmationService.confirm({
       key: 'invite',
       message: this.translate.instant('messages.inviteClient'),
@@ -80,7 +80,7 @@ export class ClientCardComponent implements OnInit {
       acceptLabel: this.translate.instant('common.yes'),
       rejectLabel: this.translate.instant('common.no'),
       accept: () => {
-        this.clientStore.inviteClient(id);
+        this.clientStore.inviteClient(this.client.id);
       }
     });
   }
