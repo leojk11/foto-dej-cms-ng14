@@ -113,7 +113,7 @@ export class ClientsStore extends ComponentStore<ClientsState> {
   }
 
   inviteClient(id: string): void {
-    this.clientsService.deleteClient(id).subscribe({
+    this.clientsService.inviteClient(id).subscribe({
       next: res => {
         // this.toastService.success(res.message);
         console.log('INVITE RES', res);

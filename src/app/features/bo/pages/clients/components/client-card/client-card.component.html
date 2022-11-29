@@ -24,7 +24,7 @@
   <div class="client__actions">
     <button 
       class="btn btn__icon btn__icon--blue" 
-      (click)="sendInvite(client.id)"
+      (click)="sendInvite()"
     >
       <i class="pi pi-envelope fw-500 text-lg"></i>
     </button>
@@ -38,7 +38,7 @@
 
     <button 
       class="btn btn__icon btn__icon--red" 
-      (click)="deleteClient(client)"
+      (click)="deleteClient()"
     >
       <i class="pi pi-trash fw-500 text-lg"></i>
     </button>
@@ -46,13 +46,13 @@
 </div>
 
 <p-confirmDialog 
-  key="delete"
+  [key]="'delete'"
   header="{{ 'common.confirmation' | translate }}" 
   [style]="{ width: '50%',  padding: '1rem' }"  
 ></p-confirmDialog>
 
 <p-confirmDialog 
-  key="invite"  
+  [key]="'invite'"  
   header="{{ 'common.confirmation' | translate }}" 
   [style]="{ width: '50%',  padding: '1rem' }" 
 ></p-confirmDialog>
