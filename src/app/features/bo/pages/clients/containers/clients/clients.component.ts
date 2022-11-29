@@ -34,6 +34,8 @@ export class ClientsComponent implements OnInit {
   clients: Client[] = [];
   isMobile: boolean = false;
   modalWidth: string = '';
+  nameSearch: string = '';
+  phoneSearch: string = '';
 
   constructor(
     private adminLayoutService: AdminLayoutService,
@@ -69,6 +71,33 @@ export class ClientsComponent implements OnInit {
 
   onPageChange(event: any): void {
     this.clientStore.patchParams(event.page + 1);
+    this.clientStore.getAllClients();
+  }
+
+  filter(): void {
+    if(this.nameSearch !== ''){
+      this.clientStore.patchState({
+        params: {
+          ...this.clientStore.state.params,
+          name: this.nameSearch
+        }
+      })
+    } else if(this.phoneSearch !== ''){
+      this.clientStore.patchState({
+        params: {
+          ...this.clientStore.state.params,
+          phone_number: this.phoneSearch
+        }
+      })
+    } else {
+      this.clientStore.patchState({
+        params: {
+          page: this.clientStore.state.params.page,
+          take: this.clientStore.state.params.take
+        }
+      })
+    }
+    
     this.clientStore.getAllClients();
   }
 }

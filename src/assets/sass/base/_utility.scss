@@ -113,6 +113,10 @@
   width: 20%;
 }
 
+.w-3{
+  min-width: 30rem !important;
+}
+
 .w-60 {
   width: 60%;
 }
@@ -189,6 +193,10 @@
 
 .text-lg{
   font-size: 1.8rem !important;
+}
+
+.text-xl{
+  font-size: 2rem !important;
 }
 
 // SHADOW

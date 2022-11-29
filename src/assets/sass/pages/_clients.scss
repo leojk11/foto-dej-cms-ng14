@@ -1,6 +1,6 @@
 .clients{
   background-color: $color-wrapper;
-  padding: 0rem 3rem;
+  padding: 0rem 2rem;
 
   &__header{
     width: 100%;
@@ -11,6 +11,11 @@
     row-gap: 1.5rem;
     margin-top: 1rem;
     margin-bottom: 1rem;
+    padding: 1rem;
+
+    border-bottom: 1px solid rgba(60,60,59,0.19);
+    border-radius: 5px;
+    // box-shadow: $shadow-bottom;
 
     &--buttons {
       padding: 1.5rem;
@@ -24,23 +29,15 @@
     &--filter{
       // padding-left: .5rem;
       position: relative;
-
-      .icon-search{
-        position: absolute;
-        right: 0;
-        top: 0;
-
-        width: 4.5rem;
-        height: 4.5rem;
-        font-size: 1.8rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background-color: $sidebar-bg;
-        color: $color-dark;
-        cursor: pointer;
-      }
+      display: flex;
+      // align-items: center;
+      flex-direction: column;
+      gap: .5rem;
     }
+  }
+
+  &__content{
+    padding: 2rem 1rem;
   }
 }
 

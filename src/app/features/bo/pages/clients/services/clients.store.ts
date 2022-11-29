@@ -41,10 +41,10 @@ export class ClientsStore extends ComponentStore<ClientsState> {
     this.patchState({ loading });
   }
 
-  getAllClients(): void {
+  getAllClients(name?: string): void {
     this.setLoading(true);
 
-    this.clientsService.getAllCLients(this.state.params).subscribe({
+    this.clientsService.getAllCLients(this.state.params, name).subscribe({
       next: res => {
         console.log('ALL CLIENTS RES', res);
         this.patchState({

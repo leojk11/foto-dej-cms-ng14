@@ -37,7 +37,11 @@
     "confirmation": "Confirmation",
     "delete": "Delete",
     "yes": "Yes",
-    "no": "No"
+    "no": "No",
+    "searchName": "search by name..",
+    "searchPhone": "search by number..",
+    "searchDate": "search by date..",
+    "filters": "Filters"
   },
   "properties": {
     "title": "Title",

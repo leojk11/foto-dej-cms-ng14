@@ -30,3 +30,8 @@ export interface CleanUser{
   role: string;
   profile_image: string
 }
+
+export interface ClientSearchParams {
+  name: string;
+  phone_number: string;
+}

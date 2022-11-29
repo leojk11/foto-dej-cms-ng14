@@ -37,7 +37,11 @@
     "confirmation": "Потврди",
     "delete": "Избриши",
     "yes": "Да",
-    "no": "Не"
+    "no": "Не",
+    "searchName": "име..",
+    "searchPhone": "телефон..",
+    "searchDate": "датум..",
+    "filters": "Филтри"
   },
   "properties": {
     "title": "Наслов",

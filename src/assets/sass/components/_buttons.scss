@@ -177,6 +177,22 @@
   &__lg{
     min-width: 15rem !important;
   }
+
+  &__search {
+    min-width: 5rem !important;
+    height: 4.3rem;
+    
+    color: $color-dark;
+    background-color: $sidebar-bg;
+    border: 1px solid rgba($color-dark, 0.2);
+    // cursor: pointer;
+    transition: all .2s;
+
+    &:hover{
+      background-color: rgba($color-dark, 0.8);
+      color: $white;
+    }
+  }
 }
 
 .p-button:focus {
