@@ -6,9 +6,14 @@
         alt=""
       >
     </div>
-    <span>
-      {{ client.fullname }}
-    </span>
+    <div class="container__flex-col align-center">
+      <span>
+        {{ client.fullname }}
+      </span>
+      <span class="text-light">
+        {{ client.phone_number }}
+      </span>
+    </div>
     <div class="client__status">
       <p [ngClass]="client.account_status === 'ACTIVE' ? 'isActive' : 'isExpired'">
         {{ client.account_status | titlecase }}
@@ -16,33 +21,10 @@
     </div>
   </div>
 
-  <!-- <div class="client__info">
-    <span class="text">
-      {{ client.email }}
-    </span>
-
-    <span class="text-light">
-      {{ client.phone_number }}
-    </span>
-  </div> -->
-
-  
-
-  <!-- <div class="text-light">
-    {{ client.created_date | date: "dd/MM/YYYY" }}
-  </div> -->
-
   <div class="client__actions">
-    <!-- <button 
-      class="btn btn__icon btn__icon--orange" 
-      (click)="openEditModal(client)"
-    >
-      <i class="pi pi-pencil fw-500 text-lg"></i>
-    </button> -->
-
     <button 
       class="btn btn__icon btn__icon--blue" 
-      (click)="deleteClient(client)"
+      (click)="sendInvite(client.id)"
     >
       <i class="pi pi-envelope fw-500 text-lg"></i>
     </button>
