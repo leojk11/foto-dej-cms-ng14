@@ -95,6 +95,7 @@
 .wrap{
   flex-wrap: wrap;
 }
+
 .align-center {
   align-items: center;
 }
@@ -115,6 +116,10 @@
 
 .w-3{
   min-width: 30rem !important;
+}
+
+.max-w-3{
+  max-width: 30rem !important;
 }
 
 .w-60 {

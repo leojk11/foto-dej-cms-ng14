@@ -38,7 +38,7 @@ FullCalendarModule.registerPlugins([
 })
 export class CalendarComponent implements OnInit {
 
-  showCalendar: boolean = false;
+  showCalendar: boolean = true;
   modalWidth: string = '';
 
   events: any = [];
@@ -61,11 +61,11 @@ export class CalendarComponent implements OnInit {
     events: []
   };
 
-  isMobile$: Observable<boolean> = this.breakpointObserver.observe('(max-width: 878px)')
-    .pipe(
-      map(result => result.matches),
-      shareReplay()
-    );
+  // isMobile$: Observable<boolean> = this.breakpointObserver.observe('(max-width: 878px)')
+  //   .pipe(
+  //     map(result => result.matches),
+  //     shareReplay()
+  //   );
 
   constructor(
     private adminLayoutService: AdminLayoutService,
@@ -80,33 +80,33 @@ export class CalendarComponent implements OnInit {
   ngOnInit(): void {
     this.adminLayoutService.setTitle('common.calendar');
 
-    this.isMobile$.subscribe({
-      next: res => {
-        console.log('observer res', res);
-        this.modalWidth = res ? '90%' : '50%';
-        if (res) {
-          this.showCalendar = false;
-          this.calendarOptions.initialView = 'listMonth';
+    // this.isMobile$.subscribe({
+    //   next: (res: any) => {
+    //     console.log('observer res', res);
+    //     this.modalWidth = res ? '90%' : '50%';
+    //     if (res) {
+    //       this.showCalendar = false;
+    //       this.calendarOptions.initialView = 'listMonth';
 
-          setTimeout(() => {
-            this.showCalendar = true;
-            this.cd.detectChanges();
-          }, 100);
+    //       setTimeout(() => {
+    //         this.showCalendar = true;
+    //         this.cd.detectChanges();
+    //       }, 100);
 
-          this.cd.detectChanges();
-        } else {
-          this.showCalendar = false;
-          this.calendarOptions.initialView = 'dayGridMonth';
+    //       this.cd.detectChanges();
+    //     } else {
+    //       this.showCalendar = false;
+    //       this.calendarOptions.initialView = 'dayGridMonth';
 
-          setTimeout(() => {
-            this.showCalendar = true;
-            this.cd.detectChanges();
-          }, 100);
+    //       setTimeout(() => {
+    //         this.showCalendar = true;
+    //         this.cd.detectChanges();
+    //       }, 100);
 
-          this.cd.detectChanges();
-        }
-      }
-    })
+    //       this.cd.detectChanges();
+    //     }
+    //   }
+    // })
   }
 
   handleDateChange(event: any): void {

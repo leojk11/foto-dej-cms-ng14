@@ -1,5 +1,5 @@
 .p-inputtext, textarea{
-  width: 100% !important;
+  width: 100%;
   padding: 1rem 1.3rem;
   border: none;
   border: 1px solid rgba(60,60,59,0.19);
@@ -7,6 +7,7 @@
   font-size: 1.4rem;
   letter-spacing: 1.5px;
   font-family: 'Poppins', sans-serif;
+  min-width: 30rem;
 
   &:focus, &:focus-visible{
     outline: none;
@@ -22,6 +23,7 @@
   }
 
 }
+
 .input--icon{
   position: absolute;
   right: .8rem;

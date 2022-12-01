@@ -6,11 +6,11 @@
           {{ 'common.filters' | translate }}
         </div>
 
-        <div class="flex gap-2">
+        <div class="container__flex gap-2">
           <input 
             type="text" 
             pInputText
-            class="w-3"
+            class="max-w-3"
             placeholder="{{ 'common.searchName' | translate}}"
             [(ngModel)]="nameSearch"
             (keydown.enter)="filter()"
@@ -18,7 +18,7 @@
           <input 
             type="text" 
             pInputText
-            class="w-3"
+            class="max-w-3"
             placeholder="{{ 'common.searchPhone' | translate}}"
             [(ngModel)]="phoneSearch"
             (keydown.enter)="filter()"
