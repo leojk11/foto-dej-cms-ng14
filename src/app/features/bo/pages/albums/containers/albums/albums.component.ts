@@ -9,6 +9,7 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { AdminLayoutService } from 'src/app/features/bo/layout/services/admin-layout.service';
 import { PaginatorModule } from 'primeng/paginator';
 import { tap } from 'rxjs';
+import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
   selector: 'app-albums',
@@ -18,7 +19,8 @@ import { tap } from 'rxjs';
     SpinnerComponent,
     SingleAlbumComponent,
     TranslateModule,
-    PaginatorModule
+    PaginatorModule,
+    InputTextModule
   ],
   providers: [
     AlbumsStore,
@@ -30,6 +32,8 @@ import { tap } from 'rxjs';
 export class AlbumsComponent implements OnInit {
 
   modalWidth: string = '';
+  nameSearch: string = '';
+  dateSearch: string = '';
   isMobile: boolean = false;
 
   constructor(
@@ -62,6 +66,33 @@ export class AlbumsComponent implements OnInit {
   onPageChange(event: any): void {
     console.log(event);
     this.albumStore.patchParams(event.page + 1);
+    this.albumStore.getAllAlbums();
+  }
+
+  filter(): void{
+    if(this.nameSearch !== ''){
+      this.albumStore.patchState({
+        params: {
+          ...this.albumStore.state.params,
+          title: this.nameSearch
+        }
+      });
+    } else if(this.dateSearch !== ''){
+      this.albumStore.patchState({
+        params: {
+          ...this.albumStore.state.params,
+          date: this.dateSearch
+        }
+      });
+    } else {
+      this.albumStore.patchState({
+        params: {
+          page: this.albumStore.state.params.page,
+          take: this.albumStore.state.params.take
+        }
+      });
+    }
+
     this.albumStore.getAllAlbums();
   }
 }

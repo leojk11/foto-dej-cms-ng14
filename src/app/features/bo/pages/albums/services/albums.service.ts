@@ -1,4 +1,4 @@
-import {HttpClient, HttpRequest} from '@angular/common/http';
+import {HttpClient, HttpParams, HttpRequest} from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { API_URL } from 'src/app/core/tokens/api-url.token';
@@ -19,8 +19,21 @@ export class AlbumsService {
   ) { }
 
   getAllAlbums(params: BasicParams): Observable<GetAllAlbumsResponse> {
-    const path = `${ this.apiUrl }/albums?page=${ params.page }&take=${ params.take }`;
-    return this.http.get<GetAllAlbumsResponse>(path);
+    const path = `${ this.apiUrl }/albums`;
+    return this.http.get<GetAllAlbumsResponse>(path, {params: this.generateParams(params)});
+  }
+
+  generateParams(params: BasicParams) {
+    let httpParams = new HttpParams();
+    httpParams = httpParams.set('take', params.take)
+    httpParams = httpParams.set('page', params.page)
+
+    if(params.title) 
+      httpParams = httpParams.set('title', params.title)
+
+    if(params.date) 
+      httpParams = httpParams.set('date', params.date)
+    return httpParams
   }
 
   getSingleAlbum(id: string): Observable<Album> {

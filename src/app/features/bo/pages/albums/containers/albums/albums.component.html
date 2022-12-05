@@ -1,11 +1,44 @@
-<div class="albums-buttons">
-  <button
+<div class="ablums__header">
+  <div class="albums__header--filter">
+    <div class="text-xl">
+      {{ 'common.filters' | translate }}
+    </div>
+
+    <div class="container__flex gap-2">
+      <input 
+        type="text" 
+        pInputText
+        class="max-w-3"
+        placeholder="{{ 'common.searchName' | translate}}"
+        [(ngModel)]="nameSearch"
+        (keydown.enter)="filter()"
+      >
+      <input 
+        type="text" 
+        pInputText
+        class="max-w-3"
+        placeholder="{{ 'common.searchDate' | translate}}"
+        [(ngModel)]="dateSearch"
+        (keydown.enter)="filter()"
+      >
+
+      <button 
+        class="btn btn__search"
+        (click)="filter()"
+      >
+        <i class="pi pi-search"></i>
+      </button>
+    </div>
+  </div>
+  <div class="albums-buttons">
+    <button
       class="btn btn__main albums-buttons__add-button"
       type="submit"
       (click)="openAddModal()"
-  >
-    {{ 'albums.addNewAlbum' | translate }}
-  </button>
+    >
+      {{ 'albums.addNewAlbum' | translate }}
+    </button>
+  </div>
 </div>
 
 <div *ngIf="albumStore.state$ | async as state">

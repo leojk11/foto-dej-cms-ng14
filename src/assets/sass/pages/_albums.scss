@@ -17,6 +17,19 @@
   position: relative;
 }
 
+.ablums__header{
+  width: 100%;
+  margin: 1rem 0;
+  padding: 1rem 2rem 1rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  row-gap: 1rem;
+  border-bottom: 1px solid rgba(60,60,59,0.19);
+  border-radius: 5px;
+}
+
 .single-album-wrapper {
   min-width: 27rem;
   // max-width: 20%;
@@ -32,8 +45,8 @@
   align-items: center;
   gap: 2rem;
 
-  // border: 1px solid rgba($color-header, 0.5);
-  box-shadow: $shadow-small;
+  border: 1px solid rgba($dark, 0.2);
+  // box-shadow: $shadow-small;
   border-radius: 1rem;
 
   cursor: pointer;
@@ -62,21 +75,21 @@
   }
 
   &:hover {
-      background-color: rgba($color-wrapper, 0.4);
-      border: .5px solid rgba($color-header, 0.4);
-
+    background-color: rgba($color-wrapper, 0.4);
+    // border: .5px solid rgba($color-header, 0.4);
+    box-shadow: $shadow-small;
   }
 }
 
 .albums-buttons {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    padding: 1.5rem 3rem;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 1.5rem 3rem;
 
-    &__add-button {
-        font-size: 1.7rem !important;
-    }
+  &__add-button {
+    font-size: 1.7rem !important;
+  }
 }
 
 .add-new-album {

@@ -3,4 +3,6 @@ export interface BasicParams {
     take: number;
     name?: string;
     phone_number?: string;
+    date?: string;
+    title?: string;
 }
