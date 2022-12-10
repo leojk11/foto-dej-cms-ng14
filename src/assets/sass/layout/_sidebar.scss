@@ -66,6 +66,10 @@
       box-shadow: $shadow-icon;
       padding: .8rem;
       border-radius: 5px;
+
+      i {
+        font-size: 2rem !important;
+      }
     }
 
     &--title{

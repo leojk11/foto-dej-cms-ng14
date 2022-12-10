@@ -41,7 +41,8 @@
     "searchName": "име..",
     "searchPhone": "телефон..",
     "searchDate": "датум..",
-    "filters": "Филтри"
+    "filters": "Филтри",
+    "invites": "Покани"
   },
   "properties": {
     "title": "Наслов",

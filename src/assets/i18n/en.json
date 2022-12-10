@@ -41,7 +41,8 @@
     "searchName": "search by name..",
     "searchPhone": "search by number..",
     "searchDate": "search by date..",
-    "filters": "Filters"
+    "filters": "Filters",
+    "invites": "Invites"
   },
   "properties": {
     "title": "Title",

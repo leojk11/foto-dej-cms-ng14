@@ -21,9 +21,9 @@
             class="sidebar__link" 
             [routerLink]="item.redirectTo"
             [routerLinkActive]="'active-link'"
-          >
-            <span class="material-symbols-outlined sidebar__link--icon">
-              {{ item.icon }}
+          > 
+            <span class="sidebar__link--icon">
+              <i [class]="item.icon"></i>
             </span>
             <p class="sidebar__link--title">
               {{ item.title | translate }}
@@ -90,8 +90,8 @@
             [routerLink]="item.redirectTo"
             [routerLinkActive]="'active-link'"
           >
-            <span class="material-symbols-outlined sidebar__link--icon">
-              {{ item.icon }}
+            <span class="sidebar__link--icon">
+              <i [class]="item.icon"></i>
             </span>
             <p class="sidebar__link--title">
               {{ item.title | translate }}
