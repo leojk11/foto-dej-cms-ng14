@@ -42,7 +42,8 @@
     "searchPhone": "search by number..",
     "searchDate": "search by date..",
     "filters": "Filters",
-    "invites": "Invites"
+    "invites": "Invites",
+    "resend": "Resend"
   },
   "properties": {
     "title": "Title",

@@ -30,9 +30,9 @@
         <td class="flex justify-end">
           <button
             class="btn btn__main btn__main--sm mr-2"
-            type="submit"
-            (click)="resendInvite()"
-            pTooltip="Resend" 
+            type="button"
+            (click)="resendInvite(invite)"
+            pTooltip="{{ 'common.resend' | translate }}" 
             tooltipPosition="top"
           >
             <i class="pi pi-refresh"></i>

@@ -42,7 +42,8 @@
     "searchPhone": "телефон..",
     "searchDate": "датум..",
     "filters": "Филтри",
-    "invites": "Покани"
+    "invites": "Покани",
+    "resend": "Повтори"
   },
   "properties": {
     "title": "Наслов",

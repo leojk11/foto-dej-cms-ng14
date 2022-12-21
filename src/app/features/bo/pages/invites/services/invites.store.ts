@@ -56,6 +56,9 @@ export class InvitesStore extends ComponentStore<InvitesState> {
       error: error => {
         // handle error
         console.log(error);
+        this.patchState({
+          loading: false
+        });
       }
     });
   }
