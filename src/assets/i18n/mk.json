@@ -72,7 +72,10 @@
     "promoImages": "Промо слики",
     "promoVideo": "Промо видео",
     "contactFormLabel": "Ознака на контакт формата",
-    "address": "Адреса"
+    "address": "Адреса",
+    "invitedClient": "Поканет клиент",
+    "invitedClientEmail": "Поканет клиент емаил",
+    "invitedBy": "Поканет од"
   },
   "messages": {
     "deleteClient": "Дали сте сигурни дека сакате да го избришете овој клиент?",

@@ -72,7 +72,10 @@
     "promoImages": "Promo images",
     "promoVideo": "Promo video",
     "contactFormLabel": "Contact form label",
-    "address": "Address"
+    "address": "Address",
+    "invitedClient": "Invited client",
+    "invitedClientEmail": "Invited client email",
+    "invitedBy": "Invited by"
   },
   "messages": {
     "deleteClient": "Are you sure you want to delete this client?",
