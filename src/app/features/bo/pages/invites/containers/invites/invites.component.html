@@ -1,4 +1,4 @@
-<div class="p-3" *ngIf="invitesStore.state$ | async as state">
+<div class="p-3 pb-0" *ngIf="invitesStore.state$ | async as state">
   <p-table
     [value]="state.list"
     [rows]="5"
@@ -9,12 +9,12 @@
     [totalRecords]="state.total"
   >
     <ng-template pTemplate="header">
-      <tr>
-        <th></th>
-        <th>{{ 'properties.invitedClient' | translate }}</th>
-        <th>{{ 'properties.invitedBy' | translate }}</th>
-        <th>{{ 'properties.date' | translate }}</th>
-        <th></th>
+      <tr [style]="{'box-shadow': '1px 11px 13px -12px rgb(60 60 59 / 19%)', 'margin-bottom': '10px'}">
+        <th [style]="{'box-shadow': '1px 11px 13px -12px rgb(60 60 59 / 19%)'}"></th>
+        <th [style]="{'box-shadow': '1px 11px 13px -12px rgb(60 60 59 / 19%)'}">{{ 'properties.invitedClient' | translate }}</th>
+        <th [style]="{'box-shadow': '1px 11px 13px -12px rgb(60 60 59 / 19%)'}">{{ 'properties.invitedBy' | translate }}</th>
+        <th [style]="{'box-shadow': '1px 11px 13px -12px rgb(60 60 59 / 19%)'}">{{ 'properties.date' | translate }}</th>
+        <th [style]="{'box-shadow': '1px 11px 13px -12px rgb(60 60 59 / 19%)'}"></th>
       </tr>
     </ng-template>
 

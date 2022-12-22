@@ -1,92 +1,3 @@
-.mat-table{
-  width: 100%;
-  margin: 0 auto;
-  overflow-x: auto;
-  padding-bottom: 1rem;
-  background-color: $color-wrapper;
-}
-
-
-.mat-header-cell, .mat-cell, .mat-footer-cell{
-  border-width: 0;
-}
-
-.mat-header-row {
-  position: relative;
-  z-index: 10;
-  background-color: transparent;
-  box-shadow: $shadow-sm-full;
-  border: .5px solid rgba(0, 0, 0, 0.12);
-  border-radius: 3px;
-  border: none !important;
-  margin-bottom: 1.5rem;
-  // overflow: hidden;
-}
-
-.mat-header-cell, .mat-cell{
-  text-align: center !important;
-  word-wrap: initial;
-  display: table-cell;
-  padding: 0px 5px;
-  line-break: unset;
-  min-width: 17rem;
-  white-space: nowrap;
-  overflow: hidden;
-  vertical-align: middle;
-
-  &:last-child{
-    min-width: 13rem !important;
-  }
-}
-
- .mat-header-cell{
-  font-size: 1.8rem;
-  color: #888;
-  border: none !important;
-  min-width: 17rem !important;
-  font-weight: 600;
-
-  &:first-child, &:last-child{
-    padding: 0 !important;
-  }
-}
-
- .mat-cell{
-  font-size: 1.4rem;
-  min-width: 17rem !important;
-  height: 6.5rem;
-  padding: .7rem 1rem !important;
-  border-bottom: 1px solid #ccc !important;
-
-  &:first-child{
-    border-bottom-left-radius: 5px;
-  }
-  &:last-child{
-    border-bottom-right-radius: 5px;
-    padding: .7rem 0;
-  }
-
-  img{
-    width: 5rem;
-    height: 5rem;
-    object-fit: contain;
-  }
-}
-
-.mat-table tbody .mat-row {
-  height: 1rem !important;
-  border: 1px solid #eee !important;
-}
-.mat-paginator{
-  background-color: $color-wrapper !important;
-}
-.mat-paginator-container{
-  justify-content: center !important;
-  font-size: 1.4rem;
-  margin-top: 1rem;
-  background-color: $color-wrapper;
-}
-
 .table__img{
   border-radius: 50%;
   width: 4rem;
@@ -102,5 +13,81 @@
 
 // PRIMENG TABLE
 .p-datatable {
-  font-size: 1.5rem !important;
+  font-size: 1.6rem !important;
+  font-family: 'Poppins', sans-serif !important;
+  box-shadow: $shadow-small !important;
+  border-radius: 5px !important;
+
+  .p-datatable-wrapper{
+    height: 57.5vh;
+    background-color: #fff;
+
+    @media (min-width: 1400px) {
+      height: 61.5vh;
+    }
+  }
+
+  
+
+  &-thead > tr {
+    box-shadow: $shadow-bottom !important;
+
+    & > th{
+    height: 5rem;
+    letter-spacing: .5px;
+    text-align: center !important;
+    background-color: #fff !important;
+    box-shadow: $shadow-bottom !important;
+
+    // &:not(:first-child), &:not(:last-child){
+    //   width: 20% !important;
+    // }
+
+    &:first-child{
+      border-top-left-radius: 5px !important;
+    }
+
+    &:last-child{
+      border-top-right-radius: 5px !important;
+    }
+  }}
+
+  &-tbody{
+    font-size: 1.4rem !important;
+
+    & > tr{
+      border-bottom: 1px solid #ccc !important;
+
+      & > td {
+        text-align: center !important;
+        border-color: #ccc !important;
+        height: 6.3rem !important;
+
+        // &:not(:first-child), &:not(:last-child){
+        //   width: 20% !important;
+        // }
+      }
+    }
+  }
+}
+
+thead{
+  box-shadow: $shadow-bottom !important;
+  margin-bottom: 1rem !important;
+}
+.p-paginator{
+  font-size: 1.6rem !important;
+
+  & .p-paginator-pages .p-paginator-page{
+    font-size: 1.4rem!important;
+
+    &.p-highlight{
+      background-color: $sidebar-bg;
+      color: $dark;
+    }
+  }
+}
+
+.p-link:focus{
+  box-shadow: none !important;
 }
