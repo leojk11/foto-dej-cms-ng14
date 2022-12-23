@@ -20,7 +20,7 @@ import { Invite } from '../../models/invites.model';
     TooltipModule
   ],
   templateUrl: './invites.component.html',
-  styleUrls: ['./invites.component.css']
+  styleUrls: ['./invites.component.scss']
 })
 export class InvitesComponent implements OnInit {
 

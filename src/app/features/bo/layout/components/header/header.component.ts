@@ -20,10 +20,10 @@ import { TranslateModule } from '@ngx-translate/core';
       >
         <span class="material-symbols-outlined">arrow_back_ios_new</span>
       </button>
-      <div class="page-header__title">
+      <!-- <div class="page-header__title">
         {{ state.pageTitle | translate }}
         <span *ngIf="state.detail">  &#8250;  {{ state.detail }} </span>
-      </div>
+      </div> -->
     </div>
   `
 })

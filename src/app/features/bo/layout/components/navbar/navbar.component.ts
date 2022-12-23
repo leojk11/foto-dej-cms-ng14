@@ -1,12 +1,14 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { APP_VERSION } from 'src/app/core/data/staticData';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { AdminLayoutService } from '../../services/admin-layout.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TranslateModule],
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
@@ -17,7 +19,9 @@ export class NavbarComponent implements OnInit {
   @Output() toggleSidebar = new EventEmitter();
 
   constructor(
-    public authService: AuthService
+    public authService: AuthService,
+    public adminLayoutService: AdminLayoutService,
+    public location: Location
   ) { }
 
   ngOnInit(): void {

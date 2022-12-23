@@ -1,7 +1,10 @@
-<div class="p-3 pb-0" *ngIf="invitesStore.state$ | async as state">
+<div 
+  class="invites" 
+  *ngIf="invitesStore.state$ | async as state"
+>
   <p-table
     [value]="state.list"
-    [rows]="5"
+    [rows]="10"
     [paginator]="true"
     [lazy]="true"
     (onLazyLoad)="onLazyLoad($event)"
@@ -9,27 +12,39 @@
     [totalRecords]="state.total"
   >
     <ng-template pTemplate="header">
-      <tr [style]="{'box-shadow': '1px 11px 13px -12px rgb(60 60 59 / 19%)', 'margin-bottom': '10px'}">
-        <th [style]="{'box-shadow': '1px 11px 13px -12px rgb(60 60 59 / 19%)'}"></th>
-        <th [style]="{'box-shadow': '1px 11px 13px -12px rgb(60 60 59 / 19%)'}">{{ 'properties.invitedClient' | translate }}</th>
-        <th [style]="{'box-shadow': '1px 11px 13px -12px rgb(60 60 59 / 19%)'}">{{ 'properties.invitedBy' | translate }}</th>
-        <th [style]="{'box-shadow': '1px 11px 13px -12px rgb(60 60 59 / 19%)'}">{{ 'properties.date' | translate }}</th>
-        <th [style]="{'box-shadow': '1px 11px 13px -12px rgb(60 60 59 / 19%)'}"></th>
+      <tr>
+        <th></th>
+        <th>
+          {{ 'properties.invitedClient' | translate }}
+        </th>
+        <th>
+          {{ 'properties.invitedBy' | translate }}
+        </th>
+        <th>
+          {{ 'properties.date' | translate }}
+        </th>
+        <th></th>
       </tr>
     </ng-template>
 
     <ng-template pTemplate="body" let-invite let-index="rowIndex">
       <tr>
-        <td>{{ index + 1 }}</td>
+        <td>
+          {{ index + 1 }}
+        </td>
         <td>
           <p>{{ invite.invited_client.fullname }}</p>
           <p>{{ invite.invited_client.email }}</p>
         </td>
-        <td>{{ invite.invited_by.fullname }}</td>
-        <td>{{ invite.date | date: "dd/MM/yyyy" }} {{ invite.time }}</td>
-        <td class="flex justify-end">
+        <td>
+          {{ invite.invited_by.fullname }}
+        </td>
+        <td>
+          {{ invite.date | date: "dd/MM/yyyy" }} {{ invite.time }}
+        </td>
+        <td >
           <button
-            class="btn btn__main btn__main--sm mr-2"
+            class="btn btn__main btn__main--sm"
             type="button"
             (click)="resendInvite(invite)"
             pTooltip="{{ 'common.resend' | translate }}" 

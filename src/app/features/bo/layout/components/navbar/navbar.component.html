@@ -1,12 +1,27 @@
 <div class="navbar">
-  <div 
-    class="toggle" 
-    (click)="toggleSidebar.emit(); showToggle = true"
-  >
-    <span class="material-symbols-outlined">
-      menu
-      </span>
+  <div class="flex align-center gap-2">
+    <div 
+      class="toggle" 
+      (click)="toggleSidebar.emit(); showToggle = true"
+    >
+      <i class="pi pi-bars"></i>
+    </div>
+    <div
+      *ngIf="adminLayoutService.adminLayoutState$ | async as state"
+    >
+      <!-- <button
+        class="btn btn__icon btn__icon--dark shadow-small border-none"
+        (click)="location.back()"
+      >
+        <span class="material-symbols-outlined">arrow_back_ios_new</span>
+      </button> -->
+      <div class="page-header__title">
+        {{ state.pageTitle | translate }}
+        <span *ngIf="state.detail">  &#8250;  {{ state.detail }} </span>
+      </div>
+    </div>
   </div>
+
   <div class="text">
     {{ appVersion }}
   </div>
