@@ -1,48 +1,49 @@
-<div class="ablums__header">
-  <div class="albums__header--filter">
-    <div class="text-xl">
-      {{ 'common.filters' | translate }}
+<div class="albums">
+  <div class="ablums__header">
+    <div class="albums__header--filter">
+      <div class="text-xl">
+        {{ 'common.filters' | translate }}
+      </div>
+  
+      <div class="container__flex gap-2">
+        <input 
+          type="text" 
+          pInputText
+          class="max-w-3"
+          placeholder="{{ 'common.searchName' | translate}}"
+          [(ngModel)]="nameSearch"
+          (keydown.enter)="filter()"
+        >
+        <input 
+          type="text" 
+          pInputText
+          class="max-w-3"
+          placeholder="{{ 'common.searchDate' | translate}}"
+          [(ngModel)]="dateSearch"
+          (keydown.enter)="filter()"
+        >
+  
+        <button 
+          class="btn btn__search"
+          (click)="filter()"
+        >
+          <i class="pi pi-search"></i>
+        </button>
+      </div>
     </div>
-
-    <div class="container__flex gap-2">
-      <input 
-        type="text" 
-        pInputText
-        class="max-w-3"
-        placeholder="{{ 'common.searchName' | translate}}"
-        [(ngModel)]="nameSearch"
-        (keydown.enter)="filter()"
+    <div class="albums-buttons">
+      <button
+        class="btn btn__main albums-buttons__add-button"
+        type="submit"
+        (click)="openAddModal()"
       >
-      <input 
-        type="text" 
-        pInputText
-        class="max-w-3"
-        placeholder="{{ 'common.searchDate' | translate}}"
-        [(ngModel)]="dateSearch"
-        (keydown.enter)="filter()"
-      >
-
-      <button 
-        class="btn btn__search"
-        (click)="filter()"
-      >
-        <i class="pi pi-search"></i>
+        {{ 'albums.addNewAlbum' | translate }}
       </button>
     </div>
   </div>
-  <div class="albums-buttons">
-    <button
-      class="btn btn__main albums-buttons__add-button"
-      type="submit"
-      (click)="openAddModal()"
-    >
-      {{ 'albums.addNewAlbum' | translate }}
-    </button>
-  </div>
-</div>
-
-<div *ngIf="albumStore.state$ | async as state">
-  <div *ngIf="!state.loading" class="albums">
+  
+  <div *ngIf="albumStore.state$ | async as state">
+    <div *ngIf="!state.loading" class="albums__content">
       <div
         class="single-album-wrapper"
         *ngFor="let album of state.list"
@@ -51,16 +52,19 @@
           [album]="album"
         ></app-single-album>
       </div>
-  </div>
 
-  <div class="page__loading" *ngIf="state.loading">
-    <app-spinner></app-spinner>
+    </div>
+    <p-paginator 
+      *ngIf="state.total > state.params.take"
+      [rows]="state.params.take"
+      [totalRecords]="state.total"
+      (onPageChange)="onPageChange($event)"
+    ></p-paginator>
+  
+    <div class="page__loading" *ngIf="state.loading">
+      <app-spinner></app-spinner>
+    </div>
+  
+    
   </div>
-
-  <p-paginator 
-    *ngIf="state.total > state.params.take"
-    [rows]="state.params.take"
-    [totalRecords]="state.total"
-    (onPageChange)="onPageChange($event)"
-  ></p-paginator>
 </div>

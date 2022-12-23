@@ -9,6 +9,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { BasicHttpInterceptor } from './app/core/interceptors/basic-http.interceptor';
+import { ToastrModule } from 'ngx-toastr';
 
 
 export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
@@ -32,6 +33,7 @@ bootstrapApplication(AppComponent, {
           deps: [HttpClient]
         }
       }),
+      ToastrModule.forRoot()
     ),
     {
       provide: HTTP_INTERCEPTORS,

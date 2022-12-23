@@ -4,30 +4,36 @@
   height: 1px;
   background-color: #677f96;
 }
-.albums {
-  width: 100%;
-  // margin-top: 2rem;
-  background-color: $color-wrapper;
-  display: flex;
-  flex-wrap: wrap;
-  // justify-content: space-between;
-  align-items: center;
-  gap: 2.5rem;
-  padding: 3rem;
-  position: relative;
-}
+.albums{
+  padding: 0 3rem;
 
-.ablums__header{
-  width: 100%;
-  margin: 1rem 0;
-  padding: 1rem 2rem 1rem 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  row-gap: 1rem;
-  border-bottom: 1px solid rgba(60,60,59,0.19);
-  border-radius: 5px;
+  &__content {
+    width: 100%;
+    // margin-top: 2rem;
+    background-color: $color-wrapper;
+    display: flex;
+    flex-wrap: wrap;
+    // justify-content: space-between;
+    align-items: center;
+    gap: 2.5rem;
+    padding: 3rem;
+    position: relative;
+  }
+  
+  &__header{
+    width: 100%;
+    // margin: 1rem 0;
+    // padding: 1rem 3rem 0rem;
+    padding-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    row-gap: 1rem;
+    border-bottom: 1px solid rgba(60,60,59,0.19);
+    border-radius: 5px;
+  
+  }
 }
 
 .single-album-wrapper {
