@@ -21,6 +21,7 @@
             class="sidebar__link" 
             [routerLink]="item.redirectTo"
             [routerLinkActive]="'active-link'"
+            *permit="item.perm"
           > 
             <span class="sidebar__link--icon">
               <i [class]="item.icon"></i>

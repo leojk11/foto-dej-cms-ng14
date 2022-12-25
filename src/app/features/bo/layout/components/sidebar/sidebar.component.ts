@@ -5,6 +5,7 @@ import { SIDEBAR_ITEMS } from '../../data/sidebar-items';
 import { StorageService } from 'src/app/core/services/storage.service';
 import { RouterModule } from '@angular/router';
 import {SidebarModule} from 'primeng/sidebar';
+import { PermitDirective } from 'src/app/core/directives/permit.directive';
 
 @Component({
   selector: 'app-sidebar',
@@ -13,7 +14,8 @@ import {SidebarModule} from 'primeng/sidebar';
     CommonModule,
     TranslateModule,
     RouterModule,
-    SidebarModule
+    SidebarModule,
+    PermitDirective
   ],
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss']
