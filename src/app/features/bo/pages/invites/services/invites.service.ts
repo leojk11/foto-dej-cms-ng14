@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 import { API_URL } from 'src/app/core/tokens/api-url.token';
 import { BasicParams } from 'src/app/shared/models/basicParams.model';
 import { GetAllInvitesResponse } from '../models/getAllInvitesResponse.model';
-import { Invite } from '../models/invites.model';
 
 @Injectable({
   providedIn: 'root'

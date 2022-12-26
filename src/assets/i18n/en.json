@@ -78,6 +78,9 @@
     "invitedClientEmail": "Invited client email",
     "invitedBy": "Invited by"
   },
+  "errors": {
+
+  },
   "messages": {
     "deleteClient": "Are you sure you want to delete this client?",
     "deleteSchedule": "Are you sure you want to delete this schedule?",

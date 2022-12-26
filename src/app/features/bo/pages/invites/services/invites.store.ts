@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
 import { BasicParams } from 'src/app/shared/models/basicParams.model';
+import { GetAllInvitesResponse } from '../models/getAllInvitesResponse.model';
 import { Invite } from '../models/invites.model';
 import { InvitesService } from './invites.service';
 
@@ -16,7 +17,7 @@ export const initialState: InvitesState = {
   list: [],
   params: {
     page: 1,
-    take: 5
+    take: 9
   },
   total: 0,
 
@@ -44,7 +45,7 @@ export class InvitesStore extends ComponentStore<InvitesState> {
 
   getInvites(): void {
     this.invitesService.getAll(this.state.params).subscribe({
-      next: res => {
+      next: (res: GetAllInvitesResponse) => {
         console.log(res);
         
         this.patchState({
@@ -53,7 +54,7 @@ export class InvitesStore extends ComponentStore<InvitesState> {
           loading: false
         });
       },
-      error: error => {
+      error: (error: any) => {
         // handle error
         console.log(error);
         this.patchState({

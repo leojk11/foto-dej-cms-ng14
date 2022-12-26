@@ -52,26 +52,52 @@
 
         <div class="form-field">
           <label class="form-field__label">
-            {{ 'properties.location' | translate }}:
+            {{ 'properties.location' | translate }} 1:
           </label>
 
           <input
             type="text"
             pInputText
-            formControlName="location"
+            formControlName="location_1"
             placeholder="{{ 'properties.location' | translate | lowercase }}..."
           >
         </div>
 
         <div class="form-field">
           <label class="form-field__label">
-            {{ 'properties.contactNumber' | translate }}:
+            {{ 'properties.location' | translate }} 2:
           </label>
 
           <input
             type="text"
             pInputText
-            formControlName="contact_number"
+            formControlName="location_2"
+            placeholder="{{ 'properties.location' | translate | lowercase }}..."
+          >
+        </div>
+
+        <div class="form-field">
+          <label class="form-field__label">
+            {{ 'properties.contactNumber' | translate }} 1:
+          </label>
+
+          <input
+            type="text"
+            pInputText
+            formControlName="contact_number_1"
+            placeholder="{{ 'properties.contactNumber' | translate | lowercase }}..."
+          >
+        </div>
+
+        <div class="form-field">
+          <label class="form-field__label">
+            {{ 'properties.contactNumber' | translate }} 2:
+          </label>
+
+          <input
+            type="text"
+            pInputText
+            formControlName="contact_number_2"
             placeholder="{{ 'properties.contactNumber' | translate | lowercase }}..."
           >
         </div>
@@ -87,9 +113,8 @@
             placeholder="{{ 'properties.description' | translate | lowercase }}..."
           ></textarea>
         </div>
-
-
       </div>
+
       <div class="container__flex justify-center gap-2 mt-5 mb-2">
         <button
           *ngIf="!editMode"

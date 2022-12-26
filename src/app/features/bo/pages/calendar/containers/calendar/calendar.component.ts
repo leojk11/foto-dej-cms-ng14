@@ -51,8 +51,8 @@ export class CalendarComponent implements OnInit {
   calendarOptions: CalendarOptions = {
     initialView: 'dayGridMonth',
     headerToolbar: {
-      left: 'prev,next',
-      right: 'title,prevYear,nextYear'
+      left: 'prev,next,prevYear,nextYear',
+      right: 'title'
     },
     fixedWeekCount: false,
     eventClick: this.handleEventClick.bind(this),

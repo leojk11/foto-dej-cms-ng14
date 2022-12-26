@@ -42,8 +42,10 @@ export class AddNewScheduleComponent implements OnInit {
     time: ['',],
     title: ['', Validators.required],
     description: [''],
-    location: [''],
-    contact_number: ['']
+    location_1: [''],
+    location_2: [''],
+    contact_number_1: [''],
+    contact_number_2: ['']
   });
 
   editMode: boolean = false;
@@ -74,6 +76,8 @@ export class AddNewScheduleComponent implements OnInit {
 
         this.calendarService.getSingleSchedule(this.config.data.id).subscribe({
           next: res => {
+            console.log('single schedule', res);
+            
             this.selectedSchedule = res;
 
             this.form.patchValue({ 
