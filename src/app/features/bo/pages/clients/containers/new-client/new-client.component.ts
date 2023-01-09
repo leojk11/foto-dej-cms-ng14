@@ -7,6 +7,7 @@ import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { TranslateModule } from '@ngx-translate/core';
 import { InputTextModule } from 'primeng/inputtext';
+import { ToastService } from 'src/app/shared/services/toast.service';
 
 @Component({
   selector: 'app-new-client',
@@ -39,6 +40,7 @@ export class NewClientComponent implements OnInit {
     private clientsStore: ClientsStore,
     private clientsService: ClientsService,
     public dialogRef: DynamicDialogRef,
+    private toastService: ToastService
   ) { }
 
   ngOnInit(): void {
@@ -56,29 +58,29 @@ export class NewClientComponent implements OnInit {
     if (!this.editMode) {
       this.clientsService.addNewClient(this.form.value).subscribe({
         next: res => {
-          // this.toastService.success(res.message);
           this.clientsStore.pathExistingClients(res.client);
+          this.toastService.addSuccess(res.message);
 
           this.dialogRef.close();
         },
         error: error => {
-          // this.toastService.error(error.error.message);
+          this.dialogRef.close();
+          this.toastService.addError(error.error.message);
         }
       });
     } else {
       this.clientsService.editClient(this.config.data.id, this.form.value).subscribe({
         next: res => {
-          // this.toastService.success(res.message);
           this.clientsStore.patchExistingClientSingle(this.config.data);
+          this.toastService.addSuccess(res.message);
 
           this.dialogRef.close('update');
         },
         error: error => {
-          // this.toastService.error(error.error.message);
+          this.dialogRef.close();
+          this.toastService.addError(error.error.message);
         }
       });
     }
   }
-
-
 }

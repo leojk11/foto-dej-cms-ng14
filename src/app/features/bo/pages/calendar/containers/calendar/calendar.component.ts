@@ -4,7 +4,6 @@ import { CalendarOptions, FullCalendarModule } from '@fullcalendar/angular';
 import { map, Observable, shareReplay } from 'rxjs';
 import { AdminLayoutService } from 'src/app/features/bo/layout/services/admin-layout.service';
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { AuthService } from 'src/app/core/services/auth.service';
 import { CalendarService } from '../../services/calendar.service';
 import * as dayjs from 'dayjs';
 import { DialogService } from 'primeng/dynamicdialog';
@@ -14,6 +13,7 @@ import { SpinnerComponent } from 'src/app/shared/components/loading/spinner/spin
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import listPlugin from '@fullcalendar/list';
+import { ToastService } from 'src/app/shared/services/toast.service';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -71,10 +71,10 @@ export class CalendarComponent implements OnInit {
     private adminLayoutService: AdminLayoutService,
     private breakpointObserver: BreakpointObserver,
     private cd: ChangeDetectorRef,
-    private authService: AuthService,
     private calendarService: CalendarService,
     private dialog: DialogService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private toastService: ToastService
   ) { }
 
   ngOnInit(): void {
@@ -82,7 +82,6 @@ export class CalendarComponent implements OnInit {
 
     this.isMobile$.subscribe({
       next: (res: any) => {
-        console.log('observer res', res);
         this.modalWidth = res ? '90%' : '50%';
         if (res) {
           this.showCalendar = false;
@@ -134,7 +133,7 @@ export class CalendarComponent implements OnInit {
         this.showCalendar = true;
       },
       error: error => {
-        // this.toast.error(error.error.message);
+        this.toastService.addError(error.error.message);
       }
     });
   }

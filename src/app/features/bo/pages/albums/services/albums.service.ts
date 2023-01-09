@@ -56,7 +56,6 @@ export class AlbumsService {
     return this.http.patch(path, { images });
   }
 
-
   getAlbumImages(albumId: string): Observable<GetAlumImagesResponse> {
     const path = `${ this.apiUrl }/images/album/${ albumId }`;
     return this.http.get<GetAlumImagesResponse>(path);
@@ -77,6 +76,11 @@ export class AlbumsService {
 
   deleteImage(albumId: string | undefined, image: string): Observable<any> {
     const path = `${ this.apiUrl }/images/${ albumId }/${ image }`;
+    return this.http.delete<any>(path);
+  }
+
+  deleteAlbum(albumId: string): Observable<any> {
+    const path = `${ this.apiUrl }/albums/${ albumId }`;
     return this.http.delete<any>(path);
   }
 

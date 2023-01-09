@@ -10,6 +10,7 @@ import { ClientsService } from '../../../clients/services/clients.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { AssignAlbumComponent } from 'src/app/shared/components/assign-album/assign-album.component';
 import { InputTextModule } from 'primeng/inputtext';
+import { ToastService } from 'src/app/shared/services/toast.service';
 
 @Component({
   selector: 'app-new-album',
@@ -49,7 +50,8 @@ export class NewAlbumComponent implements OnInit {
     private albumsStore: AlbumsStore,
     private albumsService: AlbumsService,
     private clientService: ClientsService,
-    public dialogRef: DynamicDialogRef
+    public dialogRef: DynamicDialogRef,
+    private toastService: ToastService
   ) { }
 
   ngOnInit(): void {
@@ -70,7 +72,7 @@ export class NewAlbumComponent implements OnInit {
             });
           },
           error: error => {
-            // this.toastService.error(error.error.message);
+            this.toastService.addError(error.error.message);
           }
         });
       }
@@ -78,7 +80,6 @@ export class NewAlbumComponent implements OnInit {
       this.addAlbumForm.patchValue({
         ...this.config.data
       });
-      
     }
   }
 
@@ -101,22 +102,22 @@ export class NewAlbumComponent implements OnInit {
           this.albumsStore.patchPreviewAlbum(res.album);
           this.dialogRef.close();
 
-          // this.toastService.success('Album has been updated');
+          this.toastService.addSuccess(res.message);
         },
         error: error => {
-          // this.toastService.error(error.error.message);
+          this.toastService.addError(error.error.message);
         }
       });
     } else {
       this.albumsService.addNewAlbum(this.addAlbumForm.value).subscribe({
         next: res => {
           this.albumsStore.patchExistingAlbums(res.album);
-          // this.toastService.success(res.message);
+          this.toastService.addSuccess(res.message);
 
           this.dialogRef.close();
         },
         error: error => {
-          // this.toastService.error(error.error.message);
+          this.toastService.addError(error.error.message);
         }
       });
     }

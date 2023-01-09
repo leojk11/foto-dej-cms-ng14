@@ -1,1 +1,42 @@
-<p>album-upload works!</p>
+<div class="upload-images">
+  <p-fileUpload name="images"
+    [multiple]="true" 
+    accept="image/*" 
+    [maxFileSize]="1000000" 
+    chooseLabel="{{ 'common.chooseImages' | translate }}"
+    uploadLabel="{{ 'common.upload' | translate }}"
+    cancelLabel="{{ 'common.cancel' | translate }}"
+    [disabled]="uploadDisabled"
+    (onSelect)="onSelect($event)" 
+    (onRemove)="onRemove($event)"
+    (onBeforeUpload)="handleUpload($event)">
+    <ng-template pTemplate="content">
+      <ul *ngIf="uploadedFiles.length">
+        <li *ngFor="let file of uploadedFiles">{{ file.name }} - {{ file.size }} bytes</li>
+      </ul>
+    </ng-template>
+  </p-fileUpload>
+  
+  <div class="upload-images__progress mt-2">
+    <p-progressBar [value]="progressValue"></p-progressBar>
+  </div>
+</div>
+
+<p-dialog 
+  header="{{ 'success.uploadSuccess' | translate }}" 
+  [modal]="true"
+  [(visible)]="displayCompletedDialog" 
+  [style]="{ width: '50vw' }">
+  <div class="p-3">
+    <p>{{ 'success.uploadCompleted' | translate }}</p>
+  </div>
+
+  <ng-template pTemplate="footer">
+    <p-button 
+      icon="pi pi-check" 
+      (click)="goToPreview()" 
+      label="OK" 
+      styleClass="p-button-text"
+    ></p-button>
+  </ng-template>
+</p-dialog>

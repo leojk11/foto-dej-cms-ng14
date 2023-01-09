@@ -32,6 +32,11 @@ export const BO_ROUTES: Route[] = [
           .then((m) => m.AlbumPreviewComponent)
       },
       {
+        path: 'albums/upload/:id',
+        loadComponent: () => import('./pages/albums/containers/album-upload/album-upload.component')
+          .then((m) => m.AlbumUploadComponent)
+      },
+      {
         path: 'configuration',
         loadComponent: () => import('./pages/configurations/containers/configuration/configuration.component')
           .then((m) => m.ConfigurationComponent)

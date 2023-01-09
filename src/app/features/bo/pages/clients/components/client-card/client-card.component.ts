@@ -9,7 +9,6 @@ import {ConfirmationService} from 'primeng/api';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { RouterModule } from '@angular/router';
 
-
 @Component({
   selector: 'app-client-card',
   standalone: true,
@@ -40,11 +39,11 @@ export class ClientCardComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  openEditModal(client: Client): void {
+  openEditModal(): void {
     const ref = this.dialog.open(NewClientComponent, {
       width: '45%',
       // height: '65%',
-      data: client,
+      data: this.client,
       header: this.translate.instant('clients.editClient')
     });
 
@@ -57,7 +56,9 @@ export class ClientCardComponent implements OnInit {
     })
   }
 
-  deleteClient(): void {
+  deleteClient(event: any): void {
+    event.stopPropagation();
+
     this.confirmationService.confirm({
       key: 'delete',
       message: this.translate.instant('messages.deleteClient'),
@@ -71,7 +72,9 @@ export class ClientCardComponent implements OnInit {
     });
   }
 
-  sendInvite(): void {
+  sendInvite(event: any): void {
+    event.stopPropagation();
+    
     this.confirmationService.confirm({
       key: 'invite',
       message: this.translate.instant('messages.inviteClient'),

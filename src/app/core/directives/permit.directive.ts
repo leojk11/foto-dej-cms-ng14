@@ -17,18 +17,12 @@ export class PermitDirective {
   ) { }
 
   @Input() set permit(permName: string) {
-    console.log('perm name', permName);
-    
     this.allowedRoles = Permissions.perms.get(permName);
     const userRole = this.authService.user.role;
     this.checkRoles(userRole);
   }
 
   checkRoles(userRole: any): boolean {
-    console.log('user role', userRole);
-    console.log('allowed roles', this.allowedRoles);
-    
-    
     if (!userRole) {
       return false;
     }

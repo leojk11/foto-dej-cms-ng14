@@ -52,7 +52,6 @@ export class ClientsComponent implements OnInit {
       next: res => {
         this.isMobile = res;
         this.modalWidth = this.isMobile ? '90%' : '60%';
-        
       }
     });
   }

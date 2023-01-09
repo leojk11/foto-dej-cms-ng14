@@ -5,11 +5,13 @@ import { BehaviorSubject, map, Observable, shareReplay } from 'rxjs';
 export interface AdminLayoutState {
   pageTitle: string;
   detail: string;
+  detailMore: string;
 };
 
 export const initialState: AdminLayoutState = {
   pageTitle: '',
-  detail: ''
+  detail: '',
+  detailMore: ''
 };
 
 @Injectable({
@@ -35,7 +37,6 @@ export class AdminLayoutService {
   }
 
   setTitle(title: string, detail?: string): void {
-    console.log('TITLE TO SET', title);
     this.adminLayoutState.next({
       ...this.state,
       pageTitle: title
@@ -52,7 +53,8 @@ export class AdminLayoutService {
   resetDetail(): void{
     this.adminLayoutState.next({
       ...this.state,
-      detail: ''
-    })
+      detail: '',
+      detailMore: ''
+    });
   }
 }

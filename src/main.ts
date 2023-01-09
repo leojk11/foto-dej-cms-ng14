@@ -10,7 +10,7 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { BasicHttpInterceptor } from './app/core/interceptors/basic-http.interceptor';
 import { ToastrModule } from 'ngx-toastr';
-import { PermitDirective } from './app/core/directives/permit.directive';
+import { ToastService } from './app/shared/services/toast.service';
 
 
 export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
@@ -34,7 +34,8 @@ bootstrapApplication(AppComponent, {
           deps: [HttpClient]
         }
       }),
-      ToastrModule.forRoot()
+      ToastrModule.forRoot(),
+      ToastService
     ),
     {
       provide: HTTP_INTERCEPTORS,

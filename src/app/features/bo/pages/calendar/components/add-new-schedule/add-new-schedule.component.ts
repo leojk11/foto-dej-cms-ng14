@@ -12,6 +12,7 @@ import {InputTextareaModule} from 'primeng/inputtextarea';
 import { ConfirmationService } from 'primeng/api';
 import { DialogModule } from 'primeng/dialog';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ToastService } from 'src/app/shared/services/toast.service';
 
 @Component({
   selector: 'app-add-new-schedule',
@@ -59,7 +60,8 @@ export class AddNewScheduleComponent implements OnInit {
     public dialogRef: DynamicDialogRef,
     public config: DynamicDialogConfig,
     private confirmationService: ConfirmationService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private toastService: ToastService
   ) { }
 
   ngOnInit(): void {
@@ -76,8 +78,6 @@ export class AddNewScheduleComponent implements OnInit {
 
         this.calendarService.getSingleSchedule(this.config.data.id).subscribe({
           next: res => {
-            console.log('single schedule', res);
-            
             this.selectedSchedule = res;
 
             this.form.patchValue({ 
@@ -88,7 +88,7 @@ export class AddNewScheduleComponent implements OnInit {
             this.loading = false;
           },
           error: error => {
-            // this.toast.error(error.error.message);
+            this.toastService.addError(error.error.message);
           }
         });
       }
@@ -108,22 +108,22 @@ export class AddNewScheduleComponent implements OnInit {
 
         this.calendarService.updateSchedule(this.selectedSchedule.id, payload).subscribe({
           next: res => {
-            // this.toast.success(res.message);
+            this.toastService.addSuccess(res.message);
             this.dialogRef.close();
           },
           error: error => {
-            // this.toast.success(error.error.message);
+            this.toastService.addSuccess(error.error.message);
           }
         });
       }
     } else {
       this.calendarService.addNewSchedule(payload).subscribe({
         next: res => {
-          // this.toast.success(res.message);
+          this.toastService.addSuccess(res.message);
           this.dialogRef.close();
         },
         error: error => {
-          // this.toast.error(error.error.message);
+          this.toastService.addError(error.error.message);
         }
       });
     }
@@ -135,14 +135,16 @@ export class AddNewScheduleComponent implements OnInit {
         message: this.translate.instant('messages.deleteSchedule'),
         acceptButtonStyleClass: 'btn btn__red text',
         rejectButtonStyleClass: 'btn btn__dark text',
+        acceptLabel: this.translate.instant('common.yes'),
+        rejectLabel: this.translate.instant('common.no'),
         accept: () => {
           this.calendarService.deleteSchedule(this.config.data.id).subscribe({
             next: res => {
-              // this.toast.success(res.message);
+              this.toastService.addSuccess(res.message);
               this.dialogRef.close();
             },
             error: error => {
-              // this.toast.error(error.error.message);
+              this.toastService.addError(error.error.message);
             }
           });
         }

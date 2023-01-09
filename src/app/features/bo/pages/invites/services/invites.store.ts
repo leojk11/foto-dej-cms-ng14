@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
 import { BasicParams } from 'src/app/shared/models/basicParams.model';
+import { ToastService } from 'src/app/shared/services/toast.service';
 import { GetAllInvitesResponse } from '../models/getAllInvitesResponse.model';
 import { Invite } from '../models/invites.model';
 import { InvitesService } from './invites.service';
@@ -24,13 +25,12 @@ export const initialState: InvitesState = {
   loading: true
 }
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class InvitesStore extends ComponentStore<InvitesState> {
 
   constructor(
-    private invitesService: InvitesService
+    private invitesService: InvitesService,
+    private toastService: ToastService
   ) { 
     super(initialState);
   }
@@ -46,8 +46,6 @@ export class InvitesStore extends ComponentStore<InvitesState> {
   getInvites(): void {
     this.invitesService.getAll(this.state.params).subscribe({
       next: (res: GetAllInvitesResponse) => {
-        console.log(res);
-        
         this.patchState({
           list: res.list,
           total: res.total,
@@ -55,11 +53,8 @@ export class InvitesStore extends ComponentStore<InvitesState> {
         });
       },
       error: (error: any) => {
-        // handle error
-        console.log(error);
-        this.patchState({
-          loading: false
-        });
+        this.patchState({ loading: false });
+        this.toastService.addError(error.error.message);
       }
     });
   }

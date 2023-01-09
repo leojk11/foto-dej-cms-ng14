@@ -8,7 +8,6 @@ import { NewAlbumComponent } from '../new-album/new-album.component';
 import { DialogService } from 'primeng/dynamicdialog';
 import { AdminLayoutService } from 'src/app/features/bo/layout/services/admin-layout.service';
 import { PaginatorModule } from 'primeng/paginator';
-import { tap } from 'rxjs';
 import { InputTextModule } from 'primeng/inputtext';
 
 @Component({

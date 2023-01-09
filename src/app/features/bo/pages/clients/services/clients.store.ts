@@ -4,6 +4,7 @@ import { BasicParams } from "src/app/shared/models/basicParams.model";
 import { Client } from "../models/client.model";
 import { ClientsService } from "./clients.service";
 import {AddNewClientPayload} from "../models/addNewClientPayload.model";
+import { ToastService } from "src/app/shared/services/toast.service";
 
 export interface ClientsState {
   list: Client[],
@@ -29,6 +30,7 @@ export class ClientsStore extends ComponentStore<ClientsState> {
 
   constructor(
     private clientsService: ClientsService,
+    private toastService: ToastService
   ) {
     super(initialState);
   }
@@ -46,7 +48,6 @@ export class ClientsStore extends ComponentStore<ClientsState> {
 
     this.clientsService.getAllCLients(this.state.params, name).subscribe({
       next: res => {
-        console.log('ALL CLIENTS RES', res);
         this.patchState({
           list: res.list,
           total: res.total,
@@ -56,7 +57,7 @@ export class ClientsStore extends ComponentStore<ClientsState> {
       },
       error: error => {
         this.setLoading(false);
-        // this.toastService.error(error.error.message);
+        this.toastService.addError(error.error.message);
       }
     });
   }
@@ -89,12 +90,11 @@ export class ClientsStore extends ComponentStore<ClientsState> {
   addNewClient(payload: AddNewClientPayload): void {
     this.clientsService.addNewClient(payload).subscribe({
       next: res => {
-        console.log(res);
-        // this.toastService.success(res.message);
+        this.toastService.addSuccess(res.message);
         this.pathExistingClients(res.client);
       },
       error: error => {
-        // this.toastService.error(error.error.message);
+        this.toastService.addError(error.error.message);
       }
     });
   }
@@ -102,26 +102,27 @@ export class ClientsStore extends ComponentStore<ClientsState> {
   deleteClient(client: Client): void {
     this.clientsService.deleteClient(client.id).subscribe({
       next: res => {
-        // this.toastService.success(res.message);
+        console.log('client delete res', res);
+        
         this.patchExistingClientSingle(client);
         this.getAllClients();
+
+        this.toastService.addSuccess(res.message);
       },
       error: error => {
-        // this.toastService.error(error.error.message);
+        this.toastService.addError(error.error.message);
       }
-    })
+    });
   }
 
   inviteClient(id: string): void {
     this.clientsService.inviteClient(id).subscribe({
       next: res => {
-        // this.toastService.success(res.message);
-        console.log('INVITE RES', res);
-        
+        this.toastService.addSuccess(res.message);
       },
       error: error => {
-        // this.toastService.error(error.error.message);
+        this.toastService.addError(error.error.message);
       }
-    })
+    });
   }
 }

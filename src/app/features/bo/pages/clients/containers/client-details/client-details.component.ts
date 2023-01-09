@@ -1,10 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AdminLayoutService } from 'src/app/features/bo/layout/services/admin-layout.service';
 import { ClientsService } from '../../services/clients.service'
 import { ActivatedRoute, Router } from '@angular/router';
 import { Client } from '../../models/client.model';
-
 
 @Component({
   selector: 'app-client-details',
@@ -13,7 +12,7 @@ import { Client } from '../../models/client.model';
   templateUrl: './client-details.component.html',
   styleUrls: ['./client-details.component.scss']
 })
-export class ClientDetailsComponent implements OnInit {
+export class ClientDetailsComponent implements OnInit, OnDestroy {
 
   client: Client = {} as Client;
   id: string = '';
@@ -31,7 +30,11 @@ export class ClientDetailsComponent implements OnInit {
         this.id = params['id'];
         this.getClient();
       }
-    })
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.adminLayoutService.resetDetail();
   }
 
   getClient(): void {
@@ -44,7 +47,6 @@ export class ClientDetailsComponent implements OnInit {
         console.error(err);
         
       }
-    })
+    });
   }
-
 }

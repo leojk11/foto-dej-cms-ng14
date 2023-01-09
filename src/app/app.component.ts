@@ -1,16 +1,29 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { OnlineStatusModule, OnlineStatusService } from 'ngx-online-status';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 import { AuthService } from './core/services/auth.service';
 import { StorageService } from './core/services/storage.service';
+import { ToastService } from './shared/services/toast.service';
 
 @Component({
   standalone: true,
   selector: 'app-root',
   imports: [
-    RouterModule
+    RouterModule,
+    ToastModule,
+    OnlineStatusModule
   ],
-  template: `<router-outlet></router-outlet>`
+  providers: [
+    MessageService,
+    ToastService
+  ],
+  template: `
+    <router-outlet></router-outlet>
+    <p-toast position="top-right"></p-toast>
+  `
 })
 export class AppComponent implements OnInit {
   title = 'foto-dej-cms-ng14';
@@ -18,10 +31,13 @@ export class AppComponent implements OnInit {
   constructor(
     private translateService: TranslateService,
     private storageService: StorageService,
-    private authService: AuthService
-
+    private authService: AuthService,
+    private toastService: ToastService,
+    private onlineStatusService: OnlineStatusService
   ) {
     this.initTranslation();
+
+
   }
 
   ngOnInit(): void {
@@ -31,6 +47,17 @@ export class AppComponent implements OnInit {
       this.authService.setBoUser(JSON.parse(boUser));
       this.authService.setBoAuthToken(boToken);
     }
+
+    this.onlineStatusService.status.subscribe({
+      next: (res: any) => {
+        if (res === 0) {
+          this.toastService.addError('errors.offline');
+        }
+        if (res === 1) {
+          this.toastService.addSuccess('success.online');
+        }
+      }
+    });
   }
 
   initTranslation(): void{

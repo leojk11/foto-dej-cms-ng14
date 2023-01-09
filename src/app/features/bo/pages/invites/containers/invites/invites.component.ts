@@ -10,7 +10,7 @@ import { ClientsService } from '../../../clients/services/clients.service';
 import { Invite } from '../../models/invites.model';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { ToastrService } from 'ngx-toastr';
+import { ToastService } from 'src/app/shared/services/toast.service';
 
 @Component({
   selector: 'app-invites',
@@ -25,6 +25,7 @@ import { ToastrService } from 'ngx-toastr';
   ],
   providers: [
     ConfirmationService,
+    InvitesStore
   ],
   templateUrl: './invites.component.html',
   styleUrls: ['./invites.component.scss']
@@ -37,7 +38,7 @@ export class InvitesComponent implements OnInit {
     private clientsService: ClientsService,
     private confirmationService: ConfirmationService,
     private translate: TranslateService,
-    private toastr: ToastrService
+    private toastService: ToastService
   ) { }
 
   ngOnInit() {
@@ -46,7 +47,6 @@ export class InvitesComponent implements OnInit {
   }
 
   onLazyLoad(event: any): void {
-    console.log(event);
     this.invitesStore.setParams({ page: event.first + 1, take: event.rows });
     this.invitesStore.getInvites();
   }
@@ -62,12 +62,13 @@ export class InvitesComponent implements OnInit {
       accept: () => {
         this.clientsService.inviteClient(invite.invited_client_id).subscribe({
           next: res => {
-            console.log('repeat invite res', res);
-            this.toastr.success(res.message)
+            this.toastService.addSuccess(res.message);
+
+            this.invitesStore.setParams({ page: 1, take: 9 });
+            this.invitesStore.getInvites();
           },
           error: error => {
-            // handle error
-            console.log(error);
+            this.toastService.addError(error.error.message);
           }
         });
       }

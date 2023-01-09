@@ -1,22 +1,29 @@
 <div class="albums-buttons">
   <button
-    class="btn btn__main btn__main--sm mr-2"
+    class="btn btn__main btn__main--sm mr-1"
     type="submit"
     (click)="goToUpload()"
-  >
-    <span class="material-symbols-outlined">
-      file_upload
-    </span>
+    pTooltip="{{ 'common.upload' | translate }}" 
+    tooltipPosition="top">
+    <i class="pi pi-upload"></i>
+  </button>
+
+  <button
+    class="btn btn__main btn__main--sm mr-1"
+    type="button"
+    (click)="openEditModal()"
+    pTooltip="{{ 'common.edit' | translate }}" 
+    tooltipPosition="top">
+    <i class="pi pi-pencil"></i>
   </button>
 
   <button
     class="btn btn__main btn__main--sm"
     type="button"
-    (click)="openEditModal()"
-  >
-    <span class="material-symbols-outlined">
-      edit
-    </span>
+    (click)="deleteAlbum()"
+    pTooltip="{{ 'common.delete' | translate }}" 
+    tooltipPosition="top">
+    <i class="pi pi-trash"></i>
   </button>
 </div>
 
@@ -75,3 +82,9 @@
     </div>
   </div>
 </div>
+
+<p-confirmDialog 
+  [key]="'delete'"
+  header="{{ 'common.confirmation' | translate }}" 
+  [style]="{ width: '50%',  padding: '1rem' }"  
+></p-confirmDialog>

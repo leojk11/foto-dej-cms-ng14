@@ -8,6 +8,7 @@ import {
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+import { ToastService } from 'src/app/shared/services/toast.service';
 import { AuthService } from '../services/auth.service';
 import { StorageService } from '../services/storage.service';
   
@@ -16,7 +17,8 @@ export class BasicHttpInterceptor implements HttpInterceptor {
   
   constructor(
     private authService: AuthService,
-    private storageService: StorageService
+    private storageService: StorageService,
+    // private toastService: ToastService // commented out beacuse its throwing error (will handle it later)
   ) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
