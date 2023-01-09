@@ -46,7 +46,8 @@ export class ConfigurationStore extends ComponentStore<ConfigurationState> {
     updateConfiguration(configuration: Configuration): void {
         const newConfiguration = {
             ...this.state.configuration,
-            ...configuration
+            ...configuration,
+            promo_images: JSON.parse(configuration.promo_images)
         };
 
         this.patchState({

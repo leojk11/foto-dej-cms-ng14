@@ -10,6 +10,9 @@ import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { SpinnerComponent } from 'src/app/shared/components/loading/spinner/spinner.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { InputTextModule } from 'primeng/inputtext';
+import { finalize, forkJoin, ignoreElements, merge, mergeMap, Observable, of, Subject, tap } from 'rxjs';
+import { ToastService } from 'src/app/shared/services/toast.service';
+import { ProgressBarModule } from 'primeng/progressbar';
 
 @Component({
   selector: 'app-configuration',
@@ -19,7 +22,8 @@ import { InputTextModule } from 'primeng/inputtext';
     ReactiveFormsModule,
     SpinnerComponent,
     TranslateModule,
-    InputTextModule
+    InputTextModule,
+    ProgressBarModule
   ],
   providers: [
     ConfigurationStore
@@ -32,23 +36,23 @@ export class ConfigurationComponent implements OnInit {
   loaded: boolean = true;
 
   imagesUrl: string = `${ environment.apiUrl }/images/`;
-  videoUrl: string = `${ environment.apiUrl }/videos/`
+  videoUrl: string = `${ environment.apiUrl }/videos/`;
 
   selectedMainImage: File | null = null;
   selectedMainImagePreview: string = '';
-  mainImageUploadProgressInfo: { value: number, fileName: string } | null = null;
   mainImageUploadInProgress: boolean = false;
+  mainImageUploadProgressValue: number = 0;
 
   selectedPromoImages: File[] = [];
   selectedPromoImagesPreview: string[] = [];
-  promoImagesUploadProgressInfos: { value: number, fileName: string }[] = [];
   promoImagesUploadInProgress: boolean = false;
   promoImagesToUpload: number = 0;
   promoImagesUploaded: number = 0;
+  promoImagesProgressValue: number = 0;
 
   selectedVideo: File | null = null;
-  videoUploadProgressInfo: { value: number, fileName: string } | null = null;
   videoUploadInProgress: boolean = false;
+  videoUploadProgressValue: number = 0;
 
   form: FormGroup = this.fb.group({
     logo: [''],
@@ -67,7 +71,8 @@ export class ConfigurationComponent implements OnInit {
     public configurationStore: ConfigurationStore,
     private configurationService: ConfigurationService,
     private fb: FormBuilder,
-    private imageOverviewState: ImageOverviewService
+    private imageOverviewState: ImageOverviewService,
+    private toastService: ToastService
   ) { }
 
   ngOnInit(): void {
@@ -85,10 +90,8 @@ export class ConfigurationComponent implements OnInit {
       }
     });
   }
-  // image: string, images?: string[]
+
   toggleOverview(event: any): void {
-    console.log(event.target.src);
-    
     this.imageOverviewState.toggleOverview();
     this.imageOverviewState.setImage(event.target.src);
   }
@@ -101,10 +104,10 @@ export class ConfigurationComponent implements OnInit {
   handleSubmit(): void {
     this.configurationService.updateConfiguration(this.form.value).subscribe({
       next: res => {
-        // this.toast.success(res.message);
+        this.toastService.addSuccess(res.message);
       },
       error: error => {
-        // this.toast.error(error.error.message);
+        this.toastService.addError(error.error.message);
       }
     });
   }
@@ -119,35 +122,34 @@ export class ConfigurationComponent implements OnInit {
     if (this.selectedMainImage) {
       this.mainImageUploadInProgress = true;
 
-      this.mainImageUploadProgressInfo = { value: 0, fileName: this.selectedMainImage.name };
       this.configurationService.uploadImage(this.selectedMainImage).subscribe({
         next: res => {
           if (res.type === HttpEventType.UploadProgress) {
-            if (this.mainImageUploadProgressInfo) {
-              this.mainImageUploadProgressInfo.value = Math.round(
-                (100 * res.loaded) / res.total
-              );
-            }
+            this.mainImageUploadProgressValue = Math.round((100 * res.loaded) / res.total);
           } else if (res instanceof HttpResponse) {
             this.configurationService.updateConfiguration({
               main_image: this.selectedMainImage?.name
             }).subscribe({
               next: updateImageRes => {
                 this.configurationStore.updateConfiguration(updateImageRes.configuration);
-                // this.toast.success('Main image has been updated.');
+                this.toastService.addSuccess(updateImageRes.message);
+
+                this.mainImageUploadInProgress = false;
               },
               error: error => {
-                // this.toast.error(error.error.message);
+                this.toastService.addError(error.error.message);
+                this.mainImageUploadInProgress = false;
               }
             });
           }
         },
         error: error => {
-          // this.toast.error(error.error.message);
+          this.toastService.addError(error.error.message);
+          this.mainImageUploadInProgress = false;
         }
       });
     } else {
-      // this.toast.error('You have no image selected!!');
+      this.toastService.addError('errors.mustSelectImage');
     }
   }
 
@@ -169,7 +171,7 @@ export class ConfigurationComponent implements OnInit {
 
   selectMultipleFiles(event: any): void {
     if (event.target.files.length > 6) {
-      // this.toast.error('You can select maximum 6 promo photos!');
+      this.toastService.addError('errors.maxImages');
     } else {
       const files = [];
       for (const file of event.target.files) {
@@ -178,7 +180,7 @@ export class ConfigurationComponent implements OnInit {
         const reader = new FileReader();
         reader.onload = () => {
           this.selectedPromoImagesPreview.push(reader.result as string);
-        }
+        };
         reader.readAsDataURL(file);
       }
 
@@ -186,50 +188,63 @@ export class ConfigurationComponent implements OnInit {
     }
   }
 
-  uploadPromoImages(): void {
-    this.promoImagesToUpload = this.selectedPromoImages.length;
-    
-    if (this.selectedPromoImages.length > 0) {
-      this.promoImagesUploadInProgress = true;
-      const imagesToSave: any = [];
+  uploadPromoImagesNew(): void {
+    this.promoImagesUploadInProgress = true;
 
-      for (const image of this.selectedPromoImages) {
-        const index = this.selectedPromoImages.findIndex(inImg => inImg.name === image.name);
+    const imagesToSave: string[] = [];
+    const toUpload: Observable<any>[] = [];
+    for (const file of this.selectedPromoImages) {
+      imagesToSave.push(file.name);
+      toUpload.push(this.configurationService.uploadImage(file));
+    };
 
-        this.promoImagesUploadProgressInfos[index] = { value: 0, fileName: image.name };
-        this.configurationService.uploadImage(image).subscribe({
-          next: res => {
-            if (res.type === HttpEventType.UploadProgress) {
-              this.promoImagesUploadProgressInfos[index].value = Math.round(
-                (100 * res.loaded) / res.total
-              );
-            } else if (res instanceof HttpResponse) {
-              this.promoImagesUploaded++;
-              imagesToSave.push(image.name);
+    this.forkJoinWithProgress(toUpload).pipe(
+      mergeMap(([finalResult, progress]) => merge(
+        progress.pipe(
+          tap((value: number) => { this.promoImagesProgressValue = value; }),
+          ignoreElements()
+        ), finalResult
+      ))
+    ).subscribe(() => {
+      this.configurationService.updateConfiguration({
+        promo_images: JSON.stringify(imagesToSave)
+      }).subscribe({
+        next: updateConfRes => {
+          this.selectedPromoImagesPreview = [];
+          this.configurationStore.updateConfiguration(updateConfRes.configuration);
+          this.toastService.addSuccess(updateConfRes.message);
 
-              if (this.promoImagesToUpload === this.promoImagesUploaded) {
-                this.configurationService.updateConfiguration({
-                  promo_images: JSON.stringify(imagesToSave)
-                }).subscribe({
-                  next: updateConfRes => {
-                    this.configurationStore.updateConfiguration(updateConfRes.configuration);
-                    // this.toast.success('Configuration promo images have been updated!');
-                  },
-                  error: error => {
-                    // this.toast.error(error.error.message);
-                  }
-                });
-              }
-            }
-          },
-          error: error => {
-            // this.toast.error(error.error.message);
-          }
-        });
-      }
-    } else {
-      // this.toast.error('You need to select at least 1 image!!');
-    }
+          this.promoImagesUploadInProgress = false;
+        },
+        error: error => {
+          this.toastService.addError(error.error.message);
+          this.promoImagesUploadInProgress = false;
+        }
+      });
+    });
+  }
+
+  forkJoinWithProgress(toUpload: Observable<any>[]): Observable<any> {
+    let counter = 0;
+    const percent$ = new Subject();
+
+    const modifiedObservablesList = toUpload.map(
+      (item, index) => item.pipe(
+        finalize(() => {
+          const percentValue = ++counter * 100 / toUpload.length;
+          percent$.next(percentValue);
+        })
+      )
+    );
+
+    const finalResult$ = forkJoin(modifiedObservablesList).pipe(
+      tap(() => {
+        percent$.next(100);
+        percent$.complete();
+      })
+    );
+
+    return of([finalResult$, percent$.asObservable()]);
   }
 
   selectVideo(event: any): void {
@@ -240,36 +255,34 @@ export class ConfigurationComponent implements OnInit {
     if (this.selectedVideo) {
       this.videoUploadInProgress = true;
 
-      this.videoUploadProgressInfo = { value: 0, fileName: this.selectedVideo.name };
       this.configurationService.uploadVideo(this.selectedVideo).subscribe({
         next: res => {
           if (res.type === HttpEventType.UploadProgress) {
-            if (this.videoUploadProgressInfo) {
-              this.videoUploadProgressInfo.value = Math.round(
-                (100 * res.loaded) / res.total
-              );
-            }
+            this.videoUploadProgressValue =  Math.round((100 * res.loaded) / res.total);
           } else if (res instanceof HttpResponse) {
             this.configurationService.updateConfiguration({
               promo_video: this.selectedVideo?.name
             }).subscribe({
               next: updatePromoVideoRes => {
                 this.configurationStore.updateConfiguration(updatePromoVideoRes.configuration);
-                // this.toast.success('Promo video has been updated.');
+                this.toastService.addSuccess(updatePromoVideoRes.message);
+
+                this.videoUploadInProgress = false;
               },
               error: error => {
-                // this.toast.error(error.error.message);
+                this.toastService.addError(error.error.message);
+                this.videoUploadInProgress = false;
               }
             });
           }
         },
         error: error => {
-          // this.toast.error(error.error.message);
+          this.toastService.addError(error.error.message);
+          this.videoUploadInProgress = false;
         }
       });
     } else {
-      // this.toast.error('You have no video selected!!');
+      this.toastService.addError('errors.noVideoSelected');
     }
   }
-
 }

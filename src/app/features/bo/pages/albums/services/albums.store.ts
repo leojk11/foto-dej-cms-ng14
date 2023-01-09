@@ -7,6 +7,7 @@ import { Album } from '../models/album.model';
 import { AlbumsService } from './albums.service';
 import {GetAlumImagesResponse} from "../models/getAlumImagesResponse.model";
 import { AdminLayoutService } from '../../../layout/services/admin-layout.service';
+import { ToastService } from 'src/app/shared/services/toast.service';
 
 export interface AlbumsState {
   list: Album[],
@@ -52,7 +53,8 @@ export class AlbumsStore extends ComponentStore<AlbumsState> {
   constructor(
     private albumsService: AlbumsService,
     private router: Router,
-    private albumLayoutService: AdminLayoutService
+    private albumLayoutService: AdminLayoutService,
+    private toastService: ToastService
   ) {
     super(initialState);
   }
@@ -85,7 +87,7 @@ export class AlbumsStore extends ComponentStore<AlbumsState> {
       },
       error: error => {
         this.setLoading(false);
-        // this.toastService.error(error.error.message);
+        this.toastService.addError(error.error.message);
       }
     });
   }
@@ -108,13 +110,13 @@ export class AlbumsStore extends ComponentStore<AlbumsState> {
           },
           error: error => {
             this.setLoading(false);
-            // this.toastService.error(error.error.message);
+            this.toastService.addError(error.error.message);
           }
         });
       },
       error: error => {
         this.setLoading(false);
-        // this.toastService.error(error.error.message);
+        this.toastService.addError(error.error.message);
       }
     });
   }
@@ -150,11 +152,11 @@ export class AlbumsStore extends ComponentStore<AlbumsState> {
         if(images?.imagesCount) {
           images.imagesCount = images.imagesCount - 1;
         }
-        // this.toastService.success('Images has been deleted');
+        this.toastService.addSuccess(res.message);
         this.patchState({ images });
       },
       error: error => {
-        // this.toastService.error(error.error.message);
+        this.toastService.addError(error.error.message);
       }
     });
 

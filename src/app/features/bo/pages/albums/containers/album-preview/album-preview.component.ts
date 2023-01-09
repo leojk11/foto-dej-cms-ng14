@@ -14,6 +14,7 @@ import { ConfirmationService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { AlbumsService } from '../../services/albums.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
+import { ImageOverviewService, ImageOverviewState } from 'src/app/shared/services/image-overview.service';
 
 @Component({
   selector: 'app-album-preview',
@@ -50,7 +51,8 @@ export class AlbumPreviewComponent implements OnInit {
     private translate: TranslateService,
     private confirmationService: ConfirmationService,
     private albumsService: AlbumsService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private imageOverviewState: ImageOverviewService
   ) { }
 
   ngOnInit(): void {
@@ -100,7 +102,17 @@ export class AlbumPreviewComponent implements OnInit {
   }
 
   deleteImage(event: string, index: number): void {
-    this.albumsStore.deleteImage(event, index);
+    this.confirmationService.confirm({
+      key: 'deleteImage',
+      message: this.translate.instant('messages.deleteImage'),
+      acceptButtonStyleClass: 'btn btn__red text',
+      rejectButtonStyleClass: 'btn btn__dark text',
+      acceptLabel: this.translate.instant('common.yes'),
+      rejectLabel: this.translate.instant('common.no'),
+      accept: () => {
+        this.albumsStore.deleteImage(event, index);
+      }
+    });
   }
 
   openEditModal(): void {
@@ -117,6 +129,16 @@ export class AlbumPreviewComponent implements OnInit {
         }
       }
     });
+  }
+
+  onToggleOverview(event: any, images: any): void {
+    const imagesArr = [];
+    for (const image of images) {
+      imagesArr.push(image.name);
+    }
+    
+    this.imageOverviewState.toggleOverview();
+    this.imageOverviewState.setImages(event, imagesArr);
   }
 
 }

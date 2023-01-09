@@ -13,6 +13,7 @@ export class SingleImageComponent implements OnInit {
 
   @Input() image?: string;
 
+  @Output() onImageClick = new EventEmitter<any>();
   @Output() onDelete = new EventEmitter<any>();
 
   src: string = '';
@@ -20,7 +21,6 @@ export class SingleImageComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.image);
     this.src = `${ environment.apiUrl }/images/${ this.image }`;
   }
 
@@ -35,7 +35,7 @@ export class SingleImageComponent implements OnInit {
   }
 
   openPreview(): void {
-    console.log('preview');
+    this.onImageClick.emit(this.src);
   }
 
 }

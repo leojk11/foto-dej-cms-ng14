@@ -77,6 +77,7 @@
        *ngFor="let image of state.images?.images; let i = index">
       <app-single-image
         [image]="image.name"
+        (onImageClick)="onToggleOverview($event, state.images?.images)"
         (onDelete)="deleteImage($event, i)"
       ></app-single-image>
     </div>
@@ -85,6 +86,12 @@
 
 <p-confirmDialog 
   [key]="'delete'"
+  header="{{ 'common.confirmation' | translate }}" 
+  [style]="{ width: '50%',  padding: '1rem' }"  
+></p-confirmDialog>
+
+<p-confirmDialog 
+  [key]="'deleteImage'"
   header="{{ 'common.confirmation' | translate }}" 
   [style]="{ width: '50%',  padding: '1rem' }"  
 ></p-confirmDialog>

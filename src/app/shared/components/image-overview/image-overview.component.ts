@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ImageOverviewService } from '../../services/image-overview.service';
 
@@ -17,6 +17,19 @@ export class ImageOverviewComponent implements OnInit, OnDestroy {
   @Input() images?: string [] = [];
 
   @Input() configuration?: any = {};
+
+  @HostListener('document:keydown', ['$event'])
+    handleKeyboardEvent(event: KeyboardEvent) {
+      if (event.key === 'Escape') {
+        this.imageOverviewState.toggleOverview();
+      }
+      if (event.key === 'ArrowLeft') {
+        this.imageOverviewState.changeImage('prev');
+      }
+      if (event.key === 'ArrowRight') {
+        this.imageOverviewState.changeImage('next');
+      }
+    }
 
   constructor(
     public imageOverviewState: ImageOverviewService
