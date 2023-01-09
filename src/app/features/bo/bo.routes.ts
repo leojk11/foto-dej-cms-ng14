@@ -50,6 +50,11 @@ export const BO_ROUTES: Route[] = [
         path: 'invites',
         loadComponent: () => import('./pages/invites/containers/invites/invites.component')
           .then((m) => m.InvitesComponent)
+      },
+      {
+        path: 'requests',
+        loadComponent: () => import('./pages/requests/containers/requests/requests.component')
+          .then((m) => m.RequestsComponent)
       }
     ]
   }

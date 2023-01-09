@@ -46,7 +46,8 @@
     "resend": "Повтори",
     "contact": "Контакт",
     "gallery": "Галерија",
-    "signIn": "Најава"
+    "signIn": "Најава",
+    "requests": "Барања"
   },
   "properties": {
     "title": "Наслов",

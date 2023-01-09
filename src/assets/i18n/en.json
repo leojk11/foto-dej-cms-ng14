@@ -46,7 +46,8 @@
     "resend": "Resend",
     "contact": "Contact",
     "gallery": "Gallery",
-    "signIn": "Sign in"
+    "signIn": "Sign in",
+    "requests": "Requests"
   },
   "properties": {
     "title": "Title",

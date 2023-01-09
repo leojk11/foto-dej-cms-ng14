@@ -27,8 +27,14 @@ export const SIDEBAR_ITEMS: SidebarItem[] = [
     perm: PermissionsType.ADMIN
   },
   {
-    title: 'common.invites',
+    title: 'common.requests',
     icon: 'pi pi-envelope',
+    redirectTo: 'requests',
+    perm: PermissionsType.ADMIN
+  },
+  {
+    title: 'common.invites',
+    icon: 'pi pi-send',
     redirectTo: 'invites',
     perm: PermissionsType.ADMIN
   },
