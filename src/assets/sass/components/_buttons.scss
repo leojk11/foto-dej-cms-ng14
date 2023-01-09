@@ -1,13 +1,13 @@
 .btn{
   font-size: 1.6rem;
-  font-family: 'Poppins', serif;
+  font-family: 'Roboto', serif;
   letter-spacing: 1.5px;
   font-weight: 500;
-  padding: .7rem 1rem;
+  padding: .7rem 0;
   color: #fff;
   border: none;
-  border-radius: 3px;
-  min-width: 10rem;
+  border-radius: 10px;
+  min-width: 19.7rem;
   cursor: pointer;
   transition: all 0.2s;
   height: 4rem;
@@ -24,12 +24,16 @@
   }
 
   &__main{
-    background-color: rgba($color-dark, 0.8);
-    font-size: 1.6rem;
+    background-color: $color-medium;
+    // font-size: 1.2rem;
+    font-weight: 700;
     min-width: 15rem;
+    transition: all 0.2s;
 
     &:hover{
-      background-color: $color-dark;
+      background-color: $color-light;
+      color: $color-dark;
+      box-shadow: 2px 2px 7px -1px rgba(68, 68, 68, 0.3);
     }
 
     &--sm{

@@ -1,0 +1,134 @@
+.home{
+  // width: 85vw;
+  margin: 0 auto;
+  &__header{
+    color: $color-light;
+    
+    position: relative;
+    // background-position: center center;
+    // background-repeat: no-repeat;
+
+    &--image {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+
+      img { 
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      & .after {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(0deg, rgba(37, 71, 106, 0.44), rgba(37, 71, 106, 0.44));
+      }
+    }
+  }
+
+  &__navbar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin: 0 auto;
+    padding: 6rem 12rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    &--brand {
+      width: 30rem;
+      height: 4.8rem;
+
+      display: flex;
+      align-items: center;
+
+      &--logo-wrapper {
+        width: 4.8rem;
+        height: 4.8rem;
+        display: flex;
+        align-items: center;
+    
+        &--img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+
+      &--name {
+        font-family: 'Roboto', sans-serif;
+        font-weight: 600;
+        font-size: 3.2rem;
+        line-height: 4.8rem;
+        text-transform: uppercase;
+      }
+    }
+
+    &--actions{
+      display: flex;
+      align-items: center;
+      gap: 5rem;
+
+      &__link{
+        font-family: "Roboto", sans-serif;
+        font-size: 2rem;
+        line-height: 3rem;
+        min-width: 8rem;
+        font-weight: 700;
+        position: relative;
+        cursor: pointer;
+        // border-bottom: 2px solid $color-light;
+        // border-radius: 5px;
+
+        &::after{
+          content: '';
+          width: 8rem;
+          height: 2px;
+          background-color: $color-light;
+          border-radius: 10px;
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          transition: all .2s;
+        }
+        &:hover::after{
+          height: 5px;
+          bottom: -3px;
+        }
+      }
+    }
+  }
+
+  &__hero {
+    width: 78rem;
+    margin: 0 auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    &--title{
+      font-size: 6.4rem;
+      height: 11.6rem;
+      margin-bottom: 3rem;
+      text-align: center;
+      font-family: "Noto Serif Display";
+      line-height: 91%;
+      font-weight: 700;
+    }
+
+    &--text {
+      font-family: "Roboto";
+      font-size: 3.2rem;
+      font-weight: 400;
+      line-height: 48px;
+      letter-spacing: .3px;
+    }
+  }
+}

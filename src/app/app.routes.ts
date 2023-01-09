@@ -6,7 +6,13 @@ import { BO_ROUTES } from "./features/bo/bo.routes";
 import { FRONT_ROUTES } from "./features/front/front.routes";
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/auth', pathMatch: 'full' },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  {
+    path: 'home',
+    children: [
+      ...FRONT_ROUTES
+    ]
+  },
   {
     path: 'auth',
     children: [

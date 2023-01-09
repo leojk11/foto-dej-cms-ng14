@@ -43,7 +43,10 @@
     "searchDate": "search by date..",
     "filters": "Filters",
     "invites": "Invites",
-    "resend": "Resend"
+    "resend": "Resend",
+    "contact": "Contact",
+    "gallery": "Gallery",
+    "signIn": "Sign in"
   },
   "properties": {
     "title": "Title",
@@ -169,5 +172,9 @@
   "calendar": {
     "newSchedule": "Add new schedule",
     "editSchedule": "Edit schedule"
+  },
+  "home": {
+    "heroTitle": "Magical moments last forever",
+    "heroText": "Top quality photography and videography for your special occasions"
   }
 }
