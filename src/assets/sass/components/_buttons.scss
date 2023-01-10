@@ -1,5 +1,5 @@
 .btn{
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   font-family: 'Roboto', serif;
   letter-spacing: 1.5px;
   font-weight: 500;
@@ -23,7 +23,7 @@
     }
   }
 
-  &__main{
+  &__main {
     background-color: $color-medium;
     // font-size: 1.2rem;
     font-weight: 700;
@@ -61,12 +61,15 @@
     &--outline{
       background-color: transparent;
       color: $color-dark;
-      border: 1px solid rgba($color-dark, 0.8);
+      border: 2px solid $color-dark;
       font-size: 1.8rem;
       transition: all 0.2s;
+      font-weight: 700;
+      box-shadow: 2px 2px 7px -1px rgba(68, 68, 68, 0.3);
 
       &:hover{
-        font-weight: bold;
+        background-color: $color-light;
+        border-color: $color-light;
       }
     }
 

@@ -27,7 +27,12 @@
           {{ 'common.gallery' | translate }}
         </div>
 
-        <button class="btn btn__main">
+        <button 
+          pButton
+          type="button"
+          routerLink="/auth/user"
+          class="btn btn__main"
+        >
           {{ 'common.signIn' | translate }}
         </button>
       </div>
@@ -42,6 +47,22 @@
       </div>
 
       <div class="home__hero--buttons">
+        <button 
+          pButton
+          type="button"
+          routerLink="/auth/user"
+          class="btn btn__main"
+        >
+          {{ 'common.signIn' | translate }}
+        </button>
+
+        <button 
+          pButton
+          type="button"
+          class="btn btn__main--outline"
+        >
+          {{ 'home.collaboration' | translate }}
+        </button>
       </div>
     </div>
   </div>
