@@ -1,0 +1,11 @@
+<swiper
+  [config]="config"
+  (swiper)="onSwiper($event)"
+  (slideChange)="onSlideChange()"
+>
+  <ng-template swiperSlide *ngFor="let image of promoImages">
+    <img 
+      [src]="imagesUrl + image"
+    >
+  </ng-template>
+</swiper>

@@ -66,4 +66,19 @@
       </div>
     </div>
   </div>
+
+  <div class="home__slider">
+    <app-slider></app-slider>
+  </div>
+
+  <div class="home__video">
+    <video 
+      *ngIf="promoVideo" 
+      controls 
+      width="100%" 
+      height="677px"
+    >
+      <source [src]="videoUrl + promoVideo">
+    </video>
+  </div>
 </div>
