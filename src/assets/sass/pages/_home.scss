@@ -148,4 +148,81 @@
   &__video {
     margin: 10rem 12rem;
   }
+
+  &__contact {
+    width: 81.2rem;
+    margin: 0 auto;
+    margin-bottom: 10rem;
+
+    &--title {
+      font-family: 'Roboto', serif;
+      font-size: 3.2rem;
+      line-height: 48px;
+      color: $color-dark;
+      width: 100%;
+      text-align: center;
+      margin-bottom: 5rem;
+    }
+  }
+}
+
+.footer {
+  background-color: $color-dark;
+  color: $color-light;
+  height: 28.2rem;
+  padding: 5rem 12rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  overflow: hidden;
+  width: 100vw;
+
+  &__contact {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    &--item {
+      display: flex;
+      align-items: center;
+      gap: 1.75rem;
+
+      &__text {
+        font-family: 'Roboto', serif;
+        font-weight: 700;
+        font-size: 2rem;
+        line-height: 30px;
+        border-bottom: 2px solid $color-light;
+        letter-spacing: .5px;
+      }
+
+      .pi {
+        font-size: 2.4rem !important;
+      }
+    }
+
+  }
+
+  &__socials {
+    width: 39.2rem;
+    height: 39.2rem;
+    background-color: rgba($color-light, 0.32);
+    display: flex;
+    align-items: center;
+
+    justify-content: center;
+    gap: 8rem;
+    border-radius: 50%;
+
+    &--icon {
+      font-size: 5rem !important;
+    }
+
+  }
+
+  &__logo {
+    .pi{
+      font-size: 15rem !important;
+    }
+  }
 }

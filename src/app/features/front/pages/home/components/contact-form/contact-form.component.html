@@ -1,0 +1,68 @@
+<form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+  <div class="container__flex gap-3" >
+    <div class="form-field w-full mb-4">
+      <label class="form-field__label">
+        {{ 'properties.firstname' | translate }}:
+      </label>
+
+      <input
+        type="text"
+        pInputText
+        class="w-full"
+        formControlName="firstname"
+        placeholder="{{ 'properties.firstname' | translate }}..."
+      >
+    </div>
+
+    <div class="form-field w-full mb-4">
+      <label class="form-field__label">
+        {{ 'properties.lastname' | translate }}:
+      </label>
+
+      <input
+        type="text"
+        pInputText
+        class="w-full"
+        formControlName="lastname"
+        placeholder="{{ 'properties.lastname' | translate }}..."
+      >
+    </div>
+
+    <div class="form-field w-full mb-4">
+      <label class="form-field__label">
+        {{ 'properties.phoneNumber' | translate }}:
+      </label>
+
+      <input
+        type="text"
+        pInputText
+        class="w-full"
+        formControlName="phone_number"
+        placeholder="{{ 'properties.phoneNumber' | translate }}..."
+      >
+    </div>
+
+    <div class="form-field w-full mb-4">
+      <label class="form-field__label">
+        {{ 'properties.email' | translate }}:
+      </label>
+
+      <input
+        type="email"
+        pInputText
+        class="w-full"
+        formControlName="email"
+        placeholder="{{ 'properties.email' | translate }}..."
+      >
+    </div>
+  </div>
+  <div class="container__flex justify-center mt-5">
+    <button
+      class="btn btn__main"
+      type="submit"
+      [disabled]="contactForm.invalid"
+    >
+      {{ 'common.send' | translate }}
+    </button>
+  </div>
+</form>

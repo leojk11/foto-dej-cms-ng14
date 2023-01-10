@@ -28,27 +28,7 @@ export class SliderComponent implements OnInit {
     scrollbar: { draggable: true },
     centeredSlides: true,
     centeredSlidesBounds: true,
-    loop: true,
-    // breakpoints: {
-    //   320: {
-    //     slidesPerView: 2.5,
-    //     spaceBetween: 45
-    //   },
-    //   // when window width is >= 480px
-    //   480: {
-    //     slidesPerView: 2.5,
-    //     spaceBetween: 45
-    //   },
-    //   // when window width is >= 640px
-    //   640: {
-    //     slidesPerView: 2.5,
-    //     spaceBetween: 45
-    //   },
-    //   1400: {
-    //     slidesPerView: 3,
-    //     spaceBetween: 45
-    //   }
-    // }
+    loop: true
   };
 
   constructor(
@@ -69,8 +49,8 @@ export class SliderComponent implements OnInit {
     console.log(swiper);
   }
 
-  onSlideChange() {
-    console.log('slide change');
+  onSlideChange(event: any) {
+    console.log('slide change', event);
   }
 
 }

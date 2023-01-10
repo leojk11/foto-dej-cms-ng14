@@ -73,12 +73,26 @@
 
   <div class="home__video">
     <video 
-      *ngIf="promoVideo" 
+      *ngIf="configuration.promo_video" 
       controls 
       width="100%" 
       height="677px"
     >
-      <source [src]="videoUrl + promoVideo">
+      <source [src]="videoUrl + configuration.promo_video">
     </video>
   </div>
+
+  <div class="home__contact">
+    <p class="home__contact--title">
+      {{ 'messages.contactInfo' | translate }}
+    </p>
+
+    <div class="home__contact--form">
+      <app-contact-form></app-contact-form>
+    </div>
+  </div>
+
+  <app-home-footer
+    [configuration]="configuration"
+  ></app-home-footer>
 </div>

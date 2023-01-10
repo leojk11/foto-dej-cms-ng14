@@ -47,7 +47,8 @@
     "contact": "Contact",
     "gallery": "Gallery",
     "signIn": "Sign in",
-    "requests": "Requests"
+    "requests": "Requests",
+    "send": "Send"
   },
   "properties": {
     "title": "Title",
@@ -159,14 +160,16 @@
     "scheduleCreated": "Schedule has been created.",
     "scheduleUpdated": "Schedule has been updated.",
     "scheduleDeleted": "Schedule has been deleted.",
-    "uploadCompleted": "Image upload has been completed. Click OK to go to the album preview page."
+    "uploadCompleted": "Image upload has been completed. Click OK to go to the album preview page.",
+    "requestCreated": "New request has been created."
   },
   "messages": {
     "deleteClient": "Are you sure you want to delete this client?",
     "deleteSchedule": "Are you sure you want to delete this schedule?",
     "inviteClient": "Are you sure you want to send the invite?",
     "deleteAlbum": "Are you sure you want to delete this album?",
-    "deleteImage": "Are you sure that you want to delete this image?"
+    "deleteImage": "Are you sure that you want to delete this image?",
+    "contactInfo": "Leave your information ans we will contact you"
   },
   "clients": {
     "newClient": "Add new client",

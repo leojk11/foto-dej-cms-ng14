@@ -1,13 +1,14 @@
 .p-inputtext, textarea{
   width: 100%;
-  padding: 1rem 1.3rem;
+  padding: 1.5rem;
   border: none;
-  border: 1px solid rgba(60,60,59,0.19);
-  border-radius: 3px;
+  border-radius: 10px;
   font-size: 1.4rem;
   letter-spacing: 1.5px;
   font-family: 'Poppins', sans-serif;
   min-width: 30rem;
+  background-color: $color-light;
+  box-shadow: 2px 2px 7px -1px rgba(68, 68, 68, 0.3);
 
   &:focus, &:focus-visible{
     outline: none;
