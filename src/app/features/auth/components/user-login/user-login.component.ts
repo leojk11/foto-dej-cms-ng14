@@ -27,6 +27,9 @@ import {InputTextModule} from 'primeng/inputtext';
 })
 export class UserLoginComponent implements OnInit {
 
+  @ViewChild('seePass') seePass!: ElementRef;
+  @ViewChild('password') password!: ElementRef;
+
   appVersion = APP_VERSION;
 
   loginForm: FormGroup = this.formBuilder.nonNullable.group({
@@ -39,8 +42,7 @@ export class UserLoginComponent implements OnInit {
   loading: boolean = false;
   showPass: boolean = false;
 
-  @ViewChild('seePass') seePass!: ElementRef;
-  @ViewChild('password') password!: ElementRef;
+  displayResetPassModal: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -82,8 +84,16 @@ export class UserLoginComponent implements OnInit {
   login(): void {
     this.loading = true;
 
-    this.authService.adminLogin(this.loginForm.value).subscribe({
+    this.authService.userLogin(this.loginForm.value).subscribe({
       next: res => {
+        if (res.command) {
+          if(res.command === 'RESET_REQUIRED') {
+            this.displayResetPassModal = true;
+          }
+        } else {
+          this.displayResetPassModal = false;
+        }
+        
         this.authService.setAuthToken(res.token);
         this.authService.setUser(res.user);
         this.router.navigate(['/home'])

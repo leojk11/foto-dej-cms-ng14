@@ -2,10 +2,11 @@
   [config]="config"
   (swiper)="onSwiper($event)"
   (slideChange)="onSlideChange($event)"
->
-  <ng-template swiperSlide *ngFor="let image of promoImages">
-    <img 
-      [src]="imagesUrl + image"
-    >
+  *ngIf="promoImages.length > 0"
+> 
+<ng-container *ngFor="let image of promoImages; index as i">
+  <ng-template swiperSlide >
+    <img [src]="imagesUrl + image">
   </ng-template>
+</ng-container>
 </swiper>
