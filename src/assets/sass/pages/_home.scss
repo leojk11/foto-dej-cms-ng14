@@ -82,6 +82,7 @@
         min-width: 8rem;
         font-weight: 700;
         position: relative;
+        text-align: center;
         cursor: pointer;
         // border-bottom: 2px solid $color-light;
         // border-radius: 5px;
@@ -106,15 +107,15 @@
   }
 
   &__hero {
-    width: 78rem;
-    margin: 0 auto;
+    width: 87rem;
+    margin: 5rem auto;
     position: absolute;
     top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
 
     &--title{
-      font-size: 6.4rem;
+      font-size: 6rem;
       height: 11.6rem;
       margin-bottom: 3rem;
       text-align: center;
@@ -125,10 +126,11 @@
 
     &--text {
       font-family: "Roboto";
-      font-size: 3.2rem;
+      font-size: 3rem;
       font-weight: 400;
       line-height: 48px;
-      letter-spacing: .3px;
+      letter-spacing: .2px;
+      text-align: center;
     }
 
     &--buttons{
@@ -138,6 +140,15 @@
       gap: 2rem;
       margin-top: 5rem;
     }
+  }
+
+  &__arrow{
+    position: absolute;
+    bottom: 5%;
+    left: 50%;
+
+    cursor: pointer;
+    transform: translate(-0%, -50%);
   }
 
   &__slider {

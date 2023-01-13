@@ -45,12 +45,4 @@ export class SliderComponent implements OnInit {
       }
     });
   }
-
-  onSwiper(swiper:any) {
-    console.log(swiper);
-  }
-
-  onSlideChange(event: any) {
-    console.log('slide change', event);
-  }
 }
