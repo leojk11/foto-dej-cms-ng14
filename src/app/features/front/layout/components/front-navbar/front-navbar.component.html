@@ -1,0 +1,60 @@
+<div class="front-navbar">
+  <div class="front-navbar__brand">
+    <div class="front-navbar__brand--logo-wrapper">
+      <img 
+        src="../../../../../../assets/img/logo.png" 
+        alt="" 
+        class="front-navbar__brand--logo-wrapper--img"
+      >
+    </div>
+    <span class="front-navbar__brand--name"> 
+      {{ 'common.name' | translate }}
+    </span>
+  </div>
+
+  <div class="front-navbar__actions">
+    <div class="front-navbar__actions__link">
+      Албуми
+    </div>
+    <div class="front-navbar__actions__link" >
+      Профил
+    </div>
+
+  </div>
+  <div class="container__flex gap-2">
+    <button 
+      pButton
+      type="button"
+      class="btn btn__main--icon shadow-sm fw-600"
+    >
+      <i class="pi pi-sign-out"></i>
+    </button>
+
+    <!-- <div class="container__flex gap-1" >
+      <span (click)="changeLang()" class="cp">
+        <i class="pi pi-globe text-xl"></i>
+      </span>
+      <div 
+        class="lang-wrapper" 
+        *ngIf="selectedLang === 'mk'"
+      >
+        <span 
+          class="front-lang"
+          
+        >
+          {{ 'common.mk' | translate }}
+        </span>
+      </div>
+      <div
+        class="lang-wrapper" 
+        *ngIf="selectedLang === 'en'"
+      >
+        <span 
+          class="front-lang "
+        >
+          {{ 'common.en' | translate }}
+        </span>
+      </div>
+    </div> -->
+  </div>
+</div>

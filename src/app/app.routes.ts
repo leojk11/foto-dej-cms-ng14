@@ -9,9 +9,8 @@ export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   {
     path: 'home',
-    children: [
-      ...FRONT_ROUTES
-    ]
+    loadComponent: () => import('./features/front/pages/home/containers/home/home.component')
+      .then(m => m.HomeComponent)
   },
   {
     path: 'auth',
@@ -27,7 +26,7 @@ export const routes: Routes = [
     ]
   },
   {
-    path: '', 
+    path: 'user', 
     canActivate: [AuthGuard],
     children: [
       ...FRONT_ROUTES

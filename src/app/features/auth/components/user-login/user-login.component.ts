@@ -96,7 +96,7 @@ export class UserLoginComponent implements OnInit {
         
         this.authService.setAuthToken(res.token);
         this.authService.setUser(res.user);
-        this.router.navigate(['/home'])
+        this.router.navigate(['/home/client'])
       },
       error: error => {
         this.loading = false;

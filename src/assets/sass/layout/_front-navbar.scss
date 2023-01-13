@@ -1,0 +1,89 @@
+.front-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2rem 12rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: linear-gradient(0deg, rgba(37, 71, 106, 0.66), rgba(37, 71, 106, 0.66));
+  color: $color-light;
+
+  &__brand {
+    width: 30rem;
+    height: 4.8rem;
+
+    display: flex;
+    align-items: center;
+
+    &--logo-wrapper {
+      width: 4.8rem;
+      height: 4.8rem;
+      display: flex;
+      align-items: center;
+  
+      &--img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    &--name {
+      font-family: 'Roboto', sans-serif;
+      font-weight: 600;
+      font-size: 3.2rem;
+      line-height: 4.8rem;
+      text-transform: uppercase;
+    }
+  }
+
+
+  &__actions{
+    display: flex;
+    align-items: center;
+    gap: 5rem;
+
+    &__link{
+      font-family: "Roboto", sans-serif;
+      font-size: 2rem;
+      line-height: 3rem;
+      min-width: 8rem;
+      font-weight: 700;
+      position: relative;
+      text-align: center;
+      cursor: pointer;
+      // border-bottom: 2px solid $color-light;
+      // border-radius: 5px;
+
+      &::after{
+        content: '';
+        min-width: 8rem;
+        height: 2px;
+        background-color: $color-light;
+        border-radius: 10px;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        transition: all .2s;
+      }
+      &:hover::after{
+        height: 5px;
+        bottom: -3px;
+      }
+    }
+  }
+}
+
+.front {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.container{
+  width: 100%;
+  height: 100%;
+}
