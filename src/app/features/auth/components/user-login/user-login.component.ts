@@ -10,6 +10,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { SpinnerComponent } from 'src/app/shared/components/loading/spinner/spinner.component';
 import {InputTextModule} from 'primeng/inputtext';
+import { DialogService } from 'primeng/dynamicdialog';
+import { ResetPasswordComponent } from '../reset-password/reset-password.component';
+import { ToastService } from 'src/app/shared/services/toast.service';
 
 @Component({
   selector: 'app-user-login',
@@ -21,6 +24,9 @@ import {InputTextModule} from 'primeng/inputtext';
     TranslateModule,
     SpinnerComponent,
     InputTextModule
+  ],
+  providers: [
+    DialogService
   ],
   templateUrl: './user-login.component.html',
   styleUrls: ['./user-login.component.scss']
@@ -50,6 +56,8 @@ export class UserLoginComponent implements OnInit {
     private authService: AuthService,
     private storageService: StorageService,
     private router: Router,
+    private dialog: DialogService,
+    private toastService: ToastService
   ) { }
 
   ngOnInit(): void {
@@ -88,19 +96,39 @@ export class UserLoginComponent implements OnInit {
       next: res => {
         if (res.command) {
           if(res.command === 'RESET_REQUIRED') {
-            this.displayResetPassModal = true;
+            this.openModal(res.user_info);
           }
         } else {
-          this.displayResetPassModal = false;
+          this.authService.setAuthToken(res.token);
+          this.authService.setUser(res.user);
+          this.router.navigate(['/user']).then();
         }
-        
-        this.authService.setAuthToken(res.token);
-        this.authService.setUser(res.user);
-        this.router.navigate(['/home/client'])
       },
       error: error => {
         this.loading = false;
-        // this.toast.error(error.error.message);
+        this.toastService.addError(error.error.message);
+      }
+    });
+  }
+
+  openModal(userInfo: {
+    id: string;
+    first_password: string;
+  }): void {
+    const ref = this.dialog.open(ResetPasswordComponent, {
+      width: '50vw',
+      // height: '70%',
+      header: this.translateService.instant('common.createNewPassowrd'),
+      closable: false,
+      data: userInfo
+    });
+
+    ref.onClose.subscribe({
+      next: res => {
+        console.log('res on close', res);
+        this.authService.setAuthToken(res.token);
+        this.authService.setUser(res.user);
+        this.router.navigate(['/user']).then();
       }
     })
   }

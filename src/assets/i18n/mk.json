@@ -48,7 +48,8 @@
     "gallery": "Галерија",
     "signIn": "Најава",
     "requests": "Барања",
-    "send": "Испрати"
+    "send": "Испрати",
+    "createNewPassowrd": "Креирајте нова лозинка"
   },
   "properties": {
     "title": "Наслов",
@@ -68,6 +69,7 @@
     "firstname": "Име",
     "lastname": "Презиме",
     "password": "Лозинка",
+    "repeatPassword": "Повтори лозинка",
     "username": "Корисничко име",
     "numImages": "Број на слики",
     "location": "Локација",
@@ -126,7 +128,7 @@
     "missingId": "Мора да пратите број за идентификација.",
     "emailSend": "Грешка при праќање емаил.",
     "statusNotExist": "Статусот не постои.",
-    "passwordNotCorrect": "Внесената лозинка е точна.",
+    "passwordNotCorrect": "Внесената лозинка не е точна.",
     "passwordsNotMatch": "Лозинките не се совпаѓаат.",
     "userNotExist": "Корисник со оваа емаил адреса не постои.",
     "enterImageName": "Внесете име на слика.",

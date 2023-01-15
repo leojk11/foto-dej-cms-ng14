@@ -88,9 +88,24 @@ export class AuthService {
     return this.http.post<LoginResponse>(path, formData);
   }
 
-  userLogin(formData: { email: string, password: string }): Observable<LoginResponse> {
+  userLogin(formData: { email: string, password: string }): Observable<any> {
     const path = `${ this.api }/auth/client`;
-    return this.http.post<LoginResponse>(path, formData);
+    return this.http.post<any>(path, formData);
+  }
+  resetUserPassword(
+    userId: string, 
+    formData: { 
+      first_password: string, 
+      password: string, 
+      repeat_password: string 
+    }
+  ): Observable<any> {
+    console.log('user id', userId);
+    console.log('form data', formData);
+    
+    
+    const path = `${ this.api }/client/reset/first_password/${ userId }`;
+    return this.http.patch<any>(path, formData);
   }
 
   userLogout(): void {

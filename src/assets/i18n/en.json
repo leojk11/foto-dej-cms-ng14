@@ -48,7 +48,8 @@
     "gallery": "Gallery",
     "signIn": "Sign in",
     "requests": "Requests",
-    "send": "Send"
+    "send": "Send",
+    "createNewPassowrd": "Create new password"
   },
   "properties": {
     "title": "Title",
@@ -68,6 +69,7 @@
     "firstname": "Firstname",
     "lastname": "Lastname",
     "password": "Password",
+    "repeatPassword": "Repeat password",
     "username": "Username",
     "numImages": "Number of images",
     "location": "Location",
