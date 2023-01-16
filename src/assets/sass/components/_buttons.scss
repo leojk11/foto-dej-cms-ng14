@@ -41,9 +41,12 @@
     }
 
     &--icon{
-      background-color: transparent;
-      color: $color-dark;
+      background-color: $color-dark;
+      color: $color-light;
       min-width: 2rem;
+      box-shadow: 2px 2px 7px -1px rgba(68, 68, 68, 0.3);
+      padding: 0 1rem;
+      text-align: center;
 
       i{
         font-size: 1.6rem;

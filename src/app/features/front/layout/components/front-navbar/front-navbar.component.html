@@ -13,19 +13,24 @@
   </div>
 
   <div class="front-navbar__actions">
-    <div class="front-navbar__actions__link">
+    <a 
+      class="front-navbar__actions__link"
+      routerLink="albums"
+      routerLinkActive="active"
+    >
       Албуми
-    </div>
-    <div class="front-navbar__actions__link" >
+    </a>
+    <a class="front-navbar__actions__link" >
       Профил
-    </div>
+    </a>
 
   </div>
   <div class="container__flex gap-2">
     <button 
       pButton
       type="button"
-      class="btn btn__main--icon shadow-sm fw-600"
+      class="btn btn__main btn__main--icon shadow-sm fw-600"
+      (click)="logout()"
     >
       <i class="pi pi-sign-out"></i>
     </button>
