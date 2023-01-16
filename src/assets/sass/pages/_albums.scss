@@ -33,6 +33,14 @@
     border-bottom: 1px solid rgba(60,60,59,0.19);
     border-radius: 5px;
   
+    &--filter {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      row-gap: 2rem;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
   }
 }
 
@@ -58,26 +66,26 @@
   cursor: pointer;
 
   &__icon {
-      width: 7rem;
+    width: 7rem;
 
-      img {
-          width: 100%;
-      }
+    img {
+        width: 100%;
+    }
   }
 
   &__title {
-      font-size: 1.8rem;
-      margin-bottom: .5rem;
-      text-align: center;
-      // display: block;
-      width: 100%;
+    font-size: 1.8rem;
+    margin-bottom: .5rem;
+    text-align: center;
+    // display: block;
+    width: 100%;
   }
 
   &__date {
-      font-size: 1.6rem;
-      text-align: center;
-      // display: block;
-      width: 100%;
+    font-size: 1.6rem;
+    text-align: center;
+    // display: block;
+    width: 100%;
   }
 
   &:hover {
@@ -91,7 +99,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.5rem 3rem;
+  padding: 2rem 3rem;
 
   &__add-button {
     font-size: 1.7rem !important;
@@ -162,7 +170,9 @@
     gap: 1rem;
 
     &__msg {
-      width: 100%;
+      width: 100rem;
+      height: 50rem;
+      margin: 0 auto;
       text-align: center;
       font-size: 2.5rem;
     }

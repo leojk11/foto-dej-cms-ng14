@@ -105,11 +105,14 @@
     <p
       class="album-preview__images__msg"
       *ngIf="state.images?.images?.length === 0"
-    >{{ 'albums.noImages' | translate }}</p>
+    >
+      {{ 'albums.noImages' | translate }}
+    </p>
 
     <div
       class="album-image"
-       *ngFor="let image of state.images?.images; let i = index">
+      *ngFor="let image of state.images?.images; let i = index"
+    >
       <app-single-image
         [image]="image.name"
         [selectedImages]="selectedImages"

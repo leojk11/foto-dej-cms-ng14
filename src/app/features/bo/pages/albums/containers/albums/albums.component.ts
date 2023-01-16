@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { AlbumsStore } from '../../services/albums.store';
 import { SpinnerComponent } from 'src/app/shared/components/loading/spinner/spinner.component';
 import { SingleAlbumComponent } from '../../components/single-album/single-album.component';
@@ -39,7 +39,8 @@ export class AlbumsComponent implements OnInit {
     private adminLayoutService: AdminLayoutService,
     public albumStore: AlbumsStore,
     private dialog: DialogService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    public location: Location
   ) { }
 
   ngOnInit(): void {
