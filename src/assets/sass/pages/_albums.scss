@@ -89,7 +89,7 @@
 
 .albums-buttons {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
   padding: 1.5rem 3rem;
 
@@ -135,18 +135,20 @@
     flex-wrap: wrap;
 
     &__item {
-      width: 50%;
+      width: 33%;
       display: flex;
       flex-wrap: wrap;
       gap: 1rem;
       font-size: 2rem;
 
       .label {
-        width: 33%;
+        // width: 33%;
+        font-size: 1.8rem;
       }
       .content {
-        width: 65%;
+        // width: 65%;
         font-weight: 600;
+        font-size: 1.8rem;
       }
     }
   }

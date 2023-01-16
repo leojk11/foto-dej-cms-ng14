@@ -1,65 +1,72 @@
 <div class="albums-buttons">
   <button
-    *ngIf="selectedImages.length > 0"
-    class="btn btn__main mr-1"
-    type="submit"
-    (click)="deleteSelected()">
-    {{ 'common.deleteSelected' | translate }}
+    class="btn btn__icon btn__icon--blue shadow-small border-none"
+    (click)="location.back()"
+  >
+    <i class="pi pi-arrow-left"></i>
   </button>
 
-  <button
-    class="btn btn__main btn__main--sm mr-1"
-    type="submit"
-    (click)="goToUpload()"
-    pTooltip="{{ 'common.upload' | translate }}" 
-    tooltipPosition="top">
-    <i class="pi pi-upload"></i>
-  </button>
-
-  <button
-    class="btn btn__main btn__main--sm mr-1"
-    type="button"
-    (click)="openEditModal()"
-    pTooltip="{{ 'common.edit' | translate }}" 
-    tooltipPosition="top">
-    <i class="pi pi-pencil"></i>
-  </button>
-
-  <button
-    class="btn btn__main btn__main--sm"
-    type="button"
-    (click)="deleteAlbum()"
-    pTooltip="{{ 'common.delete' | translate }}" 
-    tooltipPosition="top">
-    <i class="pi pi-trash"></i>
-  </button>
+  <div class="container__flex">
+    <button
+      class="btn btn__main btn__main--sm mr-1"
+      type="submit"
+      (click)="goToUpload()"
+      pTooltip="{{ 'common.upload' | translate }}" 
+      tooltipPosition="top">
+      <i class="pi pi-upload"></i>
+    </button>
+  
+    <button
+      class="btn btn__main btn__main--sm mr-1"
+      type="button"
+      (click)="openEditModal()"
+      pTooltip="{{ 'common.edit' | translate }}" 
+      tooltipPosition="top">
+      <i class="pi pi-pencil"></i>
+    </button>
+  
+    <button
+      class="btn btn__main btn__main--sm"
+      type="button"
+      (click)="deleteAlbum()"
+      pTooltip="{{ 'common.delete' | translate }}" 
+      tooltipPosition="top">
+      <i class="pi pi-trash"></i>
+    </button>
+  </div>
 </div>
 
-<div class="album-preview" *ngIf="albumsStore.state$ | async as state">
-  <div class="w-full h-full flex justify-center align-center" *ngIf="state.loading">
+<div 
+  *ngIf="albumsStore.state$ | async as state"
+  class="album-preview" 
+>
+  <div 
+    *ngIf="state.loading"
+    class="w-full h-full flex justify-center align-center" 
+  >
     <app-spinner></app-spinner>
   </div>
 
   <div class="album-preview__info" *ngIf="!state.loading">
-    <div class="album-preview__info__item">
+    <!-- <div class="album-preview__info__item">
       <div class="label">{{ 'properties.title' | translate }}: </div>
       <div class="content">{{ state.previewAlbum?.title }}</div>
-    </div>
+    </div> -->
 
     <div class="album-preview__info__item">
       <div class="label">{{ 'properties.date' | translate }}: </div>
       <div class="content">{{ state.previewAlbum?.date | date: "dd/MM/YYYY" }}</div>
     </div>
 
-    <div class="album-preview__info__item">
+    <!-- <div class="album-preview__info__item">
       <div class="label">{{ 'properties.createdBy' | translate }}: </div>
       <div class="content">{{ state.previewAlbum?.created_by?.fullname }}</div>
-    </div>
+    </div> -->
 
-    <div class="album-preview__info__item">
+    <!-- <div class="album-preview__info__item">
       <div class="label">{{ 'properties.createdDate' | translate }}: </div>
       <div class="content">{{ state.previewAlbum?.created_date | date: "dd/MM/YYYY" }}</div>
-    </div>
+    </div> -->
 
     <div class="album-preview__info__item">
       <div class="label">{{ 'properties.numImages' | translate }}: </div>
@@ -72,7 +79,27 @@
     </div>
   </div>
 
-  <div class="separator my-3" *ngIf="!state.loading"></div>
+  <div class="separator my-2" *ngIf="!state.loading"></div>
+
+  <div class="container__flex justify-end gap-1 mb-2 px-2">
+    <button
+      *ngIf="selectedImages.length > 0"
+      class="btn btn__icon--blue"
+      type="button"
+      (click)="deleteSelected()"
+    >
+      <i class="pi pi-trash"></i>
+    </button>
+
+    <button
+      *ngIf="selectedImages.length > 0"
+      class="btn btn__icon--red"
+      type="button"
+      (click)="disableSelected()"
+    >
+      <i class="pi pi-ban"></i>
+    </button>
+  </div>
 
   <div class="album-preview__images" *ngIf="!state.loading">
     <p

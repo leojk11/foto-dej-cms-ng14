@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { AlbumsStore } from '../../services/albums.store';
 import { AdminLayoutService } from 'src/app/features/bo/layout/services/admin-layout.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -46,6 +46,7 @@ export class AlbumPreviewComponent implements OnInit {
 
   constructor(
     public albumsStore: AlbumsStore,
+    public location: Location,
     private adminLayoutService: AdminLayoutService,
     private route: ActivatedRoute,
     private router: Router,
@@ -158,5 +159,9 @@ export class AlbumPreviewComponent implements OnInit {
         this.toastService.addError(error.error.messsage);
       }
     });
+  }
+
+  disableSelected(): void {
+    
   }
 }

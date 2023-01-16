@@ -1,43 +1,32 @@
-<ng-container 
-  *ngIf="imageOverviewState.overviewState$ | async as state"
->
+<ng-container *ngIf="imageOverviewState.overviewState$ | async as state">
   <div class="modal" *ngIf="state.showOverview">
     <div 
       class="modal__bg"
       (click)="imageOverviewState.toggleOverview()"
     ></div>
 
-    <!-- <div class="modal__top-buttons">
-      <button 
-        class="btn btn__main btn__main--sm">
-        <span class="material-symbols-outlined">
-          delete
-        </span>
-      </button>
-    </div> -->
-
     <div class="modal__img">
-      <button 
-        *ngIf="state.overviewImages.length > 0" 
-        class="btn btn__main btn__main--sm"
-        (click)="imageOverviewState.changeImage('prev')">
-        <span class="material-symbols-outlined">
-          arrow_back_ios
-        </span>
-      </button>
-
-      <div class="image">
+      <div class="modal__img--image">
         <img [src]="state.overviewImage">
       </div>
 
-      <button 
-        *ngIf="state.overviewImages.length > 0" 
-        class="btn btn__main btn__main--sm"
-        (click)="imageOverviewState.changeImage('next')">
-        <span class="material-symbols-outlined">
-          arrow_forward_ios
-        </span>
-      </button>
+      <div class="modal__img--btns">
+        <button 
+          *ngIf="state.overviewImages.length > 0" 
+          class="btn btn__main btn__main--sm"
+          (click)="imageOverviewState.changeImage('prev')"
+        >
+          <i class="pi pi-chevron-left"></i>
+        </button>
+
+        <button 
+          *ngIf="state.overviewImages.length > 0" 
+          class="btn btn__main btn__main--sm"
+          (click)="imageOverviewState.changeImage('next')"
+        >
+          <i class="pi pi-chevron-right"></i>
+        </button>
+      </div>
     </div>
   </div>
 </ng-container>

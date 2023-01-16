@@ -102,7 +102,7 @@
     align-items: center;
 
     background-color: transparent;
-    min-width: 3.6rem !important;
+    min-width: 2rem !important;
 
     border-radius: 5px;
 
@@ -114,45 +114,82 @@
 
     &--dark{
       color: $dark;
+      background-color: rgba($dark, 0.1);
+
+      min-width: 2rem;
+      box-shadow: 2px 2px 7px -1px rgba(68, 68, 68, 0.3);
+      padding: 0 1rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
 
       &:hover {
+        background-color: $dark;
+        color: $color-light;
+
         .pi {
           font-weight: 600 !important;
         }
-        background-color: rgba($dark, 0.1);
       }
     }
 
     &--orange{
       color: $color-1;
+      background-color: rgba($color-1, 0.1);
+      min-width: 2rem;
+      box-shadow: 2px 2px 7px -1px rgba(68, 68, 68, 0.3);
+      padding: 0 1rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
 
       &:hover {
+        background-color: $color-1;
+        color: $color-light;
+
         .pi {
           font-weight: 600 !important;
         }
-        background-color: rgba($color-1, 0.1);
       }
     }
 
     &--red{
       color: $red;
+      background-color: rgba($red, 0.1);
+      min-width: 2rem;
+      box-shadow: 2px 2px 7px -1px rgba(68, 68, 68, 0.3);
+      padding: 0 1rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
 
       &:hover {
+        background-color: $red;
+        color: $color-light;
+
         .pi {
           font-weight: 600 !important;
         }
-        background-color: rgba($red, 0.1);
       }
     }
 
     &--blue{
       color: $color-dark;
+      background-color: rgba($color-dark, 0.1);
+
+      min-width: 2rem;
+      box-shadow: 2px 2px 7px -1px rgba(68, 68, 68, 0.3);
+      padding: 0 1rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
 
       &:hover {
+        background-color: $color-dark;
+        color: $color-light;
         .pi {
           font-weight: 600 !important;
         }
-        background-color: rgba($color-dark, 0.1);
       }
     }
   }
