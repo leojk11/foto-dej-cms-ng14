@@ -79,6 +79,11 @@ export class AlbumsService {
     return this.http.delete<any>(path);
   }
 
+  deleteMultipleImages(albumId: string | undefined, images: string[]): Observable<any> {
+    const path = `${ this.apiUrl }/images/${ albumId }`;
+    return this.http.delete<any>(path, { body: { images } });
+  }
+
   deleteAlbum(albumId: string): Observable<any> {
     const path = `${ this.apiUrl }/albums/${ albumId }`;
     return this.http.delete<any>(path);

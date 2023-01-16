@@ -36,6 +36,7 @@
     "imagesSizeInfo": "Images size can be maximum 2mb.",
     "confirmation": "Confirmation",
     "delete": "Delete",
+    "deleteSelected": "Delete selected",
     "yes": "Yes",
     "no": "No",
     "searchName": "search by name..",

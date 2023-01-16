@@ -1,5 +1,13 @@
 <div class="albums-buttons">
   <button
+    *ngIf="selectedImages.length > 0"
+    class="btn btn__main mr-1"
+    type="submit"
+    (click)="deleteSelected()">
+    {{ 'common.deleteSelected' | translate }}
+  </button>
+
+  <button
     class="btn btn__main btn__main--sm mr-1"
     type="submit"
     (click)="goToUpload()"
@@ -77,8 +85,10 @@
        *ngFor="let image of state.images?.images; let i = index">
       <app-single-image
         [image]="image.name"
+        [selectedImages]="selectedImages"
         (onImageClick)="onToggleOverview($event, state.images?.images)"
         (onDelete)="deleteImage($event, i)"
+        (onSelect)="onImageSelect($event)"
       ></app-single-image>
     </div>
   </div>

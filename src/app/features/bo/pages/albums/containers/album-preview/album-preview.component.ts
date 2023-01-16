@@ -42,6 +42,8 @@ export class AlbumPreviewComponent implements OnInit {
   modalWidth: string = '';
   isMobile: boolean = false;
 
+  selectedImages: string[] = [];
+
   constructor(
     public albumsStore: AlbumsStore,
     private adminLayoutService: AdminLayoutService,
@@ -141,4 +143,20 @@ export class AlbumPreviewComponent implements OnInit {
     this.imageOverviewState.setImages(event, imagesArr);
   }
 
+  onImageSelect(selectedImages: string[]): void {
+    this.selectedImages = selectedImages;
+
+    console.log('selected images', this.selectedImages);
+  } 
+
+  deleteSelected(): void {
+    this.albumsService.deleteMultipleImages(this.albumId, this.selectedImages).subscribe({
+      next: res => {
+        console.log('res', res);
+      },
+      error: error => {
+        this.toastService.addError(error.error.messsage);
+      }
+    });
+  }
 }

@@ -36,6 +36,7 @@
     "imagesSizeInfo": "Сликите може да бидат максимум 2mb.",
     "confirmation": "Потврди",
     "delete": "Избриши",
+    "deleteSelected": "Избриши селектирани",
     "yes": "Да",
     "no": "Не",
     "searchName": "име..",

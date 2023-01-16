@@ -9,6 +9,17 @@
     </span>
   </div>
 
+  <div
+    class="album-image__inner__select cp"
+  >
+    <!-- (click)="onDeleteClick($event)" -->
+    <p-checkbox 
+      [binary]="true" 
+      [(ngModel)]="selected" 
+      (click)="onCheckboxClick($event)"
+    ></p-checkbox>
+  </div>
+
   <div class="album-image__inner__image">
     <img
       [src]="src"
