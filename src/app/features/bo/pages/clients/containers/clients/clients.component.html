@@ -1,41 +1,14 @@
 <div *ngIf="clientStore.state$ | async as state">
   <div class="clients">
     <div class="clients__header">
-      <div class="clients__header--filter">
-        <div class="text-xl">
-          {{ 'common.filters' | translate }}
-        </div>
-
-        <div class="container__flex gap-2">
-          <input 
-            type="text" 
-            pInputText
-            class="max-w-3"
-            placeholder="{{ 'common.searchName' | translate}}"
-            [(ngModel)]="nameSearch"
-            (keydown.enter)="filter()"
-          >
-          <input 
-            type="text" 
-            pInputText
-            class="max-w-3"
-            placeholder="{{ 'common.searchPhone' | translate}}"
-            [(ngModel)]="phoneSearch"
-            (keydown.enter)="filter()"
-          >
-  
-          <button 
-            class="btn btn__search"
-            (click)="filter()"
-          >
-            <i 
-              class="pi pi-search"
-              
-            ></i>
-          </button>
-        </div>
-      </div>
       <div class="clients__header--buttons">
+        <button
+          class="btn btn__icon btn__icon--blue shadow-small border-none"
+          (click)="location.back()"
+        >
+          <i class="pi pi-arrow-left"></i>
+        </button>
+
         <button
           class="btn btn__main "
           type="button"
@@ -43,6 +16,37 @@
         >
           {{ 'clients.newClient' | translate }}
         </button>
+      </div>
+
+      <div class="clients__header--filter">
+        <!-- <div class="text-xl">
+          {{ 'common.filters' | translate }}
+        </div> -->
+
+        <input 
+          type="text" 
+          pInputText
+          class="max-w-3"
+          placeholder="{{ 'common.searchName' | translate}}"
+          [(ngModel)]="nameSearch"
+          (keydown.enter)="filter()"
+        >
+        <input 
+          type="text" 
+          pInputText
+          class="max-w-3"
+          placeholder="{{ 'common.searchPhone' | translate}}"
+          [(ngModel)]="phoneSearch"
+          (keydown.enter)="filter()"
+        >
+
+        <button 
+          class="btn btn__search"
+          (click)="filter()"
+        >
+          <i class="pi pi-search"></i>
+        </button>
+        
       </div>
     </div>
 

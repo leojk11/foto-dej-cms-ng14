@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { SpinnerComponent } from 'src/app/shared/components/loading/spinner/spinner.component';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ClientsStore } from '../../services/clients.store';
@@ -41,7 +41,8 @@ export class ClientsComponent implements OnInit {
     private adminLayoutService: AdminLayoutService,
     public clientStore: ClientsStore,
     private dialog: DialogService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    public location: Location
   ) { }
 
   ngOnInit(): void {
