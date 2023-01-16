@@ -2,13 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { StorageService } from 'src/app/core/services/storage.service';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { AuthService } from 'src/app/core/services/auth.service';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-front-navbar',
   standalone: true,
   imports: [
     CommonModule,
-    TranslateModule
+    TranslateModule,
+    RouterModule
   ],
   templateUrl: './front-navbar.component.html',
   styleUrls: ['./front-navbar.component.scss']
@@ -19,7 +22,8 @@ export class FrontNavbarComponent implements OnInit {
 
   constructor(
     private storageService: StorageService,
-    private translateService: TranslateService
+    private translateService: TranslateService,
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -45,6 +49,10 @@ export class FrontNavbarComponent implements OnInit {
     this.storageService.setItem('lang', lang);
     this.selectedLang = this.storageService.getItem('lang');
     
+  }
+
+  logout(): void {
+    this.authService.userLogout();
   }
 
 }
