@@ -156,6 +156,8 @@
 
     display: flex;
     flex-wrap: wrap;
+    row-gap: 1.5rem;
+    gap: 1rem;
 
     &__msg {
       width: 100%;
@@ -166,68 +168,82 @@
 }
 
 .album-image {
-  width: 50%;
-
+  // width: 50%;
   padding: 1rem;
 
   &__inner {
     width: 100%;
-    border: 1px solid black;
-
+    border: 1px solid $color-dark;
+    border-radius: 10px;
     position: relative;
+    width: 20rem;
+    height: 20rem;
+    position: relative;
+    overflow: hidden;
 
-    &__close {
+    // &__close {
+    //   position: absolute;
+    //   top: -1.5rem;
+    //   right: -1.5rem;
+
+    //   border-radius: 50%;
+    //   padding: .5rem;
+
+    //   background: red;
+    //   color: #ffffff;
+
+    //   display: flex;
+    //   justify-content: center;
+    //   align-items: center;
+
+    //   visibility: hidden;
+    // }
+
+    // &:hover {
+    //   .album-image__inner--select{
+    //     visibility: visible;
+    //   }
+    // }
+
+    &--select {
       position: absolute;
-      top: -1.5rem;
-      right: -1.5rem;
+      top: 1rem;
+      right: 1rem;
 
-      border-radius: 50%;
-
-      background: red;
-      color: #ffffff;
-
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      visibility: hidden;
+      // visibility: hidden;
     }
 
-    &:hover {
-      .album-image__inner__close {
-        visibility: visible;
-      }
-    }
+    // &__image {
+    //   // width: 100%;
+    //   // height: 100%;
+    //   width: 20rem;
+    //   height: 20rem;
+    //   position: relative;
 
-    &__select {
-      position: absolute;
-
-      top: 1.5rem;
-      right: 1.5rem;
-    }
-
-    &__image {
+    // }
+    img {
       width: 100%;
-
-      height: 30rem;
-
-      img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
+      height: 100%;
+      object-fit: cover;
     }
 
-    &__name {
+    &--name {
       width: 100%;
-      border-top: 1px solid $color-light;
-      font-size: 1.8rem;
+      // border-top: 1px solid $color-light;
+      font-size: 1.4rem;
       text-align: center;
-      padding: 1.5rem;
+      color: $color-light;
+      padding: 1rem .5rem;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      background: linear-gradient(0deg, rgba(37, 71, 106, 0.44), rgba(37, 71, 106, 0.44));
     }
   }
   @media (min-width: 1270px) {
-    width: 33%;
+    // width: 33%;
+    width: 22rem;
+    height: 20rem;
   }
   @media (min-width: 1550px) {
     width: 25%;
