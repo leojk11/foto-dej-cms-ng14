@@ -2,6 +2,12 @@
   class="invites" 
   *ngIf="invitesStore.state$ | async as state"
 >
+  <button
+    class="btn btn__icon btn__icon--blue shadow-small border-none mb-2"
+    (click)="location.back()"
+  >
+    <i class="pi pi-arrow-left"></i>
+  </button>
   <p-table
     [value]="state.list"
     [rows]="10"

@@ -1,3 +1,11 @@
+<div class="p-2">
+    <button
+        class="btn btn__icon btn__icon--blue shadow-small border-none"
+        (click)="location.back()"
+    >
+        <i class="pi pi-arrow-left"></i>
+    </button>
+</div>
 <form 
   [formGroup]="form" 
   (ngSubmit)="handleSubmit()"
@@ -339,14 +347,14 @@
 
       <div class="configuration-wrapper__configuration__buttons">
           <button 
-              class="btn btn__main" 
+              class="btn btn__red btn__lg" 
               type="button"
               (click)="cancel()">
               {{ 'common.cancel' | translate }}
           </button>
           
           <button 
-              class="btn btn__main" 
+              class="btn btn__dark btn__lg" 
               type="submit">
               {{ 'common.save' | translate }}
           </button>

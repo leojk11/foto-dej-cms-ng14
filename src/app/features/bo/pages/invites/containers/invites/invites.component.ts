@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { AdminLayoutService } from 'src/app/features/bo/layout/services/admin-layout.service';
 import { InvitesStore } from '../../services/invites.store';
@@ -38,7 +38,8 @@ export class InvitesComponent implements OnInit {
     private clientsService: ClientsService,
     private confirmationService: ConfirmationService,
     private translate: TranslateService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    public location: Location
   ) { }
 
   ngOnInit() {

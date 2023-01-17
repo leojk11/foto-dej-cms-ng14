@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { TableModule } from 'primeng/table';
@@ -23,7 +23,8 @@ export class RequestsComponent implements OnInit {
 
   constructor(
     private adminLayoutService: AdminLayoutService,
-    public requestsStore: RequestsStore
+    public requestsStore: RequestsStore,
+    public location: Location
   ) { }
 
   ngOnInit() {

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { environment } from 'src/environments/environment';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AdminLayoutService } from 'src/app/features/bo/layout/services/admin-layout.service';
@@ -72,7 +72,8 @@ export class ConfigurationComponent implements OnInit {
     private configurationService: ConfigurationService,
     private fb: FormBuilder,
     private imageOverviewState: ImageOverviewService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    public location: Location
   ) { }
 
   ngOnInit(): void {
