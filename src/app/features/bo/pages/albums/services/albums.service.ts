@@ -7,6 +7,7 @@ import { AddNewAlbumResponse } from '../models/addNewAlbumResponse.model';
 import { Album } from '../models/album.model';
 import { GetAllAlbumsResponse } from '../models/getAllAlbumsResponse.model';
 import {GetAlumImagesResponse} from "../models/getAlumImagesResponse.model";
+import { MessageResponse } from '../models/messageResponse.model';
 
 @Injectable({
   providedIn: 'root'
@@ -51,6 +52,11 @@ export class AlbumsService {
     return this.http.patch<any>(path, data);
   }
 
+  updateStatus(albumId: string | undefined, status: boolean): Observable<MessageResponse> {
+    const path = `${ this.apiUrl }/albums/${ albumId }/${ status }`;
+    return this.http.patch<MessageResponse>(path, {});
+  }
+
   addImagesToAlbum(id: string, images: string): Observable<any> {
     const path = `${ this.apiUrl }/albums/${ id }/images`;
     return this.http.patch(path, { images });
@@ -74,17 +80,22 @@ export class AlbumsService {
     return this.http.request(req);
   }
 
-  deleteImage(albumId: string | undefined, image: string): Observable<any> {
+  deleteImage(albumId: string | undefined, image: string): Observable<MessageResponse> {
     const path = `${ this.apiUrl }/images/${ albumId }/${ image }`;
     return this.http.delete<any>(path);
   }
 
-  deleteMultipleImages(albumId: string | undefined, images: string[]): Observable<any> {
-    const path = `${ this.apiUrl }/images/${ albumId }`;
+  deleteMultipleImages(albumId: string | undefined, images: string[]): Observable<MessageResponse> {
+    const path = `${ this.apiUrl }/images/${ albumId }/images`;
     return this.http.delete<any>(path, { body: { images } });
   }
 
-  deleteAlbum(albumId: string): Observable<any> {
+  disableMultipleImages(albumId: string | undefined, images: string[]): Observable<MessageResponse> {
+    const path = `${ this.apiUrl }/images/${ albumId }/disable`;
+    return this.http.patch<any>(path, { images });
+  }
+
+  deleteAlbum(albumId: string): Observable<MessageResponse> {
     const path = `${ this.apiUrl }/albums/${ albumId }`;
     return this.http.delete<any>(path);
   }

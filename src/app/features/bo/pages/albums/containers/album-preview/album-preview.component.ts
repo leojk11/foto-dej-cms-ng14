@@ -14,19 +14,23 @@ import { ConfirmationService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { AlbumsService } from '../../services/albums.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
-import { ImageOverviewService, ImageOverviewState } from 'src/app/shared/services/image-overview.service';
+import { ImageOverviewService } from 'src/app/shared/services/image-overview.service';
+import { InputSwitchModule } from 'primeng/inputswitch';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-album-preview',
   standalone: true,
   imports: [
     CommonModule,
+    FormsModule,
     TranslateModule,
     SpinnerComponent,
     SingleImageComponent,
     TooltipModule,
     ButtonModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    InputSwitchModule
   ],
   providers: [
     AlbumsStore,
@@ -80,6 +84,11 @@ export class AlbumPreviewComponent implements OnInit {
 
   goToUpload(): void {
     this.router.navigate(['/bo/home/albums/upload/' + this.albumsStore.state.previewAlbum?.id]).then();
+  }
+
+  changeStatus(event: any): void {
+    console.log(event);
+    this.albumsStore.updateStatus(event.checked);
   }
 
   deleteAlbum(): void {
@@ -146,22 +155,33 @@ export class AlbumPreviewComponent implements OnInit {
 
   onImageSelect(selectedImages: string[]): void {
     this.selectedImages = selectedImages;
-
-    console.log('selected images', this.selectedImages);
   } 
 
   deleteSelected(): void {
-    this.albumsService.deleteMultipleImages(this.albumId, this.selectedImages).subscribe({
-      next: res => {
-        console.log('res', res);
-      },
-      error: error => {
-        this.toastService.addError(error.error.messsage);
+    this.confirmationService.confirm({
+      key: 'deleteImage',
+      message: this.translate.instant('messages.deleteSelectedImages'),
+      acceptButtonStyleClass: 'btn btn__red text',
+      rejectButtonStyleClass: 'btn btn__dark text',
+      acceptLabel: this.translate.instant('common.yes'),
+      rejectLabel: this.translate.instant('common.no'),
+      accept: () => {
+        this.albumsStore.deleteMultipleImages(this.selectedImages);
       }
     });
   }
 
   disableSelected(): void {
-    
+    this.confirmationService.confirm({
+      key: 'disableImages',
+      message: this.translate.instant('messages.disableSelectedImages'),
+      acceptButtonStyleClass: 'btn btn__red text',
+      rejectButtonStyleClass: 'btn btn__dark text',
+      acceptLabel: this.translate.instant('common.yes'),
+      rejectLabel: this.translate.instant('common.no'),
+      accept: () => {
+        this.albumsStore.disableMultipleImages(this.selectedImages);
+      }
+    });
   }
 }

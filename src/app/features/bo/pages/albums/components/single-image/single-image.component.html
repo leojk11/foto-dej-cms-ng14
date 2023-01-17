@@ -1,4 +1,4 @@
-<div class="album-image__inner cp" (click)="openPreview()">
+<div class="album-image__inner cp" (click)="openPreview()" [class.opacity-50]="imageDisabled">
   <!-- <div
     class="album-image__inner__close cp"
     (click)="onDeleteClick($event)">

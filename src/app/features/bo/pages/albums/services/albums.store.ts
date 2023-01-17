@@ -100,6 +100,8 @@ export class AlbumsStore extends ComponentStore<AlbumsState> {
         console.log('Single album', singleAlbum);
         this.albumsService.getAlbumImages(id).subscribe({
           next: albumImages => {
+            console.log('album images', albumImages);
+            
             this.albumLayoutService.setTitle('common.albums', `${ singleAlbum.title }`);
 
             this.patchState({
@@ -143,6 +145,23 @@ export class AlbumsStore extends ComponentStore<AlbumsState> {
     this.patchState({ params: newParams });
   }
 
+  updateStatus(status: boolean): void {
+    this.albumsService.updateStatus(this.state.previewAlbum?.id, status).subscribe({
+      next: res => {
+        const previewAlbum = this.state.previewAlbum;
+        if (previewAlbum) {
+          previewAlbum.active = status;
+        }
+
+        this.patchState({ previewAlbum });
+        this.toastService.addSuccess(res.message);
+      },
+      error: error => {
+        this.toastService.addError(error.error.message);
+      }
+    });
+  }
+
   deleteImage(image: string, index: number): void {
     this.albumsService.deleteImage(this.state.previewAlbum?.id, image).subscribe({
       next: res => {
@@ -159,6 +178,50 @@ export class AlbumsStore extends ComponentStore<AlbumsState> {
         this.toastService.addError(error.error.message);
       }
     });
+  }
 
+  deleteMultipleImages(images: string[]): void {
+    this.albumsService.deleteMultipleImages(this.state.previewAlbum?.id, images).subscribe({
+      next: res => {
+        let savedImages = this.state.images;
+        for (const image of images) {
+          const index = savedImages?.images.findIndex(imImage => imImage.name === image);
+          if (index) {
+            savedImages?.images.splice(index, 1);
+            if (savedImages) {
+              savedImages.imagesCount = savedImages.imagesCount - 1;
+            }
+          }
+        }
+
+        this.patchState({ images: savedImages });
+        this.toastService.addSuccess(res.message);
+      },
+      error: error => {
+        this.toastService.addError(error.error.message);
+      }
+    });
+  }
+
+  disableMultipleImages(images: string[]): void {
+    this.albumsService.disableMultipleImages(this.state.previewAlbum?.id, images).subscribe({
+      next: res => {
+        let savedImages = this.state.images;
+        for (const image of images) {
+          const index = savedImages?.images.findIndex(imImage => imImage.name === image);
+          if (index) {
+            if (savedImages) {
+              savedImages.images[index].disabled = true;
+            }
+          } 
+        }
+
+        this.patchState({ images: savedImages });
+        this.toastService.addSuccess(res.message);
+      },
+      error: error => {
+        this.toastService.addError(error.error.message);
+      }
+    });
   }
 }

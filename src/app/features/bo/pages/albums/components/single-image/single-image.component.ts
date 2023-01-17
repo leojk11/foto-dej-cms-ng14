@@ -18,6 +18,7 @@ import { FormsModule } from '@angular/forms';
 export class SingleImageComponent implements OnInit {
 
   @Input() image?: string;
+  @Input() imageDisabled: boolean = false;
   @Input() selectedImages?: string[];
 
   @Output() onImageClick = new EventEmitter<any>();

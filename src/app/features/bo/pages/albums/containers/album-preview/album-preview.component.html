@@ -1,128 +1,138 @@
-<div class="albums-buttons">
-  <button
-    class="btn btn__icon btn__icon--blue shadow-small border-none"
-    (click)="location.back()"
-  >
-    <i class="pi pi-arrow-left"></i>
-  </button>
+<ng-container *ngIf="albumsStore.state$ | async as state">
+  <div class="albums-buttons">
+    <button
+      class="btn btn__icon btn__icon--blue shadow-small border-none"
+      (click)="location.back()"
+    >
+      <i class="pi pi-arrow-left"></i>
+    </button>
+  
+    <div class="container__flex">
+      <p-inputSwitch 
+        class="mr-1" 
+        *ngIf="state.previewAlbum" 
+        [(ngModel)]="state.previewAlbum.active"
+        (onChange)="changeStatus($event)"
+      ></p-inputSwitch>
 
-  <div class="container__flex">
-    <button
-      class="btn btn__main btn__main--sm mr-1"
-      type="submit"
-      (click)="goToUpload()"
-      pTooltip="{{ 'common.upload' | translate }}" 
-      tooltipPosition="top">
-      <i class="pi pi-upload"></i>
-    </button>
-  
-    <button
-      class="btn btn__main btn__main--sm mr-1"
-      type="button"
-      (click)="openEditModal()"
-      pTooltip="{{ 'common.edit' | translate }}" 
-      tooltipPosition="top">
-      <i class="pi pi-pencil"></i>
-    </button>
-  
-    <button
-      class="btn btn__main btn__main--sm"
-      type="button"
-      (click)="deleteAlbum()"
-      pTooltip="{{ 'common.delete' | translate }}" 
-      tooltipPosition="top">
-      <i class="pi pi-trash"></i>
-    </button>
+      <button
+        class="btn btn__main btn__main--sm mr-1"
+        type="submit"
+        (click)="goToUpload()"
+        pTooltip="{{ 'common.upload' | translate }}" 
+        tooltipPosition="top">
+        <i class="pi pi-upload"></i>
+      </button>
+    
+      <button
+        class="btn btn__main btn__main--sm mr-1"
+        type="button"
+        (click)="openEditModal()"
+        pTooltip="{{ 'common.edit' | translate }}" 
+        tooltipPosition="top">
+        <i class="pi pi-pencil"></i>
+      </button>
+    
+      <button
+        class="btn btn__main btn__main--sm"
+        type="button"
+        (click)="deleteAlbum()"
+        pTooltip="{{ 'common.delete' | translate }}" 
+        tooltipPosition="top">
+        <i class="pi pi-trash"></i>
+      </button>
+    </div>
   </div>
-</div>
-
-<div 
-  *ngIf="albumsStore.state$ | async as state"
-  class="album-preview" 
->
+  
   <div 
-    *ngIf="state.loading"
-    class="w-full h-full flex justify-center align-center" 
+    
+    class="album-preview" 
   >
-    <app-spinner></app-spinner>
-  </div>
-
-  <div class="album-preview__info" *ngIf="!state.loading">
-    <!-- <div class="album-preview__info__item">
-      <div class="label">{{ 'properties.title' | translate }}: </div>
-      <div class="content">{{ state.previewAlbum?.title }}</div>
-    </div> -->
-
-    <div class="album-preview__info__item">
-      <div class="label">{{ 'properties.date' | translate }}: </div>
-      <div class="content">{{ state.previewAlbum?.date | date: "dd/MM/YYYY" }}</div>
-    </div>
-
-    <!-- <div class="album-preview__info__item">
-      <div class="label">{{ 'properties.createdBy' | translate }}: </div>
-      <div class="content">{{ state.previewAlbum?.created_by?.fullname }}</div>
-    </div> -->
-
-    <!-- <div class="album-preview__info__item">
-      <div class="label">{{ 'properties.createdDate' | translate }}: </div>
-      <div class="content">{{ state.previewAlbum?.created_date | date: "dd/MM/YYYY" }}</div>
-    </div> -->
-
-    <div class="album-preview__info__item">
-      <div class="label">{{ 'properties.numImages' | translate }}: </div>
-      <div class="content">{{ state.images?.imagesCount }}</div>
-    </div>
-
-    <div class="album-preview__info__item">
-      <div class="label">{{ 'properties.assignedTo' | translate }}: </div>
-      <div class="content">{{ state.previewAlbum?.assigned_to?.fullname }}</div>
-    </div>
-  </div>
-
-  <div class="separator my-2" *ngIf="!state.loading"></div>
-
-  <div class="container__flex justify-end gap-1 mb-2 px-2">
-    <button
-      *ngIf="selectedImages.length > 0"
-      class="btn btn__icon--blue"
-      type="button"
-      (click)="deleteSelected()"
+    <div 
+      *ngIf="state.loading"
+      class="w-full h-full flex justify-center align-center" 
     >
-      <i class="pi pi-trash"></i>
-    </button>
-
-    <button
-      *ngIf="selectedImages.length > 0"
-      class="btn btn__icon--red"
-      type="button"
-      (click)="disableSelected()"
-    >
-      <i class="pi pi-ban"></i>
-    </button>
-  </div>
-
-  <div class="album-preview__images" *ngIf="!state.loading">
-    <p
-      class="album-preview__images__msg"
-      *ngIf="state.images?.images?.length === 0"
-    >
-      {{ 'albums.noImages' | translate }}
-    </p>
-
-    <div
-      class="album-image"
-      *ngFor="let image of state.images?.images; let i = index"
-    >
-      <app-single-image
-        [image]="image.name"
-        [selectedImages]="selectedImages"
-        (onImageClick)="onToggleOverview($event, state.images?.images)"
-        (onDelete)="deleteImage($event, i)"
-        (onSelect)="onImageSelect($event)"
-      ></app-single-image>
+      <app-spinner></app-spinner>
+    </div>
+  
+    <div class="album-preview__info" *ngIf="!state.loading">
+      <!-- <div class="album-preview__info__item">
+        <div class="label">{{ 'properties.title' | translate }}: </div>
+        <div class="content">{{ state.previewAlbum?.title }}</div>
+      </div> -->
+  
+      <div class="album-preview__info__item">
+        <div class="label">{{ 'properties.date' | translate }}: </div>
+        <div class="content">{{ state.previewAlbum?.date | date: "dd/MM/YYYY" }}</div>
+      </div>
+  
+      <!-- <div class="album-preview__info__item">
+        <div class="label">{{ 'properties.createdBy' | translate }}: </div>
+        <div class="content">{{ state.previewAlbum?.created_by?.fullname }}</div>
+      </div> -->
+  
+      <!-- <div class="album-preview__info__item">
+        <div class="label">{{ 'properties.createdDate' | translate }}: </div>
+        <div class="content">{{ state.previewAlbum?.created_date | date: "dd/MM/YYYY" }}</div>
+      </div> -->
+  
+      <div class="album-preview__info__item">
+        <div class="label">{{ 'properties.numImages' | translate }}: </div>
+        <div class="content">{{ state.images?.imagesCount }}</div>
+      </div>
+  
+      <div class="album-preview__info__item">
+        <div class="label">{{ 'properties.assignedTo' | translate }}: </div>
+        <div class="content">{{ state.previewAlbum?.assigned_to?.fullname }}</div>
+      </div>
+    </div>
+  
+    <div class="separator my-2" *ngIf="!state.loading"></div>
+  
+    <div class="container__flex justify-end gap-1 mb-2 px-2">
+      <button
+        *ngIf="selectedImages.length > 0"
+        class="btn btn__icon--blue"
+        type="button"
+        (click)="deleteSelected()"
+      >
+        <i class="pi pi-trash"></i>
+      </button>
+  
+      <button
+        *ngIf="selectedImages.length > 0"
+        class="btn btn__icon--red"
+        type="button"
+        (click)="disableSelected()"
+      >
+        <i class="pi pi-ban"></i>
+      </button>
+    </div>
+  
+    <div class="album-preview__images" *ngIf="!state.loading">
+      <p
+        class="album-preview__images__msg"
+        *ngIf="state.images?.images?.length === 0"
+      >
+        {{ 'albums.noImages' | translate }}
+      </p>
+  
+      <div
+        class="album-image"
+        *ngFor="let image of state.images?.images; let i = index"
+      >
+        <app-single-image
+          [image]="image.name"
+          [imageDisabled]="image.disabled"
+          [selectedImages]="selectedImages"
+          (onImageClick)="onToggleOverview($event, state.images?.images)"
+          (onDelete)="deleteImage($event, i)"
+          (onSelect)="onImageSelect($event)"
+        ></app-single-image>
+      </div>
     </div>
   </div>
-</div>
+</ng-container>
 
 <p-confirmDialog 
   [key]="'delete'"
@@ -132,6 +142,12 @@
 
 <p-confirmDialog 
   [key]="'deleteImage'"
+  header="{{ 'common.confirmation' | translate }}" 
+  [style]="{ width: '50%',  padding: '1rem' }"  
+></p-confirmDialog>
+
+<p-confirmDialog 
+  [key]="'disableImages'"
   header="{{ 'common.confirmation' | translate }}" 
   [style]="{ width: '50%',  padding: '1rem' }"  
 ></p-confirmDialog>
