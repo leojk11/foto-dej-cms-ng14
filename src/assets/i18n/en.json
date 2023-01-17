@@ -84,7 +84,8 @@
     "address": "Address",
     "invitedClient": "Invited client",
     "invitedClientEmail": "Invited client email",
-    "invitedBy": "Invited by"
+    "invitedBy": "Invited by",
+    "logo": "Logo"
   },
   "errors": {
     "error": "Error",

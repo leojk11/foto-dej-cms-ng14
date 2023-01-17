@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
+import { ToastService } from 'src/app/shared/services/toast.service';
 import { Configuration } from '../models/configuration.model';
 import { ConfigurationService } from './configuration.service';
 
@@ -20,6 +21,7 @@ export class ConfigurationStore extends ComponentStore<ConfigurationState> {
 
     constructor(
         private configurationService: ConfigurationService,
+        private toastService: ToastService
     ) { 
         super(initialState);
     }
@@ -31,6 +33,8 @@ export class ConfigurationStore extends ComponentStore<ConfigurationState> {
     getConfiguration(): void {
         this.configurationService.getConfiguration().subscribe({
             next: res => {
+                console.log('configuration', res);
+                
                 this.patchState({
                     configuration: res,
 
@@ -38,7 +42,7 @@ export class ConfigurationStore extends ComponentStore<ConfigurationState> {
                 });
             },
             error: error => {
-                // this.toast.error(error.error.message);
+                this.toastService.addError(error.error.message);
             }
         });
     }

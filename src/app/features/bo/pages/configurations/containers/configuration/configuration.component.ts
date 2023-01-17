@@ -34,9 +34,15 @@ import { ProgressBarModule } from 'primeng/progressbar';
 export class ConfigurationComponent implements OnInit {
 
   loaded: boolean = true;
+  logoLoaded: boolean = true;
 
   imagesUrl: string = `${ environment.apiUrl }/images/`;
   videoUrl: string = `${ environment.apiUrl }/videos/`;
+
+  selectedLogo: File | null = null;
+  selectedLogoPreview: string = '';
+  logoUploadInProgress: boolean = false;
+  logoUploadProgressValue: number = 0;
 
   selectedMainImage: File | null = null;
   selectedMainImagePreview: string = '';
@@ -117,6 +123,57 @@ export class ConfigurationComponent implements OnInit {
     this.form.patchValue({
       ...this.configurationStore.state.configuration
     });
+  }
+
+  selectLogo(event: any): void {
+    this.logoLoaded = false;
+
+    if (event.target.files[0]) {
+      this.selectedLogo = event.target.files[0];
+
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.selectedLogoPreview = reader.result as string;
+      }
+      reader.readAsDataURL(event.target.files[0]);
+
+      this.logoLoaded = true;
+    }
+  }
+
+  uploadLogo(): void {
+    if (this.selectedLogo) {
+      this.logoUploadInProgress = true;
+
+      this.configurationService.uploadImage(this.selectedLogo).subscribe({
+        next: res => {
+          if (res.type === HttpEventType.UploadProgress) {
+            this.logoUploadProgressValue = Math.round((100 * res.loaded) / res.total);
+          } else if (res instanceof HttpResponse) {
+            this.configurationService.updateConfiguration({
+              logo: this.selectedLogo?.name
+            }).subscribe({
+              next: updateImageRes => {
+                this.configurationStore.updateConfiguration(updateImageRes.configuration);
+                this.toastService.addSuccess(updateImageRes.message);
+
+                this.logoUploadInProgress = false;
+              },
+              error: error => {
+                this.toastService.addError(error.error.message);
+                this.logoUploadInProgress = false;
+              }
+            });
+          }
+        },
+        error: error => {
+          this.toastService.addError(error.error.message);
+          this.logoUploadInProgress = false;
+        }
+      });
+    } else {
+      this.toastService.addError('errors.mustSelectImage');
+    }
   }
 
   uploadMainImage(): void {

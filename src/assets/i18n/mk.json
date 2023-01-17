@@ -84,7 +84,8 @@
     "address": "Адреса",
     "invitedClient": "Поканет клиент",
     "invitedClientEmail": "Поканет клиент емаил",
-    "invitedBy": "Поканет од"
+    "invitedBy": "Поканет од",
+    "logo": "Лого"
   },
   "errors": {
     "error": "Грешка",
