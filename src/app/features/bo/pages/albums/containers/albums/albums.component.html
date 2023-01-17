@@ -50,7 +50,7 @@
 
   <div class="separator"></div>
   
-  <div *ngIf="albumStore.state$ | async as state">
+  <div *ngIf="albumStore.state$ | async as state" class="relative">
     <div *ngIf="!state.loading" class="albums__content">
       <div
         class="single-album-wrapper"

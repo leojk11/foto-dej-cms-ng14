@@ -7,6 +7,10 @@
 .albums{
   padding: 0 3rem;
 
+  .p-paginator{
+    background-color: $main-bg!important;
+  }
+
   &__content {
     width: 100%;
     // margin-top: 2rem;
@@ -16,7 +20,7 @@
     // justify-content: space-between;
     align-items: center;
     gap: 2.5rem;
-    padding: 3rem;
+    padding: 3rem 1.5rem;
     position: relative;
   }
   
@@ -99,6 +103,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+  row-gap: 1rem;
   padding: 2rem 3rem;
 
   &__add-button {
@@ -143,7 +149,7 @@
     flex-wrap: wrap;
 
     &__item {
-      width: 33%;
+      min-width: 33%;
       display: flex;
       flex-wrap: wrap;
       gap: 1rem;
@@ -167,7 +173,7 @@
     display: flex;
     flex-wrap: wrap;
     row-gap: 1.5rem;
-    gap: 1rem;
+    gap: 2rem;
 
     &__msg {
       width: 100rem;
@@ -181,58 +187,40 @@
 
 .album-image {
   // width: 50%;
-  padding: 1rem;
+  width: 15.5rem;
+  height: 15.5rem;
+
+  @media (min-width: 1270px) {
+    // width: 33%;
+    width: 24rem;
+    height: 20rem;
+
+    &__inner{
+      width: 24rem !important;
+      height: 20rem !important;
+
+      &--name {
+        padding: 1rem .5rem;
+        font-size: 1.4rem !important;
+      }
+    }
+  }
 
   &__inner {
     width: 100%;
     border: 1px solid $color-dark;
     border-radius: 10px;
-    position: relative;
-    width: 20rem;
-    height: 20rem;
+    width: 15.5rem;
+    height: 15.5rem;
     position: relative;
     overflow: hidden;
-
-    // &__close {
-    //   position: absolute;
-    //   top: -1.5rem;
-    //   right: -1.5rem;
-
-    //   border-radius: 50%;
-    //   padding: .5rem;
-
-    //   background: red;
-    //   color: #ffffff;
-
-    //   display: flex;
-    //   justify-content: center;
-    //   align-items: center;
-
-    //   visibility: hidden;
-    // }
-
-    // &:hover {
-    //   .album-image__inner--select{
-    //     visibility: visible;
-    //   }
-    // }
 
     &--select {
       position: absolute;
       top: 1rem;
       right: 1rem;
-
-      // visibility: hidden;
     }
 
-    // &__image {
-    //   // width: 100%;
-    //   // height: 100%;
-    //   width: 20rem;
-    //   height: 20rem;
-    //   position: relative;
-
-    // }
     img {
       width: 100%;
       height: 100%;
@@ -242,24 +230,18 @@
     &--name {
       width: 100%;
       // border-top: 1px solid $color-light;
-      font-size: 1.4rem;
+      font-size: 1.2rem;
       text-align: center;
       color: $color-light;
-      padding: 1rem .5rem;
+      padding: .5rem 0rem;
       position: absolute;
       bottom: 0;
       left: 0;
       background: linear-gradient(0deg, rgba(37, 71, 106, 0.44), rgba(37, 71, 106, 0.44));
     }
   }
-  @media (min-width: 1270px) {
-    // width: 33%;
-    width: 22rem;
-    height: 20rem;
-  }
-  @media (min-width: 1550px) {
-    width: 25%;
-  }
+  
+  
 }
 
 .file-to-upload {
