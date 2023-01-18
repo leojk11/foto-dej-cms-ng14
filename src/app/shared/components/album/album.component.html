@@ -1,0 +1,65 @@
+<div class="album">
+  <div class="album__top">
+    <div class="album__top--search">
+      <input 
+        type="text" 
+        pInputText
+        class=""
+        placeholder="{{ 'common.searchName' | translate}}"
+        [(ngModel)]="imageSearch"
+        (keydown.enter)="filter()"
+      >
+      <i class="pi pi-search icon-search"></i>
+    </div>
+
+    <div class="album__top--actions">
+      <button
+        class="btn btn__icon--blue"
+        type="button"
+        (click)="deleteSelected()"
+      >
+        <i class="pi pi-trash"></i>
+      </button>
+  
+      <button
+        class="btn btn__icon--red"
+        type="button"
+        (click)="disableSelected()"
+      >
+        <i class="pi pi-ban"></i>
+      </button>
+    </div>
+  </div>
+
+  <p class="album__empty" *ngIf="images?.length === 0">
+    {{ 'albums.noImages' | translate }}
+  </p>
+
+  <div class="album__images">
+    <div 
+      class="album__images--image"
+      *ngFor="let image of images; let i = index"
+    >
+      <app-single-image
+        [image]="image.name"
+        [imageDisabled]="image.disabled"
+        [selectedImages]="selectedImages"
+        (onImageClick)="onToggleOverview($event, images)"
+        (onDelete)="deleteImage($event, i)"
+        (onSelect)="onImageSelect($event)"
+      ></app-single-image>
+    </div>
+  </div>
+</div>
+
+<p-confirmDialog 
+  [key]="'deleteImage'"
+  header="{{ 'common.confirmation' | translate }}" 
+  [style]="{ width: '50%',  padding: '1rem' }"  
+></p-confirmDialog>
+
+<p-confirmDialog 
+  [key]="'disableImages'"
+  header="{{ 'common.confirmation' | translate }}" 
+  [style]="{ width: '50%',  padding: '1rem' }"  
+></p-confirmDialog>

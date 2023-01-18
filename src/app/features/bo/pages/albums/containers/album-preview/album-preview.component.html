@@ -8,7 +8,7 @@
         <i class="pi pi-arrow-left"></i>
       </button>
   
-      <div class="container__flex relative">
+      <!-- <div class="container__flex relative">
         <input 
           type="text" 
           pInputText
@@ -18,7 +18,7 @@
           (keydown.enter)="filter()"
         >
         <i class="pi pi-search icon-search"></i>
-      </div>
+      </div> -->
     </div>
   
     <div class="container__flex">
@@ -72,10 +72,10 @@
         <div class="content">{{ state.previewAlbum?.title }}</div>
       </div> -->
   
-      <div class="album-preview__info__item">
+      <!-- <div class="album-preview__info__item">
         <div class="label">{{ 'properties.date' | translate }}: </div>
         <div class="content">{{ state.previewAlbum?.date | date: "dd/MM/YYYY" }}</div>
-      </div>
+      </div> -->
   
       <!-- <div class="album-preview__info__item">
         <div class="label">{{ 'properties.createdBy' | translate }}: </div>
@@ -100,7 +100,7 @@
   
     <div class="separator my-2" *ngIf="!state.loading"></div>
   
-    <div class="container__flex justify-end gap-1 mb-2 px-2">
+    <!-- <div class="container__flex justify-end gap-1 mb-2 px-2">
       <button
         *ngIf="selectedImages.length > 0"
         class="btn btn__icon--blue"
@@ -118,10 +118,17 @@
       >
         <i class="pi pi-ban"></i>
       </button>
-    </div>
+    </div> -->
   
-    <div class="album-preview__images" *ngIf="!state.loading">
-      <p
+    <div *ngIf="!state.loading && state.images?.images">
+      <app-album
+        [images]="state.images?.images"
+        [isAdmin]="true"
+        [isSelect]="false"
+        (onImageSearch)="filter($event)"
+      ></app-album>
+    </div>
+      <!-- <p
         class="album-preview__images__msg"
         *ngIf="state.images?.images?.length === 0"
       >
@@ -140,8 +147,7 @@
           (onDelete)="deleteImage($event, i)"
           (onSelect)="onImageSelect($event)"
         ></app-single-image>
-      </div>
-    </div>
+      </div> -->
   </div>
 </ng-container>
 
@@ -151,7 +157,7 @@
   [style]="{ width: '50%',  padding: '1rem' }"  
 ></p-confirmDialog>
 
-<p-confirmDialog 
+<!-- <p-confirmDialog 
   [key]="'deleteImage'"
   header="{{ 'common.confirmation' | translate }}" 
   [style]="{ width: '50%',  padding: '1rem' }"  
@@ -161,4 +167,4 @@
   [key]="'disableImages'"
   header="{{ 'common.confirmation' | translate }}" 
   [style]="{ width: '50%',  padding: '1rem' }"  
-></p-confirmDialog>
+></p-confirmDialog> -->

@@ -18,6 +18,7 @@ import { ImageOverviewService } from 'src/app/shared/services/image-overview.ser
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { FormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
+import { AlbumComponent } from 'src/app/shared/components/album/album.component';
 
 @Component({
   selector: 'app-album-preview',
@@ -32,7 +33,8 @@ import { InputTextModule } from 'primeng/inputtext';
     ButtonModule,
     ConfirmDialogModule,
     InputSwitchModule,
-    InputTextModule
+    InputTextModule,
+    AlbumComponent
   ],
   providers: [
     AlbumsStore,
@@ -116,19 +118,19 @@ export class AlbumPreviewComponent implements OnInit {
     });
   }
 
-  deleteImage(event: string, index: number): void {
-    this.confirmationService.confirm({
-      key: 'deleteImage',
-      message: this.translate.instant('messages.deleteImage'),
-      acceptButtonStyleClass: 'btn btn__red text',
-      rejectButtonStyleClass: 'btn btn__dark text',
-      acceptLabel: this.translate.instant('common.yes'),
-      rejectLabel: this.translate.instant('common.no'),
-      accept: () => {
-        this.albumsStore.deleteImage(event, index);
-      }
-    });
-  }
+  // deleteImage(event: string, index: number): void {
+  //   this.confirmationService.confirm({
+  //     key: 'deleteImage',
+  //     message: this.translate.instant('messages.deleteImage'),
+  //     acceptButtonStyleClass: 'btn btn__red text',
+  //     rejectButtonStyleClass: 'btn btn__dark text',
+  //     acceptLabel: this.translate.instant('common.yes'),
+  //     rejectLabel: this.translate.instant('common.no'),
+  //     accept: () => {
+  //       this.albumsStore.deleteImage(event, index);
+  //     }
+  //   });
+  // }
 
   openEditModal(): void {
     const ref = this.dialog.open(NewAlbumComponent, {
@@ -146,49 +148,49 @@ export class AlbumPreviewComponent implements OnInit {
     });
   }
 
-  onToggleOverview(event: any, images: any): void {
-    const imagesArr = [];
-    for (const image of images) {
-      imagesArr.push(image.name);
-    }
+  // onToggleOverview(event: any, images: any): void {
+  //   const imagesArr = [];
+  //   for (const image of images) {
+  //     imagesArr.push(image.name);
+  //   }
     
-    this.imageOverviewState.toggleOverview();
-    this.imageOverviewState.setImages(event, imagesArr);
-  }
+  //   this.imageOverviewState.toggleOverview();
+  //   this.imageOverviewState.setImages(event, imagesArr);
+  // }
 
-  onImageSelect(selectedImages: string[]): void {
-    this.selectedImages = selectedImages;
-  } 
+  // onImageSelect(selectedImages: string[]): void {
+  //   this.selectedImages = selectedImages;
+  // } 
 
-  deleteSelected(): void {
-    this.confirmationService.confirm({
-      key: 'deleteImage',
-      message: this.translate.instant('messages.deleteSelectedImages'),
-      acceptButtonStyleClass: 'btn btn__red text',
-      rejectButtonStyleClass: 'btn btn__dark text',
-      acceptLabel: this.translate.instant('common.yes'),
-      rejectLabel: this.translate.instant('common.no'),
-      accept: () => {
-        this.albumsStore.deleteMultipleImages(this.selectedImages);
-      }
-    });
-  }
+  // deleteSelected(): void {
+  //   this.confirmationService.confirm({
+  //     key: 'deleteImage',
+  //     message: this.translate.instant('messages.deleteSelectedImages'),
+  //     acceptButtonStyleClass: 'btn btn__red text',
+  //     rejectButtonStyleClass: 'btn btn__dark text',
+  //     acceptLabel: this.translate.instant('common.yes'),
+  //     rejectLabel: this.translate.instant('common.no'),
+  //     accept: () => {
+  //       this.albumsStore.deleteMultipleImages(this.selectedImages);
+  //     }
+  //   });
+  // }
 
-  disableSelected(): void {
-    this.confirmationService.confirm({
-      key: 'disableImages',
-      message: this.translate.instant('messages.disableSelectedImages'),
-      acceptButtonStyleClass: 'btn btn__red text',
-      rejectButtonStyleClass: 'btn btn__dark text',
-      acceptLabel: this.translate.instant('common.yes'),
-      rejectLabel: this.translate.instant('common.no'),
-      accept: () => {
-        this.albumsStore.disableMultipleImages(this.selectedImages);
-      }
-    });
-  }
+  // disableSelected(): void {
+  //   this.confirmationService.confirm({
+  //     key: 'disableImages',
+  //     message: this.translate.instant('messages.disableSelectedImages'),
+  //     acceptButtonStyleClass: 'btn btn__red text',
+  //     rejectButtonStyleClass: 'btn btn__dark text',
+  //     acceptLabel: this.translate.instant('common.yes'),
+  //     rejectLabel: this.translate.instant('common.no'),
+  //     accept: () => {
+  //       this.albumsStore.disableMultipleImages(this.selectedImages);
+  //     }
+  //   });
+  // }
 
-  filter(): void {
-    this.albumsStore.getSingleAlbum(this.albumId, this.imageSearch);
+  filter(image: string): void {
+    this.albumsStore.getSingleAlbum(this.albumId, image);
   }
 }

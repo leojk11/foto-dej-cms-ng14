@@ -1,11 +1,11 @@
-<div class="album-image__inner cp" (click)="openPreview()" [class.opacity-50]="imageDisabled">
+<div class="album__images--image__inner cp" (click)="openPreview()" [class.opacity-50]="imageDisabled">
   <!-- <div
-    class="album-image__inner__close cp"
+    class="album__images--image__inner__close cp"
     (click)="onDeleteClick($event)">
     <i class="pi pi-times"></i>
   </div> -->
   
-  <div class="album-image__inner--select cp">
+  <div class="album__images--image__inner--select cp">
     <p-checkbox 
       [binary]="true" 
       [(ngModel)]="selected" 
@@ -18,7 +18,7 @@
     (error)="toggleError()"
   >
 
-  <div class="album-image__inner--name">
+  <div class="album__images--image__inner--name">
     {{ image }}
   </div>
 </div>

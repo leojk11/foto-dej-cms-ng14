@@ -102,7 +102,7 @@ export class AlbumsStore extends ComponentStore<AlbumsState> {
           next: albumImages => {
             console.log('album images', albumImages);
             
-            this.albumLayoutService.setTitle('common.albums', `${ singleAlbum.title }`);
+            this.albumLayoutService.setTitle('common.albums', `${ singleAlbum.title } (${singleAlbum.date})`);
 
             this.patchState({
               previewAlbum: singleAlbum,
