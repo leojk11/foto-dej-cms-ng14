@@ -92,13 +92,13 @@ export class AlbumsStore extends ComponentStore<AlbumsState> {
     });
   }
 
-  getSingleAlbum(id: string): void {
+  getSingleAlbum(id: string, image?: string): void {
     this.setLoading(true);
 
     this.albumsService.getSingleAlbum(id).subscribe({
       next: singleAlbum => {
         console.log('Single album', singleAlbum);
-        this.albumsService.getAlbumImages(id).subscribe({
+        this.albumsService.getAlbumImages(id, image).subscribe({
           next: albumImages => {
             console.log('album images', albumImages);
             

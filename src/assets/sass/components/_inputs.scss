@@ -1,6 +1,6 @@
 .p-inputtext, textarea{
   width: 100%;
-  padding: 1.5rem;
+  padding: 1rem 1.5rem;
   border: none;
   border-radius: 10px;
   font-size: 1.4rem;
@@ -70,3 +70,32 @@ input[type="radio"]{
   }
 }
 
+// INPUT SWITCH
+
+.p-inputswitch {
+  margin-right: 2rem;
+  display: block !important;
+
+  &.p-inputswitch-checked {
+    & .p-inputswitch-slider {
+      background-color: $color-medium !important;
+    }
+  }
+
+  & .p-inputswitch-slider {
+    background: rgba($color-medium, 0.5) !important;
+    width: 4rem !important;
+    height: 2rem !important;
+
+    &::before {
+      left: 0.8rem !important;
+    }
+  }
+
+  &.p-focus {
+    & .p-inputswitch-slider {
+      outline: none !important;
+      box-shadow: none !important;
+    }
+  }
+}

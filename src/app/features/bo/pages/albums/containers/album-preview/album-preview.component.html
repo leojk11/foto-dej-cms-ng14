@@ -1,11 +1,25 @@
 <ng-container *ngIf="albumsStore.state$ | async as state">
   <div class="albums-buttons">
-    <button
-      class="btn btn__icon btn__icon--blue shadow-small border-none"
-      (click)="location.back()"
-    >
-      <i class="pi pi-arrow-left"></i>
-    </button>
+    <div class="container__flex gap-5">
+      <button
+        class="btn btn__icon btn__icon--blue shadow-small border-none"
+        (click)="location.back()"
+      >
+        <i class="pi pi-arrow-left"></i>
+      </button>
+  
+      <div class="container__flex relative">
+        <input 
+          type="text" 
+          pInputText
+          class=""
+          placeholder="{{ 'common.searchName' | translate}}"
+          [(ngModel)]="imageSearch"
+          (keydown.enter)="filter()"
+        >
+        <i class="pi pi-search icon-search"></i>
+      </div>
+    </div>
   
     <div class="container__flex">
       <p-inputSwitch 
@@ -16,7 +30,7 @@
       ></p-inputSwitch>
 
       <button
-        class="btn btn__main btn__main--sm mr-1"
+        class="btn btn__icon--blue btn__main--sm mr-1"
         type="submit"
         (click)="goToUpload()"
         pTooltip="{{ 'common.upload' | translate }}" 
@@ -25,7 +39,7 @@
       </button>
     
       <button
-        class="btn btn__main btn__main--sm mr-1"
+        class="btn btn__icon--orange btn__main--sm mr-1"
         type="button"
         (click)="openEditModal()"
         pTooltip="{{ 'common.edit' | translate }}" 
@@ -34,7 +48,7 @@
       </button>
     
       <button
-        class="btn btn__main btn__main--sm"
+        class="btn btn__icon--red btn__main--sm"
         type="button"
         (click)="deleteAlbum()"
         pTooltip="{{ 'common.delete' | translate }}" 
@@ -44,10 +58,7 @@
     </div>
   </div>
   
-  <div 
-    
-    class="album-preview" 
-  >
+  <div class="album-preview">
     <div 
       *ngIf="state.loading"
       class="w-full h-full flex justify-center align-center" 

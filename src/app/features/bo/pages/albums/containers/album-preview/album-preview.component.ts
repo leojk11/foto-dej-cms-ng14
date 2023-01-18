@@ -17,6 +17,7 @@ import { ToastService } from 'src/app/shared/services/toast.service';
 import { ImageOverviewService } from 'src/app/shared/services/image-overview.service';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { FormsModule } from '@angular/forms';
+import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
   selector: 'app-album-preview',
@@ -30,7 +31,8 @@ import { FormsModule } from '@angular/forms';
     TooltipModule,
     ButtonModule,
     ConfirmDialogModule,
-    InputSwitchModule
+    InputSwitchModule,
+    InputTextModule
   ],
   providers: [
     AlbumsStore,
@@ -47,6 +49,7 @@ export class AlbumPreviewComponent implements OnInit {
   isMobile: boolean = false;
 
   selectedImages: string[] = [];
+  imageSearch: string = '';
 
   constructor(
     public albumsStore: AlbumsStore,
@@ -183,5 +186,9 @@ export class AlbumPreviewComponent implements OnInit {
         this.albumsStore.disableMultipleImages(this.selectedImages);
       }
     });
+  }
+
+  filter(): void {
+    this.albumsStore.getSingleAlbum(this.albumId, this.imageSearch);
   }
 }

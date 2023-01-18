@@ -62,8 +62,12 @@ export class AlbumsService {
     return this.http.patch(path, { images });
   }
 
-  getAlbumImages(albumId: string): Observable<GetAlumImagesResponse> {
-    const path = `${ this.apiUrl }/images/album/${ albumId }`;
+  getAlbumImages(albumId: string, image?: string): Observable<GetAlumImagesResponse> {
+    let path = `${ this.apiUrl }/images/album/${ albumId }`;
+    if(image){
+      path += `?image=${image}`
+    }
+    
     return this.http.get<GetAlumImagesResponse>(path);
   }
 
