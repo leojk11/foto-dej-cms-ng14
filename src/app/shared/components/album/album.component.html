@@ -16,7 +16,20 @@
       <button
         class="btn btn__icon--blue"
         type="button"
+        (click)="deselectAllImages()"
+        *ngIf="selectedImages.length > 0"
+        pTooltip="{{ 'common.unselectAll' | translate }}" 
+        tooltipPosition="top"
+      >
+        <i class="pi pi-times"></i>
+      </button>
+
+      <button
+        class="btn btn__icon--blue"
+        type="button"
         (click)="deleteSelected()"
+        pTooltip="{{ 'common.deleteSelected' | translate }}" 
+        tooltipPosition="top"
       >
         <i class="pi pi-trash"></i>
       </button>
@@ -25,8 +38,20 @@
         class="btn btn__icon--red"
         type="button"
         (click)="disableSelected()"
+        pTooltip="{{ 'common.disableSelected' | translate }}" 
+        tooltipPosition="top"
       >
         <i class="pi pi-ban"></i>
+      </button>
+
+      <button
+        class="btn btn__icon--blue"
+        type="button"
+        (click)="enableSelected()"
+        pTooltip="{{ 'common.enableSelected' | translate }}" 
+        tooltipPosition="top"
+      >
+        <i class="pi pi-check"></i>
       </button>
     </div>
   </div>
@@ -60,6 +85,12 @@
 
 <p-confirmDialog 
   [key]="'disableImages'"
+  header="{{ 'common.confirmation' | translate }}" 
+  [style]="{ width: '50%',  padding: '1rem' }"  
+></p-confirmDialog>
+
+<p-confirmDialog 
+  [key]="'enableImages'"
   header="{{ 'common.confirmation' | translate }}" 
   [style]="{ width: '50%',  padding: '1rem' }"  
 ></p-confirmDialog>

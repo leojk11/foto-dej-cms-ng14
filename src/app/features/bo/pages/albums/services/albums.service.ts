@@ -98,6 +98,10 @@ export class AlbumsService {
     const path = `${ this.apiUrl }/images/${ albumId }/disable`;
     return this.http.patch<any>(path, { images });
   }
+  enableMultipleImages(albumId: string | undefined, images: string[]): Observable<MessageResponse> {
+    const path = `${ this.apiUrl }/images/${ albumId }/enable`;
+    return this.http.patch<any>(path, { images });
+  }
 
   deleteAlbum(albumId: string): Observable<MessageResponse> {
     const path = `${ this.apiUrl }/albums/${ albumId }`;

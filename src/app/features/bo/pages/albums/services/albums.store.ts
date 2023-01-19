@@ -224,4 +224,26 @@ export class AlbumsStore extends ComponentStore<AlbumsState> {
       }
     });
   }
+
+  enableMultipleImages(images: string[]): void {
+    this.albumsService.enableMultipleImages(this.state.previewAlbum?.id, images).subscribe({
+      next: res => {
+        let savedImages = this.state.images;
+        for (const image of images) {
+          const index = savedImages?.images.findIndex(imImage => imImage.name === image);
+          if (index) {
+            if (savedImages) {
+              savedImages.images[index].disabled = false;
+            }
+          } 
+        }
+
+        this.patchState({ images: savedImages });
+        this.toastService.addSuccess(res.message);
+      },
+      error: error => {
+        this.toastService.addError(error.error.message);
+      }
+    });
+  }
 }

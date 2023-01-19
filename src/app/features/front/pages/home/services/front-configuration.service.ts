@@ -24,16 +24,4 @@ export class FrontConfigurationService {
     const path = `${ this.apiUrl }/requests`;
     return this.http.post<RequestResponse>(path, body);
   }
-
-
-  // imagesUrl: string = `${ environment.apiUrl }/images/`;
-  // videoUrl: string = `${ environment.apiUrl }/videos/`
-
-  // <img 
-  // [src]="imagesUrl + image"
-  // (click)="toggleOverviewPromo($event, configuration?.promo_images)"
-
-//   <video *ngIf="configuration?.promo_video" controls width="100%" height="300px">
-//    <source [src]="videoUrl + configuration?.promo_video">
-//   </video>
 }

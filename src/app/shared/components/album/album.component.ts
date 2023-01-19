@@ -9,6 +9,7 @@ import { AlbumsStore } from 'src/app/features/bo/pages/albums/services/albums.st
 import { ImageOverviewService } from '../../services/image-overview.service';
 import { InputTextModule } from 'primeng/inputtext';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { TooltipModule } from 'primeng/tooltip';
 
 @Component({
   selector: 'app-album',
@@ -19,7 +20,8 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     SingleImageComponent,
     FormsModule,
     InputTextModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    TooltipModule
   ],
   templateUrl: './album.component.html',
   styleUrls: ['./album.component.scss']
@@ -54,6 +56,20 @@ export class AlbumComponent implements OnInit {
       rejectLabel: this.translate.instant('common.no'),
       accept: () => {
         this.albumsStore.deleteMultipleImages(this.selectedImages);
+      }
+    });
+  }
+
+  enableSelected(): void {
+    this.confirmationService.confirm({
+      key: 'enableImages',
+      message: this.translate.instant('messages.enableSelectedImages'),
+      acceptButtonStyleClass: 'btn btn__red text',
+      rejectButtonStyleClass: 'btn btn__dark text',
+      acceptLabel: this.translate.instant('common.yes'),
+      rejectLabel: this.translate.instant('common.no'),
+      accept: () => {
+        this.albumsStore.enableMultipleImages(this.selectedImages);
       }
     });
   }
@@ -102,5 +118,9 @@ export class AlbumComponent implements OnInit {
 
   onImageSelect(selectedImages: string[]): void {
     this.selectedImages = selectedImages;
+  }
+
+  deselectAllImages(): void {
+    this.selectedImages = [];
   }
 }

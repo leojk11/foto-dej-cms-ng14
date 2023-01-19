@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, DoCheck, OnChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { environment } from 'src/environments/environment';
 import { CheckboxModule } from 'primeng/checkbox';
@@ -15,11 +15,11 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './single-image.component.html',
   styleUrls: ['./single-image.component.scss']
 })
-export class SingleImageComponent implements OnInit {
+export class SingleImageComponent implements OnInit, OnChanges {
 
   @Input() image?: string;
   @Input() imageDisabled: boolean = false;
-  @Input() selectedImages?: string[];
+  @Input() selectedImages?: string[] = [];
 
   @Output() onImageClick = new EventEmitter<any>();
   @Output() onDelete = new EventEmitter<any>();
@@ -32,6 +32,14 @@ export class SingleImageComponent implements OnInit {
 
   ngOnInit(): void {
     this.src = `${ environment.apiUrl }/images/${ this.image }`;
+  }
+
+  ngOnChanges(): void {
+    if (this.selectedImages && this.image) {
+      if (!this.selectedImages.includes(this.image)) {
+        this.selected = false;
+      }
+    }
   }
 
   toggleError(): void {
@@ -51,18 +59,14 @@ export class SingleImageComponent implements OnInit {
   onCheckboxClick(event: any): void {
     event.stopPropagation();
 
-    if (!this.selectedImages) {
-      this.selectedImages = [];
-    }
-
     if (this.selected) {
       if (this.image) {
-        this.selectedImages.push(this.image);
+        this.selectedImages?.push(this.image);
       }
     } else {
-      const imageIndex = this.selectedImages.findIndex(inImg => inImg === this.image);
-      if (imageIndex >= 0) {
-        this.selectedImages.splice(imageIndex, 1);
+      const imageIndex = this.selectedImages?.findIndex(inImg => inImg === this.image);
+      if (imageIndex && imageIndex >= 0) {
+        this.selectedImages?.splice(imageIndex, 1);
       }
     }
 
