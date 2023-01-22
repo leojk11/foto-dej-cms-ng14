@@ -53,7 +53,8 @@
     "createNewPassowrd": "Create new password",
     "unselectAll": "Unselect all selected",
     "disableSelected": "Disable selected",
-    "enableSelected": "Enable selected"
+    "enableSelected": "Enable selected",
+    "chooseDate": "Choose date"
   },
   "properties": {
     "title": "Title",
@@ -191,12 +192,62 @@
     "editClient": "Edit client"
   },
   "calendar": {
-    "newSchedule": "Add new schedule",
+    "newSchedule": "Add schedule",
     "editSchedule": "Edit schedule"
   },
   "home": {
     "heroTitle": "Magical moments last forever",
     "heroText": "Quality photography and videography for your special occasions",
     "collaboration": "Collaboration"
+  },
+  "primeng": {
+    "closeText": "Close",
+    "prevText": "&#x3C;Prec",
+    "nextText": "Succ&#x3E;",
+    "currentText": "Today",
+    "monthNames": [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December"
+    ],
+    "monthNamesShort": [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec"
+    ],
+    "dayNames": [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday"
+    ],
+    "dayNamesShort": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+    "dayNamesMin": ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"],
+    "weekHeader": "Sm",
+    "dateFormat": "dd/mm/yy",
+    "isRTL": false,
+    "showMonthAfterYear": false,
+    "yearSuffix": ""
   }
 }

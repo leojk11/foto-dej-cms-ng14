@@ -21,8 +21,15 @@ export class CalendarService {
     private http: HttpClient
   ) { }
 
-  getAllSchedulesForUser(dates: DatesParams): Observable<Schedule[]> {
-    const path = `${ this.apiUrl }/schedules/for/user?from=${ dates.from }&to=${ dates.to }`;
+  getAllSchedulesForUser(dates: DatesParams, filters?: { title: string }): Observable<Schedule[]> {
+    let path = `${ this.apiUrl }/schedules/for/user?from=${ dates.from }&to=${ dates.to }`;
+    
+    if (!!filters) {
+      if (filters.title) {
+        path += `&title=${ filters.title }`;
+      }
+    }
+
     return this.http.get<Schedule[]>(path);
   }
 

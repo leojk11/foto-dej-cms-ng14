@@ -1,4 +1,41 @@
-<div class="pt-2">
+<div class="calendar">
+  <div class="calendar__header">
+    <div class="calendar__header--buttons">
+      <button
+        class="btn btn__icon btn__icon--blue shadow-small border-none"
+        (click)="location.back()"
+      >
+        <i class="pi pi-arrow-left"></i>
+      </button>
+
+      <button
+        class="btn btn__main "
+        type="button"
+        (click)="openModal()"
+        *ngIf="mobile"
+      >
+        {{ 'calendar.newSchedule' | translate }}
+      </button>
+    </div>
+
+    <div class="calendar__header--filter">
+      <input 
+        type="text" 
+        pInputText
+        class="max-w-3"
+        placeholder="{{ 'properties.title' | translate | lowercase }}..."
+        [(ngModel)]="filters.title"
+      >
+
+      <button 
+        class="btn btn__search"
+        (click)="filter()"
+      >
+        <i class="pi pi-search"></i>
+      </button>
+    </div>
+  </div>
+
   <full-calendar
     *ngIf="showCalendar"
     [options]="calendarOptions"

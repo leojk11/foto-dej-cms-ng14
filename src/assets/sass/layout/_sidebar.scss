@@ -31,10 +31,12 @@
   }
 
   &__logo-wrapper {
-    width: 6rem;
-    height: 6rem;
+    width: 100%;
+    // width: 6rem;
+    // height: 6rem;
     display: flex;
     align-items: center;
+    justify-content: center;
 
     &--img {
       width: 100%;
@@ -45,7 +47,7 @@
 
   &__list{
     list-style: none;
-    margin-top: 5rem;
+    margin-top: 1rem;
 
     &--item{
       margin: 2rem 0;

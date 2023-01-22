@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { CalendarOptions, FullCalendarModule } from '@fullcalendar/angular';
 import { map, Observable, shareReplay } from 'rxjs';
 import { AdminLayoutService } from 'src/app/features/bo/layout/services/admin-layout.service';
@@ -14,6 +14,10 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import listPlugin from '@fullcalendar/list';
 import { ToastService } from 'src/app/shared/services/toast.service';
+import { CalendarModule } from 'primeng/calendar';
+import { FormsModule } from '@angular/forms';
+import { InputTextModule } from 'primeng/inputtext';
+import { SelectDateComponent } from '../../components/select-date/select-date.component';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -28,7 +32,10 @@ FullCalendarModule.registerPlugins([
     CommonModule,
     TranslateModule,
     FullCalendarModule,
-    SpinnerComponent
+    SpinnerComponent,
+    CalendarModule,
+    FormsModule,
+    InputTextModule
   ],
   providers: [
     DialogService
@@ -42,6 +49,10 @@ export class CalendarComponent implements OnInit {
   modalWidth: string = '';
 
   events: any = [];
+
+  filters: {
+    title: string;
+  } = {} as { date: string; title: string };
 
   initialDates: {
     from: string;
@@ -66,6 +77,7 @@ export class CalendarComponent implements OnInit {
       map(result => result.matches),
       shareReplay()
     );
+  mobile: boolean = false;
 
   constructor(
     private adminLayoutService: AdminLayoutService,
@@ -74,7 +86,8 @@ export class CalendarComponent implements OnInit {
     private calendarService: CalendarService,
     private dialog: DialogService,
     private translate: TranslateService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    public location: Location
   ) { }
 
   ngOnInit(): void {
@@ -82,6 +95,8 @@ export class CalendarComponent implements OnInit {
 
     this.isMobile$.subscribe({
       next: (res: any) => {
+        this.mobile = res;
+
         this.modalWidth = res ? '90%' : '50%';
         if (res) {
           this.showCalendar = false;
@@ -179,4 +194,62 @@ export class CalendarComponent implements OnInit {
     });
   }
 
+  openModal(): void {
+    const dateDialogRef = this.dialog.open(SelectDateComponent, {
+      width: this.modalWidth,
+      header: this.translate.instant('common.chooseDate')
+    });
+
+    dateDialogRef.onClose.subscribe({
+      next: (output) => {
+        const dialogRef = this.dialog.open(AddNewScheduleComponent, {
+          width: this.modalWidth,
+          data: { date: output.date },
+          header: this.translate.instant('calendar.newSchedule')
+        });
+        
+        dialogRef.onClose.subscribe({
+          next: () => {
+            const event = {
+              start: this.initialDates.from,
+              end: this.initialDates.to
+            };
+            this.handleDateChange(event);
+            
+            this.cd.detectChanges();
+          }
+        });
+      }
+    });
+  }
+
+  filter(): void {
+    this.calendarService.getAllSchedulesForUser({
+      from: dayjs(this.initialDates.from).format('YYYY-MM-DD'),
+      to: dayjs(this.initialDates.to).format('YYYY-MM-DD')
+    }, this.filters).subscribe({
+      next: res => {
+        this.initialDates.from = dayjs(this.initialDates.from).format('YYYY-MM-DD');
+        this.initialDates.to = dayjs(this.initialDates.to).format('YYYY-MM-DD');
+
+        const events = [];
+        for(const schedule of res) {
+          events.push({
+            title: `${ schedule.title } - ${ schedule.time }`,
+            date: schedule.date,
+            id: schedule.id
+          });
+        }
+        this.events = events;
+
+        this.calendarOptions = { ...this.calendarOptions, events }
+        this.cd.detectChanges();
+
+        this.showCalendar = true;
+      },
+      error: error => {
+        this.toastService.addError(error.error.message);
+      }
+    });
+  }
 }

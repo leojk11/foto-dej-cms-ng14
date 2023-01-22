@@ -1,0 +1,8 @@
+<div class="w-full p-2">
+  <p-calendar
+    [(ngModel)]="selectedDate"
+    placeholder="{{ 'properties.date' | translate | lowercase }}..."
+    appendTo="body"
+    (onSelect)="onClose()"
+  ></p-calendar>
+</div>

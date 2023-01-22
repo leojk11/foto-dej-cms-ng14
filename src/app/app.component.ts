@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { OnlineStatusModule, OnlineStatusService } from 'ngx-online-status';
-import { MessageService } from 'primeng/api';
+import { MessageService, PrimeNGConfig } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { AuthService } from './core/services/auth.service';
 import { StorageService } from './core/services/storage.service';
@@ -33,11 +33,10 @@ export class AppComponent implements OnInit {
     private storageService: StorageService,
     private authService: AuthService,
     private toastService: ToastService,
-    private onlineStatusService: OnlineStatusService
+    private onlineStatusService: OnlineStatusService,
+    private primengConfig: PrimeNGConfig
   ) {
     this.initTranslation();
-
-
   }
 
   ngOnInit(): void {
@@ -66,6 +65,15 @@ export class AppComponent implements OnInit {
     this.translateService.addLangs(['mk','en']);
     this.translateService.setDefaultLang(defaultLang);
 
-    this.storageService.setItem('lang', defaultLang)
+    this.storageService.setItem('lang', defaultLang);
+
+    this.translateService.get('primeng').subscribe({
+      next: res => {
+        this.primengConfig.setTranslation(res);
+      },
+      error: ko => {
+        console.log('Errore translate service get method', ko);
+      }
+    });
   }
 }
