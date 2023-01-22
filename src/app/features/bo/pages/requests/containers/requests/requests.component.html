@@ -1,65 +1,134 @@
 <div 
-  class="invites" 
+  class="requests" 
   *ngIf="requestsStore.state$ | async as state"
 >
-  <button
-    class="btn btn__icon btn__icon--blue shadow-small border-none mb-2"
-    (click)="location.back()"
-  >
-    <i class="pi pi-arrow-left"></i>
-  </button>
-  <p-table
-    [value]="state.list"
-    [rows]="10"
-    [paginator]="true"
-    [lazy]="true"
-    (onLazyLoad)="onLazyLoad($event)"
-    [loading]="state.loading"
-    [totalRecords]="state.total"
-  >
-    <ng-template pTemplate="header">
-      <tr>
-        <th></th>
-        <th>
-          {{ 'properties.firstname' | translate }}
-        </th>
-        <th>
-          {{ 'properties.lastname' | translate }}
-        </th>
-        <th>
-          {{ 'properties.phoneNumber' | translate }}
-        </th>
-        <th>
-          {{ 'properties.email' | translate }}
-        </th>
-        <th>
-          {{ 'properties.date' | translate }}
-        </th>
-        <th></th>
-      </tr>
-    </ng-template>
+  <div class="requests__header">
+    <div class="requests__header--buttons">
+      <button
+        class="btn btn__icon btn__icon--blue shadow-small border-none"
+        (click)="location.back()"
+      >
+        <i class="pi pi-arrow-left"></i>
+      </button>
 
-    <ng-template pTemplate="body" let-request let-index="rowIndex">
-      <tr>
-        <td>
-          {{ index + 1 }}
-        </td>
-        <td>
-          <p>{{ request.firstname }}</p>
-        </td>
-        <td>
-          <p>{{ request.lastname }}</p>
-        </td>
-        <td>
-          <p>{{ request.phone_number }}</p>
-        </td>
-        <td>
-          <p>{{ request.email }}</p>
-        </td>
-        <td>
-          {{ request.date | date: "dd/MM/yyyy" }} {{ request.time }}
-        </td>
-      </tr>
-    </ng-template>
-  </p-table>
+      <input 
+        type="text" 
+        pInputText
+        class="max-w-3"
+        placeholder="{{ 'properties.firstname' | translate | lowercase }}..."
+        [(ngModel)]="filters.firstname"
+      >
+
+      <input 
+        type="text" 
+        pInputText
+        class="max-w-3"
+        placeholder="{{ 'properties.lastname' | translate | lowercase }}..."
+        [(ngModel)]="filters.lastname"
+      >
+
+      <input 
+        type="text" 
+        pInputText
+        class="max-w-3"
+        placeholder="{{ 'properties.phoneNumber' | translate | lowercase }}..."
+        [(ngModel)]="filters.phone"
+      >
+
+      <button 
+        class="btn btn__search"
+        (click)="op.toggle($event)"
+      >
+        <!-- overlay panel is at the bottom of the file -->
+        <i class="pi pi-caret-down"></i>
+      </button>
+
+      <button 
+        class="btn btn__search"
+        (click)="filter()"
+      >
+        <i class="pi pi-search"></i>
+      </button>
+    </div>
+  </div>
+
+  <div class="content">
+    <p-table
+      [value]="state.list"
+      [rows]="10"
+      [paginator]="true"
+      [lazy]="true"
+      (onLazyLoad)="onLazyLoad($event)"
+      [loading]="state.loading"
+      [totalRecords]="state.total"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th></th>
+          <th>
+            {{ 'properties.firstname' | translate }}
+          </th>
+          <th>
+            {{ 'properties.lastname' | translate }}
+          </th>
+          <th>
+            {{ 'properties.phoneNumber' | translate }}
+          </th>
+          <th>
+            {{ 'properties.email' | translate }}
+          </th>
+          <th>
+            {{ 'properties.date' | translate }}
+          </th>
+          <th></th>
+        </tr>
+      </ng-template>
+  
+      <ng-template pTemplate="body" let-request let-index="rowIndex">
+        <tr>
+          <td>
+            {{ index + 1 }}
+          </td>
+          <td>
+            <p>{{ request.firstname }}</p>
+          </td>
+          <td>
+            <p>{{ request.lastname }}</p>
+          </td>
+          <td>
+            <p>{{ request.phone_number }}</p>
+          </td>
+          <td>
+            <p>{{ request.email }}</p>
+          </td>
+          <td>
+            {{ request.date | date: "dd/MM/yyyy" }} {{ request.time }}
+          </td>
+          <td></td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
 </div>
+
+<p-overlayPanel #op>
+  <ng-template pTemplate>
+    <div class="overlay-filters">
+      <input 
+        type="text" 
+        pInputText
+        class="max-w-3"
+        placeholder="{{ 'properties.email' | translate | lowercase }}..."
+        [(ngModel)]="filters.email"
+      >
+
+      <input 
+        type="text" 
+        pInputText
+        class="max-w-3"
+        placeholder="{{ 'properties.date' | translate | lowercase }}..."
+        [(ngModel)]="filters.date"
+      >
+    </div>
+  </ng-template>
+</p-overlayPanel>

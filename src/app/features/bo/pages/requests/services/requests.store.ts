@@ -4,11 +4,12 @@ import { BasicParams } from 'src/app/shared/models/basicParams.model';
 import { ToastService } from 'src/app/shared/services/toast.service';
 import { GetAllRequestsResponse } from '../models/getAllRequestsResponse.model';
 import { Request } from '../models/request.model';
+import { RequestFilters } from '../models/requestFilters.model';
 import { RequestsService } from './requests.service';
 
 export interface RequestsState {
-  list: Request[],
-  params: BasicParams,
+  list: Request[];
+  params: BasicParams;
   total: number;
 
   loading: boolean;
@@ -43,8 +44,8 @@ export class RequestsStore extends ComponentStore<RequestsState> {
     this.patchState({ params: params });
   }
 
-  getRequests(): void {
-    this.requestsService.getAll(this.state.params).subscribe({
+  getRequests(filters?: Partial<RequestFilters>): void {
+    this.requestsService.getAll(this.state.params, filters).subscribe({
       next: (res: GetAllRequestsResponse) => {
         this.patchState({
           list: res.list,
