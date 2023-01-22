@@ -9,6 +9,8 @@ import { ContactFormComponent } from '../../components/contact-form/contact-form
 import { HomeFooterComponent } from '../../components/home-footer/home-footer.component';
 import { Configuration } from 'src/app/features/bo/pages/configurations/models/configuration.model';
 import { StorageService } from 'src/app/core/services/storage.service';
+import { FrontConfigurationState } from '../../services/front-configuration.store';
+import { ToastService } from 'src/app/shared/services/toast.service';
 
 @Component({
   selector: 'app-home',
@@ -35,8 +37,10 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private service: FrontConfigurationService,
+    public frontConfigurationState: FrontConfigurationState,
     private storageService: StorageService,
-    private translateService: TranslateService
+    private translateService: TranslateService,
+    private toastService: ToastService
   ) { }
 
   ngOnInit(): void {
@@ -44,8 +48,12 @@ export class HomeComponent implements OnInit {
       next: res => {
         console.log('CONFIG RES', res);
         this.configuration = res;
+        this.frontConfigurationState.setConfiguration(res);
+      },
+      error: error => {
+        this.toastService.addError(error.error.message);
       }
-    })
+    });
   }
 
   changeLang(): void {
@@ -69,7 +77,6 @@ export class HomeComponent implements OnInit {
 
     this.storageService.setItem('lang', lang);
     this.selectedLang = this.storageService.getItem('lang');
-    
   }
 
   goToElement(el: HTMLElement, offset: number): void {

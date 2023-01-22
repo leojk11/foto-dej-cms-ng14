@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SwiperComponent, SwiperModule } from 'swiper/angular';
+import { SwiperModule } from 'swiper/angular';
 import SwiperCore, { SwiperOptions, Navigation } from 'swiper';
 import { environment } from 'src/environments/environment';
 import { FrontConfigurationService } from '../../services/front-configuration.service';
@@ -20,8 +20,11 @@ SwiperCore.use([Navigation])
 })
 export class SliderComponent implements OnInit {
 
+  @Input() promoImages: string = '';
+  @Input() imageUrl: string = '';
+
   imagesUrl: string = `${ environment.apiUrl }/images/`;
-  promoImages: any;
+  // promoImages: any;
 
   config: SwiperOptions = {
     slidesPerView: 'auto',
@@ -31,7 +34,7 @@ export class SliderComponent implements OnInit {
     scrollbar: { draggable: true },
     centeredSlides: true,
     centeredSlidesBounds: true,
-    loop: true,
+    loop: true
   };
 
   constructor(
@@ -39,10 +42,10 @@ export class SliderComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.service.getConfiguration().subscribe({
-      next: res => {
-        this.promoImages = res.promo_images; 
-      }
-    });
+    // this.service.getConfiguration().subscribe({
+    //   next: res => {
+    //     this.promoImages = res.promo_images; 
+    //   }
+    // });
   }
 }

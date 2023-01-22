@@ -1,7 +1,7 @@
-<div class="home">
+<div class="home" *ngIf="frontConfigurationState.confState$ | async as state">
   <div class="home__header">
     <div class="home__header--image">
-      <img src="../../../../../../../assets/img/hero.png" alt="">
+      <img [src]="state.imageUrl + state.configuration.main_image" alt="main_image">
       <div class="after"></div>
     </div>
     
@@ -9,14 +9,19 @@
       <div class="home__navbar--brand">
         <div class="home__navbar--brand--logo-wrapper">
           <img 
-            src="../../../../../../assets/img/logo.png" 
+            [src]="state.imageUrl + state.configuration.logo" 
             alt="" 
             class="home__navbar--brand--logo-wrapper--img"
           >
+          <!-- <img 
+            src="../../../../../../assets/img/logo.png" 
+            alt="" 
+            class="home__navbar--brand--logo-wrapper--img"
+          > -->
         </div>
-        <span class="home__navbar--brand--name"> 
+        <!-- <span class="home__navbar--brand--name"> 
           {{ 'common.name' | translate }}
-        </span>
+        </span> -->
       </div>
 
       <div class="home__navbar--actions">
@@ -69,10 +74,12 @@
 
     <div class="home__hero">
       <div class="home__hero--title">
-        {{ 'home.heroTitle' | translate }}
+        <!-- {{ 'home.heroTitle' | translate }} -->
+        {{ state.configuration.main_title }}
       </div>
       <div class="home__hero--text">
-        {{ 'home.heroText' | translate }}
+        <!-- {{ 'home.heroText' | translate }} -->
+        {{ state.configuration.second_title }}
       </div>
 
       <div class="home__hero--buttons">
@@ -102,7 +109,10 @@
   </div>
 
   <div class="home__slider" #slider>
-    <app-slider></app-slider>
+    <app-slider
+      [promoImages]="state.configuration.promo_images"
+      [imageUrl]="state.imageUrl"
+    ></app-slider>
   </div>
 
   <div class="home__video">
@@ -118,7 +128,8 @@
 
   <div class="home__contact" #collaboration>
     <p class="home__contact--title">
-      {{ 'messages.contactInfo' | translate }}
+      <!-- {{ 'messages.contactInfo' | translate }} -->
+      {{ state.configuration.contact_form_label }}
     </p>
 
     <div class="home__contact--form">
@@ -127,6 +138,6 @@
   </div>
 
   <app-home-footer
-    [configuration]="configuration"
+    [configuration]="state.configuration"
   ></app-home-footer>
 </div>
