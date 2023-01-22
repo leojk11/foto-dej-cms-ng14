@@ -8,9 +8,13 @@ import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
 import { ClientsService } from '../../../clients/services/clients.service';
 import { Invite } from '../../models/invites.model';
-import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmationService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastService } from 'src/app/shared/services/toast.service';
+import { FormsModule } from '@angular/forms';
+import { InputTextModule } from 'primeng/inputtext';
+import { CalendarModule } from 'primeng/calendar';
+import * as dayjs from 'dayjs';
 
 @Component({
   selector: 'app-invites',
@@ -22,6 +26,10 @@ import { ToastService } from 'src/app/shared/services/toast.service';
     ButtonModule,
     TooltipModule,
     ConfirmDialogModule,
+    FormsModule,
+    InputTextModule,
+    TooltipModule,
+    CalendarModule
   ],
   providers: [
     ConfirmationService,
@@ -31,6 +39,12 @@ import { ToastService } from 'src/app/shared/services/toast.service';
   styleUrls: ['./invites.component.scss']
 })
 export class InvitesComponent implements OnInit {
+
+  filters: {
+    client: string;
+    date: string;
+  } = { } as { client: string, date: string };
+  dateToFilter: Date | null = null;
 
   constructor(
     public invitesStore: InvitesStore,
@@ -75,4 +89,25 @@ export class InvitesComponent implements OnInit {
       }
     });
   }
+
+  refresh(): void {
+    this.filters = {} as { client: string; date: string };
+    this.dateToFilter = null;
+    this.invitesStore.setParams({ page: 1, take: 10 });
+    this.invitesStore.getInvites();
+  }
+
+  onDateSelect(): void {
+    this.filters.date = dayjs(this.dateToFilter).format('YYYY-MM-DD');
+  }
+  onDateClear(): void {
+    this.filters.date = '';
+    this.filter();
+  }
+
+  filter(): void {
+    this.invitesStore.setParams({ page: 1, take: 10 });
+    this.invitesStore.getInvites(this.filters);
+  }
+
 }

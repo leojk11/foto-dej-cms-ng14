@@ -43,8 +43,8 @@ export class InvitesStore extends ComponentStore<InvitesState> {
     this.patchState({ params: params });
   }
 
-  getInvites(): void {
-    this.invitesService.getAll(this.state.params).subscribe({
+  getInvites(filters?: { client: string, date: string }): void {
+    this.invitesService.getAll(this.state.params, filters).subscribe({
       next: (res: GetAllInvitesResponse) => {
         this.patchState({
           list: res.list,

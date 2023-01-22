@@ -15,8 +15,18 @@ export class InvitesService {
     private http: HttpClient
   ) { }
 
-  getAll(params: BasicParams): Observable<GetAllInvitesResponse> {
-    const path = `${ this.apiUrl }/invites?take=${ params.take }&page=${ params.page }`;
+  getAll(params: BasicParams, filters?: { client: string, date: string }): Observable<GetAllInvitesResponse> {
+    let path = `${ this.apiUrl }/invites?take=${ params.take }&page=${ params.page }`;
+
+    if (filters) {
+      if (filters.client) {
+        path += `&client=${ filters.client }`;
+      }
+      if (filters.date) {
+        path += `&date=${ filters.date }`;
+      }
+    }
+
     return this.http.get<GetAllInvitesResponse>(path);
   }
 

@@ -2,66 +2,107 @@
   class="invites" 
   *ngIf="invitesStore.state$ | async as state"
 >
-  <button
-    class="btn btn__icon btn__icon--blue shadow-small border-none mb-2"
-    (click)="location.back()"
-  >
-    <i class="pi pi-arrow-left"></i>
-  </button>
-  <p-table
-    [value]="state.list"
-    [rows]="10"
-    [paginator]="true"
-    [lazy]="true"
-    (onLazyLoad)="onLazyLoad($event)"
-    [loading]="state.loading"
-    [totalRecords]="state.total"
-  >
-    <ng-template pTemplate="header">
-      <tr>
-        <th></th>
-        <th>
-          {{ 'properties.invitedClient' | translate }}
-        </th>
-        <th>
-          {{ 'properties.invitedBy' | translate }}
-        </th>
-        <th>
-          {{ 'properties.date' | translate }}
-        </th>
-        <th></th>
-      </tr>
-    </ng-template>
+  <div class="invites__header">
+    <div class="invites__header--buttons">
+      <button
+        class="btn btn__icon btn__icon--blue shadow-small border-none"
+        (click)="location.back()"
+      >
+        <i class="pi pi-arrow-left"></i>
+      </button>
 
-    <ng-template pTemplate="body" let-invite let-index="rowIndex">
-      <tr>
-        <td>
-          {{ index + 1 }}
-        </td>
-        <td>
-          <p>{{ invite.invited_client.fullname }}</p>
-          <p>{{ invite.invited_client.email }}</p>
-        </td>
-        <td>
-          {{ invite.invited_by.fullname }}
-        </td>
-        <td>
-          {{ invite.date | date: "dd/MM/yyyy" }} {{ invite.time }}
-        </td>
-        <td >
-          <button
-            class="btn btn__main btn__main--sm"
-            type="button"
-            (click)="resendInvite(invite)"
-            pTooltip="{{ 'common.resend' | translate }}" 
-            tooltipPosition="top"
-          >
-            <i class="pi pi-refresh"></i>
-          </button>
-        </td>
-      </tr>
-    </ng-template>
-  </p-table>
+      <button
+        class="btn btn__icon--blue btn__main--sm"
+        type="button"
+        (click)="refresh()"
+        pTooltip="{{ 'common.refresh' | translate }}" 
+        tooltipPosition="top">
+        <i class="pi pi-refresh"></i>
+      </button>
+    </div>
+
+    <div class="invites__header--filter">
+      <input 
+        type="text" 
+        pInputText
+        class="max-w-3"
+        placeholder="{{ 'properties.client' | translate | lowercase }}..."
+        [(ngModel)]="filters.client"
+      >
+
+      <p-calendar
+        [(ngModel)]="dateToFilter"
+        placeholder="{{ 'properties.date' | translate | lowercase }}..."
+        [showClear]="true"
+        (onSelect)="onDateSelect()"
+        (onClear)="onDateClear()"
+      ></p-calendar>
+
+      <button 
+        class="btn btn__search"
+        (click)="filter()"
+      >
+        <i class="pi pi-search"></i>
+      </button>
+    </div>
+  </div>
+
+  <div class="invites__content">
+    <p-table
+      [value]="state.list"
+      [rows]="10"
+      [paginator]="true"
+      [lazy]="true"
+      (onLazyLoad)="onLazyLoad($event)"
+      [loading]="state.loading"
+      [totalRecords]="state.total"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th></th>
+          <th>
+            {{ 'properties.invitedClient' | translate }}
+          </th>
+          <th>
+            {{ 'properties.invitedBy' | translate }}
+          </th>
+          <th>
+            {{ 'properties.date' | translate }}
+          </th>
+          <th></th>
+        </tr>
+      </ng-template>
+  
+      <ng-template pTemplate="body" let-invite let-index="rowIndex">
+        <tr>
+          <td>
+            {{ index + 1 }}
+          </td>
+          <td>
+            <p>{{ invite.invited_client.fullname }}</p>
+            <p>{{ invite.invited_client.email }}</p>
+          </td>
+          <td>
+            {{ invite.invited_by.fullname }}
+          </td>
+          <td>
+            {{ invite.date | date: "dd/MM/yyyy" }} {{ invite.time }}
+          </td>
+          <td >
+            <button
+              class="btn btn__main btn__main--sm"
+              type="button"
+              (click)="resendInvite(invite)"
+              pTooltip="{{ 'common.resend' | translate }}" 
+              tooltipPosition="top"
+            >
+              <i class="pi pi-refresh"></i>
+            </button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
 </div>
 
 <p-confirmDialog 

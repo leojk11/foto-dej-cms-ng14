@@ -54,7 +54,8 @@
     "unselectAll": "Unselect all selected",
     "disableSelected": "Disable selected",
     "enableSelected": "Enable selected",
-    "chooseDate": "Choose date"
+    "chooseDate": "Choose date",
+    "refresh": "Refresh"
   },
   "properties": {
     "title": "Title",

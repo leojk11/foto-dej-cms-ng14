@@ -54,7 +54,8 @@
     "unselectAll": "Деселектирај ги сите",
     "disableSelected": "Деактивирај ги избраните",
     "enableSelected": "Активирај ги избраните",
-    "chooseDate": "Избери дата"
+    "chooseDate": "Избери дата",
+    "refresh": "Освежи"
   },
   "properties": {
     "title": "Наслов",
