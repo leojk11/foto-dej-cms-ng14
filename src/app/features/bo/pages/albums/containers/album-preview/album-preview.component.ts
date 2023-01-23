@@ -191,6 +191,6 @@ export class AlbumPreviewComponent implements OnInit {
   // }
 
   filter(image: string): void {
-    this.albumsStore.getSingleAlbum(this.albumId, image);
+    this.albumsStore.getAlbumImages(this.albumId, image);
   }
 }

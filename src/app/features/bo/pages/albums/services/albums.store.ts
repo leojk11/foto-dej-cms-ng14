@@ -15,6 +15,7 @@ export interface AlbumsState {
   total: number;
 
   images: GetAlumImagesResponse | null;
+  selectedImages: GetAlumImagesResponse | null;
 
   loading: boolean;
 
@@ -34,6 +35,7 @@ export const initialState: AlbumsState = {
   total: 0,
 
   images: null,
+  selectedImages: null,
 
   loading: true,
 
@@ -114,6 +116,25 @@ export class AlbumsStore extends ComponentStore<AlbumsState> {
             this.setLoading(false);
             this.toastService.addError(error.error.message);
           }
+        });
+      },
+      error: error => {
+        this.setLoading(false);
+        this.toastService.addError(error.error.message);
+      }
+    });
+  }
+
+  getAlbumImages(id: string, image?: string): void {
+    this.albumsService.getAlbumImages(id, image).subscribe({
+      next: albumImages => {
+        console.log('album images', albumImages);
+        
+        // this.albumLayoutService.setTitle('common.albums', `${ singleAlbum.title } (${singleAlbum.date})`);
+
+        this.patchState({
+          images: albumImages,
+          // loading: false
         });
       },
       error: error => {
