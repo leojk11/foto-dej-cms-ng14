@@ -1,0 +1,21 @@
+.p-tabview {
+  .p-tabview-nav  {
+    font-size: 1.8rem !important;
+  
+    background: $color-wrapper !important;
+  
+    justify-content: center !important;
+  
+    border: none !important; 
+
+    li {
+      .p-tabview-nav-link {
+        background: $color-wrapper !important;
+      }
+    }
+  }
+
+  .p-tabview-panels {
+    background: $color-wrapper !important;
+  }
+}

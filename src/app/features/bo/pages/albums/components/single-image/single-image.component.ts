@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { environment } from 'src/environments/environment';
 import { CheckboxModule } from 'primeng/checkbox';
 import { FormsModule } from '@angular/forms';
+import { Image } from '../../models/image.model';
 
 @Component({
   selector: 'app-single-image',
@@ -17,9 +18,9 @@ import { FormsModule } from '@angular/forms';
 })
 export class SingleImageComponent implements OnInit, OnChanges {
 
-  @Input() image?: string;
+  @Input() image?: Image;
   @Input() imageDisabled: boolean = false;
-  @Input() selectedImages?: string[] = [];
+  @Input() selectedImages?: Image[] = [];
 
   @Output() onImageClick = new EventEmitter<any>();
   @Output() onDelete = new EventEmitter<any>();
@@ -31,13 +32,25 @@ export class SingleImageComponent implements OnInit, OnChanges {
   constructor() { }
 
   ngOnInit(): void {
-    this.src = `${ environment.apiUrl }/images/${ this.image }`;
+    this.src = `${ environment.apiUrl }/images/${ this.image?.name }`;
+
+    this.checkImage();
   }
 
   ngOnChanges(): void {
+    this.checkImage();
+  }
+
+  checkImage(): void {
+    console.log('selected images on check', this.selectedImages);
+    
     if (this.selectedImages && this.image) {
-      if (!this.selectedImages.includes(this.image)) {
+      const selectedImage = this.selectedImages.find(inImg => inImg.name === this.image?.name);
+      
+      if (!selectedImage) {
         this.selected = false;
+      } else {
+        this.selected = true;
       }
     }
   }
@@ -64,8 +77,8 @@ export class SingleImageComponent implements OnInit, OnChanges {
         this.selectedImages?.push(this.image);
       }
     } else {
-      const imageIndex = this.selectedImages?.findIndex(inImg => inImg === this.image);
-      if (imageIndex && imageIndex >= 0) {
+      const imageIndex: number = this.selectedImages?.findIndex(inImg => inImg.name === this.image?.name)!;
+      if (imageIndex >= 0) {
         this.selectedImages?.splice(imageIndex, 1);
       }
     }

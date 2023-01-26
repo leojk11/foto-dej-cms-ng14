@@ -7,18 +7,6 @@
       >
         <i class="pi pi-arrow-left"></i>
       </button>
-  
-      <!-- <div class="container__flex relative">
-        <input 
-          type="text" 
-          pInputText
-          class=""
-          placeholder="{{ 'common.searchName' | translate}}"
-          [(ngModel)]="imageSearch"
-          (keydown.enter)="filter()"
-        >
-        <i class="pi pi-search icon-search"></i>
-      </div> -->
     </div>
   
     <div class="container__flex">
@@ -67,26 +55,6 @@
     </div>
   
     <div class="album-preview__info" *ngIf="!state.loading">
-      <!-- <div class="album-preview__info__item">
-        <div class="label">{{ 'properties.title' | translate }}: </div>
-        <div class="content">{{ state.previewAlbum?.title }}</div>
-      </div> -->
-  
-      <!-- <div class="album-preview__info__item">
-        <div class="label">{{ 'properties.date' | translate }}: </div>
-        <div class="content">{{ state.previewAlbum?.date | date: "dd/MM/YYYY" }}</div>
-      </div> -->
-  
-      <!-- <div class="album-preview__info__item">
-        <div class="label">{{ 'properties.createdBy' | translate }}: </div>
-        <div class="content">{{ state.previewAlbum?.created_by?.fullname }}</div>
-      </div> -->
-  
-      <!-- <div class="album-preview__info__item">
-        <div class="label">{{ 'properties.createdDate' | translate }}: </div>
-        <div class="content">{{ state.previewAlbum?.created_date | date: "dd/MM/YYYY" }}</div>
-      </div> -->
-  
       <div class="album-preview__info__item">
         <div class="label">{{ 'properties.numImages' | translate }}: </div>
         <div class="content">{{ state.images?.imagesCount }}</div>
@@ -100,54 +68,18 @@
   
     <div class="separator my-2" *ngIf="!state.loading"></div>
   
-    <!-- <div class="container__flex justify-end gap-1 mb-2 px-2">
-      <button
-        *ngIf="selectedImages.length > 0"
-        class="btn btn__icon--blue"
-        type="button"
-        (click)="deleteSelected()"
-      >
-        <i class="pi pi-trash"></i>
-      </button>
-  
-      <button
-        *ngIf="selectedImages.length > 0"
-        class="btn btn__icon--red"
-        type="button"
-        (click)="disableSelected()"
-      >
-        <i class="pi pi-ban"></i>
-      </button>
-    </div> -->
-  
     <div *ngIf="!state.loading && state.images?.images">
+      <!-- [selectedImages]="state.selectedImages?.images" -->
+
       <app-album
         [images]="state.images?.images"
+        [selectedImages]="state.selectedImages"
         [isAdmin]="true"
         [isSelect]="false"
         (onImageSearch)="filter($event)"
+        (onSelect)="onImageSelect($event)"
       ></app-album>
     </div>
-      <!-- <p
-        class="album-preview__images__msg"
-        *ngIf="state.images?.images?.length === 0"
-      >
-        {{ 'albums.noImages' | translate }}
-      </p>
-  
-      <div
-        class="album-image"
-        *ngFor="let image of state.images?.images; let i = index"
-      >
-        <app-single-image
-          [image]="image.name"
-          [imageDisabled]="image.disabled"
-          [selectedImages]="selectedImages"
-          (onImageClick)="onToggleOverview($event, state.images?.images)"
-          (onDelete)="deleteImage($event, i)"
-          (onSelect)="onImageSelect($event)"
-        ></app-single-image>
-      </div> -->
   </div>
 </ng-container>
 

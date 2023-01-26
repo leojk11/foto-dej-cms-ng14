@@ -10,6 +10,8 @@ import { ImageOverviewService } from '../../services/image-overview.service';
 import { InputTextModule } from 'primeng/inputtext';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { TooltipModule } from 'primeng/tooltip';
+import { TabViewModule } from 'primeng/tabview';
+import { PermitDirective } from 'src/app/core/directives/permit.directive';
 
 @Component({
   selector: 'app-album',
@@ -21,7 +23,9 @@ import { TooltipModule } from 'primeng/tooltip';
     FormsModule,
     InputTextModule,
     ConfirmDialogModule,
-    TooltipModule
+    TooltipModule,
+    TabViewModule,
+    PermitDirective
   ],
   templateUrl: './album.component.html',
   styleUrls: ['./album.component.scss']
@@ -29,12 +33,15 @@ import { TooltipModule } from 'primeng/tooltip';
 export class AlbumComponent implements OnInit {
 
   @Input() images: Image[] | undefined = [];
+  @Input() selectedImages: Image[] = [];
   @Input() isAdmin: boolean = true;
   @Input() isSelect: boolean = false;
   @Output() onImageSearch = new EventEmitter();
+  @Output() onSelect = new EventEmitter();
 
   imageSearch: string = '';
-  selectedImages: string[] = [];
+  tabsIndex: number = 0;
+  showSelected: boolean = false;
 
   constructor(
     private albumsStore: AlbumsStore,
@@ -44,6 +51,8 @@ export class AlbumComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    console.log('images on onit', this.images);
+    
   }
 
   deleteSelected(): void {
@@ -55,7 +64,11 @@ export class AlbumComponent implements OnInit {
       acceptLabel: this.translate.instant('common.yes'),
       rejectLabel: this.translate.instant('common.no'),
       accept: () => {
-        this.albumsStore.deleteMultipleImages(this.selectedImages);
+        const selectedStrArr = [];
+        for (const img of this.selectedImages) {
+          selectedStrArr.push(img.name);
+        }
+        this.albumsStore.deleteMultipleImages(selectedStrArr);
       }
     });
   }
@@ -69,7 +82,11 @@ export class AlbumComponent implements OnInit {
       acceptLabel: this.translate.instant('common.yes'),
       rejectLabel: this.translate.instant('common.no'),
       accept: () => {
-        this.albumsStore.enableMultipleImages(this.selectedImages);
+        const selectedStrArr = [];
+        for (const img of this.selectedImages) {
+          selectedStrArr.push(img.name);
+        }
+        this.albumsStore.enableMultipleImages(selectedStrArr);
       }
     });
   }
@@ -83,13 +100,22 @@ export class AlbumComponent implements OnInit {
       acceptLabel: this.translate.instant('common.yes'),
       rejectLabel: this.translate.instant('common.no'),
       accept: () => {
-        this.albumsStore.disableMultipleImages(this.selectedImages);
+        const selectedStrArr = [];
+        for (const img of this.selectedImages) {
+          selectedStrArr.push(img.name);
+        }
+        this.albumsStore.disableMultipleImages(selectedStrArr);
       }
     });
   }
 
   filter(): void {
-    this.onImageSearch.emit( this.imageSearch);
+    const searchObj = {
+      searchValue: this.imageSearch,
+      showSelected: this.showSelected
+    };
+
+    this.onImageSearch.emit(searchObj);
   }
 
   deleteImage(event: string, index: number): void {
@@ -116,11 +142,30 @@ export class AlbumComponent implements OnInit {
     this.imageOverviewState.setImages(event, imagesArr);
   }
 
-  onImageSelect(selectedImages: string[]): void {
+  onImageSelect(selectedImages: Image[]): void {
     this.selectedImages = selectedImages;
+    this.onSelect.emit({
+      images: this.selectedImages, 
+      isAdmin: this.isAdmin
+    });
   }
 
   deselectAllImages(): void {
     this.selectedImages = [];
+  }
+
+  selectAllImages(): void {
+    if (this.albumsStore.state.images) {
+      this.selectedImages = this.albumsStore.state.images.images;
+    }
+  }
+
+  onTabChange(): void {
+    if (this.tabsIndex === 1) {
+      this.albumsStore.getSelectedAlbumImages(this.albumsStore.state.previewAlbum?.id);
+      this.showSelected = true;
+    } else {
+      this.showSelected = false;
+    }
   }
 }

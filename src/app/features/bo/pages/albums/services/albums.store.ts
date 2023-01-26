@@ -8,6 +8,7 @@ import { AlbumsService } from './albums.service';
 import {GetAlumImagesResponse} from "../models/getAlumImagesResponse.model";
 import { AdminLayoutService } from '../../../layout/services/admin-layout.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
+import { Image } from '../models/image.model';
 
 export interface AlbumsState {
   list: Album[],
@@ -15,7 +16,7 @@ export interface AlbumsState {
   total: number;
 
   images: GetAlumImagesResponse | null;
-  selectedImages: GetAlumImagesResponse | null;
+  selectedImages: Image[];
 
   loading: boolean;
 
@@ -35,7 +36,7 @@ export const initialState: AlbumsState = {
   total: 0,
 
   images: null,
-  selectedImages: null,
+  selectedImages: [],
 
   loading: true,
 
@@ -55,7 +56,7 @@ export class AlbumsStore extends ComponentStore<AlbumsState> {
   constructor(
     private albumsService: AlbumsService,
     private router: Router,
-    private albumLayoutService: AdminLayoutService,
+    private adminLayoutService: AdminLayoutService,
     private toastService: ToastService
   ) {
     super(initialState);
@@ -99,17 +100,23 @@ export class AlbumsStore extends ComponentStore<AlbumsState> {
 
     this.albumsService.getSingleAlbum(id).subscribe({
       next: singleAlbum => {
-        console.log('Single album', singleAlbum);
         this.albumsService.getAlbumImages(id, image).subscribe({
           next: albumImages => {
-            console.log('album images', albumImages);
-            
-            this.albumLayoutService.setTitle('common.albums', `${ singleAlbum.title } (${singleAlbum.date})`);
+            this.albumsService.getSelectedAlbumImages(id).subscribe({
+              next: selectedImages => {
+                this.adminLayoutService.setTitle('common.albums', `${ singleAlbum.title } (${singleAlbum.date})`);
 
-            this.patchState({
-              previewAlbum: singleAlbum,
-              images: albumImages,
-              loading: false
+                this.patchState({
+                  previewAlbum: singleAlbum,
+                  images: albumImages,
+                  selectedImages: selectedImages.images,
+                  loading: false
+                });
+              },
+              error: error => {
+                this.setLoading(false);
+                this.toastService.addError(error.error.message);
+              }
             });
           },
           error: error => {
@@ -128,26 +135,27 @@ export class AlbumsStore extends ComponentStore<AlbumsState> {
   getAlbumImages(id: string, image?: string): void {
     this.albumsService.getAlbumImages(id, image).subscribe({
       next: albumImages => {
-        console.log('album images', albumImages);
-        
-        // this.albumLayoutService.setTitle('common.albums', `${ singleAlbum.title } (${singleAlbum.date})`);
-
-        this.patchState({
-          images: albumImages,
-          // loading: false
-        });
+        this.patchState({ images: albumImages });
       },
       error: error => {
-        this.setLoading(false);
+        this.toastService.addError(error.error.message);
+      }
+    });
+  }
+
+  getSelectedAlbumImages(albumId: string | undefined, image?: string): void {
+    this.albumsService.getSelectedAlbumImages(albumId, image).subscribe({
+      next: selectedImages => {
+        this.patchState({ selectedImages: selectedImages.images });
+      },
+      error: error => {
         this.toastService.addError(error.error.message);
       }
     });
   }
 
   patchPreviewAlbum(album: Album): void {
-    this.patchState({
-      previewAlbum: album
-    });
+    this.patchState({ previewAlbum: album });
   }
 
   patchExistingAlbums(newAlbum: Album): void {
@@ -266,5 +274,22 @@ export class AlbumsStore extends ComponentStore<AlbumsState> {
         this.toastService.addError(error.error.message);
       }
     });
+  }
+
+  patchSelectedImages(images: Image[]): void {
+    this.patchState({ selectedImages: images });
+  }
+
+  selectImages(): void {
+    if (this.state.selectedImages) {
+      this.albumsService.selectImages(this.state.previewAlbum?.id, this.state.selectedImages).subscribe({
+        next: res => {
+          this.toastService.addSuccess(res.message);
+        },
+        error: error => {
+          this.toastService.addError(error.error.message);
+        }
+      });
+    }
   }
 }

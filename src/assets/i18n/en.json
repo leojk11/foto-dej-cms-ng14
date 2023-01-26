@@ -52,10 +52,13 @@
     "send": "Send",
     "createNewPassowrd": "Create new password",
     "unselectAll": "Unselect all selected",
+    "selectAll": "Select all",
     "disableSelected": "Disable selected",
     "enableSelected": "Enable selected",
     "chooseDate": "Choose date",
-    "refresh": "Refresh"
+    "refresh": "Refresh",
+    "all": "All",
+    "selected": "Selected" 
   },
   "properties": {
     "title": "Title",

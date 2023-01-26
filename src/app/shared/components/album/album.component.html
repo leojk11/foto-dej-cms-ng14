@@ -1,81 +1,135 @@
-<div class="album">
-  <div class="album__top">
-    <div class="album__top--search">
-      <input 
-        type="text" 
-        pInputText
-        class=""
-        placeholder="{{ 'common.searchName' | translate}}"
-        [(ngModel)]="imageSearch"
-        (keydown.enter)="filter()"
-      >
-      <i class="pi pi-search icon-search"></i>
-    </div>
+<p-tabView 
+  [(activeIndex)]="tabsIndex" 
+  (onChange)="onTabChange()">
+  <p-tabPanel header="{{ 'common.all' | translate }}">
+    <ng-container *ngIf="tabsIndex === 0">
+      <ng-container 
+        *ngTemplateOutlet="albumImages"
+      ></ng-container>
+    </ng-container>
+  </p-tabPanel>
 
-    <div class="album__top--actions">
-      <button
-        class="btn btn__icon--blue"
-        type="button"
-        (click)="deselectAllImages()"
-        *ngIf="selectedImages.length > 0"
-        pTooltip="{{ 'common.unselectAll' | translate }}" 
-        tooltipPosition="top"
-      >
-        <i class="pi pi-times"></i>
-      </button>
+  <p-tabPanel header="{{ 'common.selected' | translate }}">
+    <ng-container *ngIf="tabsIndex === 1">
+      <ng-container 
+        *ngTemplateOutlet="albumImages"
+      ></ng-container>
+    </ng-container>
+  </p-tabPanel>
+</p-tabView>
 
-      <button
-        class="btn btn__icon--blue"
-        type="button"
-        (click)="deleteSelected()"
-        pTooltip="{{ 'common.deleteSelected' | translate }}" 
-        tooltipPosition="top"
-      >
-        <i class="pi pi-trash"></i>
-      </button>
+<ng-template #albumImages>
+  <div class="album">
+    <div class="album__top">
+      <div class="album__top--search">
+        <input 
+          type="text" 
+          pInputText
+          class=""
+          placeholder="{{ 'common.searchName' | translate}}"
+          [(ngModel)]="imageSearch"
+          (keydown.enter)="filter()"
+        >
+        <i class="pi pi-search icon-search"></i>
+      </div>
   
-      <button
-        class="btn btn__icon--red"
-        type="button"
-        (click)="disableSelected()"
-        pTooltip="{{ 'common.disableSelected' | translate }}" 
-        tooltipPosition="top"
-      >
-        <i class="pi pi-ban"></i>
-      </button>
+      <div class="album__top--actions">
+        <button
+          class="btn btn__icon--blue"
+          type="button"
+          (click)="deselectAllImages()"
+          *ngIf="selectedImages.length > 0"
+          pTooltip="{{ 'common.unselectAll' | translate }}" 
+          tooltipPosition="top"
+        >
+          <i class="pi pi-times-circle"></i>
+        </button>
 
-      <button
-        class="btn btn__icon--blue"
-        type="button"
-        (click)="enableSelected()"
-        pTooltip="{{ 'common.enableSelected' | translate }}" 
-        tooltipPosition="top"
+        <ng-container *ngIf="!showSelected">
+          <button
+            class="btn btn__icon--blue"
+            type="button"
+            (click)="selectAllImages()"
+            pTooltip="{{ 'common.selectAll' | translate }}" 
+            tooltipPosition="top"
+          >
+            <i class="pi pi-check-circle"></i>
+          </button>
+
+          <button
+            class="btn btn__icon--blue"
+            type="button"
+            (click)="deleteSelected()"
+            pTooltip="{{ 'common.deleteSelected' | translate }}" 
+            tooltipPosition="top"
+            *permit="'BO'"
+          >
+            <i class="pi pi-trash"></i>
+          </button>
+      
+          <button
+            class="btn btn__icon--red"
+            type="button"
+            (click)="disableSelected()"
+            pTooltip="{{ 'common.disableSelected' | translate }}" 
+            tooltipPosition="top"
+            [disabled]="selectedImages.length === 0"
+            *permit="'BO'"
+          >
+            <i class="pi pi-ban"></i>
+          </button>
+    
+          <button
+            class="btn btn__icon--blue"
+            type="button"
+            (click)="enableSelected()"
+            pTooltip="{{ 'common.enableSelected' | translate }}" 
+            tooltipPosition="top"
+            *permit="'BO'"
+          >
+            <i class="pi pi-check"></i>
+          </button>
+        </ng-container>
+      </div>
+    </div>
+  
+    <p class="album__empty" *ngIf="images?.length === 0">
+      {{ 'albums.noImages' | translate }}
+    </p>
+  
+    <div class="album__images" *ngIf="!showSelected">
+      <div 
+        class="album__images--image"
+        *ngFor="let image of images; let i = index"
       >
-        <i class="pi pi-check"></i>
-      </button>
+        <app-single-image
+          [image]="image"
+          [imageDisabled]="image.disabled"
+          [selectedImages]="selectedImages"
+          (onImageClick)="onToggleOverview($event, images)"
+          (onDelete)="deleteImage($event, i)"
+          (onSelect)="onImageSelect($event)"
+        ></app-single-image>
+      </div>
+    </div>
+
+    <div class="album__images" *ngIf="showSelected">
+      <div 
+        class="album__images--image"
+        *ngFor="let image of selectedImages; let i = index"
+      >
+        <app-single-image
+          [image]="image"
+          [imageDisabled]="image.disabled"
+          [selectedImages]="selectedImages"
+          (onImageClick)="onToggleOverview($event, images)"
+          (onDelete)="deleteImage($event, i)"
+          (onSelect)="onImageSelect($event)"
+        ></app-single-image>
+      </div>
     </div>
   </div>
-
-  <p class="album__empty" *ngIf="images?.length === 0">
-    {{ 'albums.noImages' | translate }}
-  </p>
-
-  <div class="album__images">
-    <div 
-      class="album__images--image"
-      *ngFor="let image of images; let i = index"
-    >
-      <app-single-image
-        [image]="image.name"
-        [imageDisabled]="image.disabled"
-        [selectedImages]="selectedImages"
-        (onImageClick)="onToggleOverview($event, images)"
-        (onDelete)="deleteImage($event, i)"
-        (onSelect)="onImageSelect($event)"
-      ></app-single-image>
-    </div>
-  </div>
-</div>
+</ng-template>
 
 <p-confirmDialog 
   [key]="'deleteImage'"

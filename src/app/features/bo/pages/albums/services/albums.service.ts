@@ -5,9 +5,13 @@ import { API_URL } from 'src/app/core/tokens/api-url.token';
 import { BasicParams } from 'src/app/shared/models/basicParams.model';
 import { AddNewAlbumResponse } from '../models/addNewAlbumResponse.model';
 import { Album } from '../models/album.model';
+import { EditResponse } from '../models/editResponse.model';
 import { GetAllAlbumsResponse } from '../models/getAllAlbumsResponse.model';
 import {GetAlumImagesResponse} from "../models/getAlumImagesResponse.model";
+import { GetSelectedImagesResponse } from '../models/getSelectedImagesResponse.model';
+import { Image } from '../models/image.model';
 import { MessageResponse } from '../models/messageResponse.model';
+import { SelectImagesResponse } from '../models/selectImagesResponse.model';
 
 @Injectable({
   providedIn: 'root'
@@ -47,9 +51,9 @@ export class AlbumsService {
     return this.http.post<AddNewAlbumResponse>(path, payload);
   }
 
-  editAlbum(data: Partial<Album>, albumId: string): Observable<any> {
+  editAlbum(data: Partial<Album>, albumId: string): Observable<EditResponse> {
     const path = `${ this.apiUrl }/albums/${ albumId }`;
-    return this.http.patch<any>(path, data);
+    return this.http.patch<EditResponse>(path, data);
   }
 
   updateStatus(albumId: string | undefined, status: boolean): Observable<MessageResponse> {
@@ -65,10 +69,24 @@ export class AlbumsService {
   getAlbumImages(albumId: string, image?: string): Observable<GetAlumImagesResponse> {
     let path = `${ this.apiUrl }/images/album/${ albumId }`;
     if(image){
-      path += `?image=${image}`
+      path += `?image=${ image }`;
     }
     
     return this.http.get<GetAlumImagesResponse>(path);
+  }
+
+  getSelectedAlbumImages(albumId: string | undefined, image?: string): Observable<GetSelectedImagesResponse> {
+    let path = `${ this.apiUrl }/images/album/${ albumId }/selected`;
+    if(image){
+      path += `?image=${ image }`;
+    }
+
+    return this.http.get<GetSelectedImagesResponse>(path);
+  }
+
+  selectImages(albumId: string | undefined, images: Image[]): Observable<SelectImagesResponse> {
+    const path = `${ this.apiUrl }/images/album/${ albumId }/select`;
+    return this.http.post<SelectImagesResponse>(path, { images });
   }
 
   uploadImages(file: File, albumId: string | undefined): Observable<any> {

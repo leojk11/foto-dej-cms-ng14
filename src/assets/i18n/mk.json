@@ -52,10 +52,13 @@
     "send": "Испрати",
     "createNewPassowrd": "Креирајте нова лозинка",
     "unselectAll": "Деселектирај ги сите",
+    "selectAll": "Избери ги сите",
     "disableSelected": "Деактивирај ги избраните",
     "enableSelected": "Активирај ги избраните",
     "chooseDate": "Избери дата",
-    "refresh": "Освежи"
+    "refresh": "Освежи",
+    "all": "Сите",
+    "selected": "Избрани" 
   },
   "properties": {
     "title": "Наслов",
