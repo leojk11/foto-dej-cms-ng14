@@ -8,7 +8,7 @@ export const AUTH_ROUTES: Route[] = [
     path: 'user', 
     loadComponent: () => import('./components/user-login/user-login.component')
       .then(m => m.UserLoginComponent), 
-    canActivate: [UserNonAuthGuard] 
+    canActivate: [UserNonAuthGuard]
   },
   { 
     path: 'bo', 

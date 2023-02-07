@@ -1,38 +1,38 @@
-<div class="footer">
+<div class="footer" *ngIf="frontConfigurationState.confState$ | async as state">
   <div class="footer__contact">
     <div class="footer__contact--item">
       <i class="pi pi-phone"></i>
       <span class="footer__contact--item__text">
-        {{ configuration.phone_number }}
+        {{ state.configuration.phone_number }}
       </span>
     </div>
 
     <div class="footer__contact--item">
       <i class="pi pi-envelope"></i>
       <span class="footer__contact--item__text">
-        {{ configuration.email }}
+        {{ state.configuration.email }}
       </span>
     </div>
 
     <div class="footer__contact--item">
       <i class="pi pi-map-marker"></i>
       <span class="footer__contact--item__text">
-        {{ configuration.address }}
+        {{ state.configuration.address }}
       </span>
     </div>
   </div>
 
   <div class="footer__socials">
-    <a [href]="configuration.insta_link" target="_blank">
+    <a [href]="state.configuration.insta_link" target="_blank">
       <i class="pi pi-instagram footer__socials--icon"></i>
     </a>
 
-    <a [href]="configuration.facebook_link" target="_blank">
+    <a [href]="state.configuration.facebook_link" target="_blank">
       <i class="pi pi-facebook footer__socials--icon"></i>
     </a>
   </div>
 
   <div class="footer__logo">
-    <i class="pi pi-camera"></i>
+    <img src="../../../../../../../assets//img/ikona-bela.svg" alt="">
   </div>
 </div>

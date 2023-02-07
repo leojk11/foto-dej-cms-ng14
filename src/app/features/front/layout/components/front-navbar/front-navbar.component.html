@@ -1,31 +1,53 @@
-<div class="front-navbar">
-  <div class="front-navbar__brand">
-    <div class="front-navbar__brand--logo-wrapper">
+<div class="frontnav" *ngIf="frontConfigurationState.confState$ | async as state">
+  <div class="frontnav__brand">
+    <div class="frontnav__brand--logo-wrapper">
       <img 
-        src="../../../../../../assets/img/logo.png" 
+        [src]="state.imageUrl + state.configuration.logo"
         alt="" 
-        class="front-navbar__brand--logo-wrapper--img"
+        class="frontnav__brand--logo-wrapper--img"
       >
     </div>
-    <span class="front-navbar__brand--name"> 
+    <!-- <span class="frontnav__brand--name"> 
       {{ 'common.name' | translate }}
-    </span>
+    </span> -->
   </div>
 
-  <div class="front-navbar__actions">
+  <div class="frontnav__actions">
     <a 
-      class="front-navbar__actions__link"
+      class="frontnav__actions__link"
       routerLink="albums"
       routerLinkActive="active"
     >
       Албуми
     </a>
-    <a class="front-navbar__actions__link" >
+    <a class="frontnav__actions__link" >
       Профил
     </a>
 
   </div>
   <div class="container__flex gap-2">
+    <div class="container__flex gap-1" >
+      <span (click)="changeLang()" class="cp">
+        <i class="pi pi-globe text-xl"></i>
+      </span>
+      <div 
+        class="lang-wrapper" 
+        *ngIf="selectedLang === 'mk'"
+      >
+        <span class="front-lang">
+          {{ 'common.mk' | translate }}
+        </span>
+      </div>
+      <div
+        class="lang-wrapper" 
+        *ngIf="selectedLang === 'en'"
+      >
+        <span class="front-lang ">
+          {{ 'common.en' | translate }}
+        </span>
+      </div>
+    </div>
+
     <button 
       pButton
       type="button"
@@ -35,31 +57,6 @@
       <i class="pi pi-sign-out"></i>
     </button>
 
-    <!-- <div class="container__flex gap-1" >
-      <span (click)="changeLang()" class="cp">
-        <i class="pi pi-globe text-xl"></i>
-      </span>
-      <div 
-        class="lang-wrapper" 
-        *ngIf="selectedLang === 'mk'"
-      >
-        <span 
-          class="front-lang"
-          
-        >
-          {{ 'common.mk' | translate }}
-        </span>
-      </div>
-      <div
-        class="lang-wrapper" 
-        *ngIf="selectedLang === 'en'"
-      >
-        <span 
-          class="front-lang "
-        >
-          {{ 'common.en' | translate }}
-        </span>
-      </div>
-    </div> -->
+    
   </div>
 </div>

@@ -67,6 +67,10 @@
 .p-paginator{
   font-size: 1.6rem !important;
   height: 5rem;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
 
   & .p-paginator-pages .p-paginator-page{
     font-size: 1.4rem!important;

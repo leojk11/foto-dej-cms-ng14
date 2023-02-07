@@ -5,7 +5,9 @@
       <div class="after"></div>
     </div>
     
-    <div class="home__navbar">
+    <app-front-navbar></app-front-navbar>
+    
+    <!-- <div class="home__navbar">
       <div class="home__navbar--brand">
         <div class="home__navbar--brand--logo-wrapper">
           <img 
@@ -13,22 +15,21 @@
             alt="" 
             class="home__navbar--brand--logo-wrapper--img"
           >
-          <!-- <img 
-            src="../../../../../../assets/img/logo.png" 
-            alt="" 
-            class="home__navbar--brand--logo-wrapper--img"
-          > -->
         </div>
-        <!-- <span class="home__navbar--brand--name"> 
-          {{ 'common.name' | translate }}
-        </span> -->
       </div>
 
       <div class="home__navbar--actions">
-        <div class="home__navbar--actions__link" (click)="goToElement(collaboration, -100)">
+        <div 
+          class="home__navbar--actions__link" 
+          (click)="goToElement(collaboration, -100)"
+        >
           {{ 'common.contact' | translate }}
         </div>
-        <div class="home__navbar--actions__link" (click)="goToElement(slider, -100)">
+
+        <div 
+          class="home__navbar--actions__link" 
+          (click)="goToElement(slider, -100)"
+        >
           {{ 'common.gallery' | translate }}
         </div>
 
@@ -70,7 +71,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <div class="home__hero">
       <div class="home__hero--title">

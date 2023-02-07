@@ -11,6 +11,7 @@ import { Configuration } from 'src/app/features/bo/pages/configurations/models/c
 import { StorageService } from 'src/app/core/services/storage.service';
 import { FrontConfigurationState } from '../../services/front-configuration.store';
 import { ToastService } from 'src/app/shared/services/toast.service';
+import { FrontNavbarComponent } from 'src/app/features/front/layout/components/front-navbar/front-navbar.component';
 
 @Component({
   selector: 'app-home',
@@ -21,7 +22,8 @@ import { ToastService } from 'src/app/shared/services/toast.service';
     RouterModule,
     SliderComponent,
     ContactFormComponent,
-    HomeFooterComponent
+    HomeFooterComponent,
+    FrontNavbarComponent
   ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
@@ -46,7 +48,6 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.service.getConfiguration().subscribe({
       next: res => {
-        console.log('CONFIG RES', res);
         this.configuration = res;
         this.frontConfigurationState.setConfiguration(res);
       },
@@ -57,8 +58,6 @@ export class HomeComponent implements OnInit {
   }
 
   changeLang(): void {
-    console.log('SELECTED LANG', this.selectedLang );
-    
     let lang: string = '';
     if(this.selectedLang === 'mk'){
       lang = 'en'  
@@ -68,10 +67,8 @@ export class HomeComponent implements OnInit {
 
     this.translateService.use(lang).subscribe({
       next: ok => {
-        console.log('OK TRANSLATION', ok);
       },
       error: err => {
-        console.log('ERROR TRANSLATE SERVICE USE METHOD', err);
       }
     });
 
