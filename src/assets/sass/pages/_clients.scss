@@ -9,11 +9,6 @@
 
   &__header{
     width: 100%;
-    // display: flex;
-    // justify-content: space-between;
-    // align-items: flex-end;
-    // flex-wrap: wrap;
-    // row-gap: 1.5rem;
     padding: 0 1rem 2rem;
 
     border-bottom: 1px solid rgba(60,60,59,0.19);
@@ -73,6 +68,6 @@
   &__inner {
     width: 100%;
     margin: 0 auto;
-    padding: 1rem 2rem;
+    padding: 1rem 0 2rem;
   }
 }

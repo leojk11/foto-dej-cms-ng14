@@ -41,7 +41,7 @@ export class ClientCardComponent implements OnInit {
 
   openEditModal(): void {
     const ref = this.dialog.open(NewClientComponent, {
-      width: '45%',
+      width: '90%',
       // height: '65%',
       data: this.client,
       header: this.translate.instant('clients.editClient')

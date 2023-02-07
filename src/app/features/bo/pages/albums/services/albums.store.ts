@@ -105,11 +105,12 @@ export class AlbumsStore extends ComponentStore<AlbumsState> {
             this.albumsService.getSelectedAlbumImages(id).subscribe({
               next: selectedImages => {
                 this.adminLayoutService.setTitle('common.albums', `${ singleAlbum.title } (${singleAlbum.date})`);
-
+                console.log('SELECTED IMAGES', selectedImages);
+                
                 this.patchState({
                   previewAlbum: singleAlbum,
                   images: albumImages,
-                  selectedImages: selectedImages.images,
+                  // selectedImages: selectedImages.images,
                   loading: false
                 });
               },

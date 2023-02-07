@@ -61,10 +61,8 @@ export class BoLoginComponent implements OnInit {
     if(this.seePass && this.password){
       if(this.password.nativeElement.type === 'password'){
         this.password.nativeElement.type = 'text';
-        // this.seePass.nativeElement.innerText = 'visibility_off'
       } else {
         this.password.nativeElement.type = 'password';
-        // this.seePass.nativeElement.innerText = 'visibility'
       }
     }
   }

@@ -42,7 +42,7 @@ export class SingleImageComponent implements OnInit, OnChanges {
   }
 
   checkImage(): void {
-    console.log('selected images on check', this.selectedImages);
+    // console.log('selected images on check', this.selectedImages);
     
     if (this.selectedImages && this.image) {
       const selectedImage = this.selectedImages.find(inImg => inImg.name === this.image?.name);

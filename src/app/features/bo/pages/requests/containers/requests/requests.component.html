@@ -3,14 +3,14 @@
   *ngIf="requestsStore.state$ | async as state"
 >
   <div class="requests__header">
+    <button
+      class="btn btn__icon btn__icon--blue shadow-small border-none"
+      (click)="location.back()"
+    >
+      <i class="pi pi-arrow-left"></i>
+    </button>
+    
     <div class="requests__header--buttons">
-      <button
-        class="btn btn__icon btn__icon--blue shadow-small border-none"
-        (click)="location.back()"
-      >
-        <i class="pi pi-arrow-left"></i>
-      </button>
-
       <input 
         type="text" 
         pInputText
