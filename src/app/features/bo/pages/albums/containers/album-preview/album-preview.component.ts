@@ -138,13 +138,10 @@ export class AlbumPreviewComponent implements OnInit {
     this.albumsStore.getAlbumImages(this.albumId, image);
   }
 
-  onImageSelect(event: {
-    images: Image[];
-    isAdmin: boolean;
-  }): void {
+  onImageSelect(event: { images: Image[]; isAdmin: boolean }): void {
     this.albumsStore.patchSelectedImages(event.images);
 
-    if (event.isAdmin) {
+    if (!event.isAdmin) {
       this.albumsStore.selectImages();
     }
   }

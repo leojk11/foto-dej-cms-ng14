@@ -152,11 +152,20 @@ export class AlbumComponent implements OnInit {
 
   deselectAllImages(): void {
     this.selectedImages = [];
+    this.onSelect.emit({
+      images: this.selectedImages, 
+      isAdmin: this.isAdmin
+    });
   }
 
   selectAllImages(): void {
     if (this.albumsStore.state.images) {
       this.selectedImages = this.albumsStore.state.images.images;
+
+      this.onSelect.emit({
+        images: this.selectedImages, 
+        isAdmin: this.isAdmin
+      });
     }
   }
 
