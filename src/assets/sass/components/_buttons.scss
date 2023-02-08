@@ -112,7 +112,7 @@
 
     
 
-    &--dark{
+    &--dark {
       color: $dark;
       background-color: rgba($dark, 0.1);
 
@@ -129,6 +129,16 @@
 
         .pi {
           font-weight: 600 !important;
+        }
+      }
+
+      &.disabled {
+        cursor: auto;
+        background-color: rgba($dark, 0.1);
+        color: $dark;
+
+        .pi {
+          font-weight: 500 !important;
         }
       }
     }
@@ -151,6 +161,16 @@
           font-weight: 600 !important;
         }
       }
+
+      &.disabled {
+        cursor: auto;
+        background-color: rgba($color-1, 0.1);
+        color: $color-1;
+
+        .pi {
+          font-weight: 500 !important;
+        }
+      }
     }
 
     &--red{
@@ -169,6 +189,16 @@
 
         .pi {
           font-weight: 600 !important;
+        }
+      }
+
+      &.disabled {
+        cursor: auto;
+        background-color: rgba($red, 0.1);
+        color: $red;
+
+        .pi {
+          font-weight: 500 !important;
         }
       }
     }
@@ -191,7 +221,78 @@
           font-weight: 600 !important;
         }
       }
+
+      &.disabled {
+        cursor: auto;
+        background-color: rgba($color-dark, 0.1);
+        color: $color-dark;
+
+        .pi {
+          font-weight: 500 !important;
+        }
+      }
     }
+
+    &--green {
+      color: $color-highlight-green;
+      background-color: rgba($color-highlight-green, 0.1);
+
+      min-width: 2rem;
+      box-shadow: 2px 2px 7px -1px rgba(68, 68, 68, 0.3);
+      padding: 0 1rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      &:hover {
+        background-color: $color-highlight-green;
+        color: $color-light;
+        .pi {
+          font-weight: 600 !important;
+        }
+      }
+
+      &.disabled {
+        cursor: auto;
+        background-color: rgba($color-highlight-green, 0.1);
+        color: $color-highlight-green;
+
+        .pi {
+          font-weight: 500 !important;
+        }
+      }
+    }
+
+    &--purple {
+      color: $color-highlight-purple;
+      background-color: rgba($color-highlight-purple, 0.1);
+
+      min-width: 2rem;
+      box-shadow: 2px 2px 7px -1px rgba(68, 68, 68, 0.3);
+      padding: 0 1rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      &:hover {
+        background-color: $color-highlight-purple;
+        color: $color-light;
+        .pi {
+          font-weight: 600 !important;
+        }
+      }
+
+      &.disabled {
+        cursor: auto;
+        background-color: rgba($color-highlight-purple, 0.1);
+        color: $color-highlight-purple;
+
+        .pi {
+          font-weight: 500 !important;
+        }
+      }
+    }
+
   }
 
   &__brown{

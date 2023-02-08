@@ -1,21 +1,36 @@
 .p-tabview {
   .p-tabview-nav  {
     font-size: 1.8rem !important;
-  
     background: $color-wrapper !important;
-  
     justify-content: center !important;
-  
     border: none !important; 
+    gap: 3rem;
+    font-family: 'Roboto', serif;
+    padding: 1rem 0;
 
     li {
       .p-tabview-nav-link {
         background: $color-wrapper !important;
+        // border-radius: 6px;
+
+        &:not(.p-disabled):focus {
+          outline: none;
+          box-shadow: none;
+        }
+      }
+
+      &.p-highlight {
+        .p-tabview-nav-link {
+          color: $color-dark !important;
+          box-shadow: none;
+          border-color: $highlight;
+        }
       }
     }
   }
 
   .p-tabview-panels {
     background: $color-wrapper !important;
+    padding: 3rem 0;
   }
 }

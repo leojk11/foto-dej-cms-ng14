@@ -13,11 +13,9 @@
 
   &__content {
     width: 100%;
-    // margin-top: 2rem;
     background-color: $color-wrapper;
     display: flex;
     flex-wrap: wrap;
-    // justify-content: space-between;
     align-items: center;
     gap: 2.5rem;
     padding: 3rem 1.5rem;
@@ -26,8 +24,6 @@
   
   &__header{
     width: 100%;
-    // margin: 1rem 0;
-    // padding: 1rem 3rem 0rem;
     padding-bottom: 1rem;
     display: flex;
     align-items: center;
@@ -50,7 +46,6 @@
 
 .single-album-wrapper {
   min-width: 27rem;
-  // max-width: 20%;
 }
 
 .single-album {
@@ -64,7 +59,6 @@
   gap: 2rem;
 
   border: 1px solid rgba($dark, 0.2);
-  // box-shadow: $shadow-small;
   border-radius: 1rem;
 
   cursor: pointer;
@@ -81,20 +75,17 @@
     font-size: 1.8rem;
     margin-bottom: .5rem;
     text-align: center;
-    // display: block;
     width: 100%;
   }
 
   &__date {
     font-size: 1.6rem;
     text-align: center;
-    // display: block;
     width: 100%;
   }
 
   &:hover {
     background-color: rgba($color-wrapper, 0.4);
-    // border: .5px solid rgba($color-header, 0.4);
     box-shadow: $shadow-small;
   }
 }
@@ -138,13 +129,14 @@
 .album-preview {
   width: 100%;
 
-  padding: 1.5rem 3rem;
+  padding: 0rem 3rem;
 
   &__info {
-    width: 100%;
+    min-width: 48rem;
 
     display: flex;
     justify-content: space-between;
+    gap: 5rem;
     row-gap: 2rem;
     flex-wrap: wrap;
 
@@ -156,93 +148,15 @@
       font-family: 'Roboto', serif;
 
       .label {
-        // width: 33%;
         font-size: 1.8rem;
       }
       .content {
-        // width: 65%;
         font-weight: 600;
         font-size: 1.8rem;
       }
     }
   }
-
-  // &__images {
-  //   width: 100%;
-
-  //   display: flex;
-  //   flex-wrap: wrap;
-  //   row-gap: 1.5rem;
-  //   gap: 2rem;
-
-  //   &__msg {
-  //     width: 100rem;
-  //     height: 50rem;
-  //     margin: 0 auto;
-  //     text-align: center;
-  //     font-size: 2.5rem;
-  //   }
-  // }
 }
-
-// .album-image {
-//   // width: 50%;
-//   width: 15.5rem;
-//   height: 15.5rem;
-
-//   @media (min-width: 1270px) {
-//     // width: 33%;
-//     width: 24rem;
-//     height: 20rem;
-
-//     &__inner{
-//       width: 24rem !important;
-//       height: 20rem !important;
-
-//       &--name {
-//         padding: 1rem .5rem;
-//         font-size: 1.4rem !important;
-//       }
-//     }
-//   }
-
-//   &__inner {
-//     width: 100%;
-//     border: 1px solid $color-dark;
-//     border-radius: 10px;
-//     width: 15.5rem;
-//     height: 15.5rem;
-//     position: relative;
-//     overflow: hidden;
-
-//     &--select {
-//       position: absolute;
-//       top: 1rem;
-//       right: 1rem;
-//     }
-
-//     img {
-//       width: 100%;
-//       height: 100%;
-//       object-fit: cover;
-//     }
-
-//     &--name {
-//       width: 100%;
-//       // border-top: 1px solid $color-light;
-//       font-size: 1.2rem;
-//       text-align: center;
-//       color: $color-light;
-//       padding: .5rem 0rem;
-//       position: absolute;
-//       bottom: 0;
-//       left: 0;
-//       background: linear-gradient(0deg, rgba(37, 71, 106, 0.44), rgba(37, 71, 106, 0.44));
-//     }
-//   }
-  
-  
-// }
 
 .file-to-upload {
   width: 50%;

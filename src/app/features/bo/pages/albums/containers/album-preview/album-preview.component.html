@@ -7,6 +7,17 @@
       >
         <i class="pi pi-arrow-left"></i>
       </button>
+      <div class="album-preview__info" *ngIf="!state.loading">
+        <div class="album-preview__info__item">
+          <div class="label">{{ 'properties.numImages' | translate }}: </div>
+          <div class="content">{{ state.images?.imagesCount }}</div>
+        </div>
+    
+        <div class="album-preview__info__item">
+          <div class="label">{{ 'properties.assignedTo' | translate }}: </div>
+          <div class="content">{{ state.previewAlbum?.assigned_to?.fullname }}</div>
+        </div>
+      </div>
     </div>
   
     <div class="container__flex">
@@ -45,6 +56,9 @@
       </button>
     </div>
   </div>
+
+  <div class="separator mb-2" *ngIf="!state.loading"></div>
+
   
   <div class="album-preview">
     <div 
@@ -54,23 +68,8 @@
       <app-spinner></app-spinner>
     </div>
   
-    <div class="album-preview__info" *ngIf="!state.loading">
-      <div class="album-preview__info__item">
-        <div class="label">{{ 'properties.numImages' | translate }}: </div>
-        <div class="content">{{ state.images?.imagesCount }}</div>
-      </div>
-  
-      <div class="album-preview__info__item">
-        <div class="label">{{ 'properties.assignedTo' | translate }}: </div>
-        <div class="content">{{ state.previewAlbum?.assigned_to?.fullname }}</div>
-      </div>
-    </div>
-  
-    <div class="separator my-2" *ngIf="!state.loading"></div>
   
     <div *ngIf="!state.loading && state.images?.images">
-      <!-- [selectedImages]="state.selectedImages?.images" -->
-
       <app-album
         [images]="state.images?.images"
         [selectedImages]="state.selectedImages"
@@ -88,15 +87,3 @@
   header="{{ 'common.confirmation' | translate }}" 
   [style]="{ width: '50%',  padding: '1rem' }"  
 ></p-confirmDialog>
-
-<!-- <p-confirmDialog 
-  [key]="'deleteImage'"
-  header="{{ 'common.confirmation' | translate }}" 
-  [style]="{ width: '50%',  padding: '1rem' }"  
-></p-confirmDialog>
-
-<p-confirmDialog 
-  [key]="'disableImages'"
-  header="{{ 'common.confirmation' | translate }}" 
-  [style]="{ width: '50%',  padding: '1rem' }"  
-></p-confirmDialog> -->

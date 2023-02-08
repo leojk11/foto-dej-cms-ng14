@@ -29,6 +29,7 @@
           placeholder="{{ 'common.searchName' | translate}}"
           [(ngModel)]="imageSearch"
           (keydown.enter)="filter()"
+          [readOnly]="images?.length === 0"
         >
         <i class="pi pi-search icon-search"></i>
       </div>
@@ -47,44 +48,51 @@
 
         <ng-container *ngIf="!showSelected">
           <button
-            class="btn btn__icon--blue"
+            class="btn btn__icon--purple"
             type="button"
             (click)="selectAllImages()"
             pTooltip="{{ 'common.selectAll' | translate }}" 
             tooltipPosition="top"
+            [disabled]="selectedImages.length > 0 || images?.length === 0"
+            [class.disabled]="selectedImages.length > 0 || images?.length === 0"
           >
             <i class="pi pi-check-circle"></i>
           </button>
 
           <button
-            class="btn btn__icon--blue"
+            class="btn btn__icon--red"
             type="button"
             (click)="deleteSelected()"
             pTooltip="{{ 'common.deleteSelected' | translate }}" 
             tooltipPosition="top"
+            [disabled]="selectedImages.length === 0"
+            [class.disabled]="selectedImages.length === 0"
             *permit="'BO'"
           >
             <i class="pi pi-trash"></i>
           </button>
       
           <button
-            class="btn btn__icon--red"
+            class="btn btn__icon--orange"
             type="button"
             (click)="disableSelected()"
             pTooltip="{{ 'common.disableSelected' | translate }}" 
             tooltipPosition="top"
             [disabled]="selectedImages.length === 0"
+            [class.disabled]="selectedImages.length === 0"
             *permit="'BO'"
           >
             <i class="pi pi-ban"></i>
           </button>
     
           <button
-            class="btn btn__icon--blue"
+            class="btn btn__icon--green"
             type="button"
             (click)="enableSelected()"
             pTooltip="{{ 'common.enableSelected' | translate }}" 
             tooltipPosition="top"
+            [disabled]="selectedImages.length === 0"
+            [class.disabled]="selectedImages.length === 0"
             *permit="'BO'"
           >
             <i class="pi pi-check"></i>
@@ -94,6 +102,7 @@
     </div>
   
     <p class="album__empty" *ngIf="images?.length === 0">
+      <img src="../../../../assets//img/empty.jpg" alt="">
       {{ 'albums.noImages' | translate }}
     </p>
   
