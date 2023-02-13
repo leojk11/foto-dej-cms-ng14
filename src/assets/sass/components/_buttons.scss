@@ -347,3 +347,8 @@
   box-shadow: none !important;
 }
 
+
+.p-confirm-dialog-accept, .p-confirm-dialog-reject {
+  min-width: 9rem !important;
+  padding: 0 1.5rem;
+}
