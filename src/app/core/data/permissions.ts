@@ -7,5 +7,6 @@ export class Permissions {
       .set('BO', [PermissionsType.OP, PermissionsType.SUPER_ADMIN, PermissionsType.ADMIN])
       .set('SUPER_ADMIN', [PermissionsType.OP, PermissionsType.SUPER_ADMIN])
       .set('ADMIN', [PermissionsType.OP, PermissionsType.SUPER_ADMIN, PermissionsType.ADMIN])
+      .set('CLIENT', [PermissionsType.CLIENT])
   }
 }

@@ -42,9 +42,17 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     const boUser = this.storageService.getItem('boUser');
     const boToken = this.storageService.getItem('boToken');
+    const user = this.storageService.getItem('user');
+    const token = this.storageService.getItem('token');
+
     if(boUser && boToken) {
       this.authService.setBoUser(JSON.parse(boUser));
       this.authService.setBoAuthToken(boToken);
+    }
+
+    if(user && token) {
+      this.authService.setUser(JSON.parse(user));
+      this.authService.setAuthToken(token);
     }
 
     this.onlineStatusService.status.subscribe({

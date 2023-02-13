@@ -126,4 +126,8 @@ export class AlbumsService {
     return this.http.delete<any>(path);
   }
 
+  getUserAlbums(userId: string, params: BasicParams): Observable<GetAllAlbumsResponse> {
+    const path = `${ this.apiUrl }/albums/assigned/${ userId }`;
+    return this.http.get<GetAllAlbumsResponse>(path, {params: this.generateParams(params)});
+  }
 }

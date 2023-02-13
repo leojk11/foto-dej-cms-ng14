@@ -1,4 +1,5 @@
-import { Route, Routes } from "@angular/router";
+import { Route, } from "@angular/router";
+import { PreviewComponent } from "./pages/albums/containers/preview/preview.component";
 
 export const FRONT_ROUTES: Route[] = [
   {
@@ -8,8 +9,12 @@ export const FRONT_ROUTES: Route[] = [
     children: [
       {
         path: 'albums',
-        loadComponent: () => import('./pages/albumbs/containers/albums/albums.component')
-          .then(m => m.AlbumsComponent),
+        loadComponent: () => import('./pages/albums/containers/albums/albums.component')
+          .then(m => m.AlbumsComponent)
+      },
+      {
+        path: 'albums/:id',
+        component: PreviewComponent
       }
     ]
   }

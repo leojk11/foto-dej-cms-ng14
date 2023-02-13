@@ -68,6 +68,10 @@
   padding-top: 2rem;
 }
 
+.p-0 {
+  padding: 0 !important;
+}
+
 .pb-0{
   padding-bottom: 0 !important;
 }
@@ -128,6 +132,10 @@
 
 .js-end{
   justify-self: end !important;
+}
+
+.align-start {
+  align-items: flex-start !important;
 }
 
 .wrap{
@@ -259,4 +267,12 @@
 // OPACITY
 .opacity-50 {
   opacity: .5 !important;
+}
+
+.bg-none {
+  background-color: transparent  !important;
+}
+
+.mh-60 {
+  min-height: 60vh;
 }

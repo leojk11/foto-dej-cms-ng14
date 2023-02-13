@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
 import { AlbumsStore } from '../../services/albums.store';
 import { SpinnerComponent } from 'src/app/shared/components/loading/spinner/spinner.component';
-import { SingleAlbumComponent } from '../../components/single-album/single-album.component';
+import { SingleAlbumComponent } from '../../../../../../shared/components/single-album/single-album.component';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NewAlbumComponent } from '../new-album/new-album.component';
 import { DialogService } from 'primeng/dynamicdialog';

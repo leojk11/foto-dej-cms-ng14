@@ -26,7 +26,7 @@ export const routes: Routes = [
     ]
   },
   {
-    path: 'user', 
+    path: 'client', 
     canActivate: [AuthGuard],
     children: [
       ...FRONT_ROUTES

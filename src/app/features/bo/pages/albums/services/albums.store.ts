@@ -95,6 +95,27 @@ export class AlbumsStore extends ComponentStore<AlbumsState> {
     });
   }
 
+  getUserAlbums(userId: string): void {
+    this.setLoading(true);
+
+    this.albumsService.getUserAlbums(userId, this.state.params).subscribe({
+      next: res => {
+        console.log('USER ALBUMS RES', res);
+
+        this.patchState({
+          list: res.list,
+          total: res.total,
+
+          loading: false
+        });
+      },
+      error: error => {
+        this.setLoading(false);
+        this.toastService.addError(error.error.message);
+      }
+    });
+  }
+
   getSingleAlbum(id: string, image?: string): void {
     this.setLoading(true);
 

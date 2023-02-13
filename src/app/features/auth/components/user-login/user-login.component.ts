@@ -101,7 +101,7 @@ export class UserLoginComponent implements OnInit {
         } else {
           this.authService.setAuthToken(res.token);
           this.authService.setUser(res.user);
-          this.router.navigate(['/user/albums']).then();
+          this.router.navigate(['/client/albums']).then();
         }
       },
       error: error => {
@@ -128,7 +128,7 @@ export class UserLoginComponent implements OnInit {
         console.log('res on close', res);
         this.authService.setAuthToken(res.token);
         this.authService.setUser(res.user);
-        this.router.navigate(['/user/albums']).then();
+        this.router.navigate(['/client/albums']).then();
       }
     })
   }
