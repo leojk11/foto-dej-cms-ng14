@@ -20,32 +20,31 @@ import { FormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { AlbumComponent } from 'src/app/shared/components/album/album.component';
 import { Image } from '../../models/image.model';
+import { AlbumPreviewComponent } from 'src/app/shared/components/album-preview/album-preview.component';
 
 @Component({
-  selector: 'app-album-preview',
+  selector: 'app-bo-preview',
   standalone: true,
   imports: [
     CommonModule,
     FormsModule,
     TranslateModule,
-    SpinnerComponent,
     SingleImageComponent,
     TooltipModule,
     ButtonModule,
     ConfirmDialogModule,
     InputSwitchModule,
     InputTextModule,
-    AlbumComponent
+    AlbumPreviewComponent
   ],
   providers: [
     AlbumsStore,
     DialogService,
     ConfirmationService
   ],
-  templateUrl: './album-preview.component.html',
-  styleUrls: ['./album-preview.component.scss']
+  templateUrl: './bo-preview.component.html'
 })
-export class AlbumPreviewComponent implements OnInit {
+export class BoPreviewComponent implements OnInit {
 
   albumId: string = '';
   modalWidth: string = '';
@@ -134,15 +133,4 @@ export class AlbumPreviewComponent implements OnInit {
     });
   }
 
-  filter(image: string): void {
-    this.albumsStore.getAlbumImages(this.albumId, image);
-  }
-
-  onImageSelect(event: { images: Image[]; isAdmin: boolean }): void {
-    this.albumsStore.patchSelectedImages(event.images);
-
-    if (!event.isAdmin) {
-      this.albumsStore.selectImages();
-    }
-  }
 }

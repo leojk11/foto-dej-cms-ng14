@@ -1,14 +1,15 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
-import { AlbumsState, AlbumsStore } from '../../services/albums.store';
+import { AlbumsState, AlbumsStore } from '../../../features/bo/pages/albums/services/albums.store';
 import { SpinnerComponent } from 'src/app/shared/components/loading/spinner/spinner.component';
-import { SingleAlbumComponent } from '../../../../../../shared/components/single-album/single-album.component';
+import { SingleAlbumComponent } from '../single-album/single-album.component';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { NewAlbumComponent } from '../new-album/new-album.component';
+import { NewAlbumComponent } from '../../../features/bo/pages/albums/containers/new-album/new-album.component';
 import { DialogService } from 'primeng/dynamicdialog';
 import { AdminLayoutService } from 'src/app/features/bo/layout/services/admin-layout.service';
 import { PaginatorModule } from 'primeng/paginator';
 import { InputTextModule } from 'primeng/inputtext';
+import { PermitDirective } from 'src/app/core/directives/permit.directive';
 
 @Component({
   selector: 'app-albums',
@@ -19,7 +20,8 @@ import { InputTextModule } from 'primeng/inputtext';
     SingleAlbumComponent,
     TranslateModule,
     PaginatorModule,
-    InputTextModule
+    InputTextModule,
+    PermitDirective
   ],
   providers: [
     AlbumsStore,

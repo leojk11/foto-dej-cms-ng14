@@ -23,13 +23,13 @@ export const BO_ROUTES: Route[] = [
       },
       {
         path: 'albums',
-        loadComponent: () => import('./pages/albums/containers/albums/albums.component')
-          .then((m) => m.AlbumsComponent)
+        loadComponent: () => import('./pages/albums/containers/bo-albums/bo-albums.component')
+          .then((m) => m.BoAlbumsComponent)
       },
       {
         path: 'albums/:id',
-        loadComponent: () => import('./pages/albums/containers/album-preview/album-preview.component')
-          .then((m) => m.AlbumPreviewComponent)
+        loadComponent: () => import('./pages/albums/containers/bo-preview/bo-preview.component')
+          .then((m) => m.BoPreviewComponent)
       },
       {
         path: 'albums/upload/:id',

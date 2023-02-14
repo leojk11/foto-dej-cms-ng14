@@ -7,7 +7,7 @@ import { SingleAlbumComponent } from 'src/app/shared/components/single-album/sin
 import { PaginatorModule } from 'primeng/paginator';
 import { SpinnerComponent } from 'src/app/shared/components/loading/spinner/spinner.component';
 import { AuthService } from 'src/app/core/services/auth.service';
-import { AlbumsComponent } from 'src/app/features/bo/pages/albums/containers/albums/albums.component';
+import { AlbumsComponent } from 'src/app/shared/components/albums/albums.component';
 
 @Component({
   selector: 'app-client-albums',

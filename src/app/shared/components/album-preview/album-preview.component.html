@@ -1,0 +1,20 @@
+<div class="album-preview">
+  <div 
+    *ngIf="state.loading"
+    class="w-full h-full flex justify-center align-center" 
+  >
+    <app-spinner></app-spinner>
+  </div>
+
+
+  <div *ngIf="!state.loading && state.images?.images">
+    <app-album
+      [images]="state.images?.images"
+      [selectedImages]="state.selectedImages"
+      [isAdmin]="true"
+      [isSelect]="false"
+      (onImageSearch)="filter($event)"
+      (onSelect)="onImageSelect($event)"
+    ></app-album>
+  </div>
+</div>
