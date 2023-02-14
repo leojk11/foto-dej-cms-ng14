@@ -181,7 +181,7 @@
 .footer {
   background-color: $color-dark;
   color: $color-light;
-  height: 20rem;
+  height: 18rem;
   padding: 0rem 12rem;
   display: flex;
   align-items: center;
@@ -207,7 +207,7 @@
       &__text {
         font-family: 'Roboto', serif;
         font-weight: 700;
-        font-size: 2rem;
+        font-size: 1.6rem;
         line-height: 30px;
         border-bottom: 2px solid $color-light;
         letter-spacing: .5px;

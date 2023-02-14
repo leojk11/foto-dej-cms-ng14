@@ -76,6 +76,10 @@
   padding-bottom: 0 !important;
 }
 
+.pb-2{
+  padding-bottom: 2rem !important;
+}
+
 .px-0{
   padding-left: 0 !important;
   padding-right: 0 !important;
@@ -269,10 +273,25 @@
   opacity: .5 !important;
 }
 
+// BACKGROUND
 .bg-none {
   background-color: transparent  !important;
 }
 
+.bg-main {
+  background-color: $main-bg;
+  border-radius: 10px;
+  box-shadow: $shadow-small;
+  min-height: 62.1vh;
+  padding: 2rem;
+}
+
 .mh-60 {
   min-height: 60vh;
+}
+
+// BORDER RADIUS
+
+.br-small {
+  border-radius: 10px;
 }

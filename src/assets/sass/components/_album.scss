@@ -6,6 +6,7 @@
     flex-wrap: wrap;
     row-gap: 1rem;
     margin-bottom: 3rem;
+    padding-right: 2rem;
 
     &--search {
       position: relative;
@@ -29,10 +30,10 @@
 
   &__empty {
     width: 100rem;
-    height: 50rem;
+    height: 30rem;
     margin: 0 auto;
     text-align: center;
-    font-size: 2.5rem;
+    font-size: 2rem;
 
     img {
       width: 100%;
@@ -43,7 +44,6 @@
 
   &__images {
     width: 100%;
-
     display: flex;
     flex-wrap: wrap;
     row-gap: 1.5rem;
@@ -54,12 +54,12 @@
       height: 15.5rem;
   
       @media (min-width: 1270px) {
-        width: 21.5rem;
-        height: 20rem;
+        width: 15.5rem;
+        height: 15rem;
   
         &__inner{
-          width: 21.5rem !important;
-          height: 20rem !important;
+          width: 15.5rem !important;
+          height: 15rem !important;
   
           &--name {
             padding: 1rem .5rem;

@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { AlbumsStore } from 'src/app/features/bo/pages/albums/services/albums.store';
 import { AlbumComponent } from 'src/app/shared/components/album/album.component';
 import { SpinnerComponent } from 'src/app/shared/components/loading/spinner/spinner.component';
 import { Image } from 'src/app/features/bo/pages/albums/models/image.model';
 import { ActivatedRoute } from '@angular/router';
 import { ConfirmationService } from 'primeng/api';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-preview',
@@ -13,7 +14,8 @@ import { ConfirmationService } from 'primeng/api';
   imports: [
     CommonModule,
     AlbumComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    TranslateModule
   ],
   providers: [AlbumsStore, ConfirmationService],
   templateUrl: './preview.component.html'
@@ -24,7 +26,8 @@ export class PreviewComponent implements OnInit {
 
   constructor(
     public store: AlbumsStore,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public location: Location
   ) { }
 
   ngOnInit(): void {

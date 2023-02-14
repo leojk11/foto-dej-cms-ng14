@@ -20,8 +20,11 @@
 
 <ng-template #albumImages>
   <div class="album">
-    <div class="album__top">
-      <div class="album__top--search">
+    <div 
+      *ngIf="(!showSelected && images!.length > 0) || (showSelected && selectedImages.length > 0)"
+      class="album__top" 
+    >
+      <div class="album__top--search" >
         <input 
           type="text" 
           pInputText
@@ -29,7 +32,6 @@
           placeholder="{{ 'common.searchName' | translate}}"
           [(ngModel)]="imageSearch"
           (keydown.enter)="filter()"
-          [readOnly]="images?.length === 0"
         >
         <i class="pi pi-search icon-search"></i>
       </div>
@@ -101,8 +103,13 @@
       </div>
     </div>
   
-    <p class="album__empty" *ngIf="images?.length === 0">
-      <img src="../../../../assets//img/empty.jpg" alt="">
+    <p class="album__empty" *ngIf="showSelected && selectedImages.length === 0">
+      <img src="../../../../assets//img/svg/no-results.svg" alt="">
+      {{ 'albums.noImagesSelected' | translate }}
+    </p>
+
+    <p class="album__empty" *ngIf="!showSelected && images?.length === 0">
+      <img src="../../../../assets//img/svg/empty.svg" alt="">
       {{ 'albums.noImages' | translate }}
     </p>
   

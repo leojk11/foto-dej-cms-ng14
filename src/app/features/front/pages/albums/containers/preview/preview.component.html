@@ -1,5 +1,19 @@
-<div class="" *ngIf="store.state$ | async as state">
-  <div class="album-preview p-1">
+<div class="bg-main" *ngIf="store.state$ | async as state">
+  <div class="container__flex gap-5 pb-2 border-b">
+    <button
+      class="btn btn__icon btn__icon--blue shadow-small border-none"
+      (click)="location.back()"
+    >
+      <i class="pi pi-arrow-left"></i>
+    </button>
+
+    <p class="album-title" *ngIf="!state.loading">
+      {{ state.previewAlbum?.title }} / {{ state.previewAlbum?.date }}
+    </p>
+  </div>
+
+  <div class="separator"></div>
+  <div class="album-preview p-1 bg-none">
     <div 
       *ngIf="state.loading"
       class="w-full h-full flex justify-center align-center" 
@@ -12,7 +26,7 @@
       <app-album
         [images]="state.images?.images"
         [selectedImages]="state.selectedImages"
-        [isAdmin]="true"
+        [isAdmin]="false"
         [isSelect]="false"
         (onImageSearch)="filter($event)"
         (onSelect)="onImageSelect($event)"
