@@ -1,0 +1,5 @@
+<div class="bg-main" *ngIf="store.state$ | async as state">
+  <app-albums
+    [state]="state"
+  ></app-albums>
+</div>

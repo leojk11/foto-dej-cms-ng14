@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
-import { AlbumsStore } from '../../services/albums.store';
+import { AlbumsState, AlbumsStore } from '../../services/albums.store';
 import { SpinnerComponent } from 'src/app/shared/components/loading/spinner/spinner.component';
 import { SingleAlbumComponent } from '../../../../../../shared/components/single-album/single-album.component';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
@@ -29,6 +29,8 @@ import { InputTextModule } from 'primeng/inputtext';
   styleUrls: ['./albums.component.scss']
 })
 export class AlbumsComponent implements OnInit {
+
+  @Input() state: AlbumsState = {} as AlbumsState;
 
   modalWidth: string = '';
   nameSearch: string = '';

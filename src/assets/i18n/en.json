@@ -58,7 +58,8 @@
     "chooseDate": "Choose date",
     "refresh": "Refresh",
     "all": "All",
-    "selected": "Selected" 
+    "selected": "Selected" ,
+    "profile": "Profile"
   },
   "properties": {
     "title": "Title",

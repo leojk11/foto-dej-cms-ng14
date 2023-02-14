@@ -12,6 +12,7 @@ import { StorageService } from 'src/app/core/services/storage.service';
 import { FrontConfigurationState } from '../../services/front-configuration.store';
 import { ToastService } from 'src/app/shared/services/toast.service';
 import { FrontNavbarComponent } from 'src/app/features/front/layout/components/front-navbar/front-navbar.component';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-home',

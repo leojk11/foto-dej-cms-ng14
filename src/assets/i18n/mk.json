@@ -58,7 +58,8 @@
     "chooseDate": "Избери дата",
     "refresh": "Освежи",
     "all": "Сите",
-    "selected": "Избрани" 
+    "selected": "Избрани",
+    "profile": "Профил"
   },
   "properties": {
     "title": "Наслов",

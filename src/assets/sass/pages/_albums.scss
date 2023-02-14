@@ -30,8 +30,9 @@
     justify-content: space-between;
     flex-wrap: wrap;
     row-gap: 1rem;
-    border-bottom: 1px solid rgba(60,60,59,0.19);
+    // border-bottom: 1px solid rgba(60,60,59,0.19);
     border-radius: 5px;
+      margin-bottom: 1rem;
   
     &--filter {
       display: flex;
@@ -39,7 +40,6 @@
       flex-wrap: wrap;
       row-gap: 2rem;
       gap: 2rem;
-      margin-bottom: 2rem;
     }
   }
 }

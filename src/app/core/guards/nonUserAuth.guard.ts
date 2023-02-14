@@ -20,7 +20,7 @@ export class UserNonAuthGuard implements CanActivate, CanLoad {
 
   private canAccessRoute(): boolean {
     if (this.auth.isLoggedInUser()) {
-      this.router.navigate(['/home']).then();
+      this.router.navigate(['/client']).then();
       return false;
     }
     return true;

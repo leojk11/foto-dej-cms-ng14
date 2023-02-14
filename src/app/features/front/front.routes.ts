@@ -9,8 +9,8 @@ export const FRONT_ROUTES: Route[] = [
     children: [
       {
         path: 'albums',
-        loadComponent: () => import('./pages/albums/containers/albums/albums.component')
-          .then(m => m.AlbumsComponent)
+        loadComponent: () => import('./pages/albums/containers/client-albums/client-albums.component')
+          .then(m => m.ClientAlbumsComponent)
       },
       {
         path: 'albums/:id',
