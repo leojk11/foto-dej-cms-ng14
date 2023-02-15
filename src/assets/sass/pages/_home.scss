@@ -1,12 +1,9 @@
 .home{
-  // width: 85vw;
   margin: 0 auto;
-  &__header{
+
+  &__header {
     color: $color-light;
-    
     position: relative;
-    // background-position: center center;
-    // background-repeat: no-repeat;
 
     &--image {
       width: 100vw;
@@ -30,85 +27,8 @@
     }
   }
 
-  &__navbar{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    margin: 0 auto;
-    padding: 3rem 12rem;
-    position: absolute;
-    top: 0;
-    left: 0;
-
-    &--brand {
-      width: 30rem;
-      height: 4.8rem;
-
-      display: flex;
-      align-items: center;
-
-      &--logo-wrapper {
-        width: 100%;
-        width: 12rem;
-        height: 6.8rem;
-        display: flex;
-        align-items: center;
-    
-        &--img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-        }
-      }
-
-      &--name {
-        font-family: 'Roboto', sans-serif;
-        font-weight: 600;
-        font-size: 3.2rem;
-        line-height: 4.8rem;
-        text-transform: uppercase;
-      }
-    }
-
-    &--actions{
-      display: flex;
-      align-items: center;
-      gap: 5rem;
-
-      &__link{
-        font-family: "Roboto", sans-serif;
-        font-size: 2rem;
-        line-height: 3rem;
-        min-width: 8rem;
-        font-weight: 700;
-        position: relative;
-        text-align: center;
-        cursor: pointer;
-        // border-bottom: 2px solid $color-light;
-        // border-radius: 5px;
-
-        &::after{
-          content: '';
-          width: 8rem;
-          height: 2px;
-          background-color: $color-light;
-          border-radius: 10px;
-          position: absolute;
-          bottom: 0;
-          left: 0;
-          transition: all .2s;
-        }
-        &:hover::after{
-          height: 5px;
-          bottom: -3px;
-        }
-      }
-    }
-  }
-
   &__hero {
-    width: 87rem;
+    width: 90vw;
     margin: 5rem auto;
     position: absolute;
     top: 40%;
@@ -123,21 +43,33 @@
       font-family: "Noto Serif Display";
       line-height: 91%;
       font-weight: 700;
+
+      @include screen-md {
+        font-size: 3.5rem;
+        font-weight: 600;
+        word-break: break-all;
+        margin-bottom: 0;
+      }
     }
 
     &--text {
       font-family: "Roboto";
       font-size: 3rem;
       font-weight: 400;
-      line-height: 48px;
+      line-height: 91%;
       letter-spacing: .2px;
       text-align: center;
+
+      @include screen-md {
+        font-size: 2rem;
+      }
     }
 
     &--buttons{
       display: flex;
       align-items: center;
       justify-content: center;
+      flex-wrap: wrap;
       gap: 2rem;
       margin-top: 5rem;
     }
@@ -162,7 +94,7 @@
   }
 
   &__contact {
-    width: 81.2rem;
+    width: 81.2vw;
     margin: 0 auto;
     margin-bottom: 10rem;
 
@@ -181,10 +113,11 @@
 .footer {
   background-color: $color-dark;
   color: $color-light;
-  height: 18rem;
+  min-height: 18rem;
   padding: 0rem 12rem;
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   justify-content: space-between;
   overflow: hidden;
   width: 100vw;

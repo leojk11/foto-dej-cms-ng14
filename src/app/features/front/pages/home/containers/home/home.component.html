@@ -5,7 +5,9 @@
       <div class="after"></div>
     </div>
     
-    <app-front-navbar></app-front-navbar>
+    <app-front-navbar
+      (goToElement)="goToElement($event, -100)"
+    ></app-front-navbar>
 
     <div class="home__hero">
       <div class="home__hero--title">

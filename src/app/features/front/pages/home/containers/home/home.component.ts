@@ -31,12 +31,15 @@ import { AuthService } from 'src/app/core/services/auth.service';
 })
 export class HomeComponent implements OnInit {
 
-  @ViewChild('slider') slider!: ElementRef;
+  @ViewChild('slider') slider!: HTMLElement;
 
   videoUrl: string = `${ environment.apiUrl }/videos/`;
 
   configuration: Configuration = {} as Configuration;
   selectedLang: string | null = 'mk';
+
+  @ViewChild('collaboration') collaboration!: HTMLElement;
+  // @ViewChild(HTMLElement) slider!: HTMLElement;
 
   constructor(
     private service: FrontConfigurationService,
@@ -66,19 +69,32 @@ export class HomeComponent implements OnInit {
       lang = 'mk';
     }
 
-    this.translateService.use(lang).subscribe({
-      next: ok => {
-      },
-      error: err => {
-      }
-    });
+    this.translateService.use(lang).subscribe();
 
     this.storageService.setItem('lang', lang);
     this.selectedLang = this.storageService.getItem('lang');
   }
 
   goToElement(el: HTMLElement, offset: number): void {
-    const y = el.getBoundingClientRect().top + window.pageYOffset + offset;
+    console.log('EL', el);
+    let element = el;
+
+    if(typeof(el) !== 'string'){
+      element = el;
+    } else if(el === 'collaboration') {
+      console.log('COLLAB', Object.entries(this.collaboration)[0][1]);
+
+      element = Object.entries(this.collaboration)[0][1];
+    } else if (el === 'slider') {
+      console.log('SLIDER', this.slider.innerHTML);
+
+      element = Object.entries(this.slider)[0][1];
+    }
+
+    // console.log('ELEMENT', element);
+    
+    
+    const y = element.getBoundingClientRect().top + window.pageYOffset + offset;
     window.scrollTo({ top: y, behavior: 'smooth'});
   }
 }

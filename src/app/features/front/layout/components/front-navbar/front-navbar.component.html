@@ -7,56 +7,100 @@
         class="frontnav__brand--logo-wrapper--img"
       >
     </div>
-    <!-- <span class="frontnav__brand--name"> 
-      {{ 'common.name' | translate }}
-    </span> -->
   </div>
 
-  <div class="frontnav__actions">
-    <a 
-      class="frontnav__actions__link"
-      routerLink="/client/albums"
-      routerLinkActive="active"
-    >
-      {{ 'common.albums' | translate }}
-    </a>
-    <a class="frontnav__actions__link">
-      {{ 'common.profile' | translate }}
-    </a>
-
-  </div>
-  <div class="container__flex gap-2">
-    <div class="container__flex gap-1" >
-      <span (click)="changeLang()" class="cp">
-        <i class="pi pi-globe text-xl"></i>
-      </span>
-      <div 
-        class="lang-wrapper" 
-        *ngIf="selectedLang === 'mk'"
-      >
-        <span class="front-lang">
-          {{ 'common.mk' | translate }}
-        </span>
-      </div>
-      <div
-        class="lang-wrapper" 
-        *ngIf="selectedLang === 'en'"
-      >
-        <span class="front-lang ">
-          {{ 'common.en' | translate }}
-        </span>
-      </div>
-    </div>
-
+  <ng-container *ngIf="isMobile$ | async; else notMobile">
+    <p-menu #menu [popup]="true" [model]="menuItems"></p-menu>
     <button 
-      pButton
-      type="button"
-      class="btn btn__main btn__main--icon shadow-sm fw-600"
-      (click)="logout()"
+      type="button" 
+      class="btn btn__main--icon"
+      pButton 
+      label="Show" 
+      (click)="menu.toggle($event)"
     >
-      <i class="pi pi-sign-out"></i>
+      <i class="pi pi-list"></i>
     </button>
+  </ng-container>
 
-    
-  </div>
+  <ng-template #notMobile>
+    <div class="frontnav__actions">
+      <ng-container *ngIf="isAuthenticated; else elseBlock">
+        <a 
+          class="frontnav__actions__link"
+          routerLink="/client/albums"
+          routerLinkActive="active"
+        >
+          {{ 'common.albums' | translate }}
+        </a>
+        <a class="frontnav__actions__link">
+          {{ 'common.profile' | translate }}
+        </a>
+      </ng-container>
+  
+      <ng-template #elseBlock>
+        <a 
+          class="frontnav__actions__link" 
+          (click)="goToElement.emit('collaboration')"
+        >
+          {{ 'common.contact' | translate }}
+        </a>
+        <a 
+          class="frontnav__actions__link" 
+          (click)="goToElement.emit('slider')"
+        >
+          {{ 'common.gallery' | translate }}
+        </a>
+      </ng-template>
+    </div>
+  
+    <div class="container__flex gap-2">
+      <div class="container__flex gap-1" >
+        <span (click)="changeLang()" class="cp">
+          <i class="pi pi-globe text-xl"></i>
+        </span>
+        <div 
+          class="lang-wrapper" 
+          *ngIf="selectedLang === 'mk'"
+        >
+          <span class="front-lang">
+            {{ 'common.mk' | translate }}
+          </span>
+        </div>
+        <div
+          class="lang-wrapper" 
+          *ngIf="selectedLang === 'en'"
+        >
+          <span class="front-lang ">
+            {{ 'common.en' | translate }}
+          </span>
+        </div>
+      </div>
+  
+      <button 
+        *ngIf="isAuthenticated"
+        pButton
+        type="button"
+        class="btn btn__main btn__main--icon shadow-sm fw-600"
+        [pTooltip]="'common.signOut' | translate"
+        tooltipPosition="bottom"
+        (click)="logout()"
+      >
+        <i class="pi pi-sign-out"></i>
+      </button>
+  
+      <button 
+        *ngIf="!isAuthenticated"
+        pButton
+        type="button"
+        class="btn btn__main btn__main--icon shadow-sm fw-600"
+        routerLink="/auth/client"
+        [pTooltip]="'common.signIn' | translate"
+        tooltipPosition="bottom"
+      >
+      <!-- {{ 'common.signIn' | translate }} -->
+        <i class="pi pi-sign-in"></i>
+      </button>
+    </div>
+  </ng-template>
+
 </div>
