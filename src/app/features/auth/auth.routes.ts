@@ -5,7 +5,7 @@ import { UserNonAuthGuard } from "src/app/core/guards/nonUserAuth.guard";
 export const AUTH_ROUTES: Route[] = [
   { path: '', redirectTo: '/bo', pathMatch: 'full' },
   { 
-    path: 'user', 
+    path: 'client', 
     loadComponent: () => import('./components/user-login/user-login.component')
       .then(m => m.UserLoginComponent), 
     canActivate: [UserNonAuthGuard]

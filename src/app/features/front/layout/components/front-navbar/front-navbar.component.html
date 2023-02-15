@@ -10,7 +10,7 @@
   </div>
 
   <ng-container *ngIf="isMobile$ | async; else notMobile">
-    <p-menu #menu [popup]="true" [model]="menuItems"></p-menu>
+    <p-menu #menu [popup]="true" [model]="menuItems" styleClass="frontnav__menu"></p-menu>
     <button 
       type="button" 
       class="btn btn__main--icon"

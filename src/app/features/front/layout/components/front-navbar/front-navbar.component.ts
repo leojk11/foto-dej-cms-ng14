@@ -66,11 +66,46 @@ export class FrontNavbarComponent implements OnInit {
 
     this.isAuthenticated = this.authService.isLoggedInUser();
 
+    this.getTranslateMenuItems();
+  }
+
+  getTranslateMenuItems(): void {
     this.menuItems = [
-      {label: 'New', icon: 'pi pi-fw pi-plus'},
-      {label: 'Open', icon: 'pi pi-fw pi-download'},
-      {label: 'Undo', icon: 'pi pi-fw pi-refresh'}
-  ];
+      {
+        label: this.translateService.instant('common.albums'), 
+        routerLink: '/client/albums'
+      },
+      {
+        label: this.translateService.instant('common.profile'), 
+        routerLink: '/client/profile'
+      },
+      {
+        label: this.translateService.instant('common.contact'), 
+        command: () => this.goToElement.emit('collaboration')
+      },
+      {
+        label: this.translateService.instant('common.gallery'), 
+        command: () => this.goToElement.emit('slider'),
+        separator: true
+      },
+      {
+        label: this.translateService.instant(
+          this.selectedLang === 'mk' ? 'common.mk' : this.selectedLang === 'en' ? 'common.en' : 'common.mk'
+        ),
+        command: () => this.changeLang(),
+        icon: 'pi pi-globe'
+      },
+      {
+        label: this.translateService.instant('common.signOut'), 
+        command: () => this.logout(),
+        visible: this.isAuthenticated
+      },
+      {
+        label: this.translateService.instant('common.signIn'), 
+        routerLink: '/auth/client',
+        visible: !this.isAuthenticated
+      },
+    ];
   }
 
   changeLang(): void {
@@ -81,7 +116,12 @@ export class FrontNavbarComponent implements OnInit {
       lang = 'mk';
     }
 
-    this.translateService.use(lang).subscribe();
+    this.translateService.use(lang).subscribe({
+      next: res => {
+        this.getTranslateMenuItems();
+
+      }
+    });
 
     this.storageService.setItem('lang', lang);
     this.selectedLang = this.storageService.getItem('lang');
