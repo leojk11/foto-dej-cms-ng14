@@ -1,5 +1,5 @@
 .swiper {
-  margin: 5rem 0;
+  margin: 0rem 0;
   
   &-button-prev, &-button-next{
     background-color: $color-dark;
@@ -22,6 +22,16 @@
       &::after{
         font-size: 2rem !important;
         font-weight: 700 !important;
+      }
+    }
+
+    @include screen-md {
+      width: 3.5rem !important;
+      height: 3.5rem !important;
+      margin: 0 !important;
+
+      &::after{
+        font-size: 1.5rem !important;
       }
     }
   }
@@ -47,7 +57,7 @@
     img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
     }
 
     & .after {
@@ -77,6 +87,20 @@
         width: 100%;
         height: 100%;
         background: none;
+      }
+    }
+
+    @include screen-md {
+      width: 95vw !important;
+
+      &.swiper-slide-active {
+        width: 95vw !important;
+        // height: 50vh!important;
+        height: auto !important;
+
+        img {
+          object-fit: contain;
+        }
       }
     }
   }

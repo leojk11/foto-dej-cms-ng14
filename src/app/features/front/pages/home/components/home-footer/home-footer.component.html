@@ -22,17 +22,26 @@
     </div>
   </div>
 
-  <div class="footer__socials">
-    <a [href]="state.configuration.insta_link" target="_blank">
-      <i class="pi pi-instagram footer__socials--icon"></i>
-    </a>
-
-    <a [href]="state.configuration.facebook_link" target="_blank">
-      <i class="pi pi-facebook footer__socials--icon"></i>
-    </a>
+  <div class="footer__socials-wrapper">
+    <div class="footer__socials">
+      <a [href]="state.configuration.insta_link" target="_blank">
+        <i class="pi pi-instagram footer__socials--icon"></i>
+      </a>
+  
+      <a [href]="state.configuration.facebook_link" target="_blank">
+        <i class="pi pi-facebook footer__socials--icon"></i>
+      </a>
+    </div>
   </div>
 
   <div class="footer__logo">
-    <img src="../../../../../../../assets//img/ikona-bela.svg" alt="">
+    <ng-container *ngIf="isMobile$ | async; else notMobile">
+      <img src="../../../../../../../assets/img/svg/logo-belo.svg" alt="">
+    </ng-container>
+
+    <ng-template #notMobile>
+      <img src="../../../../../../../assets/img/svg/ikona-bela.svg" alt="">
+    </ng-template>
+    <!-- <img [src]="(isMobile$ | async) ? state.configuration.logo_white : state.configuration.logo_icon"> -->
   </div>
 </div>

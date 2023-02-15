@@ -47,8 +47,9 @@
       @include screen-md {
         font-size: 3.5rem;
         font-weight: 600;
-        word-break: break-all;
-        margin-bottom: 0;
+        height: auto;
+        // word-break: break-all;
+        margin-bottom: 2rem;
       }
     }
 
@@ -87,10 +88,18 @@
   &__slider {
     margin: 10rem 0;
     // height: 50rem;
+
+    @include screen-md {
+      margin: 4rem 0rem 1rem;
+    }
   }
 
   &__video {
     margin: 10rem 12rem;
+
+    @include screen-md {
+      margin: 0 2rem 10rem;
+    }
   }
 
   &__contact {
@@ -106,6 +115,11 @@
       width: 100%;
       text-align: center;
       margin-bottom: 5rem;
+
+      @include screen-md {
+        font-size: 2.4rem;
+        line-height: 32px;
+      }
     }
   }
 }
@@ -121,10 +135,6 @@
   justify-content: space-between;
   overflow: hidden;
   width: 100vw;
-
-  // position: fixed;
-  // bottom: 0;
-  // left: 0;
 
   &__contact {
     display: flex;
@@ -150,19 +160,26 @@
         font-size: 2.4rem !important;
       }
     }
+  }
+
+  &__socials-wrapper {
+    width: 39.2rem;
+    height: 39.2rem;
+    background-color: rgba($color-light, 0.32);
+    border-radius: 50%;
 
   }
 
   &__socials {
-    width: 39.2rem;
-    height: 39.2rem;
-    background-color: rgba($color-light, 0.32);
     display: flex;
     align-items: center;
-
     justify-content: center;
     gap: 8rem;
-    border-radius: 50%;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 
     &--icon {
       font-size: 5rem !important;
@@ -181,6 +198,55 @@
     }
     .pi{
       font-size: 15rem !important;
+    }
+  }
+
+  @include screen-md {
+    padding: 3rem 0;
+    justify-content: center;
+    position: relative;
+
+    &__contact {
+      gap: .5rem !important;
+      position: absolute;
+      top: 30%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+
+      &--item {
+        &__text {
+          font-size: 1.4rem !important;
+        }
+
+        .pi {
+          font-size: 1.8rem !important;
+        }
+      }
+    }
+
+    &__socials-wrapper {
+      width: 105vw;
+      height: 40rem;
+      // background-color: none;
+    }
+
+    &__socials {
+      top: 55%;
+      gap: 4rem;
+
+      &--icon {
+        font-size: 4rem !important;
+      }
+    }
+
+    &__logo {
+      width: 15rem;
+      height: 8rem;
+
+      position: absolute;
+      top: 75%;
+      left: 50%;
+      transform: translate(-50%, -50%);
     }
   }
 }

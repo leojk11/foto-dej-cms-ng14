@@ -1,5 +1,7 @@
 export interface Configuration {
-    logo: string
+    logo: string;
+    logo_white: string;
+    logo_icon: string;
     main_image: string;
     main_title: string;
     second_title: string;
