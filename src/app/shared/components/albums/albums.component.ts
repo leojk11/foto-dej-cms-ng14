@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
 import { AlbumsState, AlbumsStore } from '../../../features/bo/pages/albums/services/albums.store';
 import { SpinnerComponent } from 'src/app/shared/components/loading/spinner/spinner.component';
@@ -10,6 +10,7 @@ import { AdminLayoutService } from 'src/app/features/bo/layout/services/admin-la
 import { PaginatorModule } from 'primeng/paginator';
 import { InputTextModule } from 'primeng/inputtext';
 import { PermitDirective } from 'src/app/core/directives/permit.directive';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
 
 @Component({
   selector: 'app-albums',
@@ -21,7 +22,8 @@ import { PermitDirective } from 'src/app/core/directives/permit.directive';
     TranslateModule,
     PaginatorModule,
     InputTextModule,
-    PermitDirective
+    PermitDirective,
+    OverlayPanelModule
   ],
   providers: [
     AlbumsStore,
@@ -33,6 +35,7 @@ import { PermitDirective } from 'src/app/core/directives/permit.directive';
 export class AlbumsComponent implements OnInit {
 
   @Input() state: AlbumsState = {} as AlbumsState;
+  @Output() filterAlbums = new EventEmitter();
 
   modalWidth: string = '';
   nameSearch: string = '';
@@ -74,17 +77,25 @@ export class AlbumsComponent implements OnInit {
   }
 
   filter(): void{
-    if(this.nameSearch !== ''){
+    if(this.nameSearch !== '' && this.dateSearch === ''){
       this.albumStore.patchState({
         params: {
           ...this.albumStore.state.params,
           title: this.nameSearch
         }
       });
-    } else if(this.dateSearch !== ''){
+    } else if(this.dateSearch !== '' && this.nameSearch === ''){
       this.albumStore.patchState({
         params: {
           ...this.albumStore.state.params,
+          date: this.dateSearch
+        }
+      });
+    } else if(this.dateSearch !== '' && this.nameSearch !== ''){
+      this.albumStore.patchState({
+        params: {
+          ...this.albumStore.state.params,
+          title: this.nameSearch,
           date: this.dateSearch
         }
       });
@@ -97,6 +108,16 @@ export class AlbumsComponent implements OnInit {
       });
     }
 
-    this.albumStore.getAllAlbums();
+    console.log('FILTER PARAMS', this.albumStore.state.params);
+    this.filterAlbums.emit(this.albumStore.state.params)
+
+    // this.albumStore.getAllAlbums();
+  }
+
+  clearFilter(): void {
+    this.nameSearch = '';
+    this.dateSearch = '';
+
+    this.filter();
   }
 }

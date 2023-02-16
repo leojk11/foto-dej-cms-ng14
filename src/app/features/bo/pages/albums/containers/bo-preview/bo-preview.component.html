@@ -1,6 +1,6 @@
 <ng-container *ngIf="albumsStore.state$ | async as state">
   <div class="albums-buttons">
-    <div class="container__flex gap-5">
+    <div class="container__flex gap-5 row-gap-2">
       <button
         class="btn btn__icon btn__icon--blue shadow-small border-none"
         (click)="location.back()"
@@ -20,7 +20,7 @@
       </div>
     </div>
   
-    <div class="container__flex">
+    <div class="container__flex ml-auto">
       <p-inputSwitch 
         class="mr-1" 
         *ngIf="state.previewAlbum" 

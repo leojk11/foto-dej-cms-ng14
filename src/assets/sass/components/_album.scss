@@ -1,15 +1,18 @@
 .album {
   &__top {
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
+    gap: 1.5rem;
     row-gap: 1rem;
     margin-bottom: 3rem;
-    padding-right: 2rem;
+    // padding-right: 2rem;
 
     &--search {
       position: relative;
+      padding: 1rem;
 
       .icon-search {
         position: absolute;
@@ -29,7 +32,7 @@
   }
 
   &__empty {
-    width: 100rem;
+    width: 100%;
     height: 30rem;
     margin: 0 auto;
     text-align: center;
@@ -46,8 +49,8 @@
     width: 100%;
     display: flex;
     flex-wrap: wrap;
-    row-gap: 1.5rem;
     gap: 2.5rem;
+    row-gap: 1rem;
 
     &--image {
       width: 15.5rem;
@@ -104,4 +107,29 @@
     }
   }
 
+  @include screen-md {
+
+    &__top {
+      justify-content: flex-end;
+    }
+
+    &__images {
+      padding: 1rem 0 10rem;
+
+      &--image {
+        width: 9rem;
+        height: 9rem;
+
+        &__inner {
+          width: 9rem;
+          height: 9rem;
+
+          &--select {
+            top: .5rem;
+            right: .5rem;
+          }
+        }
+      }
+    }
+  }
 }

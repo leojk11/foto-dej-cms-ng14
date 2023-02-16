@@ -24,18 +24,14 @@
       *ngIf="(!showSelected && images!.length > 0) || (showSelected && selectedImages.length > 0)"
       class="album__top" 
     >
-      <div class="album__top--search" >
-        <input 
-          type="text" 
-          pInputText
-          class=""
-          placeholder="{{ 'common.searchName' | translate}}"
-          [(ngModel)]="imageSearch"
-          (keydown.enter)="filter()"
-        >
-        <i class="pi pi-search icon-search"></i>
-      </div>
-  
+      <button
+        class="btn btn__icon--blue"
+        type="button"
+        (click)="searchOp.toggle($event)"
+      >
+        <i class="pi pi-search"></i>
+      </button>
+
       <div class="album__top--actions">
         <button
           class="btn btn__icon--blue"
@@ -164,3 +160,38 @@
   header="{{ 'common.confirmation' | translate }}" 
   [style]="{ width: '50%',  padding: '1rem' }"  
 ></p-confirmDialog>
+
+<p-overlayPanel #searchOp>
+  <div class="album__top--search" >
+    <input 
+      type="text" 
+      pInputText
+      class="mb-2"
+      placeholder="{{ 'common.searchName' | translate}}"
+      [(ngModel)]="imageSearch"
+      (keydown.enter)="filter()"
+    >
+    
+    <div class="container__flex gap-1 justify-center">
+      <button 
+        pButton
+        type="button"
+        class="btn btn__icon--orange px-1"
+        (click)="filter()"
+      >
+        <i class="pi pi-filter"></i>
+        Search
+      </button>
+
+      <button 
+        pButton
+        type="button"
+        class="btn btn__icon--dark px-1"
+        (click)="clearFilter(); searchOp.toggle($event)"
+      >
+        <i class="pi pi-filter-slash"></i>
+        Reset
+      </button>
+    </div>
+  </div>
+</p-overlayPanel>

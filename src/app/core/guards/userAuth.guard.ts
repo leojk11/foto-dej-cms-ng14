@@ -22,11 +22,9 @@ export class AuthGuard implements CanActivate {
 
     if (!token || !user) {
       this.authService.userLogout();
-      this.router.navigateByUrl('/auth/user');
-      console.log('yes');
+      this.router.navigateByUrl('/auth/client');
       return false;
     } else {
-      console.log('no');
       return true;
     }
   }

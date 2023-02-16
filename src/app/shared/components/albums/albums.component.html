@@ -7,11 +7,32 @@
       <i class="pi pi-arrow-left"></i>
     </button>
 
+    <div class="container__flex gap-2">
+      <button 
+        class="btn btn__search px-2"
+        (click)="filterOp.toggle($event)"
+      >
+        Search
+        <i class="pi pi-search"></i>
+      </button>
+  
+      <button
+        class="btn btn__main albums-buttons__add-button"
+        type="submit"
+        (click)="openAddModal()"
+        *permit="'BO'"
+      >
+        {{ 'albums.addNewAlbum' | translate }}
+      </button>
+    </div>
+  </div>
+
+  <p-overlayPanel #filterOp appendTo="body">
     <div class="albums__header--filter">
       <input 
         type="text" 
         pInputText
-        class="max-w-3"
+        class="w-25r"
         placeholder="{{ 'common.searchName' | translate}}"
         [(ngModel)]="nameSearch"
         (keydown.enter)="filter()"
@@ -20,7 +41,7 @@
       <input 
         type="text" 
         pInputText
-        class="max-w-3"
+        class="w-25r"
         placeholder="{{ 'common.searchDate' | translate}}"
         [(ngModel)]="dateSearch"
         (keydown.enter)="filter()"
@@ -28,23 +49,12 @@
 
       <button 
         class="btn btn__search"
-        (click)="filter()"
+        (click)="clearFilter(); filterOp.toggle($event)"
       >
-        <i class="pi pi-search"></i>
+        <i class="pi pi-filter-slash"></i>
       </button>
     </div>
-
-    <button
-      class="btn btn__main albums-buttons__add-button"
-      type="submit"
-      (click)="openAddModal()"
-      *permit="'BO'"
-    >
-      {{ 'albums.addNewAlbum' | translate }}
-    </button>
-
-    
-  </div>
+  </p-overlayPanel>
 
   <div class="separator"></div>
   

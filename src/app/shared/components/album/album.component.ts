@@ -12,6 +12,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { TooltipModule } from 'primeng/tooltip';
 import { TabViewModule } from 'primeng/tabview';
 import { PermitDirective } from 'src/app/core/directives/permit.directive';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
 
 @Component({
   selector: 'app-album',
@@ -25,7 +26,8 @@ import { PermitDirective } from 'src/app/core/directives/permit.directive';
     ConfirmDialogModule,
     TooltipModule,
     TabViewModule,
-    PermitDirective
+    PermitDirective,
+    OverlayPanelModule
   ],
   templateUrl: './album.component.html',
   styleUrls: ['./album.component.scss']
@@ -176,5 +178,10 @@ export class AlbumComponent implements OnInit {
     } else {
       this.showSelected = false;
     }
+  }
+
+  clearFilter(): void {
+    this.imageSearch = '';
+    this.filter();
   }
 }

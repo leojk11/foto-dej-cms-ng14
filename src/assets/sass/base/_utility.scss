@@ -85,6 +85,10 @@
   padding-right: 0 !important;
 }
 
+.px-1{
+  padding: 0rem 1rem !important;
+}
+
 .px-2{
   padding: 0rem 2rem !important;
 }
@@ -112,6 +116,10 @@
 
 .gap-5{
   gap: 5rem;
+}
+
+.row-gap-2 {
+  row-gap: 2rem;
 }
 
 // POSITION
@@ -170,6 +178,10 @@
 
 .max-w-3{
   max-width: 30rem !important;
+}
+
+.w-25r {
+  width: 25rem !important;
 }
 
 .w-60 {
