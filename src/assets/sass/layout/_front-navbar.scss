@@ -2,12 +2,12 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
+  width: 100vw;
   padding: 0 12rem;
   position: absolute;
   top: 0;
   left: 0;
-  color: $color-dark;
+  color: $color-dark; 
   box-shadow: $shadow-small;
   background-color: $white;
 

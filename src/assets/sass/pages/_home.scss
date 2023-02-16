@@ -1,4 +1,4 @@
-.home{
+.home {
   margin: 0 auto;
 
   &__header {
@@ -28,7 +28,7 @@
   }
 
   &__hero {
-    width: 90vw;
+    width: 77.8rem;
     margin: 5rem auto;
     position: absolute;
     top: 40%;
@@ -44,13 +44,7 @@
       line-height: 91%;
       font-weight: 700;
 
-      @include screen-md {
-        font-size: 3.5rem;
-        font-weight: 600;
-        height: auto;
-        // word-break: break-all;
-        margin-bottom: 2rem;
-      }
+      
     }
 
     &--text {
@@ -60,8 +54,20 @@
       line-height: 91%;
       letter-spacing: .2px;
       text-align: center;
+    }
 
-      @include screen-md {
+    @include screen-md {
+      width: 90vw;
+
+      &--title {
+        font-size: 3.5rem;
+        font-weight: 600;
+        height: auto;
+        // word-break: break-all;
+        margin-bottom: 2rem;
+      }
+
+      &--text {
         font-size: 2rem;
       }
     }
@@ -90,20 +96,28 @@
     // height: 50rem;
 
     @include screen-md {
-      margin: 4rem 0rem 1rem;
+      margin: 5rem 0rem 6rem;
     }
   }
 
   &__video {
     margin: 10rem 12rem;
 
+    video {
+      height: 670px;
+    }
+
     @include screen-md {
-      margin: 0 2rem 10rem;
+      margin: 5rem 2rem 10rem;
+
+      video {
+        height: 100%;
+      }
     }
   }
 
   &__contact {
-    width: 81.2vw;
+    width: 80rem;
     margin: 0 auto;
     margin-bottom: 10rem;
 
@@ -115,8 +129,12 @@
       width: 100%;
       text-align: center;
       margin-bottom: 5rem;
+    }
 
-      @include screen-md {
+    @include screen-md {
+      width: 81.2vw;
+
+      &--title {
         font-size: 2.4rem;
         line-height: 32px;
       }
@@ -127,14 +145,15 @@
 .footer {
   background-color: $color-dark;
   color: $color-light;
-  min-height: 18rem;
+  height: 20rem;
   padding: 0rem 12rem;
   display: flex;
   align-items: center;
   flex-wrap: wrap;
   justify-content: space-between;
-  overflow: hidden;
+  overflow: hidden!important;
   width: 100vw;
+  position: relative;
 
   &__contact {
     display: flex;
@@ -162,24 +181,20 @@
     }
   }
 
-  &__socials-wrapper {
+  &__socials {
     width: 39.2rem;
     height: 39.2rem;
     background-color: rgba($color-light, 0.32);
-    border-radius: 50%;
-
-  }
-
-  &__socials {
     display: flex;
     align-items: center;
     justify-content: center;
+    border-radius: 50%;
     gap: 8rem;
 
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
 
     &--icon {
       font-size: 5rem !important;
@@ -205,17 +220,18 @@
     padding: 3rem 0;
     justify-content: center;
     position: relative;
+    height: 46rem;
 
     &__contact {
       gap: .5rem !important;
       position: absolute;
-      top: 30%;
+      top: 28%;
       left: 50%;
       transform: translate(-50%, -50%);
 
       &--item {
         &__text {
-          font-size: 1.4rem !important;
+          font-size: 1.4rem;
         }
 
         .pi {
@@ -224,15 +240,12 @@
       }
     }
 
-    &__socials-wrapper {
-      width: 105vw;
-      height: 40rem;
-      // background-color: none;
-    }
 
     &__socials {
-      top: 55%;
+      width: 40rem;
+      height: 40rem;
       gap: 4rem;
+      top: 53%;
 
       &--icon {
         font-size: 4rem !important;
