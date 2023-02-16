@@ -1,0 +1,121 @@
+.footer {
+  background-color: $color-dark;
+  color: $color-light;
+  height: 20rem;
+  padding: 0rem 12rem;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  overflow: hidden!important;
+  width: 100vw;
+  position: relative;
+
+  &__contact {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    &--item {
+      display: flex;
+      align-items: center;
+      gap: 1.75rem;
+      cursor: pointer;
+
+      &__text {
+        font-family: 'Roboto', serif;
+        font-weight: 700;
+        font-size: 1.6rem;
+        line-height: 30px;
+        border-bottom: 2px solid $color-light;
+        letter-spacing: .5px;
+      }
+
+      .pi {
+        font-size: 2.4rem !important;
+      }
+    }
+  }
+
+  &__socials {
+    width: 39.2rem;
+    height: 39.2rem;
+    background-color: rgba($color-light, 0.32);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    gap: 8rem;
+
+    position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+
+    &--icon {
+      font-size: 5rem !important;
+    }
+
+  }
+
+  &__logo {
+    width: 10rem;
+    height: 10rem;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .pi{
+      font-size: 15rem !important;
+    }
+  }
+
+  @include screen-md {
+    padding: 3rem 0;
+    justify-content: center;
+    position: relative;
+    height: 46rem;
+
+    &__contact {
+      gap: .5rem !important;
+      position: absolute;
+      top: 28%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+
+      &--item {
+        &__text {
+          font-size: 1.4rem;
+        }
+
+        .pi {
+          font-size: 1.8rem !important;
+        }
+      }
+    }
+
+
+    &__socials {
+      width: 40rem;
+      height: 40rem;
+      gap: 4rem;
+      top: 53%;
+
+      &--icon {
+        font-size: 4rem !important;
+      }
+    }
+
+    &__logo {
+      width: 15rem;
+      height: 8rem;
+
+      position: absolute;
+      top: 75%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+}

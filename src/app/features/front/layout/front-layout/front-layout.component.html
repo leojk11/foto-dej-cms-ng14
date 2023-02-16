@@ -1,10 +1,14 @@
-<div class="front">
-  <app-front-navbar></app-front-navbar>
+<div class="front" *ngIf="frontConfigState.confState$ | async as state">
+  <app-front-navbar
+    [imageUrl]="state.imageUrl + state.configuration.logo"
+  ></app-front-navbar>
 
   <div class="container">
     <router-outlet></router-outlet>
   </div>
 
-  <app-home-footer></app-home-footer>
+  <app-footer
+    [configuration]="state.configuration"
+  ></app-footer>
 </div>
 

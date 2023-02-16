@@ -6,7 +6,7 @@ import { SliderComponent } from '../../components/slider/slider.component';
 import { FrontConfigurationService } from '../../services/front-configuration.service';
 import { environment } from 'src/environments/environment';
 import { ContactFormComponent } from '../../components/contact-form/contact-form.component';
-import { HomeFooterComponent } from '../../components/home-footer/home-footer.component';
+import { FooterComponent } from '../../../../layout/components/footer/footer.component';
 import { Configuration } from 'src/app/features/bo/pages/configurations/models/configuration.model';
 import { StorageService } from 'src/app/core/services/storage.service';
 import { FrontConfigurationState } from '../../services/front-configuration.store';
@@ -23,7 +23,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
     RouterModule,
     SliderComponent,
     ContactFormComponent,
-    HomeFooterComponent,
+    FooterComponent,
     FrontNavbarComponent
   ],
   templateUrl: './home.component.html',

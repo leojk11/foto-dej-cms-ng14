@@ -1,18 +1,16 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Configuration } from 'src/app/features/bo/pages/configurations/models/configuration.model';
-import { FrontConfigurationState } from '../../services/front-configuration.store';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { map, Observable, shareReplay } from 'rxjs';
 
 @Component({
-  selector: 'app-home-footer',
+  selector: 'app-footer',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './home-footer.component.html',
-  styleUrls: ['./home-footer.component.scss']
+  templateUrl: './footer.component.html'
 })
-export class HomeFooterComponent implements OnInit {
+export class FooterComponent implements OnInit {
 
   @Input() configuration: Configuration = {} as Configuration;
   
@@ -23,12 +21,10 @@ export class HomeFooterComponent implements OnInit {
   );
 
   constructor(
-    public frontConfigurationState: FrontConfigurationState,
     private brakepointObserver: BreakpointObserver
   ) { }
 
   ngOnInit(): void {
-    console.log('COFIGURATIoN IN FOOTER', this.configuration);
     
   }
 

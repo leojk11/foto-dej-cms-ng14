@@ -54,15 +54,15 @@ export class FrontNavbarComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.service.getConfiguration().subscribe({
-      next: res => {
-        this.config = res;
-        this.frontConfigurationState.setConfiguration(res);
-      },
-      error: error => {
-        this.toastService.addError(error.error.message);
-      }
-    });
+  //   this.service.getConfiguration().subscribe({
+  //     next: res => {
+  //       this.config = res;
+  //       this.frontConfigurationState.setConfiguration(res);
+  //     },
+  //     error: error => {
+  //       this.toastService.addError(error.error.message);
+  //     }
+  //   });
 
     this.isAuthenticated = this.authService.isLoggedInUser();
 

@@ -2,8 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FrontNavbarComponent } from '../components/front-navbar/front-navbar.component';
 import { RouterModule } from '@angular/router';
-import { FrontFooterComponent } from '../components/front-footer/front-footer.component';
-import { HomeFooterComponent } from '../../pages/home/components/home-footer/home-footer.component';
+import { FooterComponent } from '../components/footer/footer.component';
+import { FrontConfigurationService } from '../../pages/home/services/front-configuration.service';
+import { FrontConfigurationState } from '../../pages/home/services/front-configuration.store';
+import { ToastService } from 'src/app/shared/services/toast.service';
+import { Configuration } from 'src/app/features/bo/pages/configurations/models/configuration.model';
 
 @Component({
   selector: 'app-front-layout',
@@ -12,17 +15,31 @@ import { HomeFooterComponent } from '../../pages/home/components/home-footer/hom
     CommonModule,
     FrontNavbarComponent,
     RouterModule,
-    HomeFooterComponent
+    FooterComponent
   ],
   templateUrl: './front-layout.component.html',
   styleUrls: ['./front-layout.component.scss']
 })
 export class FrontLayoutComponent implements OnInit {
 
+  config: Configuration = {} as Configuration;
+
   constructor(
+    private frontConfigService: FrontConfigurationService,
+    public frontConfigState: FrontConfigurationState,
+    private toastService: ToastService
   ) { }
 
   ngOnInit(): void {
+    this.frontConfigService.getConfiguration().subscribe({
+      next: res => {
+        this.config = res;
+        this.frontConfigState.setConfiguration(res);
+      },
+      error: error => {
+        this.toastService.addError(error.error.message);
+      }
+    });
   }
 
 }
