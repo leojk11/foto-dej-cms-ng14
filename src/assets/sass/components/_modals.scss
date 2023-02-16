@@ -13,7 +13,7 @@
   color: $black;
 
   &__img {
-    width: 65vw;
+    // width: 65vw;
     z-index: 999;
     position: relative;
 
@@ -39,6 +39,20 @@
       left: 0;
       transform: translate(0%, -50%);
     }
+
+  }
+  @include screen-md {
+    &__img {
+      width: 95vw;
+
+      &--image {
+        width: 100% !important;
+      }
+      &--btns {
+        width: 100%;
+      } 
+    }
+
   }
 
   &__top-buttons {
