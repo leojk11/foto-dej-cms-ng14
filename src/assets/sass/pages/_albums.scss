@@ -5,8 +5,6 @@
   background-color: #677f96;
 }
 .albums{
-  padding: 3rem;
-
   .p-paginator{
     background-color: $main-bg!important;
   }
@@ -45,8 +43,6 @@
   }
 
   @include screen-md {
-    padding: 0;
-
     &__content {
       padding: 2rem 0 0;
     }

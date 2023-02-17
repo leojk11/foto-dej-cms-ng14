@@ -112,7 +112,7 @@ export class AuthService {
     this.storageService.removeItem('user');
     this.storageService.removeItem('token');
 
-    this.router.navigate(['/auth/user']).then();
+    this.router.navigate(['/auth/client']).then();
   }
   
   boLogout(): void {
