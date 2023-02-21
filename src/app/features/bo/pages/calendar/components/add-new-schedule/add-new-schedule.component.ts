@@ -13,6 +13,8 @@ import { ConfirmationService } from 'primeng/api';
 import { DialogModule } from 'primeng/dialog';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastService } from 'src/app/shared/services/toast.service';
+import { Location } from '../../models/location.model';
+import { TagModule } from 'primeng/tag';
 
 @Component({
   selector: 'app-add-new-schedule',
@@ -26,7 +28,8 @@ import { ToastService } from 'src/app/shared/services/toast.service';
     InputTextModule,
     InputTextareaModule,
     DialogModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    TagModule
   ],
   providers: [
     ConfirmationService
@@ -53,6 +56,8 @@ export class AddNewScheduleComponent implements OnInit {
   loading: boolean = false;
 
   selectedSchedule: Schedule | null = null;
+
+  locations: Location[] = [];
 
   constructor(
     private fb: FormBuilder,
