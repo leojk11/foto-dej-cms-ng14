@@ -1,11 +1,14 @@
-<div class="client" (click)="openEditModal()">
+<div 
+  class="client" 
+  [routerLink]="['details', client.id]"
+>
   <div class="client__name">
     <div class="client__img">
       <img
         src="../../../../../../../assets/img/wedding_detail.jpeg"
-        alt=""
       >
     </div>
+
     <div class="container__flex-col align-center">
       <span>
         {{ client.fullname }}
@@ -14,6 +17,7 @@
         {{ client.phone_number }}
       </span>
     </div>
+    
     <div class="client__status">
       <p [ngClass]="client.account_status === 'ACTIVE' ? 'isActive' : 'isExpired'">
         {{ client.account_status | titlecase }}
