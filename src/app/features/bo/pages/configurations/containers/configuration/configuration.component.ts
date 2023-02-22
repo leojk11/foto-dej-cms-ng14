@@ -64,7 +64,6 @@ export class ConfigurationComponent implements OnInit {
     logo: [''],
     main_title: [''],
     second_title: [''],
-    contact_form_label: [''],
     phone_number: [''],
     email: [''],
     address: [''],

@@ -62,6 +62,10 @@
                     .upload-input {
                         display: none;
                     }
+
+                    span {
+                        font-size: 1.4rem;
+                    }
                 }
     
                 &__bottom {
@@ -116,7 +120,43 @@
                         margin-top: 1.5rem;
 
                         &__label {
+                            font-size: 1.2rem !important;
                             color: rgba(black, 0.4);
+                        }
+                    }
+                }
+            }
+
+            @include screen-md {
+                flex-direction: column;
+                width: 100%;
+                align-items: start !important;
+
+                .left {
+                    width: 100%;
+                    border-bottom: 1px solid $light-grey-1;
+                    border-right: none;
+                    padding-bottom: 1.5rem;
+                }
+
+                .right {
+                    width: 100%;
+                    padding: 1.5rem 0;
+
+                    &__top {
+                        justify-content: flex-end;
+
+                        .upload-btn {
+                            font-size: 1.4rem !important;
+                            gap: .5rem;
+                        }
+                    }
+
+                    &__bottom {
+                        .images {
+                            .single-image {
+                                width: 48%;
+                            }
                         }
                     }
                 }
@@ -220,6 +260,32 @@
     
                             &__label {
                                 color: rgba(black, 0.4);
+                            }
+                        }
+                    }
+                }
+            }
+
+            @include screen-md {
+                flex-direction: column;
+
+                &__item {
+                    width: 100%;
+
+                    .multi-bottom {
+                        &__top {
+                            .upload-btn {
+                                font-size: 1.4rem !important;
+                                width: 15.5rem !important;
+                                gap: .5rem;
+                            }
+                        }
+
+                        &__bottom {
+                            .image-preview {
+                                img {
+                                    object-fit: contain;
+                                }
                             }
                         }
                     }
