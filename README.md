@@ -1,9 +1,5 @@
 # FotodejCmsNg
 
-## App URLS
-- fotodej-cms.web.app
-- fotodej-cms.firebaseapp.com
-
 ## Landing page design
 - https://www.figma.com/file/X4uvSBxAOab0nYU9mrD54m/FOTO-DEJ?node-id=0%3A1
 
