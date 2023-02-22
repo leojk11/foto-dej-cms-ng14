@@ -8,31 +8,24 @@
         <i class="pi pi-arrow-left"></i>
       </button>
 
-      <button
-        class="btn btn__main "
-        type="button"
-        (click)="openModal()"
-        *ngIf="mobile"
-      >
-        {{ 'calendar.newSchedule' | translate }}
-      </button>
-    </div>
+      <div class="container__flex gap-2">
+        <button 
+          class="btn btn__search px-2"
+          (click)="filterOp.toggle($event)"
+        >
+          Search
+          <i class="pi pi-search"></i>
+        </button>
 
-    <div class="calendar__header--filter">
-      <input 
-        type="text" 
-        pInputText
-        class="max-w-3"
-        placeholder="{{ 'properties.title' | translate | lowercase }}..."
-        [(ngModel)]="filters.title"
-      >
-
-      <button 
-        class="btn btn__search"
-        (click)="filter()"
-      >
-        <i class="pi pi-search"></i>
-      </button>
+        <button
+          class="btn btn__main "
+          type="button"
+          (click)="openModal()"
+          *ngIf="mobile"
+        >
+          {{ 'calendar.newSchedule' | translate }}
+        </button>
+      </div>
     </div>
   </div>
 
@@ -43,3 +36,37 @@
 
   <app-spinner *ngIf="!showCalendar"></app-spinner>
 </div>
+
+<p-overlayPanel #filterOp appendTo="body">
+  <div class="calendar__header--filter">
+    <input 
+      type="text" 
+      pInputText
+      class="max-w-3"
+      placeholder="{{ 'properties.title' | translate | lowercase }}..."
+      [(ngModel)]="filters.title"
+    >
+
+    <div class="container__flex gap-1 justify-center">
+      <button 
+        pButton
+        type="button"
+        class="btn btn__icon--orange px-1"
+        (click)="filter()"
+      >
+        <i class="pi pi-filter"></i>
+        Search
+      </button>
+
+      <button 
+        pButton
+        type="button"
+        class="btn btn__icon--dark px-1"
+        (click)="clearFilter(); filterOp.toggle($event)"
+      >
+        <i class="pi pi-filter-slash"></i>
+        Reset
+      </button>
+    </div>
+  </div>
+</p-overlayPanel>

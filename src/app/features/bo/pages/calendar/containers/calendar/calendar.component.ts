@@ -18,6 +18,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { FormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { SelectDateComponent } from '../../components/select-date/select-date.component';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -35,7 +36,8 @@ FullCalendarModule.registerPlugins([
     SpinnerComponent,
     CalendarModule,
     FormsModule,
-    InputTextModule
+    InputTextModule,
+    OverlayPanelModule
   ],
   providers: [
     DialogService
@@ -251,5 +253,10 @@ export class CalendarComponent implements OnInit {
         this.toastService.addError(error.error.message);
       }
     });
+  }
+
+  clearFilter(): void {
+    this.filters.title = '';
+    this.filter();
   }
 }

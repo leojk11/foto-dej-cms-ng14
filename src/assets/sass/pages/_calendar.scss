@@ -90,9 +90,11 @@
       position: relative;
       display: flex;
       align-items: center;
+      flex-direction: column;
       flex-wrap: wrap;
       row-gap: 1.5rem;
       gap: 2rem;
+      padding: 2rem 0;
     }
   }
 }
