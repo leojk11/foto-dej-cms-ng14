@@ -10,46 +10,13 @@
       <i class="pi pi-arrow-left"></i>
     </button>
     
-    <div class="requests__header--buttons">
-      <input 
-        type="text" 
-        pInputText
-        class="max-w-3"
-        placeholder="{{ 'properties.firstname' | translate | lowercase }}..."
-        [(ngModel)]="filters.firstname"
-      >
-
-      <input 
-        type="text" 
-        pInputText
-        class="max-w-3"
-        placeholder="{{ 'properties.lastname' | translate | lowercase }}..."
-        [(ngModel)]="filters.lastname"
-      >
-
-      <input 
-        type="text" 
-        pInputText
-        class="max-w-3"
-        placeholder="{{ 'properties.phoneNumber' | translate | lowercase }}..."
-        [(ngModel)]="filters.phone"
-      >
-
-      <button 
-        class="btn btn__search"
-        (click)="op.toggle($event)"
-      >
-        <!-- overlay panel is at the bottom of the file -->
-        <i class="pi pi-caret-down"></i>
-      </button>
-
-      <button 
-        class="btn btn__search"
-        (click)="filter()"
-      >
-        <i class="pi pi-search"></i>
-      </button>
-    </div>
+    <button 
+      class="btn btn__search px-2"
+      (click)="op.toggle($event)"
+    >
+      Search
+      <i class="pi pi-search"></i>
+    </button>
   </div>
 
   <div class="requests__content">
@@ -111,8 +78,72 @@
   </div>
 </div>
 
-<p-overlayPanel #op>
-  <ng-template pTemplate>
+<p-overlayPanel #op appendTo="body">
+  <div class="requests__header--filter">
+    <input 
+      type="text" 
+      pInputText
+      class="max-w-3"
+      placeholder="{{ 'properties.firstname' | translate | lowercase }}..."
+      [(ngModel)]="filters.firstname"
+    >
+
+    <input 
+      type="text" 
+      pInputText
+      class="max-w-3"
+      placeholder="{{ 'properties.lastname' | translate | lowercase }}..."
+      [(ngModel)]="filters.lastname"
+    >
+
+    <input 
+      type="text" 
+      pInputText
+      class="max-w-3"
+      placeholder="{{ 'properties.phoneNumber' | translate | lowercase }}..."
+      [(ngModel)]="filters.phone"
+    >
+
+    <input 
+      type="text" 
+      pInputText
+      class="max-w-3"
+      placeholder="{{ 'properties.email' | translate | lowercase }}..."
+      [(ngModel)]="filters.email"
+    >
+
+    <input 
+      type="text" 
+      pInputText
+      class="max-w-3"
+      placeholder="{{ 'properties.date' | translate | lowercase }}..."
+      [(ngModel)]="filters.date"
+    >
+
+    <div class="container__flex gap-1 justify-center">
+      <button 
+        pButton
+        type="button"
+        class="btn btn__icon--orange px-1"
+        (click)="filter()"
+      >
+        <i class="pi pi-filter"></i>
+        Search
+      </button>
+
+      <button 
+        pButton
+        type="button"
+        class="btn btn__icon--dark px-1"
+        (click)="clearFilter(); op.toggle($event)"
+      >
+        <i class="pi pi-filter-slash"></i>
+        Reset
+      </button>
+    </div>
+  
+  </div>
+  <!-- <ng-template pTemplate>
     <div class="overlay-filters">
       <input 
         type="text" 
@@ -130,5 +161,5 @@
         [(ngModel)]="filters.date"
       >
     </div>
-  </ng-template>
+  </ng-template> -->
 </p-overlayPanel>

@@ -50,4 +50,8 @@ export class RequestsComponent implements OnInit {
     this.requestsStore.setParams({ page: 1, take: 10 });
     this.requestsStore.getRequests(this.filters);
   }
+
+  clearFilter(): void {
+    
+  }
 }
