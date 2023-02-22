@@ -10,6 +10,7 @@ import {InputTextModule} from 'primeng/inputtext';
 import {DialogService} from 'primeng/dynamicdialog';
 import { NewClientComponent } from '../new-client/new-client.component';
 import { PaginatorModule } from 'primeng/paginator';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
 
 @Component({
   selector: 'app-clients',
@@ -20,7 +21,8 @@ import { PaginatorModule } from 'primeng/paginator';
     TranslateModule,
     ClientCardComponent,
     InputTextModule,
-    PaginatorModule
+    PaginatorModule,
+    OverlayPanelModule
   ],
   providers: [ 
     ClientsStore,
@@ -99,5 +101,11 @@ export class ClientsComponent implements OnInit {
     }
     
     this.clientStore.getAllClients();
+  }
+
+  clearFilter(): void {
+    this.nameSearch = '';
+    this.phoneSearch = '';
+    this.filter();
   }
 }

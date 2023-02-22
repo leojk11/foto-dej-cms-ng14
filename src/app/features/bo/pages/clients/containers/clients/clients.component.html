@@ -9,53 +9,34 @@
           <i class="pi pi-arrow-left"></i>
         </button>
 
-        <button
-          class="btn btn__main "
-          type="button"
-          (click)="openModal()"
-        >
-          {{ 'clients.newClient' | translate }}
-        </button>
-      </div>
+        <div class="container__flex gap-2">
+          <button 
+            class="btn btn__search px-2"
+            (click)="filterOp.toggle($event)"
+          >
+            Search
+            <i class="pi pi-search"></i>
+          </button>
 
-      <div class="clients__header--filter">
-        <!-- <div class="text-xl">
-          {{ 'common.filters' | translate }}
-        </div> -->
-
-        <input 
-          type="text" 
-          pInputText
-          class="max-w-3"
-          placeholder="{{ 'common.searchName' | translate}}"
-          [(ngModel)]="nameSearch"
-          (keydown.enter)="filter()"
-        >
-        <input 
-          type="text" 
-          pInputText
-          class="max-w-3"
-          placeholder="{{ 'common.searchPhone' | translate}}"
-          [(ngModel)]="phoneSearch"
-          (keydown.enter)="filter()"
-        >
-
-        <button 
-          class="btn btn__search"
-          (click)="filter()"
-        >
-          <i class="pi pi-search"></i>
-        </button>
-        
+          <button
+            class="btn btn__main "
+            type="button"
+            (click)="openModal()"
+          >
+            {{ 'clients.newClient' | translate }}
+          </button>
+        </div>
       </div>
     </div>
+
+    <div class="separator"></div>
 
     <div class="clients__content">
       <div class="page__loading mt-5" *ngIf="state.loading">
         <app-spinner></app-spinner>
       </div>
   
-      <div *ngIf="!state.loading" class="container__flex gap-2 wrap">
+      <div *ngIf="!state.loading" class="clients__content--items">
         <div *ngFor="let client of state.list" >
           <app-client-card
             [client] = "client"
@@ -73,3 +54,46 @@
     </div>
   </div>
 </div>
+
+<p-overlayPanel #filterOp appendTo="body">
+  <div class="clients__header--filter">
+    <input 
+      type="text" 
+      pInputText
+      class="max-w-3"
+      placeholder="{{ 'common.searchName' | translate}}"
+      [(ngModel)]="nameSearch"
+      (keydown.enter)="filter()"
+    >
+    <input 
+      type="text" 
+      pInputText
+      class="max-w-3"
+      placeholder="{{ 'common.searchPhone' | translate}}"
+      [(ngModel)]="phoneSearch"
+      (keydown.enter)="filter()"
+    >
+
+    <div class="container__flex gap-1 justify-center">
+      <button 
+        pButton
+        type="button"
+        class="btn btn__icon--orange px-1"
+        (click)="filter()"
+      >
+        <i class="pi pi-filter"></i>
+        Search
+      </button>
+
+      <button 
+        pButton
+        type="button"
+        class="btn btn__icon--dark px-1"
+        (click)="clearFilter(); filterOp.toggle($event)"
+      >
+        <i class="pi pi-filter-slash"></i>
+        Reset
+      </button>
+    </div>
+  </div>
+</p-overlayPanel>

@@ -1,4 +1,4 @@
-<div class="bg-main" *ngIf="store.state$ | async as state">
+<div class="p-2" *ngIf="store.state$ | async as state">
   <app-albums
     [state]="state"
     (filterAlbums)="store.getAllAlbums()"

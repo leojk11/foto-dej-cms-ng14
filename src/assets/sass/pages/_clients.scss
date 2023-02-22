@@ -1,7 +1,11 @@
 .clients{
   background-color: $color-wrapper;
   padding: 0rem 2rem;
-  height: 60vh;
+  min-height: 60vh;
+
+  @include screen-md {
+    padding-bottom: 5rem;
+  }
 
   .p-paginator{
     background-color: $main-bg!important;
@@ -9,9 +13,9 @@
 
   &__header{
     width: 100%;
-    padding: 0 1rem 2rem;
+    padding-bottom: 1rem;
 
-    border-bottom: 1px solid rgba(60,60,59,0.19);
+    // border-bottom: 1px solid rgba(60,60,59,0.19);
     border-radius: 5px;
     
     &--buttons {
@@ -27,14 +31,23 @@
       position: relative;
       display: flex;
       align-items: center;
+      flex-direction: column;
       flex-wrap: wrap;
       row-gap: 1.5rem;
       gap: 2rem;
+      padding: 2rem 0;
     }
   }
 
   &__content{
-    padding: 2rem 1rem 0;
+    padding: 2rem 0;
+
+    &--items {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+      gap: 5rem;
+      row-gap: 3rem;
+    }
   }
 }
 
