@@ -57,6 +57,12 @@
           <th></th>
         </tr>
       </ng-template>
+
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="5">{{ 'common.noResults' | translate }}</td>
+        </tr>
+      </ng-template>
   
       <ng-template pTemplate="body" let-invite let-index="rowIndex">
         <tr>
