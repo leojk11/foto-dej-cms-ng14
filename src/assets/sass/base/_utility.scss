@@ -6,13 +6,17 @@
   margin-top: 2rem;
 }
 .mt-3 {
-  margin-top: 3rem;
+  margin-top: 3rem !important;
 }
 .mt-5{
-  margin-top: 5rem;
+  margin-top: 5rem !important;
 }
 .mt-auto{
   margin-top: auto;
+}
+
+.mx-auto{
+  margin: 0 auto;
 }
 
 .ml-auto {

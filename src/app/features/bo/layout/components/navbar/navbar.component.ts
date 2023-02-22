@@ -16,6 +16,8 @@ export class NavbarComponent implements OnInit {
 
   appVersion = APP_VERSION;
   @Input() showToggle: boolean = false;
+  @Input() isMobile: boolean = false;
+
   @Output() toggleSidebar = new EventEmitter();
 
   constructor(

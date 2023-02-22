@@ -6,6 +6,9 @@ import { StorageService } from 'src/app/core/services/storage.service';
 import { RouterModule } from '@angular/router';
 import {SidebarModule} from 'primeng/sidebar';
 import { PermitDirective } from 'src/app/core/directives/permit.directive';
+import { FrontConfigurationService } from 'src/app/features/front/pages/home/services/front-configuration.service';
+import { FrontConfigurationState } from 'src/app/features/front/pages/home/services/front-configuration.store';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -31,7 +34,9 @@ export class SidebarComponent implements OnInit {
 
   constructor(
     private storageService: StorageService,
-    private translateService: TranslateService
+    private translateService: TranslateService,
+    public frontConfigurationState: FrontConfigurationState,
+    public authService: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -50,13 +55,5 @@ export class SidebarComponent implements OnInit {
 
     this.storageService.setItem('lang', lang);
     this.selectedLang = this.storageService.getItem('lang')
-  }
-
-  onHideSidebar(e: any): void {
-    console.log('HIDE EVENT', e);
-    
-    // this.hideSidebar = !this.hideSidebar;
-    console.log('HIDE SIDEBAR FUNC', this.hideSidebar);
-    
   }
 }

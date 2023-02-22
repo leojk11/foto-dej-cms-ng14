@@ -9,35 +9,32 @@
     <div
       *ngIf="adminLayoutService.adminLayoutState$ | async as state"
     >
-      <!-- <button
-        class="btn btn__icon btn__icon--dark shadow-small border-none"
-        (click)="location.back()"
-      >
-        <span class="material-symbols-outlined">arrow_back_ios_new</span>
-      </button> -->
       <div class="page-header__title">
         {{ state.pageTitle | translate }}
-        <span *ngIf="state.detail">  &#8250;  {{ state.detail | translate }} </span>
+
+        <span *ngIf="state.detail">  
+          &#8250;  {{ state.detail | translate }} 
+        </span>
       </div>
     </div>
   </div>
 
-  <div class="text">
-    {{ appVersion }}
-  </div>
-
-  <div class="container__flex">
-    <div *ngIf="authService.user$ | async as user">
-      <p class="c-white text-lg">
-        {{ user.firstname }} {{ user.lastname }}
-      </p>
+  <ng-container *ngIf="!isMobile">
+    <div class="text">
+      {{ appVersion }}
     </div>
-    <div class="navbar__buttons" (click)="logout()">
-      <button class="btn btn__icon shadow-small">
-        <span class="material-symbols-outlined">
-          logout
-        </span>
-      </button>
+  
+    <div class="container__flex">
+      <div *ngIf="authService.user$ | async as user">
+        <p class="c-white text-lg">
+          {{ user.firstname }} {{ user.lastname }}
+        </p>
+      </div>
+      <div class="navbar__buttons" (click)="logout()">
+        <button class="btn btn__icon shadow-small px-1">
+          <i class="pi pi-sign-out"></i>
+        </button>
+      </div>
     </div>
-  </div>
+  </ng-container>
 </div>

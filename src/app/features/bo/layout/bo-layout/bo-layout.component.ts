@@ -8,6 +8,10 @@ import { HeaderComponent } from '../components/header/header.component';
 import { RouterModule } from '@angular/router';
 import { SidebarModule } from 'primeng/sidebar';
 import { ImageOverviewComponent } from 'src/app/shared/components/image-overview/image-overview.component';
+import { FrontConfigurationService } from 'src/app/features/front/pages/home/services/front-configuration.service';
+import { FrontConfigurationState } from 'src/app/features/front/pages/home/services/front-configuration.store';
+import { ToastService } from 'src/app/shared/services/toast.service';
+import { Configuration } from '../../pages/configurations/models/configuration.model';
 
 @Component({
   selector: 'app-bo-layout',
@@ -36,11 +40,23 @@ export class BoLayoutComponent implements OnInit {
   isMobile: boolean = false;
 
   constructor(
-    private brakepointObserver: BreakpointObserver
+    private brakepointObserver: BreakpointObserver,
+    private frontConfigService: FrontConfigurationService,
+    public frontConfigState: FrontConfigurationState,
+    private toastService: ToastService
   ) { }
 
   ngOnInit(): void {
-    this.isMobile$.subscribe(res => this.isMobile = res)
+    this.isMobile$.subscribe(res => this.isMobile = res);
+
+    this.frontConfigService.getConfiguration().subscribe({
+      next: res => {
+        this.frontConfigState.setConfiguration(res);
+      },
+      error: error => {
+        this.toastService.addError(error.error.message);
+      }
+    });
   }
 
   toggleSidebar(): void {

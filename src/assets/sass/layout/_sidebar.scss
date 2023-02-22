@@ -30,6 +30,40 @@
     }
   }
 
+  &__user {
+    display: flex;
+    align-items: center;
+    font-size: 1.8rem;
+    
+    font-weight: 500;
+    gap: 1rem;
+    transition: all .2s;
+
+    i {
+      width: 4rem;
+      height: 4rem;
+      background-color: $color-wrapper;
+      border-radius: 50%;
+
+      box-shadow: $shadow-small;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    p {
+      color: $color-header;
+    }
+
+    &:hover {
+      p {
+        font-weight: 600;
+        color: $color-dark;
+
+      }
+    }
+  }
+
   &__logo-wrapper {
     width: 100%;
     // width: 6rem;
@@ -66,7 +100,7 @@
 
     &--icon{
       box-shadow: $shadow-icon;
-      padding: 0 .8rem;
+      padding: 0.3rem .8rem;
       border-radius: 5px;
 
       i {
@@ -86,6 +120,8 @@
     &.active-link {
       color: $black;
     }
+
+
   }
 
   .lang-wrapper{

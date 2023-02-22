@@ -11,11 +11,11 @@
   >
     <app-navbar
       [showToggle]="hideSidebar"
+      [isMobile]="isMobile"
       (toggleSidebar)="toggleSidebar()"
     ></app-navbar>
 
     <div class="container__bo--content-wrapper">
-      <!-- <app-header></app-header> -->
       <div class="container__bo--router-wrapper">
         <router-outlet></router-outlet>
       </div>
