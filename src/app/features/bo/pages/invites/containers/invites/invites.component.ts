@@ -15,6 +15,7 @@ import { FormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { CalendarModule } from 'primeng/calendar';
 import * as dayjs from 'dayjs';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
 
 @Component({
   selector: 'app-invites',
@@ -29,7 +30,8 @@ import * as dayjs from 'dayjs';
     FormsModule,
     InputTextModule,
     TooltipModule,
-    CalendarModule
+    CalendarModule,
+    OverlayPanelModule
   ],
   providers: [
     ConfirmationService,
@@ -108,6 +110,10 @@ export class InvitesComponent implements OnInit {
   filter(): void {
     this.invitesStore.setParams({ page: 1, take: 10 });
     this.invitesStore.getInvites(this.filters);
+  }
+
+  clearFilter(): void {
+    
   }
 
 }

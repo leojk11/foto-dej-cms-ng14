@@ -11,39 +11,24 @@
         <i class="pi pi-arrow-left"></i>
       </button>
 
-      <button
-        class="btn btn__icon--blue btn__main--sm"
-        type="button"
-        (click)="refresh()"
-        pTooltip="{{ 'common.refresh' | translate }}" 
-        tooltipPosition="top">
-        <i class="pi pi-refresh"></i>
-      </button>
-    </div>
-
-    <div class="invites__header--filter">
-      <input 
-        type="text" 
-        pInputText
-        class="max-w-3"
-        placeholder="{{ 'properties.client' | translate | lowercase }}..."
-        [(ngModel)]="filters.client"
-      >
-
-      <p-calendar
-        [(ngModel)]="dateToFilter"
-        placeholder="{{ 'properties.date' | translate | lowercase }}..."
-        [showClear]="true"
-        (onSelect)="onDateSelect()"
-        (onClear)="onDateClear()"
-      ></p-calendar>
-
-      <button 
-        class="btn btn__search"
-        (click)="filter()"
-      >
-        <i class="pi pi-search"></i>
-      </button>
+      <div class="container__flex gap-2">
+        <button
+          class="btn btn__icon--blue btn__main--sm"
+          type="button"
+          (click)="refresh()"
+          pTooltip="{{ 'common.refresh' | translate }}" 
+          tooltipPosition="top">
+          <i class="pi pi-refresh"></i>
+        </button>
+  
+          <button 
+          class="btn btn__search px-2"
+          (click)="op.toggle($event)"
+        >
+          Search
+          <i class="pi pi-search"></i>
+        </button>
+      </div>
     </div>
   </div>
 
@@ -110,3 +95,45 @@
   header="{{ 'common.confirmation' | translate }}" 
   [style]="{ width: '30%' }"  
 ></p-confirmDialog>
+
+<p-overlayPanel #op appendTo="body">
+  <div class="invites__header--filter">
+    <input 
+      type="text" 
+      pInputText
+      class="max-w-3"
+      placeholder="{{ 'properties.client' | translate | lowercase }}..."
+      [(ngModel)]="filters.client"
+    >
+
+    <p-calendar
+      [(ngModel)]="dateToFilter"
+      placeholder="{{ 'properties.date' | translate | lowercase }}..."
+      [showClear]="true"
+      (onSelect)="onDateSelect()"
+      (onClear)="onDateClear()"
+    ></p-calendar>
+
+    <div class="container__flex gap-1 justify-center">
+      <button 
+        pButton
+        type="button"
+        class="btn btn__icon--orange px-1"
+        (click)="filter()"
+      >
+        <i class="pi pi-filter"></i>
+        Search
+      </button>
+
+      <button 
+        pButton
+        type="button"
+        class="btn btn__icon--dark px-1"
+        (click)="clearFilter(); op.toggle($event)"
+      >
+        <i class="pi pi-filter-slash"></i>
+        Reset
+      </button>
+    </div>
+  </div>
+</p-overlayPanel>
