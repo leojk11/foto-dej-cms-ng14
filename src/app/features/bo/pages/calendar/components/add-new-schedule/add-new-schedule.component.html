@@ -52,28 +52,22 @@
 
         <div class="form-field">
           <label class="form-field__label">
-            {{ 'properties.location' | translate }} 1:
+            {{ 'properties.description' | translate }}:
           </label>
 
-          <input
-            type="text"
-            pInputText
-            formControlName="location_1"
-            placeholder="{{ 'properties.location' | translate | lowercase }}..."
-          >
+          <textarea
+            pInputTextarea
+            formControlName="description"
+            placeholder="{{ 'properties.description' | translate | lowercase }}..."
+          ></textarea>
         </div>
 
-        <div class="form-field">
+        <div class="form-field w-full">
           <label class="form-field__label">
-            {{ 'properties.location' | translate }} 2:
+            {{ 'properties.locations' | translate }}:
           </label>
 
-          <input
-            type="text"
-            pInputText
-            formControlName="location_2"
-            placeholder="{{ 'properties.location' | translate | lowercase }}..."
-          >
+          <p-tag styleClass="mr-2" value="Primary" [rounded]="true"></p-tag>
         </div>
 
         <div class="form-field">
@@ -100,18 +94,6 @@
             formControlName="contact_number_2"
             placeholder="{{ 'properties.contactNumber' | translate | lowercase }}..."
           >
-        </div>
-
-        <div class="form-field">
-          <label class="form-field__label">
-            {{ 'properties.description' | translate }}:
-          </label>
-
-          <textarea
-            pInputTextarea
-            formControlName="description"
-            placeholder="{{ 'properties.description' | translate | lowercase }}..."
-          ></textarea>
         </div>
       </div>
 
