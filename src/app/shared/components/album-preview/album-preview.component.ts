@@ -27,10 +27,6 @@ export class AlbumPreviewComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  filter(image: string): void {
-    this.store.getAlbumImages(this.albumId, image);
-  }
-
   onImageSelect(event: { images: Image[]; isAdmin: boolean }): void {
     this.store.patchSelectedImages(event.images);
 

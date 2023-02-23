@@ -38,7 +38,8 @@ export class AlbumComponent implements OnInit {
   @Input() selectedImages: Image[] = [];
   @Input() isAdmin: boolean = true;
   @Input() isSelect: boolean = false;
-  @Output() onImageSearch = new EventEmitter();
+  @Input() userId: string = '';
+  @Input() albumId: string = '';
   @Output() onSelect = new EventEmitter();
 
   imageSearch: string = '';
@@ -54,7 +55,6 @@ export class AlbumComponent implements OnInit {
 
   ngOnInit(): void {
     console.log('images on onit', this.images);
-    
   }
 
   deleteSelected(): void {
@@ -117,7 +117,7 @@ export class AlbumComponent implements OnInit {
       showSelected: this.showSelected
     };
 
-    this.onImageSearch.emit(searchObj);
+    this.albumsStore.getAlbumImages(this.albumId, this.imageSearch);
   }
 
   deleteImage(event: string, index: number): void {
