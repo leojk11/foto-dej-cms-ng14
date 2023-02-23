@@ -11,6 +11,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { BasicHttpInterceptor } from './app/core/interceptors/basic-http.interceptor';
 import { ToastrModule } from 'ngx-toastr';
 import { ToastService } from './app/shared/services/toast.service';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 
 export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
@@ -42,5 +43,9 @@ bootstrapApplication(AppComponent, {
       useClass: BasicHttpInterceptor,
       multi: true,
     },
+    {
+      provide: LocationStrategy,
+      useClass: HashLocationStrategy
+    }
   ]
 }).catch(err => console.error(err));

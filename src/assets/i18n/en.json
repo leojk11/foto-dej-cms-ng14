@@ -60,7 +60,8 @@
     "refresh": "Refresh",
     "all": "All",
     "selected": "Selected" ,
-    "profile": "Profile"
+    "profile": "Profile",
+    "noResults": "No results found"
   },
   "properties": {
     "title": "Title",

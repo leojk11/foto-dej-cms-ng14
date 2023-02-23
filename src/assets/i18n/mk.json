@@ -60,7 +60,8 @@
     "refresh": "Освежи",
     "all": "Сите",
     "selected": "Избрани",
-    "profile": "Профил"
+    "profile": "Профил",
+    "noResults": "Не се пронајдени резултати."
   },
   "properties": {
     "title": "Наслов",
