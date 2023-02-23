@@ -12,9 +12,6 @@
   &__content {
     width: 100%;
     background-color: $color-wrapper;
-    // display: flex;
-    // flex-wrap: wrap;
-    // align-items: center;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
     gap: 2.5rem;
@@ -220,6 +217,7 @@
 .upload-images {
   padding: 2rem;
   font-size: 2rem;
+  min-width: 65vh;
 
   &__preview {
     height: 30rem;

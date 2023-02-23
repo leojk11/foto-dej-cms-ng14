@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { FileUploadModule } from 'primeng/fileupload';
 import { finalize, forkJoin, ignoreElements, merge, mergeMap, Observable, of, Subject, tap } from 'rxjs';
 import { AlbumsService } from '../../services/albums.service';
@@ -40,7 +40,8 @@ export class AlbumUploadComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private albumsService: AlbumsService,
-    private adminLayoutService: AdminLayoutService
+    private adminLayoutService: AdminLayoutService,
+    public location: Location
   ) { 
     this.route.params.subscribe({
       next: params => {

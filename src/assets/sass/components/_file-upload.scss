@@ -1,4 +1,23 @@
-.p-fileupload .p-fileupload-content {
-  max-height: 300px !important;
-  overflow: auto !important;
+.p-fileupload {
+  .p-fileupload-content {
+    min-height: 62.5vh;
+    overflow: auto !important;
+  }
+
+  .p-fileupload-buttonbar {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+
+    .p-button {
+      margin-right: 0 !important;
+      padding: 0 1rem 0 1.5rem !important;
+      min-width: 15rem !important;
+      font-size: 1.5rem !important;
+    }
+  }
+
+  .p-fileupload-row > div {
+    font-size: 1.4rem !important;
+  }
 }

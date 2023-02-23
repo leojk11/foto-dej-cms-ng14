@@ -8,7 +8,6 @@ import { PaginatorModule } from 'primeng/paginator';
 import { SpinnerComponent } from 'src/app/shared/components/loading/spinner/spinner.component';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { AlbumsComponent } from 'src/app/shared/components/albums/albums.component';
-import { BasicParams } from 'src/app/shared/models/basicParams.model';
 
 @Component({
   selector: 'app-client-albums',

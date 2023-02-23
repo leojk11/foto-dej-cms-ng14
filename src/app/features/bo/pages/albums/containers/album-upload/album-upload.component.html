@@ -1,4 +1,13 @@
 <div class="upload-images">
+  <div class="container__flex gap-5 pb-2 border-b">
+    <button
+      class="btn btn__icon btn__icon--blue shadow-small border-none"
+      (click)="location.back()"
+    >
+      <i class="pi pi-arrow-left"></i>
+    </button>
+  </div>
+
   <p-fileUpload name="images"
     [multiple]="true" 
     accept="image/*" 
@@ -6,13 +15,18 @@
     chooseLabel="{{ 'common.chooseImages' | translate }}"
     uploadLabel="{{ 'common.upload' | translate }}"
     cancelLabel="{{ 'common.cancel' | translate }}"
+    chooseStyleClass="btn btn__search p-0"
+    uploadStyleClass="btn btn__main p-0"
+    cancelStyleClass="btn btn__red p-0"
     [disabled]="uploadDisabled"
     (onSelect)="onSelect($event)" 
     (onRemove)="onRemove($event)"
     (onBeforeUpload)="handleUpload($event)">
     <ng-template pTemplate="content">
       <ul *ngIf="uploadedFiles.length">
-        <li *ngFor="let file of uploadedFiles">{{ file.name }} - {{ file.size }} bytes</li>
+        <li *ngFor="let file of uploadedFiles">
+          {{ file.name }} - {{ file.size }} bytes
+        </li>
       </ul>
     </ng-template>
   </p-fileUpload>
