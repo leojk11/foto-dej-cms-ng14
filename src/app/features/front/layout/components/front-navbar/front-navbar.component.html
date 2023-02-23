@@ -9,8 +9,13 @@
     </div>
   </div>
 
-  <ng-container *ngIf="isMobile$ | async; else notMobile">
-    <p-menu #menu [popup]="true" [model]="menuItems" styleClass="frontnav__menu"></p-menu>
+  <ng-container *ngIf="(isMobile$ | async); else notMobile">
+    <p-menu 
+      #menu [popup]="true" 
+      [model]="menuItems" 
+      styleClass="frontnav__menu"
+    ></p-menu>
+
     <button 
       type="button" 
       class="btn btn__main--icon"
@@ -24,7 +29,7 @@
 
   <ng-template #notMobile>
     <div class="frontnav__actions">
-      <ng-container *ngIf="isAuthenticated; else elseBlock">
+      <ng-container *ngIf="isAuthenticated">
         <a 
           class="frontnav__actions__link"
           routerLink="/client/albums"
@@ -37,7 +42,7 @@
         </a>
       </ng-container>
   
-      <ng-template #elseBlock>
+      <ng-container *ngIf="!isAuthenticated">
         <a 
           class="frontnav__actions__link" 
           (click)="goToElement.emit('collaboration')"
@@ -50,7 +55,7 @@
         >
           {{ 'common.gallery' | translate }}
         </a>
-      </ng-template>
+      </ng-container>
     </div>
   
     <div class="container__flex gap-2">
@@ -92,13 +97,13 @@
         *ngIf="!isAuthenticated"
         pButton
         type="button"
-        class="btn btn__main btn__main--icon shadow-sm fw-600"
+        class="btn btn__main"
         routerLink="/auth/client"
         [pTooltip]="'common.signIn' | translate"
         tooltipPosition="bottom"
       >
-      <!-- {{ 'common.signIn' | translate }} -->
-        <i class="pi pi-sign-in"></i>
+        {{ 'common.signIn' | translate }}
+        <!-- <i class="pi pi-sign-in"></i> -->
       </button>
     </div>
   </ng-template>

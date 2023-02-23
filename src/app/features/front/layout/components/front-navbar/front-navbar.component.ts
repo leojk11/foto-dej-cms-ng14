@@ -54,18 +54,10 @@ export class FrontNavbarComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-  //   this.service.getConfiguration().subscribe({
-  //     next: res => {
-  //       this.config = res;
-  //       this.frontConfigurationState.setConfiguration(res);
-  //     },
-  //     error: error => {
-  //       this.toastService.addError(error.error.message);
-  //     }
-  //   });
-
     this.isAuthenticated = this.authService.isLoggedInUser();
 
+    console.log('IS AUTHENTICATED', this.isAuthenticated);
+    
     this.getTranslateMenuItems();
   }
 
@@ -73,19 +65,26 @@ export class FrontNavbarComponent implements OnInit {
     this.menuItems = [
       {
         label: this.translateService.instant('common.albums'), 
-        routerLink: '/client/albums'
+        routerLink: '/client/albums',
+        visible: this.isAuthenticated
       },
       {
         label: this.translateService.instant('common.profile'), 
-        routerLink: '/client/profile'
+        routerLink: '/client/profile',
+        visible: this.isAuthenticated
+
       },
       {
         label: this.translateService.instant('common.contact'), 
-        command: () => this.goToElement.emit('collaboration')
+        command: () => this.goToElement.emit('collaboration'),
+        visible: !this.isAuthenticated
       },
       {
         label: this.translateService.instant('common.gallery'), 
         command: () => this.goToElement.emit('slider'),
+        visible: !this.isAuthenticated,
+      },
+      {
         separator: true
       },
       {

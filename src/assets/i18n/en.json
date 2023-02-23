@@ -205,7 +205,8 @@
   "home": {
     "heroTitle": "Magical moments last forever",
     "heroText": "Quality photography and videography for your special occasions",
-    "collaboration": "Collaboration"
+    "collaboration": "Collaboration",
+    "contactFormLabel": "Leave your information and we will contact you"
   },
   "primeng": {
     "closeText": "Close",
