@@ -1,19 +1,4 @@
 <div class="add-new-album">
-  <!-- <div class="add-new-album__top">
-    <div class="add-new-album__top__title">
-      <h3>{{ 'albums.addNewAlbum' | translate }}</h3>
-    </div>
-
-    <div class="add-new-album__top__close">
-      <span
-        class="material-symbols-outlined cp"
-        (click)="dialogRef.close()"
-      >
-        close
-      </span>
-    </div>
-  </div> -->
-
   <div class="add-new-album__inner">
     <form class="mt-2" [formGroup]="addAlbumForm" (ngSubmit)="handleSubmit()">
       <div class="container__flex gap-3" >
@@ -50,7 +35,17 @@
             {{ 'properties.assignTo' | translate }}:
           </label>
 
-          <div class="container__flex gap-1 w-full">
+          <p-autoComplete 
+            formControlName="assignTo"
+            [suggestions]="clients" 
+            (completeMethod)="search($event)"
+            appendTo="body"
+            field="fullname"
+            placeholder="{{ 'properties.assignTo' | translate }}..."
+            [style]="{width: '100% !important'}"
+          ></p-autoComplete>
+
+          <!-- <div class="container__flex gap-1 w-full">
             <div class="relative w-full">
               <input
                 type="text"
@@ -69,16 +64,7 @@
                 close
               </span>
             </div>
-<!-- 
-            <button
-              class="btn btn__main--outline ml-auto"
-              type="button"
-              (click)="onSelectClient()"
-              [disabled]="hasClient"
-            >
-              {{ 'common.select' | translate }}
-            </button> -->
-          </div>
+          </div> -->
         </div>
 
       </div>
@@ -95,9 +81,9 @@
   </div>
 </div>
 
-<app-assign-album
+<!-- <app-assign-album
   *ngIf="openSelectClient"
   [client]="selectedClient"
   (clientSelected)="onClientSelected($event)"
   (close)="onCloseModal()"
-></app-assign-album>
+></app-assign-album> -->

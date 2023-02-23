@@ -11,6 +11,8 @@ import { TranslateModule } from '@ngx-translate/core';
 import { AssignAlbumComponent } from 'src/app/shared/components/assign-album/assign-album.component';
 import { InputTextModule } from 'primeng/inputtext';
 import { ToastService } from 'src/app/shared/services/toast.service';
+import {AutoCompleteModule} from 'primeng/autocomplete';
+import { BasicParams } from 'src/app/shared/models/basicParams.model';
 
 @Component({
   selector: 'app-new-album',
@@ -20,7 +22,8 @@ import { ToastService } from 'src/app/shared/services/toast.service';
     ReactiveFormsModule,
     TranslateModule,
     AssignAlbumComponent,
-    InputTextModule
+    InputTextModule,
+    AutoCompleteModule
   ],
   providers: [
     DialogService,
@@ -41,7 +44,7 @@ export class NewAlbumComponent implements OnInit {
   openSelectClient: boolean = false;
   selectedClient: Client = {} as Client;
   hasClient: boolean = false;
-
+  clients: any[] = [];
   editMode: boolean = false;
 
   constructor(
@@ -81,6 +84,50 @@ export class NewAlbumComponent implements OnInit {
         ...this.config.data
       });
     }
+
+    this.getClients();
+  }
+
+  getClients(query?: string): void {
+    let params: BasicParams = {
+      page: 1, 
+      take: 10
+    }
+
+    if(query) {
+      params = {
+        ...params,
+        name: query
+      }
+    }
+
+    // this.clients = [];
+
+    this.clientService.getAllCLients(params).subscribe({
+      next: res => {
+        this.clients = res.list;
+
+        // res.list.forEach((client: Client) => {
+        //   this.clients.push({
+        //     id: client.id,
+        //     name: client.fullname
+        //   })
+        // });
+        console.log('Clients', this.clients);
+        // this.loading = !this.loading;
+      }
+    });
+  }
+
+  search(event: any) {
+    console.log('AUTOCOMPLETE EVENT', event);
+    const params = {
+      page: 1, 
+      take: 10,
+      name: event.query
+    }
+    
+    this.getClients(event.query)
   }
 
   handleSubmit(): void {

@@ -127,6 +127,7 @@ export class AlbumsStore extends ComponentStore<AlbumsState> {
               next: selectedImages => {
                 this.adminLayoutService.setTitle('common.albums', `${ singleAlbum.title } (${singleAlbum.date})`);
                 console.log('SELECTED IMAGES', selectedImages);
+                console.log('ALBUM', singleAlbum);
                 
                 this.patchState({
                   previewAlbum: singleAlbum,
