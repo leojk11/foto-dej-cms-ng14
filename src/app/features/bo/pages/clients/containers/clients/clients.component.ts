@@ -39,6 +39,8 @@ export class ClientsComponent implements OnInit {
   nameSearch: string = '';
   phoneSearch: string = '';
 
+  searchTerms: string[] = [];
+
   constructor(
     private adminLayoutService: AdminLayoutService,
     public clientStore: ClientsStore,
@@ -77,27 +79,46 @@ export class ClientsComponent implements OnInit {
   }
 
   filter(): void {
-    if(this.nameSearch !== ''){
+    this.searchTerms = [];
+
+    if (this.phoneSearch !== '' && this.nameSearch !== '') {
+      this.clientStore.patchState({
+        params: {
+          ...this.clientStore.state.params,
+          name: this.nameSearch,
+          phone_number: this.phoneSearch
+        }
+      });
+
+      this.searchTerms.push(this.nameSearch);
+      this.searchTerms.push(this.phoneSearch);
+    } else if(this.nameSearch !== ''){
       this.clientStore.patchState({
         params: {
           ...this.clientStore.state.params,
           name: this.nameSearch
         }
-      })
+      });
+
+      this.searchTerms.push(this.nameSearch);
+
     } else if(this.phoneSearch !== ''){
       this.clientStore.patchState({
         params: {
           ...this.clientStore.state.params,
           phone_number: this.phoneSearch
         }
-      })
+      });
+
+      this.searchTerms.push(this.phoneSearch);
     } else {
       this.clientStore.patchState({
         params: {
           page: this.clientStore.state.params.page,
           take: this.clientStore.state.params.take
         }
-      })
+      });
+      this.searchTerms = [];
     }
     
     this.clientStore.getAllClients();
@@ -106,6 +127,19 @@ export class ClientsComponent implements OnInit {
   clearFilter(): void {
     this.nameSearch = '';
     this.phoneSearch = '';
+    this.filter();
+  }
+
+  clearTerm(index: number): void {
+    const term = this.searchTerms.splice(index, 1)[0];
+    console.log(term);
+
+    if(term === this.nameSearch) {
+      this.nameSearch = '';
+    } else if (term === this.phoneSearch) {
+      this.phoneSearch = '';
+    }
+
     this.filter();
   }
 }

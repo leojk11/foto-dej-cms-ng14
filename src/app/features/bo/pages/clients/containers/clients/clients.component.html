@@ -10,6 +10,14 @@
         </button>
 
         <div class="container__flex gap-2">
+          <div *ngFor="let tearm of searchTerms; let i = index">
+            <div class="chip">
+              {{ tearm }}
+
+              <i class="pi pi-times" (click)="clearTerm(i)"></i>
+            </div>
+          </div>
+
           <button 
             class="btn btn__search px-2"
             (click)="filterOp.toggle($event)"
@@ -53,10 +61,12 @@
       ></p-paginator>
     </div>
 
-    <p class="clients__content" *ngIf="state.list.length === 0">
-      <img src="../../../../assets//img/svg/no-data-clients.svg">
-      {{ 'common.noResults' | translate }}
-    </p>
+    <div class="clients__content" *ngIf="!state.loading && state.list.length === 0">
+      <div class="clients__content--empty">
+        <img src="../../../../assets//img/svg/no-data-clients.svg">
+        {{ 'common.noResults' | translate }}
+      </div>
+    </div>
   </div>
 </div>
 
