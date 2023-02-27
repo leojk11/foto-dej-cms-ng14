@@ -97,7 +97,8 @@
     "invitedClient": "Поканет клиент",
     "invitedClientEmail": "Поканет клиент емаил",
     "invitedBy": "Поканет од",
-    "logo": "Лого"
+    "logo": "Лого",
+    "accountStatus": "Статус на акаунтот"
   },
   "errors": {
     "error": "Грешка",
@@ -197,7 +198,8 @@
   },
   "clients": {
     "newClient": "Додај клиент",
-    "editClient": "Ажурирај клиент"
+    "editClient": "Ажурирај клиент",
+    "clientDetails": "Детали за клиентот"
   },
   "calendar": {
     "newSchedule": "Додај настан",

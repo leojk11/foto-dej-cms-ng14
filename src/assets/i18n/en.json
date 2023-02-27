@@ -97,7 +97,8 @@
     "invitedClient": "Invited client",
     "invitedClientEmail": "Invited client email",
     "invitedBy": "Invited by",
-    "logo": "Logo"
+    "logo": "Logo",
+    "accountStatus": "Account status"
   },
   "errors": {
     "error": "Error",
@@ -197,7 +198,8 @@
   },
   "clients": {
     "newClient": "Add new client",
-    "editClient": "Edit client"
+    "editClient": "Edit client",
+    "clientDetails": "Client details"
   },
   "calendar": {
     "newSchedule": "Add schedule",

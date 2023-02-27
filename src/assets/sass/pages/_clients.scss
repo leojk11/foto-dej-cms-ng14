@@ -47,6 +47,11 @@
       grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
       gap: 5rem;
       row-gap: 3rem;
+      // max-width: 25rem;
+
+      @include screen-md {
+        // max-width: 1fr;
+      }
     }
 
     &--empty {
@@ -97,5 +102,102 @@
     width: 100%;
     margin: 0 auto;
     padding: 1rem 0 2rem;
+  }
+}
+
+.client {
+  
+  &__header {
+    padding: 1.5rem 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__content {
+    width: 100%;
+    padding: 3rem;
+    display: grid;
+    grid-template-columns: 40% 1fr;
+    gap: 8rem;
+
+    @include screen-md {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__details {
+    display: flex;
+    flex-direction: column;
+
+    &--main {
+      margin-bottom: 4rem;
+
+      &__image {
+        width: 12rem;
+        height: 12rem;
+        border-radius: 1.5rem;
+        background-color: $color-light;
+        box-shadow: $shadow-small;
+        margin-bottom: 1rem;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        img {
+          width: 100%;
+          height: 100%;
+          border-radius: 1.5rem;
+
+          object-fit: contain;
+        }
+      }
+
+      &__name {
+        font-size: 2.6rem;
+        font-weight: 600;
+  
+      }
+    }
+
+    &--label {
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+
+      .pi {
+        margin-left: 3rem;
+        color: $color-1;
+        cursor: pointer;
+
+        &:hover {
+          font-weight: 700;
+        }
+      }
+    }
+
+    &--items {
+      font-size: 1.4rem;
+      &__item {
+        display: grid;
+        grid-template-columns: 14rem 1fr;
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+
+        &--label {
+          color: rgba($dark, .7);
+        }
+
+        &--info {
+          font-weight: 600;
+        }
+      }
+    }
+  }
+
+  &__general {
+    display: flex;
+    flex-direction: column;
   }
 }

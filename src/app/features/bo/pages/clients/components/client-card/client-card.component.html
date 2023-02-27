@@ -1,9 +1,9 @@
 <div 
-  class="client" 
+  class="client-card" 
   [routerLink]="['details', client.id]"
 >
-  <div class="client__name">
-    <div class="client__img">
+  <div class="client-card__name">
+    <div class="client-card__img">
       <img
         src="../../../../../../../assets/img/wedding_detail.jpeg"
       >
@@ -18,14 +18,14 @@
       </span>
     </div>
     
-    <div class="client__status">
+    <div class="client-card__status">
       <p [ngClass]="client.account_status === 'ACTIVE' ? 'isActive' : 'isExpired'">
         {{ client.account_status | titlecase }}
       </p>
     </div>
   </div>
 
-  <div class="client__actions">
+  <div class="client-card__actions">
     <button 
       class="btn btn__icon btn__icon--blue" 
       (click)="sendInvite($event)"

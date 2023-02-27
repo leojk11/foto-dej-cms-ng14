@@ -1,0 +1,77 @@
+<div class="client" *ngIf="client">
+  <div class="client__header">
+    <button
+      class="btn btn__icon btn__icon--blue shadow-small border-none"
+      (click)="location.back()"
+    >
+      <i class="pi pi-arrow-left"></i>
+    </button>
+  </div>
+
+  <div class="separator"></div>
+
+  <div class="client__content">
+    <div class="client__details">
+      <div class="client__details--main">
+        <div class="client__details--main__image">
+          <img [src]="imageUrl + client.profile_image" *ngIf="client.profile_image">
+
+          <i class="pi pi-user" *ngIf="!client.profile_image"></i>
+        </div>
+
+
+        <div class="client__details--main__name">
+          {{ client.fullname }}
+        </div>
+      </div>
+
+      <p class="client__details--label">
+        {{ 'clients.clientDetails' | translate }}
+
+        <i class="pi pi-pencil ml-3"></i>
+      </p>
+
+      <div class="client__details--items">
+        <div class="client__details--items__item">
+          <div class="client__details--items__item--label">
+            {{ 'properties.email' | translate }}
+          </div>
+          <div class="client__details--items__item--info">
+            {{ client.email }}
+          </div>
+        </div>
+
+        <div class="client__details--items__item">
+          <div class="client__details--items__item--label">
+            {{ 'properties.phoneNumber' | translate }}
+          </div>
+          <div class="client__details--items__item--info">
+            {{ client.phone_number }}
+          </div>
+        </div>
+
+        <div class="client__details--items__item">
+          <div class="client__details--items__item--label">
+            {{ 'properties.createdDate' | translate }}
+          </div>
+          <div class="client__details--items__item--info">
+            {{ client.created_date | date: "dd/MM/YYYY" }}
+          </div>
+        </div>
+
+        <div class="client__details--items__item">
+          <div class="client__details--items__item--label">
+            {{ 'properties.accountStatus' | translate }}
+          </div>
+          <div class="client__details--items__item--info">
+            {{ client.account_status }}
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="client__general">
+      CLIENT GENERAL CONTENT
+    </div>
+  </div>
+</div>
