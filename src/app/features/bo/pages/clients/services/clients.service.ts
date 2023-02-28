@@ -62,4 +62,14 @@ export class ClientsService {
     const path = `${ this.apiUrl }/client/${ id }`;
     return this.http.post<EditClientResponse>(path, {});
   }
+
+  activateAccount(id: string): Observable<any> {
+    const path = `${ this.apiUrl }/client/account_status/${ id }/ACTIVE`;
+    return this.http.patch<any>(path, {});
+  }
+
+  suspendAccount(id: string): Observable<any> {
+    const path = `${ this.apiUrl }/client/account_status/${ id }/SUSPENDED`;
+    return this.http.patch<any>(path, {});
+  }
 }

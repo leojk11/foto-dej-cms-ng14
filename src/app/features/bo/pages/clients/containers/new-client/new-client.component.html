@@ -1,15 +1,8 @@
 <div class="new-client">
-  <!-- <div class="new-client__close">
-    <i
-      class="pi pi-times cp"
-      (click)="dialogRef.close()"
-    ></i>
-  </div> -->
-
   <div class="new-client__inner">
     <form [formGroup]="form" (submit)="onSubmit()">
-      <div class="container__flex gap-3 wrap" >
-        <div class="form-field">
+      <div class="container__flex-col gap-3 justify-center" >
+        <div class="form-field w-full">
           <label class="form-field__label">
             {{ 'properties.firstname' | translate }}:
           </label>
@@ -21,7 +14,7 @@
           >
         </div>
 
-        <div class="form-field">
+        <div class="form-field w-full">
           <label class="form-field__label">
             {{ 'properties.lastname' | translate }}:
           </label>
@@ -33,7 +26,7 @@
           >
         </div>
 
-        <div class="form-field">
+        <div class="form-field w-full">
           <label class="form-field__label">
             {{ 'properties.username' | translate }}:
           </label>
@@ -45,7 +38,7 @@
           >
         </div>
 
-        <div class="form-field">
+        <div class="form-field w-full">
           <label class="form-field__label">
             {{ 'properties.email' | translate }}:
           </label>
@@ -57,7 +50,7 @@
           >
         </div>
 
-        <div class="form-field" *ngIf="!editMode">
+        <div class="form-field w-full" *ngIf="!editMode">
           <label class="form-field__label">
             {{ 'properties.password' | translate }}:
           </label>
@@ -69,7 +62,7 @@
           >
         </div>
 
-        <div class="form-field">
+        <div class="form-field w-full">
           <label class="form-field__label">
             {{ 'properties.phoneNumber' | translate }}:
           </label>

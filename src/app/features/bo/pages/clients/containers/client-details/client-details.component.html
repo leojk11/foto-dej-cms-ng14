@@ -25,47 +25,95 @@
         </div>
       </div>
 
-      <p class="client__details--label">
-        {{ 'clients.clientDetails' | translate }}
-
-        <i class="pi pi-pencil ml-3"></i>
-      </p>
-
-      <div class="client__details--items">
-        <div class="client__details--items__item">
-          <div class="client__details--items__item--label">
-            {{ 'properties.email' | translate }}
+      <div>
+        <p class="client__details--label">
+          {{ 'clients.clientDetails' | translate }}
+  
+          <i class="pi pi-pencil ml-3"
+            (click)="onEditClient()"
+          ></i>
+        </p>
+  
+        <div class="client__details--items">
+          <div class="client__details--items__item">
+            <div class="client__details--items__item--label">
+              {{ 'properties.email' | translate }}
+            </div>
+            <div class="client__details--items__item--info">
+              {{ client.email }}
+            </div>
           </div>
-          <div class="client__details--items__item--info">
-            {{ client.email }}
+  
+          <div class="client__details--items__item">
+            <div class="client__details--items__item--label">
+              {{ 'properties.phoneNumber' | translate }}
+            </div>
+            <div class="client__details--items__item--info">
+              {{ client.phone_number }}
+            </div>
+          </div>
+  
+          <div class="client__details--items__item">
+            <div class="client__details--items__item--label">
+              {{ 'properties.createdDate' | translate }}
+            </div>
+            <div class="client__details--items__item--info">
+              {{ client.created_date | date: "dd/MM/YYYY" }}
+            </div>
+          </div>
+  
+          <div class="client__details--items__item">
+            <div class="client__details--items__item--label">
+              {{ 'properties.accountStatus' | translate }}
+            </div>
+            <div class="client__details--items__item--info">
+              {{ client.account_status }}
+            </div>
           </div>
         </div>
+      </div>
 
-        <div class="client__details--items__item">
-          <div class="client__details--items__item--label">
-            {{ 'properties.phoneNumber' | translate }}
+      <div class="client__details--danger">
+        <div class="client__details--danger__item">
+          <div>
+            <p class="client__details--danger__item--label">
+              {{ 'clients.changeClientStatus' | translate }}
+            </p>
+  
+            <p class="client__details--danger__item--text">
+              {{ (client.account_status === 'ACTIVE' ? 'clients.suspendAccount' : 'clients.activateAccount') | translate  }}
+            </p>
           </div>
-          <div class="client__details--items__item--info">
-            {{ client.phone_number }}
-          </div>
+
+          <button 
+            type="button"
+            pButton
+            class="btn btn__red--outline btn__lg px-1"
+            (click)="changeStatus($event, client.account_status)"
+          >
+            {{ 'clients.changeStatus' | translate }}
+          </button>
         </div>
 
-        <div class="client__details--items__item">
-          <div class="client__details--items__item--label">
-            {{ 'properties.createdDate' | translate }}
+        <div class="client__details--danger__item">
+          <div>
+            <p class="client__details--danger__item--label">
+              {{ 'clients.deleteClient' | translate }}
+            </p>
+  
+            <p class="client__details--danger__item--text">
+              {{ 'clients.deleteClientText' | translate  }}
+            </p>
           </div>
-          <div class="client__details--items__item--info">
-            {{ client.created_date | date: "dd/MM/YYYY" }}
-          </div>
-        </div>
 
-        <div class="client__details--items__item">
-          <div class="client__details--items__item--label">
-            {{ 'properties.accountStatus' | translate }}
-          </div>
-          <div class="client__details--items__item--info">
-            {{ client.account_status }}
-          </div>
+          <button 
+            type="button"
+            pButton
+            class="btn btn__red--outline btn__sm"
+            (click)="deleteClient($event)"
+          >
+            {{ 'common.delete' | translate }}
+          </button>
         </div>
       </div>
     </div>
@@ -75,3 +123,15 @@
     </div>
   </div>
 </div>
+
+<p-confirmDialog 
+  [key]="'delete'"
+  header="{{ 'common.confirmation' | translate }}" 
+  [style]="{ width: '50%',  padding: '1rem' }"  
+></p-confirmDialog>
+
+<p-confirmDialog 
+  [key]="'changeStatus'"  
+  header="{{ 'common.confirmation' | translate }}" 
+  [style]="{ width: '50%',  padding: '1rem' }" 
+></p-confirmDialog>

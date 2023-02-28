@@ -321,10 +321,27 @@
       background: $red !important;
       border-color: transparent !important;
     }
+
+    &--outline {
+      background-color: transparent;
+      border: 1px solid rgba($red, .7);
+      color: rgba($red, .7);
+
+      &:enabled:hover {
+        background-color: rgba($red, .7) !important;
+        border-color: transparent;
+        color: $white;
+      }
+    }
   }
 
   &__lg{
     min-width: 15rem !important;
+  }
+
+  &__sm {
+    min-width: 13rem !important;
+    font-size: 1.4rem !important;
   }
 
   &__search {

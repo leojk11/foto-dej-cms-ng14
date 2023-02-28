@@ -69,10 +69,6 @@ export class ClientsComponent implements OnInit {
     });
   }
 
-  deleteClient(client: Client): void {
-    this.clientStore.deleteClient(client);
-  }
-
   onPageChange(event: any): void {
     this.clientStore.patchParams(event.page + 1);
     this.clientStore.getAllClients();

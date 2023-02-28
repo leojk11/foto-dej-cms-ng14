@@ -194,12 +194,19 @@
     "deleteSelectedImages": "Are you sure that you want to delete selected images?",
     "disableSelectedImages": "Are you sure that you want to disable selected images?",
     "enableSelectedImages": "Are you sure that you want to enable selected images?",
-    "contactInfo": "Leave your information ans we will contact you"
+    "contactInfo": "Leave your information ans we will contact you",
+    "changeAccountStatus": "Are you sure you want to change the account status?"
   },
   "clients": {
     "newClient": "Add new client",
     "editClient": "Edit client",
-    "clientDetails": "Client details"
+    "clientDetails": "Client details",
+    "changeClientStatus": "Change account status",
+    "deleteClient": "Delete account",
+    "suspendAccount": "Suspend the account",
+    "activateAccount": "Activate the account",
+    "changeStatus": "Change status",
+    "deleteClientText": "Permanately delete the client account."
   },
   "calendar": {
     "newSchedule": "Add schedule",

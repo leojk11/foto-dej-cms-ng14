@@ -103,7 +103,6 @@ export class ClientsStore extends ComponentStore<ClientsState> {
     this.clientsService.deleteClient(client.id).subscribe({
       next: res => {
         console.log('client delete res', res);
-        
         this.patchExistingClientSingle(client);
         this.getAllClients();
 
@@ -122,6 +121,32 @@ export class ClientsStore extends ComponentStore<ClientsState> {
       },
       error: error => {
         this.toastService.addError(error.error.message);
+      }
+    });
+  }
+
+  suspendClientAccount(client: Client): void {
+    this.clientsService.suspendAccount(client.id).subscribe({
+      next: res => {
+        console.log('ACCOUNT SUSPENDED', res);
+        this.toastService.addSuccess(res.message);
+      },
+      error: err => {
+        console.error(err);
+        this.toastService.addError(err);
+      }
+    });
+  }
+
+  activateClientAccount(client: Client): void {
+    this.clientsService.activateAccount(client.id).subscribe({
+      next: res => {
+        console.log('ACCOUNT ACTIVATED', res);
+        this.toastService.addSuccess(res.message);
+      },
+      error: err => {
+        console.error(err);
+        this.toastService.addError(err);
       }
     });
   }
