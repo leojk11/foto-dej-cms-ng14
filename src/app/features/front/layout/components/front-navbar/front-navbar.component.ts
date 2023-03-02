@@ -65,22 +65,26 @@ export class FrontNavbarComponent implements OnInit {
     this.menuItems = [
       {
         label: this.translateService.instant('common.albums'), 
+        icon: 'pi pi-images',
         routerLink: '/client/albums',
         visible: this.isAuthenticated
       },
       {
         label: this.translateService.instant('common.profile'), 
+        icon: 'pi pi-user',
         routerLink: '/client/profile',
         visible: this.isAuthenticated
 
       },
       {
         label: this.translateService.instant('common.contact'), 
+        icon: 'pi pi-comment',
         command: () => this.goToElement.emit('collaboration'),
         visible: !this.isAuthenticated
       },
       {
         label: this.translateService.instant('common.gallery'), 
+        icon: 'pi pi-th-large',
         command: () => this.goToElement.emit('slider'),
         visible: !this.isAuthenticated,
       },
