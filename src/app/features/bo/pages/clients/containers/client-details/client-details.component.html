@@ -119,7 +119,51 @@
     </div>
     
     <div class="client__general">
-      CLIENT GENERAL CONTENT
+      <div class="client__albums">
+        <div class="client__albums--top">
+          <p class="client__albums--top__title">
+            {{ 'clients.assignedAlbums' | translate }}
+          </p>
+
+          <button 
+            type="button"
+            pButton
+            class="btn btn__main btn__sm"
+            (click)="openAddModal()"
+          >
+            {{ 'albums.addNewAlbum' | translate }}
+          </button>
+        </div>
+
+        <div class="client__albums--content">
+          <div 
+            *ngIf="clientAlbums.length === 0"
+            class="client__albums--empty" 
+          >
+            {{ 'clients.noAssignedAlbums' | translate }}
+          </div>
+
+          <div
+            *ngIf="clientAlbums.length !== 0" 
+            class="client__albums--content__albums"
+          >
+            <div 
+              *ngFor="let album of clientAlbums" 
+              class="client__album"
+              [routerLink]="['/bo/home/albums/', album.id]"
+            >
+              <span class="client__album--top">
+                <img src="../../../../../../../assets/img/svg/images-interface.svg" alt="">
+              </span>
+              <span 
+                class="client__album--title"
+              >
+                {{ album.title | titlecase }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

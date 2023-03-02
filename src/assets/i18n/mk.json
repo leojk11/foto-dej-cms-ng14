@@ -206,7 +206,9 @@
     "suspendAccount": "Суспендирај го акаунтот",
     "activateAccount": "Активирај го акаунтот",
     "changeStatus": "Промени статус",
-    "deleteClientText": "Избриши го клиентот засекогаш"
+    "deleteClientText": "Избриши го клиентот засекогаш",
+    "assignedAlbums": "Доделени албуми",
+    "noAssignedAlbums": "Клиентот нема доделени албуми."
   },
   "calendar": {
     "newSchedule": "Додај настан",

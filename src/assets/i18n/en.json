@@ -206,7 +206,9 @@
     "suspendAccount": "Suspend the account",
     "activateAccount": "Activate the account",
     "changeStatus": "Change status",
-    "deleteClientText": "Permanately delete the client account."
+    "deleteClientText": "Permanately delete the client account.",
+    "assignedAlbums": "Assigned albums",
+    "noAssignedAlbums": "There are no assigned albums."
   },
   "calendar": {
     "newSchedule": "Add schedule",

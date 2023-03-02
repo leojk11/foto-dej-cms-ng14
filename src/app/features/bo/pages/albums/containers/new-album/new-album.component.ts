@@ -161,7 +161,7 @@ export class NewAlbumComponent implements OnInit {
           this.albumsStore.patchExistingAlbums(res.album);
           this.toastService.addSuccess(res.message);
 
-          this.dialogRef.close();
+          this.dialogRef.close('new');
         },
         error: error => {
           this.toastService.addError(error.error.message);

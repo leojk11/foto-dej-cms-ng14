@@ -2,7 +2,7 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
 import { AdminLayoutService } from 'src/app/features/bo/layout/services/admin-layout.service';
 import { ClientsService } from '../../services/clients.service'
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Client } from '../../models/client.model';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { catchError, Observable, of } from 'rxjs';
@@ -13,6 +13,9 @@ import { ConfirmationService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { NewClientComponent } from '../new-client/new-client.component';
 import { DialogService } from 'primeng/dynamicdialog';
+import { AlbumsService } from '../../../albums/services/albums.service';
+import { Album } from '../../../albums/models/album.model';
+import { NewAlbumComponent } from '../../../albums/containers/new-album/new-album.component';
 
 @Component({
   selector: 'app-client-details',
@@ -20,7 +23,8 @@ import { DialogService } from 'primeng/dynamicdialog';
   imports: [
     CommonModule,
     TranslateModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    RouterModule
   ],
   providers: [ 
     ClientsStore,
@@ -36,6 +40,8 @@ export class ClientDetailsComponent implements OnInit, OnDestroy {
   id: string = '';
   isMobile: boolean = false;
   imageUrl: string = `${ environment.apiUrl }/images/`;
+
+  clientAlbums: Album[] = [];
 
   @Input() modalWidth: string = '';
 
@@ -56,7 +62,8 @@ export class ClientDetailsComponent implements OnInit, OnDestroy {
     private confirmationService: ConfirmationService,
     private translate: TranslateService,
     private router: Router,
-    private dialog: DialogService
+    private dialog: DialogService,
+    private albumService: AlbumsService
   ) { }
 
   ngOnInit(): void {
@@ -64,6 +71,7 @@ export class ClientDetailsComponent implements OnInit, OnDestroy {
       next: params => {
         this.id = params['id'];
         this.getClient();
+        this.getClientAlbums();
       }
     });
     this.adminLayoutService.setTitle('common.clients');
@@ -92,6 +100,35 @@ export class ClientDetailsComponent implements OnInit, OnDestroy {
         
       }
     });
+  }
+
+  getClientAlbums(): void {
+    const params = {
+      page: 1,
+      take: 10
+    }
+    this.albumService.getUserAlbums(this.id, params).subscribe({
+      next: res => {
+        console.log('CLIENT ALBUMS', res);
+        this.clientAlbums = res.list;
+      }
+    })
+  }
+
+  openAddModal(): void {
+    const ref = this.dialog.open(NewAlbumComponent, {
+      width: this.modalWidth,
+      header: this.translate.instant('albums.addNewAlbum')
+    });
+
+    ref.onClose.subscribe({
+      next: res => {
+        if (res === 'new') {
+          this.getClientAlbums();
+        }
+      }
+    });
+
   }
 
   onEditClient(): void {
