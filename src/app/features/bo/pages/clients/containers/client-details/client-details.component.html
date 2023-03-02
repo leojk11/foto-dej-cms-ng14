@@ -164,6 +164,18 @@
           </div>
         </div>
       </div>
+
+      <div class="client__logs">
+        <p class="client__details--label">
+          {{ 'clients.clientDetails' | translate }}
+        </p>
+
+        <div *ngFor="let log of clientLogs">
+          <app-log
+            [log]="log"
+          ></app-log>
+        </div>
+      </div>
     </div>
   </div>
 </div>

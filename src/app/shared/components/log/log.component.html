@@ -1,0 +1,24 @@
+<div class="log">
+  
+  <div class="log__body">
+    <div class="log__body--icon">
+      <i class="pi pi-desktop" *ngIf="log.action === 'LOGIN'"></i>
+      <i class="pi pi-power-off" *ngIf="log.action === 'LOGOUT'"></i>
+      <i class="pi pi-pencil" *ngIf="log.action === 'UPDATED_PROFILE'"></i>
+      <i class="pi pi-images" *ngIf="log.action === 'SELECTED_IMAGES'"></i>
+      <i class="pi pi-check-circle" *ngIf="log.action === 'ACTIVATE_ACCOUNT'"></i>
+    </div>
+    <div class="log__body--title">
+      <strong> {{ log.client.fullname }} </strong>
+      <span *ngIf="log.action === 'LOGIN'">logged in</span>
+      <span *ngIf="log.action === 'LOGOUT'">logged out </span>
+      <span *ngIf="log.action === 'UPDATED_PROFILE'">updated personal client information</span>
+      <span *ngIf="log.action === 'SELECTED_IMAGES'">selected images</span>
+      <span *ngIf="log.action === 'ACTIVATE_ACCOUNT'">activated their account</span>
+    </div>
+
+  </div>
+  <span class="log__time">
+    {{ log.date }} {{ log.time }}
+  </span>
+</div>

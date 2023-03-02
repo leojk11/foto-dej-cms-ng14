@@ -16,6 +16,8 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { AlbumsService } from '../../../albums/services/albums.service';
 import { Album } from '../../../albums/models/album.model';
 import { NewAlbumComponent } from '../../../albums/containers/new-album/new-album.component';
+import { Log } from 'src/app/shared/models/log.model';
+import { LogComponent } from 'src/app/shared/components/log/log.component';
 
 @Component({
   selector: 'app-client-details',
@@ -24,7 +26,8 @@ import { NewAlbumComponent } from '../../../albums/containers/new-album/new-albu
     CommonModule,
     TranslateModule,
     ConfirmDialogModule,
-    RouterModule
+    RouterModule,
+    LogComponent
   ],
   providers: [ 
     ClientsStore,
@@ -42,6 +45,7 @@ export class ClientDetailsComponent implements OnInit, OnDestroy {
   imageUrl: string = `${ environment.apiUrl }/images/`;
 
   clientAlbums: Album[] = [];
+  clientLogs: Log[] = [];
 
   @Input() modalWidth: string = '';
 
@@ -72,6 +76,7 @@ export class ClientDetailsComponent implements OnInit, OnDestroy {
         this.id = params['id'];
         this.getClient();
         this.getClientAlbums();
+        this.getClientLogs();
       }
     });
     this.adminLayoutService.setTitle('common.clients');
@@ -91,13 +96,22 @@ export class ClientDetailsComponent implements OnInit, OnDestroy {
   getClient(): void {
     this.clientService.getSingleClient(this.id).subscribe({
       next: client => {
-        console.log('CLIENT', client);
-        
         this.client = client;
       },
       error: err => {
         console.error(err);
-        
+      }
+    });
+  }
+
+  getClientLogs(): void {
+    this.clientService.getClientLogs(this.id).subscribe({
+      next: logs => {
+        console.log('CLIENT LOGS', logs);
+        this.clientLogs = logs;
+      },
+      error: err => {
+        console.error(err);
       }
     });
   }

@@ -61,7 +61,8 @@
     "all": "All",
     "selected": "Selected" ,
     "profile": "Profile",
-    "noResults": "No results found"
+    "noResults": "No results found",
+    "recentActivity": "Recent activity"
   },
   "properties": {
     "title": "Title",

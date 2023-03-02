@@ -72,4 +72,9 @@ export class ClientsService {
     const path = `${ this.apiUrl }/client/account_status/${ id }/SUSPENDED`;
     return this.http.patch<any>(path, {});
   }
+
+  getClientLogs(id: string): Observable<any> {
+    const path = `${ this.apiUrl }/client_logs/client/${ id }`;
+    return this.http.get<any>(path, {});
+  }
 }
