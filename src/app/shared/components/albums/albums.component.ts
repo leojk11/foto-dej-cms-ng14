@@ -29,18 +29,18 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
     AlbumsStore,
     DialogService
   ],
-  templateUrl: './albums.component.html',
-  styleUrls: ['./albums.component.scss']
+  templateUrl: './albums.component.html'
 })
 export class AlbumsComponent implements OnInit {
 
-  @Input() state: AlbumsState = {} as AlbumsState;
-  @Output() filterAlbums = new EventEmitter();
+  @Input() isAdmin: boolean = false;
+  @Input() userId: string = '';
 
   modalWidth: string = '';
   nameSearch: string = '';
   dateSearch: string = '';
   isMobile: boolean = false;
+  searchTerms: string[] = [];
 
   constructor(
     private adminLayoutService: AdminLayoutService,
@@ -66,14 +66,17 @@ export class AlbumsComponent implements OnInit {
     this.dialog.open(NewAlbumComponent, {
       width: this.modalWidth,
       header: this.translate.instant('albums.addNewAlbum')
-      // height: '50%'
-    } );
+    });
   }
 
   onPageChange(event: any): void {
-    console.log(event);
     this.albumStore.patchParams(event.page + 1);
-    this.albumStore.getAllAlbums();
+
+    if( this.isAdmin ) {
+      this.albumStore.getAllAlbums();
+    } else {
+      this.albumStore.getUserAlbums(this.userId);
+    }
   }
 
   filter(): void{
@@ -84,6 +87,9 @@ export class AlbumsComponent implements OnInit {
           title: this.nameSearch
         }
       });
+
+      this.searchTerms.push(this.nameSearch);
+
     } else if(this.dateSearch !== '' && this.nameSearch === ''){
       this.albumStore.patchState({
         params: {
@@ -91,6 +97,9 @@ export class AlbumsComponent implements OnInit {
           date: this.dateSearch
         }
       });
+
+      this.searchTerms.push(this.dateSearch);
+
     } else if(this.dateSearch !== '' && this.nameSearch !== ''){
       this.albumStore.patchState({
         params: {
@@ -99,6 +108,8 @@ export class AlbumsComponent implements OnInit {
           date: this.dateSearch
         }
       });
+      this.searchTerms.push(this.nameSearch);
+      this.searchTerms.push(this.dateSearch);
     } else {
       this.albumStore.patchState({
         params: {
@@ -108,15 +119,30 @@ export class AlbumsComponent implements OnInit {
       });
     }
 
-    console.log('FILTER PARAMS', this.albumStore.state.params);
-    this.filterAlbums.emit(this.albumStore.state.params)
-
-    // this.albumStore.getAllAlbums();
+    if( this.isAdmin ) {
+      this.albumStore.getAllAlbums();
+    } else {
+      this.albumStore.getUserAlbums(this.userId);
+    }
   }
 
   clearFilter(): void {
     this.nameSearch = '';
     this.dateSearch = '';
+    this.searchTerms = [];
+
+    this.filter();
+  }
+
+  clearTerm(index: number): void {
+    const term = this.searchTerms.splice(index, 1)[0];
+    console.log(term);
+
+    if(term === this.nameSearch) {
+      this.nameSearch = '';
+    } else if (term === this.dateSearch) {
+      this.dateSearch = '';
+    }
 
     this.filter();
   }

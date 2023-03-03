@@ -1,6 +1,5 @@
-<div class="p-2" *ngIf="store.state$ | async as state">
+<div class="p-2">
   <app-albums
-    [state]="state"
-    (filterAlbums)="store.getAllAlbums()"
+    [isAdmin]="true"
   ></app-albums>
 </div>

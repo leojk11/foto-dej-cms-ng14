@@ -123,6 +123,7 @@ export class ClientsComponent implements OnInit {
   clearFilter(): void {
     this.nameSearch = '';
     this.phoneSearch = '';
+    this.searchTerms = [];
     this.filter();
   }
 

@@ -8,6 +8,14 @@
     </button>
 
     <div class="container__flex gap-2">
+      <div *ngFor="let tearm of searchTerms; let i = index">
+        <div class="chip">
+          {{ tearm }}
+
+          <i class="pi pi-times" (click)="clearTerm(i)"></i>
+        </div>
+      </div>
+
       <button 
         class="btn btn__search px-2"
         (click)="filterOp.toggle($event)"
@@ -29,7 +37,7 @@
 
   <div class="separator"></div>
   
-  <div *ngIf="state" class="relative">
+  <div *ngIf="albumStore.state$ | async as state" class="relative">
     <div *ngIf="!state.loading" class="albums__content">
       <div
         class="single-album-wrapper"
@@ -39,7 +47,6 @@
           [album]="album"
         ></app-single-album>
       </div>
-
     </div>
     <p-paginator 
       *ngIf="state.total > state.params.take"
@@ -48,6 +55,11 @@
       (onPageChange)="onPageChange($event)"
     ></p-paginator>
   
+    <div class="album__empty" *ngIf="state.list.length === 0">
+      <img src="../../../../assets//img/svg/no-results.svg" alt="">
+      {{ 'common.noResults' | translate }}
+    </div>
+
     <div class="page__loading" *ngIf="state.loading">
       <app-spinner></app-spinner>
     </div>
