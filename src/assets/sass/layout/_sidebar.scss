@@ -5,7 +5,7 @@
   position: fixed;
   left: 0;
   top: 0rem;
-  padding: 2rem;
+  padding: 0 2rem 2rem;
   box-shadow: $shadow-right;
   overflow-y: auto;
 
@@ -82,10 +82,10 @@
 
   &__list{
     list-style: none;
-    margin-top: 1rem;
+    // margin-top: 1rem;
 
     &--item{
-      margin: 2rem 0;
+      margin: 1rem 0;
       padding: 1rem 0;
     }
   }

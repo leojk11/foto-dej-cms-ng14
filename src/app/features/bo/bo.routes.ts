@@ -1,19 +1,16 @@
 import { Route } from "@angular/router";
 import { BoLayoutComponent } from "./layout/bo-layout/bo-layout.component";
 import { CLIENT_ROUTES } from "./pages/clients/client.routes";
+import { LOGS_ROUTES } from "./pages/logs/logs.routes";
 
 export const BO_ROUTES: Route[] = [
   {
     path: '',
-    redirectTo: 'home',
-    pathMatch: 'full'
-  },
-  {
-    path: 'home',
-    component: BoLayoutComponent,
+    loadComponent: () => import('./layout/bo-layout/bo-layout.component')
+      .then(c => c.BoLayoutComponent),
     children: [
       {
-        path: '',
+        path: 'dashboard',
         loadComponent: () => import('./pages/home/containers/home/home.component')
           .then((m) => m.HomeComponent)
       },
@@ -55,7 +52,17 @@ export const BO_ROUTES: Route[] = [
         path: 'requests',
         loadComponent: () => import('./pages/requests/containers/requests/requests.component')
           .then((m) => m.RequestsComponent)
+      },
+      {
+        path: 'logs',
+        children: [...LOGS_ROUTES]
       }
     ]
-  }
+  },
+  // {
+  //   path: 'home',
+  //   component: BoLayoutComponent,
+  //   children: [
+  //   ]
+  // }
 ]

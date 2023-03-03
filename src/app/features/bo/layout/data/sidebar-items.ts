@@ -5,7 +5,7 @@ export const SIDEBAR_ITEMS: SidebarItem[] = [
   {
     title: 'common.home',
     icon: 'pi pi-home',
-    redirectTo: '/bo',
+    redirectTo: 'dashboard',
     perm: PermissionsType.ADMIN
   },
   {
@@ -24,6 +24,12 @@ export const SIDEBAR_ITEMS: SidebarItem[] = [
     title: 'common.calendar',
     icon: 'pi pi-calendar',
     redirectTo: 'calendar',
+    perm: PermissionsType.ADMIN
+  },
+  {
+    title: 'common.logs',
+    icon: 'pi pi-tags',
+    redirectTo: 'logs',
     perm: PermissionsType.ADMIN
   },
   {

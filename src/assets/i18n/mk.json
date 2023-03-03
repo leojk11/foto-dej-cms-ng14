@@ -62,7 +62,8 @@
     "selected": "Избрани",
     "profile": "Профил",
     "noResults": "Не се пронајдени резултати.",
-    "recentActivity": "Последна активност"
+    "recentActivity": "Последна активност",
+    "logs": "Активност"
   },
   "properties": {
     "title": "Наслов",

@@ -16,7 +16,7 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { AlbumsService } from '../../../albums/services/albums.service';
 import { Album } from '../../../albums/models/album.model';
 import { NewAlbumComponent } from '../../../albums/containers/new-album/new-album.component';
-import { Log } from 'src/app/shared/models/log.model';
+import { Log } from 'src/app/features/bo/pages/logs/models/log.model';
 import { LogComponent } from 'src/app/shared/components/log/log.component';
 
 @Component({

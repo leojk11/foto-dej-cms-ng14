@@ -1,0 +1,26 @@
+<div *ngIf="logStore.state$ | async as state">
+  <div class="logs">
+    <div class="logs__header">
+      <button
+        class="btn btn__icon btn__icon--blue shadow-small border-none"
+        (click)="location.back()"
+      >
+        <i class="pi pi-arrow-left"></i>
+      </button>
+    </div>
+
+    <div class="separator"></div>
+
+    <div class="logs__content" *ngIf="state.list.length > 0">
+      <div class="page__loading mt-5" *ngIf="state.loading">
+        <app-spinner></app-spinner>
+      </div>
+
+      <div *ngFor="let log of state.list">
+        <app-log
+          [log]="log"
+        ></app-log>
+      </div>
+    </div>
+  </div>
+</div>

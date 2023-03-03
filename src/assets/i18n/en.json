@@ -62,7 +62,8 @@
     "selected": "Selected" ,
     "profile": "Profile",
     "noResults": "No results found",
-    "recentActivity": "Recent activity"
+    "recentActivity": "Recent activity",
+    "logs": "Logs"
   },
   "properties": {
     "title": "Title",

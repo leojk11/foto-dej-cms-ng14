@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Log } from '../../models/log.model';
+import { Log } from '../../../features/bo/pages/logs/models/log.model';
 
 @Component({
   selector: 'app-log',
