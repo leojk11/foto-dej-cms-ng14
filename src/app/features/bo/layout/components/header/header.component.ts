@@ -18,7 +18,7 @@ import { TranslateModule } from '@ngx-translate/core';
         class="btn btn__icon btn__icon--dark shadow-small border-none"
         (click)="location.back()"
       >
-        <span class="material-symbols-outlined">arrow_back_ios_new</span>
+        <i class="pi pi-arrow-left"></i>
       </button>
       <!-- <div class="page-header__title">
         {{ state.pageTitle | translate }}

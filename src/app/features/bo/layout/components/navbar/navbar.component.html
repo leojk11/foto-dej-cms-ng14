@@ -6,6 +6,7 @@
     >
       <i class="pi pi-bars"></i>
     </div>
+
     <div
       *ngIf="adminLayoutService.adminLayoutState$ | async as state"
     >
@@ -24,17 +25,22 @@
       {{ appVersion }}
     </div>
   
-    <div class="container__flex">
+    <div class="container__flex gap-3">
       <div *ngIf="authService.user$ | async as user">
         <p class="c-white text-lg">
           {{ user.firstname }} {{ user.lastname }}
         </p>
       </div>
-      <div class="navbar__buttons" (click)="logout()">
-        <button class="btn btn__icon shadow-small px-1">
-          <i class="pi pi-sign-out"></i>
-        </button>
-      </div>
+
+      <button 
+        type="button"
+        pButton
+        class="btn btn__main btn__sm shadow-small px-1"
+        (click)="logout()"
+      >
+        <i class="pi pi-sign-out"></i>
+        {{ 'common.signOut' | translate }}
+      </button>
     </div>
   </ng-container>
 </div>
