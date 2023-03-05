@@ -35,6 +35,8 @@ export class ConfigurationComponent implements OnInit {
 
   loaded: boolean = true;
   logoLoaded: boolean = true;
+  whiteLogoLoaded: boolean = true;
+  logoIconLoaded: boolean = true;
 
   imagesUrl: string = `${ environment.apiUrl }/images/`;
   videoUrl: string = `${ environment.apiUrl }/videos/`;
@@ -43,6 +45,16 @@ export class ConfigurationComponent implements OnInit {
   selectedLogoPreview: string = '';
   logoUploadInProgress: boolean = false;
   logoUploadProgressValue: number = 0;
+
+  selectedWhiteLogo: File | null = null;
+  selectedWhiteLogoPreview: string = '';
+  whiteLogoUploadInProgress: boolean = false;
+  whiteLogoUploadProgressValue: number = 0;
+  
+  selectedLogoIcon: File | null = null;
+  selectedLogoIconPreview: string = '';
+  logoIconUploadInProgress: boolean = false;
+  logoIconUploadProgressValue: number = 0;
 
   selectedMainImage: File | null = null;
   selectedMainImagePreview: string = '';
@@ -168,6 +180,108 @@ export class ConfigurationComponent implements OnInit {
         error: error => {
           this.toastService.addError(error.error.message);
           this.logoUploadInProgress = false;
+        }
+      });
+    } else {
+      this.toastService.addError('errors.mustSelectImage');
+    }
+  }
+
+  selectWhiteLogo(event: any): void {
+    this.whiteLogoLoaded = false;
+
+    if (event.target.files[0]) {
+      this.selectedWhiteLogo = event.target.files[0];
+
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.selectedWhiteLogoPreview = reader.result as string;
+      }
+      reader.readAsDataURL(event.target.files[0]);
+
+      this.whiteLogoLoaded = true;
+    }
+  }
+
+  uploadWhiteLogo(): void {
+    if (this.selectedWhiteLogo) {
+      this.whiteLogoUploadInProgress = true;
+
+      this.configurationService.uploadImage(this.selectedWhiteLogo).subscribe({
+        next: res => {
+          if (res.type === HttpEventType.UploadProgress) {
+            this.whiteLogoUploadProgressValue = Math.round((100 * res.loaded) / res.total);
+          } else if (res instanceof HttpResponse) {
+            this.configurationService.updateConfiguration({
+              logo_white: this.selectedWhiteLogo?.name
+            }).subscribe({
+              next: updateImageRes => {
+                this.configurationStore.updateConfiguration(updateImageRes.configuration);
+                this.toastService.addSuccess(updateImageRes.message);
+
+                this.whiteLogoUploadInProgress = false;
+              },
+              error: error => {
+                this.toastService.addError(error.error.message);
+                this.whiteLogoUploadInProgress = false;
+              }
+            });
+          }
+        },
+        error: error => {
+          this.toastService.addError(error.error.message);
+          this.whiteLogoUploadInProgress = false;
+        }
+      });
+    } else {
+      this.toastService.addError('errors.mustSelectImage');
+    }
+  }
+
+  selectLogoIcon(event: any): void {
+    this.logoIconLoaded = false;
+
+    if (event.target.files[0]) {
+      this.selectedLogoIcon = event.target.files[0];
+
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.selectedLogoIconPreview = reader.result as string;
+      }
+      reader.readAsDataURL(event.target.files[0]);
+
+      this.logoIconLoaded = true;
+    }
+  }
+
+  uploadLogoIcon(): void {
+    if (this.selectedLogoIcon) {
+      this.logoIconUploadInProgress = true;
+
+      this.configurationService.uploadImage(this.selectedLogoIcon).subscribe({
+        next: res => {
+          if (res.type === HttpEventType.UploadProgress) {
+            this.logoIconUploadProgressValue = Math.round((100 * res.loaded) / res.total);
+          } else if (res instanceof HttpResponse) {
+            this.configurationService.updateConfiguration({
+              logo_icon: this.selectedLogoIcon?.name
+            }).subscribe({
+              next: updateImageRes => {
+                this.configurationStore.updateConfiguration(updateImageRes.configuration);
+                this.toastService.addSuccess(updateImageRes.message);
+
+                this.logoIconUploadInProgress = false;
+              },
+              error: error => {
+                this.toastService.addError(error.error.message);
+                this.logoIconUploadInProgress = false;
+              }
+            });
+          }
+        },
+        error: error => {
+          this.toastService.addError(error.error.message);
+          this.logoIconUploadInProgress = false;
         }
       });
     } else {

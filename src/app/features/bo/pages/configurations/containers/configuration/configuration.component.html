@@ -172,6 +172,162 @@
               </div>
             </div>
         </div>
+
+        <div class="configuration-wrapper__configuration__multi">
+            <div class="configuration-wrapper__configuration__multi__item">
+                <div class="multi-top">
+                    <label>{{ 'properties.logoWhite' | translate }}</label>
+                </div>
+          
+                <div class="multi-bottom">
+                    <div class="multi-bottom__top">
+                        <input 
+                          id="white-logo" 
+                          type="file" 
+                          class="upload-input"
+                          accept="image/*"
+                          (change)="selectWhiteLogo($event)"
+                          pInputText>
+          
+                        <label 
+                          class="btn btn__main upload-btn" 
+                          for="white-logo"
+                        >
+                          <span class="material-symbols-outlined">
+                            add
+                          </span>
+                          {{ 'common.chooseImage' | translate }}
+                        </label>
+            
+                        <span
+                          *ngIf="!selectedWhiteLogo"
+                        >{{ state.configuration?.logo_white }}</span>
+          
+                        <span
+                          *ngIf="selectedWhiteLogo"
+                        >{{ selectedWhiteLogo.name }}</span>
+                    </div>
+          
+                      <div class="multi-bottom__bottom">
+                        <div 
+                            class="image-preview cp" 
+                            *ngIf="selectedWhiteLogo">
+                            <img 
+                              [src]="selectedWhiteLogoPreview"
+                              (click)="toggleOverview($event)">
+                        </div>
+          
+                        <div 
+                            class="image-preview cp" 
+                            *ngIf="state.configuration?.logo_white && !selectedWhiteLogo">
+                            <img 
+                              [src]="imagesUrl + state.configuration?.logo_white"
+                              (click)="toggleOverview($event)">
+                        </div>
+          
+                        <div
+                            class="w-full mt-2"
+                            *ngIf="whiteLogoUploadInProgress">
+                            <p-progressBar [value]="whiteLogoUploadProgressValue"></p-progressBar>
+                        </div>
+          
+                        <div class="buttons">
+                            <p class="buttons__label">{{ 'common.imageSizeInfo' | translate }}</p>
+          
+                            <button 
+                              *ngIf="selectedWhiteLogo"
+                              class="btn btn__main upload-btn" 
+                              type="button"
+                              (click)="uploadWhiteLogo()"
+                              [disabled]="whiteLogoUploadInProgress"
+                            >
+                              <span class="material-symbols-outlined">
+                                file_upload
+                              </span>
+                              {{ 'common.upload' | translate }}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="configuration-wrapper__configuration__multi__item">
+                <div class="multi-top">
+                    <label>{{ 'properties.logoIcon' | translate }}</label>
+                </div>
+          
+                <div class="multi-bottom">
+                    <div class="multi-bottom__top">
+                        <input 
+                          id="logoIcon" 
+                          type="file" 
+                          class="upload-input"
+                          accept="image/*"
+                          (change)="selectLogoIcon($event)"
+                          pInputText>
+          
+                        <label 
+                          class="btn btn__main upload-btn" 
+                          for="logoIcon"
+                        >
+                          <span class="material-symbols-outlined">
+                            add
+                          </span>
+                          {{ 'common.chooseImage' | translate }}
+                        </label>
+            
+                        <span
+                          *ngIf="!selectedLogoIcon"
+                        >{{ state.configuration?.logo_icon }}</span>
+          
+                        <span
+                          *ngIf="selectedLogoIcon"
+                        >{{ selectedLogoIcon.name }}</span>
+                    </div>
+          
+                      <div class="multi-bottom__bottom">
+                        <div 
+                            class="image-preview cp" 
+                            *ngIf="selectedLogoIcon">
+                            <img 
+                              [src]="selectedLogoIconPreview"
+                              (click)="toggleOverview($event)">
+                        </div>
+          
+                        <div 
+                            class="image-preview cp" 
+                            *ngIf="state.configuration?.logo_icon && !selectedLogoIcon">
+                            <img 
+                              [src]="imagesUrl + state.configuration?.logo_icon"
+                              (click)="toggleOverview($event)">
+                        </div>
+          
+                        <div
+                            class="w-full mt-2"
+                            *ngIf="logoIconUploadInProgress">
+                            <p-progressBar [value]="logoIconUploadProgressValue"></p-progressBar>
+                        </div>
+          
+                        <div class="buttons">
+                            <p class="buttons__label">{{ 'common.imageSizeInfo' | translate }}</p>
+          
+                            <button 
+                              *ngIf="selectedLogoIcon"
+                              class="btn btn__main upload-btn" 
+                              type="button"
+                              (click)="uploadLogoIcon()"
+                              [disabled]="logoIconUploadInProgress"
+                            >
+                              <span class="material-symbols-outlined">
+                                file_upload
+                              </span>
+                              {{ 'common.upload' | translate }}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         
   
       <div class="configuration-wrapper__configuration__item align-center">
