@@ -3,7 +3,7 @@ import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { API_URL } from 'src/app/core/tokens/api-url.token';
 import { Configuration } from 'src/app/features/bo/pages/configurations/models/configuration.model';
-import { RequestResponse } from '../models/request.model';
+import { RequestResponse } from '../../features/front/pages/home/models/request.model';
 
 @Injectable({
   providedIn: 'root'

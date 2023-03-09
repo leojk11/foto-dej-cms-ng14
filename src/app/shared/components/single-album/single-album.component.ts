@@ -28,7 +28,7 @@ export class SingleAlbumComponent implements OnInit {
     if(role === PermissionsType.CLIENT){
       this.router.navigate(['/client/albums/' + this.album?.id]).then();
     } else {
-      this.router.navigate(['/bo/home/albums/' + this.album?.id]).then();
+      this.router.navigate(['/bo/albums/' + this.album?.id]).then();
     }
   }
 }

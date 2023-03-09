@@ -108,7 +108,7 @@ export class AlbumUploadComponent implements OnInit {
   }
 
   goToPreview(): void {
-    this.router.navigate(['/bo/home/albums/' + this.albumId]).then();
+    this.router.navigate(['/bo/albums/' + this.albumId]).then();
   }
 
 }

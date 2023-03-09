@@ -8,10 +8,10 @@ import { HeaderComponent } from '../components/header/header.component';
 import { RouterModule } from '@angular/router';
 import { SidebarModule } from 'primeng/sidebar';
 import { ImageOverviewComponent } from 'src/app/shared/components/image-overview/image-overview.component';
-import { FrontConfigurationService } from 'src/app/features/front/pages/home/services/front-configuration.service';
-import { FrontConfigurationState } from 'src/app/features/front/pages/home/services/front-configuration.store';
+import { FrontConfigurationService } from 'src/app/shared/services/front-configuration.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
 import { Configuration } from '../../pages/configurations/models/configuration.model';
+import { FrontConfigurationState } from 'src/app/shared/services/front-configuration.store';
 
 @Component({
   selector: 'app-bo-layout',

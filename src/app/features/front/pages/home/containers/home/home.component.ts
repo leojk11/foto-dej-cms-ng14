@@ -3,16 +3,16 @@ import { CommonModule } from '@angular/common';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { RouterModule } from '@angular/router';
 import { SliderComponent } from '../../components/slider/slider.component';
-import { FrontConfigurationService } from '../../services/front-configuration.service';
+import { FrontConfigurationService } from '../../../../../../shared/services/front-configuration.service';
 import { environment } from 'src/environments/environment';
 import { ContactFormComponent } from '../../components/contact-form/contact-form.component';
 import { FooterComponent } from '../../../../layout/components/footer/footer.component';
 import { Configuration } from 'src/app/features/bo/pages/configurations/models/configuration.model';
 import { StorageService } from 'src/app/core/services/storage.service';
-import { FrontConfigurationState } from '../../services/front-configuration.store';
 import { ToastService } from 'src/app/shared/services/toast.service';
 import { FrontNavbarComponent } from 'src/app/features/front/layout/components/front-navbar/front-navbar.component';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { FrontConfigurationState } from 'src/app/shared/services/front-configuration.store';
 
 @Component({
   selector: 'app-home',

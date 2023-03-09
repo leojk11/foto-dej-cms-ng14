@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { InputTextModule } from 'primeng/inputtext';
-import { FrontConfigurationService } from '../../services/front-configuration.service';
+import { FrontConfigurationService } from '../../../../../../shared/services/front-configuration.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
 
 @Component({

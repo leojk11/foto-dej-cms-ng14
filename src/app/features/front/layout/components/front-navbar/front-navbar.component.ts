@@ -4,15 +4,15 @@ import { StorageService } from 'src/app/core/services/storage.service';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { RouterModule } from '@angular/router';
-import { FrontConfigurationState } from '../../../pages/home/services/front-configuration.store';
 import { Configuration } from 'src/app/features/bo/pages/configurations/models/configuration.model';
-import { FrontConfigurationService } from '../../../pages/home/services/front-configuration.service';
+import { FrontConfigurationService } from '../../../../../shared/services/front-configuration.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
 import { TooltipModule } from 'primeng/tooltip';
 import { map, Observable, shareReplay } from 'rxjs';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { MenuModule } from 'primeng/menu';
 import { MenuItem } from 'primeng/api';
+import { FrontConfigurationState } from 'src/app/shared/services/front-configuration.store';
 
 @Component({
   selector: 'app-front-navbar',

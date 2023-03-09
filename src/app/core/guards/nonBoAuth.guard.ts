@@ -20,7 +20,7 @@ export class BoNonAuthGuard implements CanActivate, CanLoad {
 
   private canAccessRoute(): boolean {
     if (this.auth.isLoggedInBo()) {
-      this.router.navigate(['/bo/home']).then();
+      this.router.navigate(['/bo']).then();
       return false;
     }
     return true;

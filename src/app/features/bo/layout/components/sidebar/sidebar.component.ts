@@ -6,9 +6,9 @@ import { StorageService } from 'src/app/core/services/storage.service';
 import { RouterModule } from '@angular/router';
 import {SidebarModule} from 'primeng/sidebar';
 import { PermitDirective } from 'src/app/core/directives/permit.directive';
-import { FrontConfigurationService } from 'src/app/features/front/pages/home/services/front-configuration.service';
-import { FrontConfigurationState } from 'src/app/features/front/pages/home/services/front-configuration.store';
+import { FrontConfigurationService } from 'src/app/shared/services/front-configuration.service';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { FrontConfigurationState } from 'src/app/shared/services/front-configuration.store';
 
 @Component({
   selector: 'app-sidebar',

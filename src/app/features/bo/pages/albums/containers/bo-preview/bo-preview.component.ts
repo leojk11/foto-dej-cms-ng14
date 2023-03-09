@@ -7,19 +7,15 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { NewAlbumComponent } from '../new-album/new-album.component';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { SingleImageComponent } from '../../components/single-image/single-image.component';
-import { SpinnerComponent } from 'src/app/shared/components/loading/spinner/spinner.component';
 import { TooltipModule } from 'primeng/tooltip';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmationService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { AlbumsService } from '../../services/albums.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
-import { ImageOverviewService } from 'src/app/shared/services/image-overview.service';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { FormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
-import { AlbumComponent } from 'src/app/shared/components/album/album.component';
-import { Image } from '../../models/image.model';
 import { AlbumPreviewComponent } from 'src/app/shared/components/album-preview/album-preview.component';
 
 @Component({
@@ -87,11 +83,10 @@ export class BoPreviewComponent implements OnInit {
   }
 
   goToUpload(): void {
-    this.router.navigate(['/bo/home/albums/upload/' + this.albumsStore.state.previewAlbum?.id]).then();
+    this.router.navigate(['/bo/albums/upload/' + this.albumsStore.state.previewAlbum?.id]).then();
   }
 
   changeStatus(event: any): void {
-    console.log(event);
     this.albumsStore.updateStatus(event.checked);
   }
 
@@ -107,7 +102,7 @@ export class BoPreviewComponent implements OnInit {
         this.albumsService.deleteAlbum(this.albumId).subscribe({
           next: res => {
             this.toastService.addSuccess(res.message);
-            this.router.navigate(['/bo/home/albums']).then();
+            this.router.navigate(['/bo/albums']).then();
           },
           error: error => {
             this.toastService.addError(error.error.message);

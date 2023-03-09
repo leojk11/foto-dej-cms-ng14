@@ -3,10 +3,10 @@ import { CommonModule } from '@angular/common';
 import { FrontNavbarComponent } from '../components/front-navbar/front-navbar.component';
 import { RouterModule } from '@angular/router';
 import { FooterComponent } from '../components/footer/footer.component';
-import { FrontConfigurationService } from '../../pages/home/services/front-configuration.service';
-import { FrontConfigurationState } from '../../pages/home/services/front-configuration.store';
+import { FrontConfigurationService } from '../../../../shared/services/front-configuration.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
 import { Configuration } from 'src/app/features/bo/pages/configurations/models/configuration.model';
+import { FrontConfigurationState } from 'src/app/shared/services/front-configuration.store';
 
 @Component({
   selector: 'app-front-layout',

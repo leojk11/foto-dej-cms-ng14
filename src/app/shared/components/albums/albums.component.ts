@@ -51,7 +51,12 @@ export class AlbumsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.albumStore.getAllAlbums();
+    if( this.isAdmin ) {
+      this.albumStore.getAllAlbums();
+    } else {
+      this.albumStore.getUserAlbums(this.userId);
+    }
+    
     this.albumStore.resetPreview();
     this.adminLayoutService.setTitle('common.albums');
 

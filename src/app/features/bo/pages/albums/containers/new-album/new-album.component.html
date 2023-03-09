@@ -43,6 +43,7 @@
             field="fullname"
             placeholder="{{ 'properties.assignTo' | translate }}..."
             [style]="{width: '100% !important'}"
+            (onSelect)="onClientSelected($event)"
           ></p-autoComplete>
 
           <!-- <div class="container__flex gap-1 w-full">

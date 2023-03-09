@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { SwiperModule } from 'swiper/angular';
 import SwiperCore, { SwiperOptions, Navigation } from 'swiper';
 import { environment } from 'src/environments/environment';
-import { FrontConfigurationService } from '../../services/front-configuration.service';
+import { FrontConfigurationService } from '../../../../../../shared/services/front-configuration.service';
 import {CarouselModule} from 'primeng/carousel';
 
 SwiperCore.use([Navigation])
