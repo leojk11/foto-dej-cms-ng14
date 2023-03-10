@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
 import { BasicParams } from 'src/app/shared/models/basicParams.model';
 import { ToastService } from 'src/app/shared/services/toast.service';
+import { InviteFilter } from '../containers/invites/invites.component';
 import { GetAllInvitesResponse } from '../models/getAllInvitesResponse.model';
 import { Invite } from '../models/invites.model';
 import { InvitesService } from './invites.service';
@@ -43,7 +44,7 @@ export class InvitesStore extends ComponentStore<InvitesState> {
     this.patchState({ params: params });
   }
 
-  getInvites(filters?: { client: string, date: string }): void {
+  getInvites(filters?: InviteFilter): void {
     this.invitesService.getAll(this.state.params, filters).subscribe({
       next: (res: GetAllInvitesResponse) => {
         console.log('INVITES', res);

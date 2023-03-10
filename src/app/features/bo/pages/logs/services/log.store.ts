@@ -4,6 +4,7 @@ import { BasicParams } from "src/app/shared/models/basicParams.model";
 import { Log } from "src/app/features/bo/pages/logs/models/log.model";
 import { ToastService } from "src/app/shared/services/toast.service";
 import { LogService } from "./log.service";
+import { LogFilter } from "../models/log-filter.model";
 
 export interface LogState {
   list: Log[];
@@ -41,10 +42,10 @@ export class LogStore extends ComponentStore<LogState> {
     this.patchState({ loading });
   }
 
-  getAllLogs(): void {
+  getAllLogs(filters?: LogFilter): void {
     this.setLoading(true);
 
-    this.logService.getAllLogs(this.state.params).subscribe({
+    this.logService.getAllLogs(this.state.params, filters).subscribe({
       next: res => {
         console.log('LOGS RESPONSE', res);
         this.patchState({

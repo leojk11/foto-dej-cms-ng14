@@ -3,6 +3,7 @@ import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { API_URL } from 'src/app/core/tokens/api-url.token';
 import { BasicParams } from 'src/app/shared/models/basicParams.model';
+import { InviteFilter } from '../containers/invites/invites.component';
 import { GetAllInvitesResponse } from '../models/getAllInvitesResponse.model';
 
 @Injectable({
@@ -15,7 +16,7 @@ export class InvitesService {
     private http: HttpClient
   ) { }
 
-  getAll(params: BasicParams, filters?: { client: string, date: string }): Observable<GetAllInvitesResponse> {
+  getAll(params: BasicParams, filters?: InviteFilter): Observable<GetAllInvitesResponse> {
     let path = `${ this.apiUrl }/invites?take=${ params.take }&page=${ params.page }`;
 
     if (filters) {
@@ -24,6 +25,9 @@ export class InvitesService {
       }
       if (filters.date) {
         path += `&date=${ filters.date }`;
+      }
+      if (filters.status) {
+        path += `&status=${ filters.status }`;
       }
     }
 
