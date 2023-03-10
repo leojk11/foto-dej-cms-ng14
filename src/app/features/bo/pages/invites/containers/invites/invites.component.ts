@@ -37,8 +37,7 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
     ConfirmationService,
     InvitesStore
   ],
-  templateUrl: './invites.component.html',
-  styleUrls: ['./invites.component.scss']
+  templateUrl: './invites.component.html'
 })
 export class InvitesComponent implements OnInit {
 

@@ -54,6 +54,9 @@
           <th>
             {{ 'properties.date' | translate }}
           </th>
+          <th>  
+            {{ 'properties.status' | translate }}
+          </th>
           <th></th>
         </tr>
       </ng-template>
@@ -64,21 +67,37 @@
         </tr>
       </ng-template>
   
-      <ng-template pTemplate="body" let-invite let-index="rowIndex">
+      <ng-template 
+        pTemplate="body" 
+        let-invite 
+        let-index="rowIndex"
+      >
         <tr>
           <td>
             {{ index + 1 }}
           </td>
+
           <td>
             <p>{{ invite.invited_client.fullname }}</p>
             <p>{{ invite.invited_client.email }}</p>
           </td>
+
           <td>
             {{ invite.invited_by.fullname }}
           </td>
+
           <td>
             {{ invite.date | date: "dd/MM/yyyy" }} {{ invite.time }}
           </td>
+
+          <td>
+            <p [ngClass]="invite.status === 'SUCCESSFULL' ? 'isActive' : 'isExpired'"
+              class="mx-auto"
+            >
+              {{ invite.status }}
+            </p>
+          </td>
+
           <td >
             <button
               class="btn btn__main btn__main--sm"
@@ -86,6 +105,8 @@
               (click)="resendInvite(invite)"
               pTooltip="{{ 'common.resend' | translate }}" 
               tooltipPosition="top"
+              [disabled]="invite.status === 'SUCCESSFULL'"
+
             >
               <i class="pi pi-refresh"></i>
             </button>
