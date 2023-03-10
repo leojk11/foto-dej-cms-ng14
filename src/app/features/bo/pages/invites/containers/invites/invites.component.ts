@@ -62,6 +62,8 @@ export class InvitesComponent implements OnInit {
       value: 'FAILED'
     }
   ];
+
+  searchTerms: string[] = [];
   
   constructor(
     public invitesStore: InvitesStore,
@@ -112,6 +114,7 @@ export class InvitesComponent implements OnInit {
     this.dateToFilter = null;
     this.invitesStore.setParams({ page: 1, take: 10 });
     this.invitesStore.getInvites();
+    this.searchTerms = [];
   }
 
   onDateSelect(): void {
@@ -124,8 +127,30 @@ export class InvitesComponent implements OnInit {
   }
 
   filter(): void {
+    if (this.filters.client) {
+      this.searchTerms.push(this.filters.client);
+    } else if (this.filters.date) {
+      this.searchTerms.push(this.filters.date);
+    } else if (this.filters.status) {
+      this.searchTerms.push(this.filters.status);
+    }
+
     this.invitesStore.setParams({ page: 1, take: 10 });
     this.invitesStore.getInvites(this.filters);
   }
 
+  clearTerm(index: number): void {
+    const term = this.searchTerms.splice(index, 1)[0];
+    console.log(term);
+
+    if (term === this.filters.client) {
+      this.filters.client = ''
+    } else if (term === this.filters.date) {
+      this.filters.date = ''
+    } else if (term === this.filters.status) {
+      this.filters.status = ''
+    }
+
+    this.filter();
+  }
 }

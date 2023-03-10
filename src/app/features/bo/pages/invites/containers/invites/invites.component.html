@@ -12,6 +12,14 @@
       </button>
 
       <div class="container__flex gap-2">
+        <div *ngFor="let tearm of searchTerms; let i = index">
+          <div class="chip">
+            {{ tearm }}
+
+            <i class="pi pi-times" (click)="clearTerm(i)"></i>
+          </div>
+        </div>
+
         <button
           class="btn btn__icon--blue btn__main--sm"
           type="button"
