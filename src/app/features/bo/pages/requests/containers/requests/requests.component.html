@@ -10,13 +10,23 @@
       <i class="pi pi-arrow-left"></i>
     </button>
     
-    <button 
-      class="btn btn__search px-2"
-      (click)="op.toggle($event)"
-    >
-      Search
-      <i class="pi pi-search"></i>
-    </button>
+    <div class="container__flex gap-2">
+      <div *ngFor="let tearm of searchTerms; let i = index">
+        <div class="chip">
+          {{ tearm }}
+
+          <i class="pi pi-times" (click)="clearTerm(i)"></i>
+        </div>
+      </div>
+
+      <button 
+        class="btn btn__search px-2"
+        (click)="op.toggle($event)"
+      >
+        Search
+        <i class="pi pi-search"></i>
+      </button>
+    </div>
   </div>
 
   <div class="requests__content">
@@ -92,6 +102,7 @@
       class="max-w-3"
       placeholder="{{ 'properties.firstname' | translate | lowercase }}..."
       [(ngModel)]="filters.firstname"
+      (keydown.enter)="filter(); op.toggle($event)"
     >
 
     <input 
@@ -100,6 +111,7 @@
       class="max-w-3"
       placeholder="{{ 'properties.lastname' | translate | lowercase }}..."
       [(ngModel)]="filters.lastname"
+      (keydown.enter)="filter(); op.toggle($event)"
     >
 
     <input 
@@ -108,6 +120,7 @@
       class="max-w-3"
       placeholder="{{ 'properties.phoneNumber' | translate | lowercase }}..."
       [(ngModel)]="filters.phone"
+      (keydown.enter)="filter(); op.toggle($event)"
     >
 
     <input 
@@ -116,6 +129,7 @@
       class="max-w-3"
       placeholder="{{ 'properties.email' | translate | lowercase }}..."
       [(ngModel)]="filters.email"
+      (keydown.enter)="filter(); op.toggle($event)"
     >
 
     <input 
@@ -124,6 +138,7 @@
       class="max-w-3"
       placeholder="{{ 'properties.date' | translate | lowercase }}..."
       [(ngModel)]="filters.date"
+      (keydown.enter)="filter(); op.toggle($event)"
     >
 
     <div class="container__flex gap-1 justify-center">
@@ -131,7 +146,7 @@
         pButton
         type="button"
         class="btn btn__icon--orange px-1"
-        (click)="filter()"
+        (click)="filter(); op.toggle($event)"
       >
         <i class="pi pi-filter"></i>
         Search
@@ -147,25 +162,5 @@
         Reset
       </button>
     </div>
-  
   </div>
-  <!-- <ng-template pTemplate>
-    <div class="overlay-filters">
-      <input 
-        type="text" 
-        pInputText
-        class="max-w-3"
-        placeholder="{{ 'properties.email' | translate | lowercase }}..."
-        [(ngModel)]="filters.email"
-      >
-
-      <input 
-        type="text" 
-        pInputText
-        class="max-w-3"
-        placeholder="{{ 'properties.date' | translate | lowercase }}..."
-        [(ngModel)]="filters.date"
-      >
-    </div>
-  </ng-template> -->
 </p-overlayPanel>

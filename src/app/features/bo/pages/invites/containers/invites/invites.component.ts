@@ -76,8 +76,13 @@ export class InvitesComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.invitesStore.getInvites();
+    this.getInvites();
     this.adminLayoutService.setTitle('common.invites');
+  }
+  
+  getInvites(): void {
+    this.invitesStore.setParams({ page: 1, take: 10 });
+    this.invitesStore.getInvites(this.filters);
   }
 
   onLazyLoad(event: any): void {
@@ -112,9 +117,8 @@ export class InvitesComponent implements OnInit {
   refresh(): void {
     this.filters = {} as InviteFilter;
     this.dateToFilter = null;
-    this.invitesStore.setParams({ page: 1, take: 10 });
-    this.invitesStore.getInvites();
     this.searchTerms = [];
+    this.getInvites()
   }
 
   onDateSelect(): void {
@@ -127,30 +131,39 @@ export class InvitesComponent implements OnInit {
   }
 
   filter(): void {
+    this.searchTerms = [];
+    
     if (this.filters.client) {
       this.searchTerms.push(this.filters.client);
-    } else if (this.filters.date) {
+    }
+    
+    if (this.dateToFilter) {
       this.searchTerms.push(this.filters.date);
-    } else if (this.filters.status) {
+    }
+    
+    if (this.filters.status) {
       this.searchTerms.push(this.filters.status);
     }
 
-    this.invitesStore.setParams({ page: 1, take: 10 });
-    this.invitesStore.getInvites(this.filters);
+    this.getInvites();
   }
 
   clearTerm(index: number): void {
     const term = this.searchTerms.splice(index, 1)[0];
-    console.log(term);
 
     if (term === this.filters.client) {
       this.filters.client = ''
-    } else if (term === this.filters.date) {
+    }
+    
+    if (term === this.filters.date) {
       this.filters.date = ''
-    } else if (term === this.filters.status) {
+      this.dateToFilter = null;
+    }
+    
+    if (term === this.filters.status) {
       this.filters.status = ''
     }
 
-    this.filter();
+    this.getInvites();
   }
 }

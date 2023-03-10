@@ -138,6 +138,7 @@
       class="max-w-3"
       placeholder="{{ 'properties.client' | translate | lowercase }}..."
       [(ngModel)]="filters.client"
+      (keydown.enter)="filter(); op.toggle($event)"
     >
 
     <p-calendar
@@ -159,7 +160,7 @@
     <div class="container__flex gap-1 justify-center">
       <button 
         pButton
-        type="button"
+        type="submit"
         class="btn btn__icon--orange px-1"
         (click)="filter()"
       >
