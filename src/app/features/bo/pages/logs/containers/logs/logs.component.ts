@@ -8,7 +8,7 @@ import { LogComponent } from 'src/app/shared/components/log/log.component';
 import { LogFilter } from '../../models/log-filter.model';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { CalendarModule } from 'primeng/calendar';
-import { DropdownItem, DropdownModule } from 'primeng/dropdown';
+import { DropdownModule } from 'primeng/dropdown';
 import { FormsModule } from '@angular/forms';
 import * as dayjs from 'dayjs';
 import { InputTextModule } from 'primeng/inputtext';
@@ -57,7 +57,7 @@ export class LogsComponent implements OnInit {
       name: 'Updated profile',
       value: 'UPDATED_PROFILE'
     }
-  ]
+  ];
 
   constructor(
     public logStore: LogStore,

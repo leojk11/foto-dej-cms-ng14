@@ -1,4 +1,10 @@
 .p-dialog{
+
+  width: 50% !important;
+
+  @include screen-md {
+    width: 95% !important;
+  }
   .p-dialog-content{
     padding: 0 !important;
     font-family: 'Poppins', sans-serif !important;

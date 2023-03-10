@@ -45,16 +45,18 @@
 
   &__bo--content-wrapper{
     width: 95%;
-    // height: 87%;
     margin: -12rem auto 2rem;
     padding: 0;
-    // margin-top: -12rem;
     background-color: $color-wrapper;
     position: relative;
     z-index: 13;
     border-radius: 1rem;
     box-shadow: $shadow-icon;
     overflow: hidden;
+
+    @include screen-md {
+      margin-bottom: 4rem !important;
+    }
   }
 }
 

@@ -1,6 +1,6 @@
 .clients{
   background-color: $color-wrapper;
-  padding: 0rem 2rem;
+  padding: 0rem 2rem 2rem;
   min-height: 60vh;
 
   @include screen-md {
@@ -56,7 +56,7 @@
 
     &--empty {
       width: 100%;
-      height: 50rem;
+      height: 40rem;
       margin: 0 auto;
       text-align: center;
       font-size: 2.6rem;
@@ -101,7 +101,7 @@
   &__inner {
     width: 100%;
     margin: 0 auto;
-    padding: 1rem 0 2rem;
+    padding: 1rem 0;
   }
 }
 
@@ -253,7 +253,7 @@
 
       &__albums {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
         gap: 5rem;
       }
     }
