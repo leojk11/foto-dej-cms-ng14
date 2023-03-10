@@ -128,6 +128,7 @@ export class FrontNavbarComponent implements OnInit {
 
     this.storageService.setItem('lang', lang);
     this.selectedLang = this.storageService.getItem('lang');
+    this.frontConfigurationState.setSelectedLang(lang);
     
   }
 

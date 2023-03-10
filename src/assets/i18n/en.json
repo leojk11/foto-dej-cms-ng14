@@ -100,7 +100,9 @@
     "invitedClientEmail": "Invited client email",
     "invitedBy": "Invited by",
     "logo": "Logo",
-    "accountStatus": "Account status"
+    "accountStatus": "Account status",
+    "logoWhite": "Logo white",
+    "logoIcon": "Logo icon"
   },
   "errors": {
     "error": "Error",
@@ -197,7 +199,9 @@
     "disableSelectedImages": "Are you sure that you want to disable selected images?",
     "enableSelectedImages": "Are you sure that you want to enable selected images?",
     "contactInfo": "Leave your information ans we will contact you",
-    "changeAccountStatus": "Are you sure you want to change the account status?"
+    "changeAccountStatus": "Are you sure you want to change the account status?",
+    "translateMainTitle": "Add translation for the main title",
+    "translateSecondTitle": "Add translation for the second title"
   },
   "clients": {
     "newClient": "Add new client",

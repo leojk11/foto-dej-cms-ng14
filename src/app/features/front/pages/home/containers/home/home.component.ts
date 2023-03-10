@@ -38,6 +38,9 @@ export class HomeComponent implements OnInit {
   configuration: Configuration = {} as Configuration;
   selectedLang: string | null = 'mk';
 
+  mainTitle: string = '';
+  secondTitle: string = '';
+
   @ViewChild('collaboration') collaboration!: HTMLElement;
   // @ViewChild(HTMLElement) slider!: HTMLElement;
 
@@ -52,8 +55,11 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.service.getConfiguration().subscribe({
       next: res => {
+        console.log('CONFIG', res);
+        
         this.configuration = res;
         this.frontConfigurationState.setConfiguration(res);
+        this.getTitles();
       },
       error: error => {
         this.toastService.addError(error.error.message);
@@ -61,18 +67,14 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  changeLang(): void {
-    let lang: string = '';
-    if(this.selectedLang === 'mk'){
-      lang = 'en'  
+  getTitles(): void {
+    if(this.selectedLang === 'mk') {
+      this.mainTitle = this.configuration.main_title;
+      this.secondTitle = this.configuration.second_title
     } else {
-      lang = 'mk';
+      this.mainTitle = this.configuration.main_title_tr;
+      this.secondTitle = this.configuration.second_title_tr;
     }
-
-    this.translateService.use(lang).subscribe();
-
-    this.storageService.setItem('lang', lang);
-    this.selectedLang = this.storageService.getItem('lang');
   }
 
   goToElement(el: HTMLElement, offset: number): void {

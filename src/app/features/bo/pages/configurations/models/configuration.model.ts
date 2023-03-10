@@ -4,7 +4,9 @@ export interface Configuration {
     logo_icon: string;
     main_image: string;
     main_title: string;
+    main_title_tr: string;
     second_title: string;
+    second_title_tr: string;
     promo_images: string; // string[];
     promo_video: string;
     contact_form_label: string;

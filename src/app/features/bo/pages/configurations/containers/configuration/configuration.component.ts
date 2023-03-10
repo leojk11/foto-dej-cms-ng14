@@ -28,8 +28,7 @@ import { ProgressBarModule } from 'primeng/progressbar';
   providers: [
     ConfigurationStore
   ],
-  templateUrl: './configuration.component.html',
-  styleUrls: ['./configuration.component.scss']
+  templateUrl: './configuration.component.html'
 })
 export class ConfigurationComponent implements OnInit {
 
@@ -75,7 +74,9 @@ export class ConfigurationComponent implements OnInit {
   form: FormGroup = this.fb.group({
     logo: [''],
     main_title: [''],
+    main_title_tr: [''],
     second_title: [''],
+    second_title_tr: [''],
     phone_number: [''],
     email: [''],
     address: [''],

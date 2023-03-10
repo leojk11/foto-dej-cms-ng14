@@ -8,13 +8,16 @@ export interface FrontConfigurationStateModel {
 
   imageUrl: string;
   videoUrl: string;
+
+  selectedLang: string;
 }
 
 export const initialState: FrontConfigurationStateModel = {
   configuration: {} as Configuration,
 
   imageUrl: `${ environment.apiUrl }/images/`,
-  videoUrl: `${ environment.apiUrl }/videos/`
+  videoUrl: `${ environment.apiUrl }/videos/`,
+  selectedLang: 'mk'
 }
 
 @Injectable({
@@ -35,6 +38,13 @@ export class FrontConfigurationState {
     this.confState.next({
       ...this.state,
       configuration
+    });
+  }
+
+  setSelectedLang(lang: string): void {
+    this.confState.next({
+      ...this.state,
+      selectedLang: lang
     });
   }
 
