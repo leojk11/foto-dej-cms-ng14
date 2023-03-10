@@ -49,12 +49,7 @@ export class ClientDetailsComponent implements OnInit, OnDestroy {
 
   @Input() modalWidth: string = '';
 
-  client$: Observable<Client | null> = this.clientService.getSingleClient(this.id).pipe(
-    catchError(err => {
-      console.log(err);
-      return of(null);
-    })
-  );
+  client$!: Observable<Client | null>;
 
   constructor(
     private adminLayoutService: AdminLayoutService,
@@ -94,6 +89,7 @@ export class ClientDetailsComponent implements OnInit, OnDestroy {
   }
 
   getClient(): void {
+    console.log('client ID', this.id);
     this.clientService.getSingleClient(this.id).subscribe({
       next: client => {
         this.client = client;
@@ -173,7 +169,7 @@ export class ClientDetailsComponent implements OnInit, OnDestroy {
       rejectLabel: this.translate.instant('common.no'),
       accept: () => {
         this.clientStore.deleteClient(this.client);
-        this.router.navigate(['/bo/home/clients'])
+        this.router.navigate(['/bo/clients'])
       }
     });
   }
@@ -191,14 +187,12 @@ export class ClientDetailsComponent implements OnInit, OnDestroy {
       accept: () => {
         if (status === 'ACTIVE') {
           this.clientStore.suspendClientAccount(this.client);
-          this.getClient();
+          this.router.navigate([this.router.url])
         } else if (status = 'SUSPENDED') {
           this.clientStore.activateClientAccount(this.client);
-          this.getClient();
         }
       }
 
     });
-    this.getClient()
   }
 }

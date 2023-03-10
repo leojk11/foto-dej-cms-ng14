@@ -54,7 +54,7 @@ export class BoLayoutComponent implements OnInit {
         this.frontConfigState.setConfiguration(res);
       },
       error: error => {
-        this.toastService.addError(error.error.message);
+        this.toastService.addError(error);
       }
     });
   }
