@@ -106,7 +106,6 @@
               pTooltip="{{ 'common.resend' | translate }}" 
               tooltipPosition="top"
               [disabled]="invite.status === 'SUCCESSFULL'"
-
             >
               <i class="pi pi-refresh"></i>
             </button>
@@ -141,6 +140,14 @@
       (onClear)="onDateClear()"
     ></p-calendar>
 
+    <p-dropdown
+      [(ngModel)]="filters.status"
+      [options]="statuses"
+      optionLabel="name"
+      optionValue="value"
+      placeholder="{{ 'properties.status' | translate | lowercase }}..."
+    ></p-dropdown>
+
     <div class="container__flex gap-1 justify-center">
       <button 
         pButton
@@ -156,7 +163,7 @@
         pButton
         type="button"
         class="btn btn__icon--dark px-1"
-        (click)="clearFilter(); op.toggle($event)"
+        (click)="refresh(); op.toggle($event)"
       >
         <i class="pi pi-filter-slash"></i>
         Reset

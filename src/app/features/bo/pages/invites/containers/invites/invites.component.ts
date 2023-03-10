@@ -16,6 +16,13 @@ import { InputTextModule } from 'primeng/inputtext';
 import { CalendarModule } from 'primeng/calendar';
 import * as dayjs from 'dayjs';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { DropdownModule } from 'primeng/dropdown';
+
+export interface InviteFilter {
+  client: string;
+  date: string;
+  status: string;
+}
 
 @Component({
   selector: 'app-invites',
@@ -31,7 +38,8 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
     InputTextModule,
     TooltipModule,
     CalendarModule,
-    OverlayPanelModule
+    OverlayPanelModule,
+    DropdownModule
   ],
   providers: [
     ConfirmationService,
@@ -41,12 +49,20 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
 })
 export class InvitesComponent implements OnInit {
 
-  filters: {
-    client: string;
-    date: string;
-  } = { } as { client: string, date: string };
+  filters: InviteFilter = { } as InviteFilter;
   dateToFilter: Date | null = null;
 
+  statuses = [
+    {
+      name: 'Successfull',
+      value: 'SUCCESSFULL'
+    },
+    {
+      name: 'Failed',
+      value: 'FAILED'
+    }
+  ];
+  
   constructor(
     public invitesStore: InvitesStore,
     private adminLayoutService: AdminLayoutService,
@@ -92,7 +108,7 @@ export class InvitesComponent implements OnInit {
   }
 
   refresh(): void {
-    this.filters = {} as { client: string; date: string };
+    this.filters = {} as InviteFilter;
     this.dateToFilter = null;
     this.invitesStore.setParams({ page: 1, take: 10 });
     this.invitesStore.getInvites();
@@ -101,6 +117,7 @@ export class InvitesComponent implements OnInit {
   onDateSelect(): void {
     this.filters.date = dayjs(this.dateToFilter).format('YYYY-MM-DD');
   }
+
   onDateClear(): void {
     this.filters.date = '';
     this.filter();
@@ -109,10 +126,6 @@ export class InvitesComponent implements OnInit {
   filter(): void {
     this.invitesStore.setParams({ page: 1, take: 10 });
     this.invitesStore.getInvites(this.filters);
-  }
-
-  clearFilter(): void {
-    
   }
 
 }

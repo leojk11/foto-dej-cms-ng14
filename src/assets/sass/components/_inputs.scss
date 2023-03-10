@@ -1,4 +1,4 @@
-.p-inputtext, textarea,.p-autocomplete-input {
+.p-inputtext, textarea,.p-autocomplete-input, .p-dropdown {
   width: 100%;
   padding: 1rem 1.5rem;
   border: none;
@@ -26,6 +26,37 @@
     border:  1px solid rgba(60,60,59,0.5) !important;
   }
 
+}
+
+.p-dropdown {
+  padding: 0rem !important;
+
+  .p-dropdown-label {
+    box-shadow: none !important;
+    // padding: 0 1.5rem !important;
+    border: none !important;
+
+    &:hover {
+      border: none !important;
+    }
+
+    &:enabled:focus {
+      border: none !important;
+      box-shadow: none !important;
+    }
+  }
+
+  .p-dropdown-panel .p-dropdown-items .p-dropdown-item {
+    font-size: 1.4rem !important;
+
+    &.p-highlight {
+      color: $dark;
+    }
+  }
+
+  &:not(.p-disabled).p-focus {
+    box-shadow: 2px 2px 7px -1px rgba(68, 68, 68, 0.3);
+  }
 }
 
 .input--icon{
