@@ -1,4 +1,6 @@
 .configuration-wrapper {
+    padding-top: 2rem;
+    
     &__loading {
         width: 100%;
         height: 100%;
@@ -147,6 +149,7 @@
                 .right {
                     width: 100%;
                     padding: 1.5rem 0;
+                    border-left: none;
 
                     &__top {
                         justify-content: flex-end;
@@ -197,8 +200,8 @@
                         padding-top: 1.5rem;
         
                         .upload-btn {
-                            width: 19rem;
-                            font-size: 1.6rem !important;
+                            width: 17rem;
+                            font-size: 1.5rem !important;
                             display: flex;
                             justify-content: center;
                             align-items: center;
@@ -217,7 +220,7 @@
                         .image-preview {
                             width: 100%;
                             // min-height: 40rem;
-                            height: 30rem;
+                            height: 20rem;
                             max-height: 40rem;
     
                             overflow: hidden;
@@ -226,7 +229,7 @@
                                 width: 100%;
                                 height: 100%;
         
-                                object-fit: cover;
+                                object-fit: contain;
                             }
                         }
         

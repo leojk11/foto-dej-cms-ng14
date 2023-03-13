@@ -1,11 +1,12 @@
 <div class="p-2">
-    <button
-        class="btn btn__icon btn__icon--blue shadow-small border-none"
-        (click)="location.back()"
-    >
-        <i class="pi pi-arrow-left"></i>
-    </button>
+  <button
+      class="btn btn__icon btn__icon--blue shadow-small border-none"
+      (click)="location.back()"
+  >
+      <i class="pi pi-arrow-left"></i>
+  </button>
 </div>
+<div class="separator"></div>
 <form 
   [formGroup]="form" 
   (ngSubmit)="handleSubmit()"
@@ -13,348 +14,365 @@
 >
   <div class="configuration-wrapper">
     <div class="configuration-wrapper__loading" *ngIf="state.loading">
-        <app-spinner></app-spinner>
+      <app-spinner></app-spinner>
     </div>
 
     <div class="configuration-wrapper__configuration" *ngIf="!state.loading">
-        <div class="configuration-wrapper__configuration__multi">
-            <div class="configuration-wrapper__configuration__multi__item">
-                <div class="multi-top">
-                  <label>{{ 'properties.logo' | translate }}</label>
-                </div>
-        
-                <div class="multi-bottom">
-                    <div class="multi-bottom__top">
-                      <input 
-                        id="main-image" 
-                        type="file" 
-                        class="upload-input"
-                        accept="image/*"
-                        (change)="selectLogo($event)"
-                        pInputText>
-        
-                      <label 
-                        class="btn btn__main upload-btn" 
-                        for="main-image"
-                      >
-                        <span class="material-symbols-outlined">
-                          add
-                        </span>
-                        {{ 'common.chooseImage' | translate }}
-                      </label>
-          
-                      <span
-                        *ngIf="!selectedLogo"
-                      >{{ state.configuration?.logo }}</span>
-        
-                      <span
-                        *ngIf="selectedLogo"
-                      >{{ selectedLogo.name }}</span>
-                    </div>
-        
-                    <div class="multi-bottom__bottom">
-                        <div 
-                          class="image-preview cp" 
-                          *ngIf="selectedLogo">
-                          <img 
-                            [src]="selectedLogoPreview"
-                            (click)="toggleOverview($event)">
-                        </div>
-        
-                        <div 
-                          class="image-preview cp" 
-                          *ngIf="state.configuration?.logo && !selectedLogo">
-                          <img 
-                            [src]="imagesUrl + state.configuration?.logo"
-                            (click)="toggleOverview($event)">
-                        </div>
-        
-                        <div
-                          class="w-full mt-2"
-                          *ngIf="logoUploadInProgress">
-                          <p-progressBar [value]="logoUploadProgressValue"></p-progressBar>
-                        </div>
-        
-                        <div class="buttons">
-                          <p class="buttons__label">{{ 'common.imageSizeInfo' | translate }}</p>
-        
-                          <button 
-                            *ngIf="selectedLogo"
-                            class="btn btn__main upload-btn" 
-                            type="button"
-                            (click)="uploadLogo()"
-                            [disabled]="logoUploadInProgress"
-                          >
-                            <span class="material-symbols-outlined">
-                              file_upload
-                            </span>
-                            {{ 'common.upload' | translate }}
-                          </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="configuration-wrapper__configuration__multi__item">
-              <div class="multi-top">
-                <label>{{ 'properties.mainImage' | translate }}</label>
-              </div>
-      
-              <div class="multi-bottom">
-                  <div class="multi-bottom__top">
-                    <input 
-                      id="logo" 
-                      type="file" 
-                      class="upload-input"
-                      accept="image/*"
-                      (change)="selectFile($event)"
-                      pInputText>
-      
-                    <label 
-                      class="btn btn__main upload-btn" 
-                      for="logo"
-                    >
-                      <span class="material-symbols-outlined">
-                        add
-                      </span>
-                      {{ 'common.chooseImage' | translate }}
-                    </label>
-        
-                    <span
-                        *ngIf="!selectedMainImage"
-                    >{{ state.configuration?.main_image }}</span>
-      
-                    <span
-                        *ngIf="selectedMainImage"
-                    >{{ selectedMainImage.name }}</span>
-                  </div>
-      
-                  <div class="multi-bottom__bottom">
-                      <div 
-                        class="image-preview cp" 
-                        *ngIf="selectedMainImage">
-                        <img 
-                          [src]="selectedMainImagePreview"
-                          (click)="toggleOverview($event)">
-                      </div>
-      
-                      <div 
-                        class="image-preview cp" 
-                        *ngIf="state.configuration?.main_image && !selectedMainImage">
-                        <img 
-                          [src]="imagesUrl + state.configuration?.main_image"
-                          (click)="toggleOverview($event)">
-                      </div>
-      
-                      <div
-                        class="w-full mt-2"
-                        *ngIf="mainImageUploadInProgress">
-                        <p-progressBar [value]="mainImageUploadProgressValue"></p-progressBar>
-                      </div>
-      
-                      <div class="buttons">
-                        <p class="buttons__label">{{ 'common.imageSizeInfo' | translate }}</p>
-      
-                        <button 
-                          *ngIf="selectedMainImage"
-                          class="btn btn__main upload-btn" 
-                          type="button"
-                          (click)="uploadMainImage()"
-                          [disabled]="mainImageUploadInProgress"
-                        >
-                          <span class="material-symbols-outlined">
-                            file_upload
-                          </span>
-                          {{ 'common.upload' | translate }}
-                        </button>
-                      </div>
-                  </div>
-              </div>
-            </div>
-        </div>
+      <div class="configuration-wrapper__configuration__multi">
+        <div class="configuration-wrapper__configuration__multi__item">
+          <div class="multi-top">
+            <label>{{ 'properties.logo' | translate }}</label>
+          </div>
+    
+          <div class="multi-bottom">
+            <div class="multi-bottom__top">
+              <input 
+                id="main-image" 
+                type="file" 
+                class="upload-input"
+                accept="image/*"
+                (change)="selectLogo($event)"
+                pInputText>
 
-        <div class="configuration-wrapper__configuration__multi">
-            <div class="configuration-wrapper__configuration__multi__item">
-                <div class="multi-top">
-                    <label>{{ 'properties.logoWhite' | translate }}</label>
-                </div>
-          
-                <div class="multi-bottom">
-                    <div class="multi-bottom__top">
-                        <input 
-                          id="white-logo" 
-                          type="file" 
-                          class="upload-input"
-                          accept="image/*"
-                          (change)="selectWhiteLogo($event)"
-                          pInputText>
-          
-                        <label 
-                          class="btn btn__main upload-btn" 
-                          for="white-logo"
-                        >
-                          <span class="material-symbols-outlined">
-                            add
-                          </span>
-                          {{ 'common.chooseImage' | translate }}
-                        </label>
-            
-                        <span
-                          *ngIf="!selectedWhiteLogo"
-                        >{{ state.configuration?.logo_white }}</span>
-          
-                        <span
-                          *ngIf="selectedWhiteLogo"
-                        >{{ selectedWhiteLogo.name }}</span>
-                    </div>
-          
-                      <div class="multi-bottom__bottom">
-                        <div 
-                            class="image-preview cp" 
-                            *ngIf="selectedWhiteLogo">
-                            <img 
-                              [src]="selectedWhiteLogoPreview"
-                              (click)="toggleOverview($event)">
-                        </div>
-          
-                        <div 
-                            class="image-preview cp" 
-                            *ngIf="state.configuration?.logo_white && !selectedWhiteLogo">
-                            <img 
-                              [src]="imagesUrl + state.configuration?.logo_white"
-                              (click)="toggleOverview($event)">
-                        </div>
-          
-                        <div
-                            class="w-full mt-2"
-                            *ngIf="whiteLogoUploadInProgress">
-                            <p-progressBar [value]="whiteLogoUploadProgressValue"></p-progressBar>
-                        </div>
-          
-                        <div class="buttons">
-                            <p class="buttons__label">{{ 'common.imageSizeInfo' | translate }}</p>
-          
-                            <button 
-                              *ngIf="selectedWhiteLogo"
-                              class="btn btn__main upload-btn" 
-                              type="button"
-                              (click)="uploadWhiteLogo()"
-                              [disabled]="whiteLogoUploadInProgress"
-                            >
-                              <span class="material-symbols-outlined">
-                                file_upload
-                              </span>
-                              {{ 'common.upload' | translate }}
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="configuration-wrapper__configuration__multi__item">
-                <div class="multi-top">
-                    <label>{{ 'properties.logoIcon' | translate }}</label>
-                </div>
-          
-                <div class="multi-bottom">
-                    <div class="multi-bottom__top">
-                        <input 
-                          id="logoIcon" 
-                          type="file" 
-                          class="upload-input"
-                          accept="image/*"
-                          (change)="selectLogoIcon($event)"
-                          pInputText>
-          
-                        <label 
-                          class="btn btn__main upload-btn" 
-                          for="logoIcon"
-                        >
-                          <span class="material-symbols-outlined">
-                            add
-                          </span>
-                          {{ 'common.chooseImage' | translate }}
-                        </label>
-            
-                        <span
-                          *ngIf="!selectedLogoIcon"
-                        >{{ state.configuration?.logo_icon }}</span>
-          
-                        <span
-                          *ngIf="selectedLogoIcon"
-                        >{{ selectedLogoIcon.name }}</span>
-                    </div>
-          
-                      <div class="multi-bottom__bottom">
-                        <div 
-                            class="image-preview cp" 
-                            *ngIf="selectedLogoIcon">
-                            <img 
-                              [src]="selectedLogoIconPreview"
-                              (click)="toggleOverview($event)">
-                        </div>
-          
-                        <div 
-                            class="image-preview cp" 
-                            *ngIf="state.configuration?.logo_icon && !selectedLogoIcon">
-                            <img 
-                              [src]="imagesUrl + state.configuration?.logo_icon"
-                              (click)="toggleOverview($event)">
-                        </div>
-          
-                        <div
-                            class="w-full mt-2"
-                            *ngIf="logoIconUploadInProgress">
-                            <p-progressBar [value]="logoIconUploadProgressValue"></p-progressBar>
-                        </div>
-          
-                        <div class="buttons">
-                            <p class="buttons__label">{{ 'common.imageSizeInfo' | translate }}</p>
-          
-                            <button 
-                              *ngIf="selectedLogoIcon"
-                              class="btn btn__main upload-btn" 
-                              type="button"
-                              (click)="uploadLogoIcon()"
-                              [disabled]="logoIconUploadInProgress"
-                            >
-                              <span class="material-symbols-outlined">
-                                file_upload
-                              </span>
-                              {{ 'common.upload' | translate }}
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
+              <label 
+                class="btn btn__main upload-btn" 
+                for="main-image"
+              >
+                <i class="pi pi-plus"></i>
+                {{ 'common.chooseImage' | translate }}
+              </label>
   
-      <div class="configuration-wrapper__configuration__item align-center">
-          <div class="left">
-              <label>{{ 'properties.mainTitle' | translate }}</label>
+              <span
+                *ngIf="!selectedLogo"
+              >
+                {{ state.configuration?.logo }}
+              </span>
+
+              <span *ngIf="selectedLogo">
+                {{ selectedLogo.name }}
+              </span>
+            </div>
+
+            <div class="multi-bottom__bottom">
+              <div 
+                class="image-preview cp" 
+                *ngIf="selectedLogo"
+              >
+                <img 
+                  [src]="selectedLogoPreview"
+                  (click)="toggleOverview($event)">
+              </div>
+
+              <div 
+                class="image-preview cp" 
+                *ngIf="state.configuration?.logo && !selectedLogo"
+              >
+                <img 
+                  [src]="imagesUrl + state.configuration?.logo"
+                  (click)="toggleOverview($event)">
+              </div>
+
+              <div
+                class="w-full mt-2"
+                *ngIf="logoUploadInProgress"
+              >
+                <p-progressBar 
+                  [value]="logoUploadProgressValue"
+                ></p-progressBar>
+              </div>
+
+              <div class="buttons">
+                <p class="buttons__label">
+                  {{ 'common.imageSizeInfo' | translate }}
+                </p>
+
+                <button 
+                  *ngIf="selectedLogo"
+                  class="btn btn__main upload-btn" 
+                  type="button"
+                  (click)="uploadLogo()"
+                  [disabled]="logoUploadInProgress"
+                >
+                  <i class="pi pi-upload"></i>
+                  {{ 'common.upload' | translate }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="configuration-wrapper__configuration__multi__item">
+          <div class="multi-top">
+            <label>{{ 'properties.mainImage' | translate }}</label>
           </div>
   
-          <div class="right">
+          <div class="multi-bottom">
+            <div class="multi-bottom__top">
+              <input 
+                id="logo" 
+                type="file" 
+                class="upload-input"
+                accept="image/*"
+                (change)="selectFile($event)"
+                pInputText>
+
+              <label 
+                class="btn btn__main upload-btn" 
+                for="logo"
+              >
+                <i class="pi pi-plus"></i>
+                {{ 'common.chooseImage' | translate }}
+              </label>
+  
+              <span *ngIf="!selectedMainImage">
+                {{ state.configuration?.main_image }}
+              </span>
+
+              <span *ngIf="selectedMainImage">
+                {{ selectedMainImage.name }}
+              </span>
+            </div>
+  
+            <div class="multi-bottom__bottom">
+              <div 
+                class="image-preview cp" 
+                *ngIf="selectedMainImage"
+              >
+                <img 
+                  [src]="selectedMainImagePreview"
+                  (click)="toggleOverview($event)">
+              </div>
+
+              <div 
+                class="image-preview cp" 
+                *ngIf="state.configuration?.main_image && !selectedMainImage"
+              >
+                <img 
+                  [src]="imagesUrl + state.configuration?.main_image"
+                  (click)="toggleOverview($event)">
+              </div>
+
+              <div
+                class="w-full mt-2"
+                *ngIf="mainImageUploadInProgress"
+              >
+                <p-progressBar 
+                  [value]="mainImageUploadProgressValue"
+                ></p-progressBar>
+              </div>
+
+              <div class="buttons">
+                <p class="buttons__label">
+                  {{ 'common.imageSizeInfo' | translate }}
+                </p>
+
+                <button 
+                  *ngIf="selectedMainImage"
+                  class="btn btn__main upload-btn" 
+                  type="button"
+                  (click)="uploadMainImage()"
+                  [disabled]="mainImageUploadInProgress"
+                >
+                  <i class="pi pi-upload"></i>
+                  {{ 'common.upload' | translate }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="configuration-wrapper__configuration__multi">
+        <div class="configuration-wrapper__configuration__multi__item">
+          <div class="multi-top">
+            <label>
+              {{ 'properties.logoWhite' | translate }}
+            </label>
+          </div>
+      
+          <div class="multi-bottom">
+            <div class="multi-bottom__top">
+              <input 
+                id="white-logo" 
+                type="file" 
+                class="upload-input"
+                accept="image/*"
+                (change)="selectWhiteLogo($event)"
+                pInputText>
+
+              <label 
+                class="btn btn__main upload-btn" 
+                for="white-logo"
+              >
+                <i class="pi pi-plus"></i>
+                {{ 'common.chooseImage' | translate }}
+              </label>
+  
+              <span *ngIf="!selectedWhiteLogo">
+                {{ state.configuration?.logo_white }}
+              </span>
+
+              <span *ngIf="selectedWhiteLogo">
+                {{ selectedWhiteLogo.name }}
+              </span>
+            </div>
+  
+            <div class="multi-bottom__bottom">
+              <div 
+                class="image-preview cp bg-blue" 
+                *ngIf="selectedWhiteLogo"
+              >
+                <img 
+                  [src]="selectedWhiteLogoPreview"
+                  (click)="toggleOverview($event)">
+              </div>
+
+              <div 
+                class="image-preview cp bg-blue" 
+                *ngIf="state.configuration?.logo_white && !selectedWhiteLogo"
+              >
+                <img 
+                  [src]="imagesUrl + state.configuration?.logo_white"
+                  (click)="toggleOverview($event)">
+              </div>
+
+              <div
+                class="w-full mt-2"
+                *ngIf="whiteLogoUploadInProgress"
+              >
+                <p-progressBar 
+                  [value]="whiteLogoUploadProgressValue"
+                ></p-progressBar>
+              </div>
+
+              <div class="buttons">
+                <p class="buttons__label">
+                  {{ 'common.imageSizeInfo' | translate }}
+                </p>
+
+                <button 
+                  *ngIf="selectedWhiteLogo"
+                  class="btn btn__main upload-btn" 
+                  type="button"
+                  (click)="uploadWhiteLogo()"
+                  [disabled]="whiteLogoUploadInProgress"
+                >
+                  <i class="pi pi-upload"></i>
+                  {{ 'common.upload' | translate }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="configuration-wrapper__configuration__multi__item">
+          <div class="multi-top">
+            <label>
+              {{ 'properties.logoIcon' | translate }}
+            </label>
+          </div>
+      
+          <div class="multi-bottom">
+            <div class="multi-bottom__top">
+              <input 
+                id="logoIcon" 
+                type="file" 
+                class="upload-input"
+                accept="image/*"
+                (change)="selectLogoIcon($event)"
+                pInputText>
+
+              <label 
+                class="btn btn__main upload-btn" 
+                for="logoIcon"
+              >
+                <i class="pi pi-plus"></i>
+                {{ 'common.chooseImage' | translate }}
+              </label>
+  
+              <span *ngIf="!selectedLogoIcon">
+                {{ state.configuration?.logo_icon }}
+              </span>
+
+              <span *ngIf="selectedLogoIcon">
+                {{ selectedLogoIcon.name }}
+              </span>
+            </div>
+    
+            <div class="multi-bottom__bottom">
+              <div 
+                class="image-preview cp" 
+                *ngIf="selectedLogoIcon"
+              >
+                <img 
+                  [src]="selectedLogoIconPreview"
+                  (click)="toggleOverview($event)">
+              </div>
+
+              <div 
+                class="image-preview cp" 
+                *ngIf="state.configuration?.logo_icon && !selectedLogoIcon"
+              >
+                <img 
+                  [src]="imagesUrl + state.configuration?.logo_icon"
+                  (click)="toggleOverview($event)">
+              </div>
+
+              <div
+                class="w-full mt-2"
+                *ngIf="logoIconUploadInProgress"
+              >
+                <p-progressBar 
+                  [value]="logoIconUploadProgressValue"
+                ></p-progressBar>
+              </div>
+
+              <div class="buttons">
+                <p class="buttons__label">
+                  {{ 'common.imageSizeInfo' | translate }}
+                </p>
+
+                <button 
+                  *ngIf="selectedLogoIcon"
+                  class="btn btn__main upload-btn" 
+                  type="button"
+                  (click)="uploadLogoIcon()"
+                  [disabled]="logoIconUploadInProgress"
+                >
+                  <i class="pi pi-upload"></i>
+                  {{ 'common.upload' | translate }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+        
+      <div class="configuration-wrapper__configuration__item align-center">
+        <div class="left">
+          <label>{{ 'properties.mainTitle' | translate }}</label>
+        </div>
+
+        <div class="right">
+          <input 
+            type="text" 
+            placeholder="{{ 'properties.mainTitle' | translate | lowercase }}..."
+            formControlName="main_title"
+            pInputText>
+
+          <div class="w-full">
             <input 
               type="text" 
               placeholder="{{ 'properties.mainTitle' | translate | lowercase }}..."
-              formControlName="main_title"
-              pInputText>
-
-            <div class="w-full">
-              <input 
-                type="text" 
-                placeholder="{{ 'properties.mainTitle' | translate | lowercase }}..."
-                formControlName="main_title_tr"
-                pInputText
-                class="mb-1"
-              >
-              <span class="">
-                {{ 'messages.translateMainTitle' | translate }}
-              </span>
-            </div>
+              formControlName="main_title_tr"
+              pInputText
+              class="mb-1"
+            >
+            <span class="">
+              {{ 'messages.translateMainTitle' | translate }}
+            </span>
           </div>
+        </div>
       </div>
   
       <div class="configuration-wrapper__configuration__item align-center">
@@ -469,151 +487,156 @@
       </div>
   
       <div class="configuration-wrapper__configuration__item">
-          <div class="left">
-              <label>{{ 'properties.promoVideo' | translate }}</label>
+        <div class="left">
+          <label>{{ 'properties.promoVideo' | translate }}</label>
+        </div>
+  
+        <div class="right">
+          <div class="right__top">
+            <input 
+              id="promo-video" 
+              type="file" 
+              accept="video/*"
+              class="upload-input"
+              (change)="selectVideo($event)"
+              pInputText>
+
+            <label 
+              class="btn btn__main upload-btn" 
+              for="promo-video"
+            >
+              <i class="pi pi-plus"></i>
+              {{ 'common.chooseVideo' | translate }}
+            </label>
+
+            <span *ngIf="!selectedVideo">
+              {{ state.configuration?.promo_video }}
+            </span>
+
+            <span *ngIf="selectedVideo">
+              {{ selectedVideo.name }}
+            </span>
           </div>
-  
-          <div class="right">
-              <div class="right__top">
-                  <input 
-                      id="promo-video" 
-                      type="file" 
-                      accept="video/*"
-                      class="upload-input"
-                      (change)="selectVideo($event)"
-                      pInputText>
-  
-                  <label 
-                      class="btn btn__main upload-btn" 
-                      for="promo-video">
-                      <span class="material-symbols-outlined">
-                          add
-                      </span>
-                      {{ 'common.chooseVideo' | translate }}
-                  </label>
-      
-                  <span
-                      *ngIf="!selectedVideo"
-                  >{{ state.configuration?.promo_video }}</span>
 
-                  <span *ngIf="selectedVideo">
-                      {{ selectedVideo.name }}
-                  </span>
-              </div>
-  
-              <div class="right__bottom">
-                  <video *ngIf="state.configuration?.promo_video" controls width="100%" height="300px">
-                      <source [src]="videoUrl + state.configuration?.promo_video">
-                  </video>
+          <div class="right__bottom">
+            <video 
+              *ngIf="state.configuration?.promo_video" 
+              controls 
+              width="100%" 
+              height="300px"
+            >
+              <source [src]="videoUrl + state.configuration?.promo_video">
+            </video>
 
-                  <div
-                      class="w-full mt-2"
-                      *ngIf="videoUploadInProgress">
-                      <p-progressBar [value]="videoUploadProgressValue"></p-progressBar>
-                  </div>
+            <div
+              class="w-full mt-2"
+              *ngIf="videoUploadInProgress"
+            >
+              <p-progressBar 
+                [value]="videoUploadProgressValue"
+              ></p-progressBar>
+            </div>
 
-                  <div class="buttons" *ngIf="selectedVideo">
-                      <button 
-                          class="btn btn__main upload-btn" 
-                          type="button"
-                          (click)="uploadVideo()"
-                          [disabled]="promoImagesUploadInProgress">
-                          <span class="material-symbols-outlined">
-                              file_upload
-                          </span>
-                          {{ 'common.upload' | translate }}
-                      </button>
-                  </div>
-              </div>
+            <div class="buttons" *ngIf="selectedVideo">
+              <button 
+                class="btn btn__main upload-btn" 
+                type="button"
+                (click)="uploadVideo()"
+                [disabled]="promoImagesUploadInProgress"
+              >
+                <i class="pi pi-upload"></i>
+                {{ 'common.upload' | translate }}
+              </button>
+            </div>
           </div>
-      </div>
-  
-      
+        </div>
+      </div>    
   
       <div class="configuration-wrapper__configuration__item align-center">
-          <div class="left">
-              <label>{{ 'properties.phoneNumber' | translate }}</label>
-          </div>
-  
-          <div class="right">
-              <input 
-                  type="text" 
-                  placeholder="{{ 'properties.phoneNumber' | translate | lowercase }}..."
-                  formControlName="phone_number"
-                  pInputText>
-          </div>
-      </div>
-  
-      <div class="configuration-wrapper__configuration__item align-center">
-          <div class="left">
-              <label>{{ 'properties.email' | translate }}</label>
-          </div>
-  
-          <div class="right">
-              <input 
-                  type="text"
-                  placeholder="{{ 'properties.email' | translate | lowercase }}..."
-                  formControlName="email"
-                  pInputText>
-          </div>
+        <div class="left">
+          <label>{{ 'properties.phoneNumber' | translate }}</label>
+        </div>
+
+        <div class="right">
+          <input 
+              type="text" 
+              placeholder="{{ 'properties.phoneNumber' | translate | lowercase }}..."
+              formControlName="phone_number"
+              pInputText>
+        </div>
       </div>
   
       <div class="configuration-wrapper__configuration__item align-center">
-          <div class="left">
-              <label>{{ 'properties.address' | translate }}</label>
-          </div>
+        <div class="left">
+          <label>{{ 'properties.email' | translate }}</label>
+        </div>
+
+        <div class="right">
+          <input 
+            type="text"
+            placeholder="{{ 'properties.email' | translate | lowercase }}..."
+            formControlName="email"
+            pInputText>
+        </div>
+      </div>
   
-          <div class="right">
-              <input 
-                  type="text" 
-                  placeholder="{{ 'properties.address' | translate | lowercase }}..."
-                  formControlName="address"
-                  pInputText>
-          </div>
+      <div class="configuration-wrapper__configuration__item align-center">
+        <div class="left">
+          <label>{{ 'properties.address' | translate }}</label>
+        </div>
+
+        <div class="right">
+          <input 
+            type="text" 
+            placeholder="{{ 'properties.address' | translate | lowercase }}..."
+            formControlName="address"
+            pInputText>
+        </div>
       </div>
 
       <div class="configuration-wrapper__configuration__item align-center">
-          <div class="left">
-              <label>Facebook</label>
-          </div>
-  
-          <div class="right">
-              <input 
-                  type="text" 
-                  placeholder="facebook..."
-                  formControlName="facebook_link"
-                  pInputText>
-          </div>
-      </div>
+        <div class="left">
+          <label>Facebook</label>
+        </div>
 
-      
+        <div class="right">
+          <input 
+            type="text" 
+            placeholder="facebook..."
+            formControlName="facebook_link"
+            pInputText>
+        </div>
+      </div>
+ 
       <div class="configuration-wrapper__configuration__item align-center">
-          <div class="left">
-              <label>Instagram</label>
-          </div>
-  
-          <div class="right">
-              <input 
-                  type="text" 
-                  placeholder="instagram..."
-                  formControlName="insta_link"
-                  pInputText>
-          </div>
+        <div class="left">
+          <label>Instagram</label>
+        </div>
+
+        <div class="right">
+          <input 
+            type="text" 
+            placeholder="instagram..."
+            formControlName="insta_link"
+            pInputText>
+        </div>
       </div>
 
       <div class="configuration-wrapper__configuration__buttons">
-          <button 
-              class="btn btn__red btn__lg" 
-              type="button"
-              (click)="cancel()">
-              {{ 'common.cancel' | translate }}
-          </button>
-          
-          <button 
-              class="btn btn__dark btn__lg" 
-              type="submit">
-              {{ 'common.save' | translate }}
-          </button>
+        <button 
+          class="btn btn__red btn__lg" 
+          type="button"
+          (click)="cancel()"
+        >
+          {{ 'common.cancel' | translate }}
+        </button>
+        
+        <button 
+          class="btn btn__dark btn__lgfiguration" 
+          type="submit"
+        >
+          {{ 'common.save' | translate }}
+        </button>
       </div>
     </div>
   </div>
