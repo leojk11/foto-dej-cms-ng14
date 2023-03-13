@@ -20,8 +20,7 @@ import { ToastService } from 'src/app/shared/services/toast.service';
   providers: [
     DialogService
   ],
-  templateUrl: './reset-password.component.html',
-  styleUrls: ['./reset-password.component.css']
+  templateUrl: './reset-password.component.html'
 })
 export class ResetPasswordComponent implements OnInit {
 

@@ -10,6 +10,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
 import { SpinnerComponent } from 'src/app/shared/components/loading/spinner/spinner.component';
 import {InputTextModule} from 'primeng/inputtext';
+import { LoginFormComponent } from '../../components/login-form/login-form.component';
 
 @Component({
   selector: 'app-bo-login',
@@ -20,10 +21,10 @@ import {InputTextModule} from 'primeng/inputtext';
     ReactiveFormsModule,
     TranslateModule,
     SpinnerComponent,
-    InputTextModule
+    InputTextModule,
+    LoginFormComponent
   ],
-  templateUrl: './bo-login.component.html',
-  styleUrls: ['./bo-login.component.scss']
+  templateUrl: './bo-login.component.html'
 })
 export class BoLoginComponent implements OnInit {
 

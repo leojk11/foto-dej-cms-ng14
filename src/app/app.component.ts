@@ -6,6 +6,7 @@ import { MessageService, PrimeNGConfig } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { AuthService } from './core/services/auth.service';
 import { StorageService } from './core/services/storage.service';
+import { LanguageService } from './shared/services/language-change.store';
 import { ToastService } from './shared/services/toast.service';
 
 @Component({
@@ -34,7 +35,8 @@ export class AppComponent implements OnInit {
     private authService: AuthService,
     private toastService: ToastService,
     private onlineStatusService: OnlineStatusService,
-    private primengConfig: PrimeNGConfig
+    private primengConfig: PrimeNGConfig,
+    private languageService: LanguageService
   ) {
     this.initTranslation();
   }
@@ -69,6 +71,7 @@ export class AppComponent implements OnInit {
 
   initTranslation(): void{
     const defaultLang = 'mk';
+    this.languageService.setLanguage(defaultLang);
 
     this.translateService.addLangs(['mk','en']);
     this.translateService.setDefaultLang(defaultLang);

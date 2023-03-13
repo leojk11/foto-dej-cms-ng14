@@ -11,8 +11,9 @@ import { TranslateModule } from '@ngx-translate/core';
 import { SpinnerComponent } from 'src/app/shared/components/loading/spinner/spinner.component';
 import {InputTextModule} from 'primeng/inputtext';
 import { DialogService } from 'primeng/dynamicdialog';
-import { ResetPasswordComponent } from '../reset-password/reset-password.component';
+import { ResetPasswordComponent } from '../../components/reset-password/reset-password.component';
 import { ToastService } from 'src/app/shared/services/toast.service';
+import { LoginFormComponent } from '../../components/login-form/login-form.component';
 
 @Component({
   selector: 'app-user-login',
@@ -23,13 +24,13 @@ import { ToastService } from 'src/app/shared/services/toast.service';
     ReactiveFormsModule,
     TranslateModule,
     SpinnerComponent,
-    InputTextModule
+    InputTextModule,
+    LoginFormComponent
   ],
   providers: [
     DialogService
   ],
-  templateUrl: './user-login.component.html',
-  styleUrls: ['./user-login.component.scss']
+  templateUrl: './user-login.component.html'
 })
 export class UserLoginComponent implements OnInit {
 

@@ -6,13 +6,13 @@ export const AUTH_ROUTES: Route[] = [
   { path: '', redirectTo: '/bo', pathMatch: 'full' },
   { 
     path: 'client', 
-    loadComponent: () => import('./components/user-login/user-login.component')
+    loadComponent: () => import('./containers/user-login/user-login.component')
       .then(m => m.UserLoginComponent), 
     canActivate: [UserNonAuthGuard]
   },
   { 
     path: 'bo', 
-    loadComponent: () => import('./components/bo-login/bo-login.component')
+    loadComponent: () => import('./containers/bo-login/bo-login.component')
       .then(m => m.BoLoginComponent), 
     canActivate: [BoNonAuthGuard] 
   }
