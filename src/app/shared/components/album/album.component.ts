@@ -40,7 +40,6 @@ export class AlbumComponent implements OnInit {
   @Input() isSelect: boolean = false;
   @Input() userId: string = '';
   @Input() albumId: string = '';
-  @Output() onSelect = new EventEmitter();
 
   imageSearch: string = '';
   tabsIndex: number = 0;
@@ -146,28 +145,29 @@ export class AlbumComponent implements OnInit {
 
   onImageSelect(selectedImages: Image[]): void {
     this.selectedImages = selectedImages;
-    this.onSelect.emit({
-      images: this.selectedImages, 
-      isAdmin: this.isAdmin
-    });
+    this.albumsStore.patchSelectedImages(this.selectedImages);
   }
 
   deselectAllImages(): void {
     this.selectedImages = [];
-    this.onSelect.emit({
-      images: this.selectedImages, 
-      isAdmin: this.isAdmin
-    });
+    this.albumsStore.patchSelectedImages(this.selectedImages);
+    this.albumsStore.selectImages();
+    // this.onSelect.emit({
+    //   images: this.selectedImages, 
+    //   isAdmin: this.isAdmin
+    // });
   }
 
   selectAllImages(): void {
     if (this.albumsStore.state.images) {
       this.selectedImages = this.albumsStore.state.images.images;
 
-      this.onSelect.emit({
-        images: this.selectedImages, 
-        isAdmin: this.isAdmin
-      });
+      // this.onSelect.emit({
+      //   images: this.selectedImages, 
+      //   isAdmin: this.isAdmin
+      // });
+      this.albumsStore.patchSelectedImages(this.selectedImages);
+      this.albumsStore.selectImages();
     }
   }
 
@@ -178,6 +178,10 @@ export class AlbumComponent implements OnInit {
     } else {
       this.showSelected = false;
     }
+  }
+
+  saveSelected(): void {
+    this.albumsStore.selectImages();
   }
 
   clearFilter(): void {

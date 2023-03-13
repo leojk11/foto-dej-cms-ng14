@@ -83,6 +83,8 @@ export class SingleImageComponent implements OnInit, OnChanges {
       }
     }
 
+    console.log('SELECTED', this.selectedImages);
+    
     this.onSelect.emit(this.selectedImages);
   }
 

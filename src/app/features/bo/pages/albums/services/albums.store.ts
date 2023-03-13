@@ -50,7 +50,9 @@ export const initialState: AlbumsState = {
   }
 };
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class AlbumsStore extends ComponentStore<AlbumsState> {
 
   constructor(
@@ -126,8 +128,8 @@ export class AlbumsStore extends ComponentStore<AlbumsState> {
             this.albumsService.getSelectedAlbumImages(id).subscribe({
               next: selectedImages => {
                 this.adminLayoutService.setTitle('common.albums', `${ singleAlbum.title } (${singleAlbum.date})`);
-                console.log('SELECTED IMAGES', selectedImages);
-                console.log('ALBUM', singleAlbum);
+                // console.log('SELECTED IMAGES', selectedImages);
+                // console.log('ALBUM', singleAlbum);
                 
                 this.patchState({
                   previewAlbum: singleAlbum,
@@ -307,6 +309,8 @@ export class AlbumsStore extends ComponentStore<AlbumsState> {
 
   selectImages(): void {
     if (this.state.selectedImages) {
+      console.log('STORE SELECTED', this.state.selectedImages);
+      
       this.albumsService.selectImages(this.state.previewAlbum?.id, this.state.selectedImages).subscribe({
         next: res => {
           this.toastService.addSuccess(res.message);

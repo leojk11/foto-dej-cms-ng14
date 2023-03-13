@@ -44,6 +44,17 @@
           <i class="pi pi-times-circle"></i>
         </button>
 
+        <button
+          class="btn btn__icon--green"
+          type="button"
+          pTooltip="{{ 'common.saveSelected' | translate }}" 
+          tooltipPosition="top"
+          *ngIf="selectedImages.length > 0"
+          (click)="saveSelected()"
+        >
+          <i class="pi pi-check"></i>
+        </button>
+
         <ng-container *ngIf="!showSelected">
           <button
             class="btn btn__icon--purple"
