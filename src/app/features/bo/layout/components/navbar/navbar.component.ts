@@ -8,9 +8,11 @@ import { TranslateModule } from '@ngx-translate/core';
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule, TranslateModule],
-  templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.scss']
+  imports: [
+    CommonModule, 
+    TranslateModule
+  ],
+  templateUrl: './navbar.component.html'
 })
 export class NavbarComponent implements OnInit {
 

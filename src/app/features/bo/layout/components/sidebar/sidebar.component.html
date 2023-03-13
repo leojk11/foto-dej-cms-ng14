@@ -33,30 +33,7 @@
         
     </div>
   
-    <div class="container__flex gap-1 justify-center">
-      <div 
-        class="lang-wrapper" 
-        [class.lang-selected]="selectedLang === 'mk'"
-      >
-        <span 
-          class="lang-text"
-          (click)="changeLang('mk')"
-        >
-          {{ 'common.mk' | translate }}
-        </span>
-      </div>
-      <div
-        class="lang-wrapper" 
-        [class.lang-selected]="selectedLang === 'en'"
-      >
-        <span 
-          class="lang-text"
-          (click)="changeLang('en')"
-        >
-          {{ 'common.en' | translate }}
-        </span>
-      </div>
-    </div>
+    <app-lang-change></app-lang-change>
   </div>
 
 </div>

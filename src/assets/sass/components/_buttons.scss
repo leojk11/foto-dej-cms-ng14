@@ -375,3 +375,30 @@
   background-color: $color-dark !important;
   border-color: $color-dark !important;
 }
+
+// SELECTED BUTTON
+.p-selectbutton {
+  .p-button {
+    &.p-highlight {
+      background: rgba($color-dark, 0.6) !important;
+      border-color: rgba($color-dark, 0.4) !important;
+    }
+
+    .p-button-label {
+      font-family: 'Noto Serif', serif;
+      font-size: 1.6rem;
+      letter-spacing: 0.08rem;
+      font-weight: 600;
+    }
+  }
+}
+
+.p-buttonset .p-button {
+  width: 8rem;
+  height: 4rem;
+  background-color: transparent !important;
+
+  &:not(:last-child) {
+    border-right: 1px solid rgba($color-dark, 0.4) !important;
+  }
+}

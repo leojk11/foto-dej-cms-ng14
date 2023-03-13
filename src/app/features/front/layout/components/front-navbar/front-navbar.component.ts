@@ -13,6 +13,7 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { MenuModule } from 'primeng/menu';
 import { MenuItem } from 'primeng/api';
 import { FrontConfigurationState } from 'src/app/shared/services/front-configuration.store';
+import { LangChangeComponent } from 'src/app/shared/components/lang-change/lang-change.component';
 
 @Component({
   selector: 'app-front-navbar',
@@ -22,10 +23,10 @@ import { FrontConfigurationState } from 'src/app/shared/services/front-configura
     TranslateModule,
     RouterModule,
     TooltipModule,
-    MenuModule
+    MenuModule,
+    LangChangeComponent
   ],
-  templateUrl: './front-navbar.component.html',
-  styleUrls: ['./front-navbar.component.scss']
+  templateUrl: './front-navbar.component.html'
 })
 export class FrontNavbarComponent implements OnInit {
 

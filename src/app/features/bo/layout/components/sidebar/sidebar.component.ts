@@ -9,6 +9,7 @@ import { PermitDirective } from 'src/app/core/directives/permit.directive';
 import { FrontConfigurationService } from 'src/app/shared/services/front-configuration.service';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { FrontConfigurationState } from 'src/app/shared/services/front-configuration.store';
+import { LangChangeComponent } from 'src/app/shared/components/lang-change/lang-change.component';
 
 @Component({
   selector: 'app-sidebar',
@@ -18,10 +19,10 @@ import { FrontConfigurationState } from 'src/app/shared/services/front-configura
     TranslateModule,
     RouterModule,
     SidebarModule,
-    PermitDirective
+    PermitDirective,
+    LangChangeComponent
   ],
-  templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.scss']
+  templateUrl: './sidebar.component.html'
 })
 export class SidebarComponent implements OnInit {
 

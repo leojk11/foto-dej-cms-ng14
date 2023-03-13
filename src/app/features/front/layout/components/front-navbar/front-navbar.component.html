@@ -59,7 +59,7 @@
     </div>
   
     <div class="container__flex gap-2">
-      <div class="container__flex gap-1" >
+      <!-- <div class="container__flex gap-1" >
         <span (click)="changeLang()" class="cp">
           <i class="pi pi-globe text-xl"></i>
         </span>
@@ -79,7 +79,9 @@
             {{ 'common.en' | translate }}
           </span>
         </div>
-      </div>
+      </div> -->
+
+      <app-lang-change></app-lang-change>
   
       <button 
         *ngIf="isAuthenticated"

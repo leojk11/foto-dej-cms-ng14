@@ -1,0 +1,12 @@
+<div 
+  *ngIf="langService.langState$ | async as state"
+  class="container__flex justify-center" 
+>
+  <p-selectButton 
+    [options]="languageOptions" 
+    [(ngModel)]="state.language"
+    (onChange)="changeLang($event)"
+    optionLabel="label" 
+    optionValue="value"
+  ></p-selectButton>
+</div>s
