@@ -41,6 +41,10 @@
     & > * {
       background-color: $color-wrapper;
     }
+
+    @include screen-md {
+      height: 80vh;
+    }
   }
 
   &__bo--content-wrapper{

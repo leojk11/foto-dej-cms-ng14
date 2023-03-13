@@ -62,6 +62,7 @@
     "selected": "Selected" ,
     "profile": "Profile",
     "noResults": "No results found",
+    "noData": "No data found",
     "recentActivity": "Recent activity",
     "logs": "Logs"
   },

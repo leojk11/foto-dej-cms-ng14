@@ -1,5 +1,5 @@
 .logs {
-  padding: 2rem;
+  padding: 2rem 2rem 3rem;
 
   &__header{
     padding-bottom: 1rem;
@@ -11,6 +11,39 @@
   }
 
   &__content {
-    padding: 3rem;
+    padding: 3rem 3rem 0;
+
+    .p-paginator {
+      background-color: transparent !important;
+      margin-top: 3rem;
+    }
+
+    &--logs-wrapper {
+      &:not(:last-of-type) {
+        margin-bottom: 1.5rem;
+      }
+    }
+
+    &--empty {
+      width: 100%;
+      height: 40rem;
+      margin: 0 auto;
+      text-align: center;
+      font-size: 2.6rem;
+      // padding-top: 5rem;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+
+  @include screen-md {
+
+    &__content {
+      padding: 2rem 1rem 0;
+    }
   }
 }

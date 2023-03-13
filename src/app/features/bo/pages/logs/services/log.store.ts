@@ -17,7 +17,7 @@ export const initialState: LogState = {
   list: [],
   params: {
     page: 1,
-    take: 5
+    take: 7
   },
   total: 0,
 
@@ -40,6 +40,12 @@ export class LogStore extends ComponentStore<LogState> {
 
   setLoading(loading: boolean): void {
     this.patchState({ loading });
+  }
+
+  patchParams(page: number): void {
+    const newParams = { ...this.state.params, page };
+
+    this.patchState({ params: newParams });
   }
 
   getAllLogs(filters?: LogFilter): void {

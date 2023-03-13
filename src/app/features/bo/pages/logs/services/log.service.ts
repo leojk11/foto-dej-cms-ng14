@@ -17,26 +17,25 @@ export class LogService {
 
   getAllLogs(params: BasicParams, filters?: LogFilter): Observable<any> {
     let path = `${ this.apiUrl }/client_logs`;
-
-    if (filters) {
-      if (filters.client) {
-        path += `&client=${ filters.client }`;
-      }
-      if (filters.date) {
-        path += `&date=${ filters.date }`;
-      }
-      if (filters.action) {
-        path += `&action=${ filters.action }`;
-      }
-    }
-
-    return this.http.get<any>(path, {params: this.generateParams(params)});
+    return this.http.get<any>(path, {params: this.generateParams(params, filters)});
   }
 
-  generateParams(params: BasicParams) {
+  generateParams(params: BasicParams, filters?: LogFilter) {
     let httpParams = new HttpParams();
     httpParams = httpParams.set('page', params.page);
     httpParams = httpParams.set('take', params.take);
+
+    if (filters) {
+      if (filters.client) {
+        httpParams = httpParams.set('client', filters.client);
+      }
+      if (filters.date) {
+        httpParams = httpParams.set('date' ,filters.date)    
+      }
+      if (filters.action) {
+        httpParams = httpParams.set('action', filters.action);
+      }
+    }
 
     return httpParams;
   }

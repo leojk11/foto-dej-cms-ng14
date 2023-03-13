@@ -12,6 +12,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { FormsModule } from '@angular/forms';
 import * as dayjs from 'dayjs';
 import { InputTextModule } from 'primeng/inputtext';
+import { PaginatorModule } from 'primeng/paginator';
 
 @Component({
   selector: 'app-logs',
@@ -25,7 +26,8 @@ import { InputTextModule } from 'primeng/inputtext';
     CalendarModule,
     DropdownModule,
     FormsModule,
-    InputTextModule
+    InputTextModule,
+    PaginatorModule
   ],
   providers: [ LogStore ],
   templateUrl: './logs.component.html'
@@ -118,6 +120,12 @@ export class LogsComponent implements OnInit {
     if (term === this.filters.date) {
       this.filters.date = ''
     }
+
+    this.filter();
   }
 
+  onPageChange(event: any): void {
+    this.logStore.patchParams(event.page + 1);
+    this.logStore.getAllLogs();
+  }
 }
