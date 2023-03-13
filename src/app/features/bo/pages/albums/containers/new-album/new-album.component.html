@@ -45,27 +45,6 @@
             [style]="{width: '100% !important'}"
             (onSelect)="onClientSelected($event)"
           ></p-autoComplete>
-
-          <!-- <div class="container__flex gap-1 w-full">
-            <div class="relative w-full">
-              <input
-                type="text"
-                pInputText
-                class="w-full"
-                formControlName="assignTo"
-                readonly
-                placeholder="{{ 'properties.assignTo' | translate }}..."
-                (click)="onSelectClient()"
-              >
-              <span
-                class="material-symbols-outlined input--icon"
-                *ngIf="hasClient"
-                (click)="removeSelectedClient()"
-              >
-                close
-              </span>
-            </div>
-          </div> -->
         </div>
 
       </div>
@@ -81,10 +60,3 @@
     </form>
   </div>
 </div>
-
-<!-- <app-assign-album
-  *ngIf="openSelectClient"
-  [client]="selectedClient"
-  (clientSelected)="onClientSelected($event)"
-  (close)="onCloseModal()"
-></app-assign-album> -->

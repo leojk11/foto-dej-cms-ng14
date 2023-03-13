@@ -58,21 +58,18 @@ export class NewAlbumComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log('data', this.config.data);
+    this.getClients();
+
     if (this.config.data) {
+      console.log('data', this.config.data);
       this.editMode = true;
 
       if (this.config.data.assigned_to_id) {
         this.clientService.getSingleClient(this.config.data.assigned_to_id).subscribe({
           next: client => {
-            console.log('CLIENT', client);
-            
             this.selectedClient = client;
             this.hasClient = true;
-            this.addAlbumForm.patchValue({
-              assigned_to_id: client.id,
-              assignTo: client.fullname
-            });
+            this.onClientSelected(client);
           },
           error: error => {
             this.toastService.addError(error.error.message);
@@ -85,7 +82,13 @@ export class NewAlbumComponent implements OnInit {
       });
     }
 
-    this.getClients();
+    if(this.config.data.client) {
+      this.onClientSelected(this.config.data.client);
+      this.addAlbumForm.patchValue({
+        assignTo: this.config.data.client
+      })
+    }
+
   }
 
   getClients(query?: string): void {
@@ -101,20 +104,10 @@ export class NewAlbumComponent implements OnInit {
       }
     }
 
-    // this.clients = [];
-
     this.clientService.getAllCLients(params).subscribe({
       next: res => {
         this.clients = res.list;
-
-        // res.list.forEach((client: Client) => {
-        //   this.clients.push({
-        //     id: client.id,
-        //     name: client.fullname
-        //   })
-        // });
         console.log('Clients', this.clients);
-        // this.loading = !this.loading;
       }
     });
   }
@@ -172,6 +165,7 @@ export class NewAlbumComponent implements OnInit {
 
   patchAsignee(name: string, id: string): void {
     this.addAlbumForm.patchValue({
+      ...this.addAlbumForm.value,
       assignTo: name,
       assigned_to_id: id
     });
@@ -190,13 +184,7 @@ export class NewAlbumComponent implements OnInit {
     this.patchAsignee(client.fullname, client.id);
     this.selectedClient = client;
     this.hasClient = true;
+    console.log('FORM VALUE', this.addAlbumForm.value);
+    
   }
-
-  removeSelectedClient(): void {
-    this.selectedClient = {} as Client;
-    this.patchAsignee('', '');
-
-    this.hasClient = false;
-  }
-
 }

@@ -120,6 +120,7 @@
 
     @include screen-md {
       grid-template-columns: 1fr;
+      padding: 2rem 1rem 5rem;
     }
   }
 
@@ -160,7 +161,7 @@
     }
 
     &--label {
-      font-size: 1.8rem;
+      font-size: 2rem;
       font-weight: 600;
       margin-bottom: 1.5rem;
 
@@ -242,6 +243,7 @@
 
       &__title {
         font-size: 2rem;
+        font-weight: 600;
       }
     }
 
@@ -252,6 +254,11 @@
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
         gap: 5rem;
+
+        @include screen-md {
+          grid-template-columns: repeat(auto-fit, minmax(14rem, .4fr));
+          gap: 4rem;
+        }
       }
     }
 
@@ -304,6 +311,6 @@
 
   &__logs {
     background-color: $white;
-    padding: 2rem;
+    padding: 2rem 2rem 0;
   }
 }

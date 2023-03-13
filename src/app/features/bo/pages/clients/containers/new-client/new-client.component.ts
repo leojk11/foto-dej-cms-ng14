@@ -18,8 +18,7 @@ import { ToastService } from 'src/app/shared/services/toast.service';
     ReactiveFormsModule,
     InputTextModule
   ],
-  templateUrl: './new-client.component.html',
-  styleUrls: ['./new-client.component.scss']
+  templateUrl: './new-client.component.html'
 })
 export class NewClientComponent implements OnInit {
 
@@ -44,10 +43,12 @@ export class NewClientComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    console.log('EDIT CLIENT DATA', this.config.data);
     if (this.config.data) {
+      
       this.editMode = true;
 
-      this.form.patchValue({ ...this.config.data });
+      this.form.patchValue({ ...this.config.data.client });
       this.form.removeControl('password');
     } else {
       this.editMode = false;
@@ -69,9 +70,9 @@ export class NewClientComponent implements OnInit {
         }
       });
     } else {
-      this.clientsService.editClient(this.config.data.id, this.form.value).subscribe({
+      this.clientsService.editClient(this.config.data.client.id, this.form.value).subscribe({
         next: res => {
-          this.clientsStore.patchExistingClientSingle(this.config.data);
+          this.clientsStore.patchExistingClientSingle(this.config.data.client);
           this.toastService.addSuccess(res.message);
 
           this.dialogRef.close('update');

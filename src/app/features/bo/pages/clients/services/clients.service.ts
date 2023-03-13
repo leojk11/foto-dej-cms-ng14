@@ -27,15 +27,19 @@ export class ClientsService {
 
   generateParams(params: BasicParams) {
     let httpParams = new HttpParams();
-    httpParams = httpParams.set('page', params.page)
-    httpParams = httpParams.set('take', params.take)
+    httpParams = httpParams.set('page', params.page);
+    httpParams = httpParams.set('take', params.take);
 
     if(params.name) 
-      httpParams = httpParams.set('name', params.name)
+      httpParams = httpParams.set('name', params.name);
 
     if(params.phone_number) 
-      httpParams = httpParams.set('phone_number', params.phone_number)
-    return httpParams
+      httpParams = httpParams.set('phone_number', params.phone_number);
+
+    if(params.status) 
+      httpParams = httpParams.set('status', params.status);
+
+    return httpParams;
   }
 
   getSingleClient(id: any): Observable<Client> {
@@ -75,6 +79,11 @@ export class ClientsService {
 
   getClientLogs(id: string): Observable<any> {
     const path = `${ this.apiUrl }/client_logs/client/${ id }`;
+    return this.http.get<any>(path, {});
+  }
+
+  getLatestClientLogs(id: string): Observable<any> {
+    const path = `${ this.apiUrl }/client_logs/client/latest/${ id }`;
     return this.http.get<any>(path, {});
   }
 }

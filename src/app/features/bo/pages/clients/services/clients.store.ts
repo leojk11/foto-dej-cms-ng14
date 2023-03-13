@@ -10,7 +10,7 @@ export interface ClientsState {
   list: Client[],
   params: BasicParams,
   total: number;
-
+  client: Client;
   loading: boolean;
 }
 
@@ -21,6 +21,7 @@ export const initialState: ClientsState = {
     take: 5
   },
   total: 0,
+  client: {} as Client,
 
   loading: true,
 }
@@ -87,6 +88,26 @@ export class ClientsStore extends ComponentStore<ClientsState> {
     this.patchState({ params: newParams });
   }
 
+  getSingleClient(id: string): void {
+    this.setLoading(true);
+
+    this.clientsService.getSingleClient(id).subscribe({
+      next: client => {
+        this.patchState({
+          ...this.state,
+          client: client
+        });
+
+        this.setLoading(false);
+      },
+      error: err => {
+        console.error(err);
+        this.toastService.addError(err.error.message);
+        this.setLoading(false);
+      }
+    });
+  }
+
   addNewClient(payload: AddNewClientPayload): void {
     this.clientsService.addNewClient(payload).subscribe({
       next: res => {
@@ -99,11 +120,11 @@ export class ClientsStore extends ComponentStore<ClientsState> {
     });
   }
 
-  deleteClient(client: Client): void {
-    this.clientsService.deleteClient(client.id).subscribe({
+  deleteClient(id: string): void {
+    this.clientsService.deleteClient(id).subscribe({
       next: res => {
         console.log('client delete res', res);
-        this.patchExistingClientSingle(client);
+        // this.patchExistingClientSingle(client);
         this.getAllClients();
 
         this.toastService.addSuccess(res.message);
@@ -125,10 +146,11 @@ export class ClientsStore extends ComponentStore<ClientsState> {
     });
   }
 
-  suspendClientAccount(client: Client): void {
-    this.clientsService.suspendAccount(client.id).subscribe({
+  suspendClientAccount(id: string): void {
+    this.clientsService.suspendAccount(id).subscribe({
       next: res => {
         console.log('ACCOUNT SUSPENDED', res);
+        this.getSingleClient(id);
         this.toastService.addSuccess(res.message);
       },
       error: err => {
@@ -138,10 +160,11 @@ export class ClientsStore extends ComponentStore<ClientsState> {
     });
   }
 
-  activateClientAccount(client: Client): void {
-    this.clientsService.activateAccount(client.id).subscribe({
+  activateClientAccount(id: string): void {
+    this.clientsService.activateAccount(id).subscribe({
       next: res => {
         console.log('ACCOUNT ACTIVATED', res);
+        this.getSingleClient(id);
         this.toastService.addSuccess(res.message);
       },
       error: err => {

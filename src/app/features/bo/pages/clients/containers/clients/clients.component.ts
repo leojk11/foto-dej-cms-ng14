@@ -28,8 +28,7 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
     ClientsStore,
     DialogService
   ],
-  templateUrl: './clients.component.html',
-  styleUrls: ['./clients.component.scss']
+  templateUrl: './clients.component.html'
 })
 export class ClientsComponent implements OnInit {
 
@@ -38,8 +37,20 @@ export class ClientsComponent implements OnInit {
   modalWidth: string = '';
   nameSearch: string = '';
   phoneSearch: string = '';
+  statusSearch: string = '';
 
   searchTerms: string[] = [];
+
+  statuses = [
+    {
+      name: 'Active',
+      value: 'ACTIVE'
+    },
+    {
+      name: 'Suspended',
+      value: 'SUSPENDED'
+    }
+  ];
 
   constructor(
     private adminLayoutService: AdminLayoutService,
@@ -77,36 +88,20 @@ export class ClientsComponent implements OnInit {
   filter(): void {
     this.searchTerms = [];
 
-    if (this.phoneSearch !== '' && this.nameSearch !== '') {
+    if (this.phoneSearch !== '' && this.nameSearch !== '' && this.statusSearch !== '') {
       this.clientStore.patchState({
         params: {
           ...this.clientStore.state.params,
           name: this.nameSearch,
-          phone_number: this.phoneSearch
+          phone_number: this.phoneSearch,
+          status: this.statusSearch
         }
       });
 
       this.searchTerms.push(this.nameSearch);
       this.searchTerms.push(this.phoneSearch);
-    } else if(this.nameSearch !== ''){
-      this.clientStore.patchState({
-        params: {
-          ...this.clientStore.state.params,
-          name: this.nameSearch
-        }
-      });
+      this.searchTerms.push(this.statusSearch);
 
-      this.searchTerms.push(this.nameSearch);
-
-    } else if(this.phoneSearch !== ''){
-      this.clientStore.patchState({
-        params: {
-          ...this.clientStore.state.params,
-          phone_number: this.phoneSearch
-        }
-      });
-
-      this.searchTerms.push(this.phoneSearch);
     } else {
       this.clientStore.patchState({
         params: {
@@ -116,6 +111,39 @@ export class ClientsComponent implements OnInit {
       });
       this.searchTerms = [];
     }
+    
+    if(this.nameSearch !== ''){
+      this.clientStore.patchState({
+        params: {
+          ...this.clientStore.state.params,
+          name: this.nameSearch
+        }
+      });
+
+      this.searchTerms.push(this.nameSearch);
+    } 
+    
+    if(this.phoneSearch !== ''){
+      this.clientStore.patchState({
+        params: {
+          ...this.clientStore.state.params,
+          phone_number: this.phoneSearch
+        }
+      });
+
+      this.searchTerms.push(this.phoneSearch);
+    } 
+    
+    if (this.statusSearch !== ''){
+      this.clientStore.patchState({
+        params: {
+          ...this.clientStore.state.params,
+          status: this.statusSearch
+        }
+      });
+
+      this.searchTerms.push(this.statusSearch);
+    } 
     
     this.clientStore.getAllClients();
   }
@@ -135,6 +163,8 @@ export class ClientsComponent implements OnInit {
       this.nameSearch = '';
     } else if (term === this.phoneSearch) {
       this.phoneSearch = '';
+    } else if (term === this.statusSearch) {
+      this.statusSearch = '';
     }
 
     this.filter();

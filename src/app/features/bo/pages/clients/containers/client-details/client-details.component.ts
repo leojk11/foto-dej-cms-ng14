@@ -34,8 +34,7 @@ import { LogComponent } from 'src/app/shared/components/log/log.component';
     ConfirmationService,
     DialogService
   ],
-  templateUrl: './client-details.component.html',
-  styleUrls: ['./client-details.component.scss']
+  templateUrl: './client-details.component.html'
 })
 export class ClientDetailsComponent implements OnInit, OnDestroy {
 
@@ -57,7 +56,7 @@ export class ClientDetailsComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     public location: Location,
     private toast: ToastService,
-    private clientStore: ClientsStore,
+    public clientStore: ClientsStore,
     private confirmationService: ConfirmationService,
     private translate: TranslateService,
     private router: Router,
@@ -90,18 +89,20 @@ export class ClientDetailsComponent implements OnInit, OnDestroy {
 
   getClient(): void {
     console.log('client ID', this.id);
-    this.clientService.getSingleClient(this.id).subscribe({
-      next: client => {
-        this.client = client;
-      },
-      error: err => {
-        console.error(err);
-      }
-    });
+    // this.clientService.getSingleClient(this.id).subscribe({
+    //   next: client => {
+    //     this.client = client;
+    //   },
+    //   error: err => {
+    //     console.error(err);
+    //   }
+    // });
+
+    this.clientStore.getSingleClient(this.id);
   }
 
   getClientLogs(): void {
-    this.clientService.getClientLogs(this.id).subscribe({
+    this.clientService.getLatestClientLogs(this.id).subscribe({
       next: logs => {
         console.log('CLIENT LOGS', logs);
         this.clientLogs = logs;
@@ -128,7 +129,8 @@ export class ClientDetailsComponent implements OnInit, OnDestroy {
   openAddModal(): void {
     const ref = this.dialog.open(NewAlbumComponent, {
       width: this.modalWidth,
-      header: this.translate.instant('albums.addNewAlbum')
+      header: this.translate.instant('albums.addNewAlbum'),
+      data: { client: this.clientStore.state.client }
     });
 
     ref.onClose.subscribe({
@@ -142,9 +144,12 @@ export class ClientDetailsComponent implements OnInit, OnDestroy {
   }
 
   onEditClient(): void {
+    console.log("CLIENT", this.client);
+    
     const ref = this.dialog.open(NewClientComponent, {
       width: this.modalWidth,
-      data: this.client,
+      data: {
+        client: this.clientStore.state.client},
       header: this.translate.instant('clients.editClient')
     });
 
@@ -168,7 +173,7 @@ export class ClientDetailsComponent implements OnInit, OnDestroy {
       acceptLabel: this.translate.instant('common.yes'),
       rejectLabel: this.translate.instant('common.no'),
       accept: () => {
-        this.clientStore.deleteClient(this.client);
+        this.clientStore.deleteClient(this.id);
         this.router.navigate(['/bo/clients'])
       }
     });
@@ -186,13 +191,11 @@ export class ClientDetailsComponent implements OnInit, OnDestroy {
       rejectLabel: this.translate.instant('common.no'),
       accept: () => {
         if (status === 'ACTIVE') {
-          this.clientStore.suspendClientAccount(this.client);
-          this.router.navigate([this.router.url])
+          this.clientStore.suspendClientAccount(this.id);
         } else if (status = 'SUSPENDED') {
-          this.clientStore.activateClientAccount(this.client);
+          this.clientStore.activateClientAccount(this.id);
         }
       }
-
     });
   }
 }

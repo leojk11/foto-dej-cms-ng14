@@ -215,7 +215,8 @@
     "changeStatus": "Промени статус",
     "deleteClientText": "Избриши го клиентот засекогаш",
     "assignedAlbums": "Доделени албуми",
-    "noAssignedAlbums": "Клиентот нема доделени албуми."
+    "noAssignedAlbums": "Клиентот нема доделени албуми.",
+    "clientActivity": "Активност на клиентот"
   },
   "calendar": {
     "newSchedule": "Додај настан",

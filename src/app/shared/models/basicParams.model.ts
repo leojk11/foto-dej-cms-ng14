@@ -5,4 +5,5 @@ export interface BasicParams {
     phone_number?: string;
     date?: string;
     title?: string;
+    status?: string;
 }

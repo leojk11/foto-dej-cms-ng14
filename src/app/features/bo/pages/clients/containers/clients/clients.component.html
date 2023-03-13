@@ -80,6 +80,7 @@
       [(ngModel)]="nameSearch"
       (keydown.enter)="filter(); filterOp.toggle($event)"
     >
+
     <input 
       type="text" 
       pInputText
@@ -88,6 +89,14 @@
       [(ngModel)]="phoneSearch"
       (keydown.enter)="filter(); filterOp.toggle($event)"
     >
+
+    <p-dropdown
+      [(ngModel)]="statusSearch"
+      [options]="statuses"
+      optionLabel="name"
+      optionValue="value"
+      placeholder="{{ 'properties.status' | translate | lowercase }}..."
+    ></p-dropdown>
 
     <div class="container__flex gap-1 justify-center">
       <button 

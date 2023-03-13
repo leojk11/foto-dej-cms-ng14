@@ -215,7 +215,8 @@
     "changeStatus": "Change status",
     "deleteClientText": "Permanately delete the client account.",
     "assignedAlbums": "Assigned albums",
-    "noAssignedAlbums": "There are no assigned albums."
+    "noAssignedAlbums": "There are no assigned albums.",
+    "clientActivity": "Client activity"
   },
   "calendar": {
     "newSchedule": "Add schedule",

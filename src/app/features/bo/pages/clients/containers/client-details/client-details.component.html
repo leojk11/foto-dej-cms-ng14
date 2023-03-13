@@ -1,4 +1,4 @@
-<div class="client" *ngIf="client">
+<div class="client" *ngIf="clientStore.state$ | async as state">
   <div class="client__header">
     <button
       class="btn btn__icon btn__icon--blue shadow-small border-none"
@@ -10,18 +10,18 @@
 
   <div class="separator"></div>
 
-  <div class="client__content">
+  <div class="client__content" *ngIf="state.client">
     <div class="client__details">
       <div class="client__details--main">
         <div class="client__details--main__image">
-          <img [src]="imageUrl + client.profile_image" *ngIf="client.profile_image">
+          <img [src]="imageUrl + state.client.profile_image" *ngIf="state.client.profile_image">
 
-          <i class="pi pi-user" *ngIf="!client.profile_image"></i>
+          <i class="pi pi-user" *ngIf="!state.client.profile_image"></i>
         </div>
 
 
         <div class="client__details--main__name">
-          {{ client.fullname }}
+          {{ state.client.fullname }}
         </div>
       </div>
 
@@ -40,7 +40,7 @@
               {{ 'properties.email' | translate }}
             </div>
             <div class="client__details--items__item--info">
-              {{ client.email }}
+              {{ state.client.email }}
             </div>
           </div>
   
@@ -49,7 +49,7 @@
               {{ 'properties.phoneNumber' | translate }}
             </div>
             <div class="client__details--items__item--info">
-              {{ client.phone_number }}
+              {{ state.client.phone_number }}
             </div>
           </div>
   
@@ -58,7 +58,7 @@
               {{ 'properties.createdDate' | translate }}
             </div>
             <div class="client__details--items__item--info">
-              {{ client.created_date | date: "dd/MM/YYYY" }}
+              {{ state.client.created_date | date: "dd/MM/YYYY" }}
             </div>
           </div>
   
@@ -67,7 +67,7 @@
               {{ 'properties.accountStatus' | translate }}
             </div>
             <div class="client__details--items__item--info">
-              {{ client.account_status }}
+              {{ state.client.account_status }}
             </div>
           </div>
         </div>
@@ -81,7 +81,7 @@
             </p>
   
             <p class="client__details--danger__item--text">
-              {{ (client.account_status === 'ACTIVE' ? 'clients.suspendAccount' : 'clients.activateAccount') | translate  }}
+              {{ (state.client.account_status === 'ACTIVE' ? 'clients.suspendAccount' : 'clients.activateAccount') | translate  }}
             </p>
           </div>
 
@@ -89,7 +89,7 @@
             type="button"
             pButton
             class="btn btn__red--outline btn__lg px-1"
-            (click)="changeStatus($event, client.account_status)"
+            (click)="changeStatus($event, state.client.account_status)"
           >
             {{ 'clients.changeStatus' | translate }}
           </button>
@@ -167,7 +167,7 @@
 
       <div class="client__logs">
         <p class="client__details--label">
-          {{ 'clients.clientDetails' | translate }}
+          {{ 'clients.clientActivity' | translate }}
         </p>
 
         <div *ngFor="let log of clientLogs">

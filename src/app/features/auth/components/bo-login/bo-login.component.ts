@@ -88,7 +88,7 @@ export class BoLoginComponent implements OnInit {
       next: res => {
         this.authService.setBoAuthToken(res.token);
         this.authService.setBoUser(res.user);
-        this.router.navigate(['/bo/'])
+        this.router.navigate(['/bo/dashboard'])
       },
       error: error => {
         // this.toast.error(error.error.message);

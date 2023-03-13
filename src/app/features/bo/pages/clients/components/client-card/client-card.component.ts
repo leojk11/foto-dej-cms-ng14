@@ -21,8 +21,7 @@ import { RouterModule } from '@angular/router';
   providers: [
     ConfirmationService
   ],
-  templateUrl: './client-card.component.html',
-  styleUrls: ['./client-card.component.scss']
+  templateUrl: './client-card.component.html'
 })
 export class ClientCardComponent implements OnInit {
 
@@ -42,7 +41,6 @@ export class ClientCardComponent implements OnInit {
   openEditModal(): void {
     const ref = this.dialog.open(NewClientComponent, {
       width: '90%',
-      // height: '65%',
       data: this.client,
       header: this.translate.instant('clients.editClient')
     });
@@ -67,7 +65,7 @@ export class ClientCardComponent implements OnInit {
       acceptLabel: this.translate.instant('common.yes'),
       rejectLabel: this.translate.instant('common.no'),
       accept: () => {
-        this.clientStore.deleteClient(this.client);
+        this.clientStore.deleteClient(this.client.id);
       }
     });
   }
