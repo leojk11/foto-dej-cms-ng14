@@ -29,8 +29,7 @@ import { BasicParams } from 'src/app/shared/models/basicParams.model';
     DialogService,
     AlbumsStore
   ],
-  templateUrl: './new-album.component.html',
-  styleUrls: ['./new-album.component.scss']
+  templateUrl: './new-album.component.html'
 })
 export class NewAlbumComponent implements OnInit {
 
@@ -163,11 +162,11 @@ export class NewAlbumComponent implements OnInit {
     }
   }
 
-  patchAsignee(name: string, id: string): void {
+  patchAsignee(client: Client): void {
     this.addAlbumForm.patchValue({
       ...this.addAlbumForm.value,
-      assignTo: name,
-      assigned_to_id: id
+      assignTo: client,
+      assigned_to_id: client.id
     });
   }
 
@@ -181,7 +180,7 @@ export class NewAlbumComponent implements OnInit {
 
   onClientSelected(client: Client): void {
     this.openSelectClient = false;
-    this.patchAsignee(client.fullname, client.id);
+    this.patchAsignee(client);
     this.selectedClient = client;
     this.hasClient = true;
     console.log('FORM VALUE', this.addAlbumForm.value);

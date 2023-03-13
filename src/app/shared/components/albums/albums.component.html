@@ -38,27 +38,29 @@
   <div class="separator"></div>
   
   <div *ngIf="albumStore.state$ | async as state" class="relative">
-    <div *ngIf="!state.loading" class="albums__content">
-      <div
-        class="single-album-wrapper"
-        *ngFor="let album of state.list"
-      >
-        <app-single-album
-          [album]="album"
-        ></app-single-album>
+    <ng-container *ngIf="!state.loading">
+      <div  class="albums__content">
+        <div
+          class="single-album-wrapper"
+          *ngFor="let album of state.list"
+        >
+          <app-single-album
+            [album]="album"
+          ></app-single-album>
+        </div>
       </div>
-    </div>
-    <p-paginator 
-      *ngIf="state.total > state.params.take"
-      [rows]="state.params.take"
-      [totalRecords]="state.total"
-      (onPageChange)="onPageChange($event)"
-    ></p-paginator>
-  
-    <div class="album__empty" *ngIf="state.list.length === 0">
-      <img src="../../../../assets//img/svg/no-results.svg" alt="">
-      {{ 'common.noResults' | translate }}
-    </div>
+      <p-paginator 
+        *ngIf="state.total > state.params.take"
+        [rows]="state.params.take"
+        [totalRecords]="state.total"
+        (onPageChange)="onPageChange($event)"
+      ></p-paginator>
+    
+      <div class="album__empty" *ngIf="state.list.length === 0">
+        <img src="../../../../assets//img/svg/no-results.svg" alt="">
+        {{ 'common.noResults' | translate }}
+      </div>
+    </ng-container>
 
     <div class="page__loading" *ngIf="state.loading">
       <app-spinner></app-spinner>

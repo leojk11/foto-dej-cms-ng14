@@ -31,7 +31,7 @@ export const initialState: AlbumsState = {
   list: [],
   params: {
     page: 1,
-    take: 6 // 20 just to test
+    take: 20 // 20 just to test
   },
   total: 0,
 
