@@ -155,7 +155,8 @@
     "enterImageName": "Внесете име на слика.",
     "enterEmail": "Внесете емаил адреса.",
     "enterPassword": "Внесете лозинка.",
-    "noVideoSelected": "Изберете видео."
+    "noVideoSelected": "Изберете видео.",
+    "ivalidInviteStatus": "Статусот не е валиден."
   },
   "success": {
     "success": "Успешно",

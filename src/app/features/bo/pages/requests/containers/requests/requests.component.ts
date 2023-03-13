@@ -67,11 +67,11 @@ export class RequestsComponent implements OnInit {
     }
 
     if (this.filters.phone) {
-      this.filters.phone = ''
+      this.searchTerms.push(this.filters.phone);
     }
 
     if (this.filters.email) {
-      this.filters.email = ''
+      this.searchTerms.push(this.filters.email);
     }
 
     this.getRequests();
@@ -85,7 +85,6 @@ export class RequestsComponent implements OnInit {
 
   clearTerm(index: number): void {
     const term = this.searchTerms.splice(index, 1)[0];
-    console.log(term);
 
     if (term === this.filters.firstname) {
       this.filters.firstname = ''
@@ -107,6 +106,6 @@ export class RequestsComponent implements OnInit {
       this.filters.email = ''
     }
 
-    this.getRequests();
+    this.filter();
   }
 }

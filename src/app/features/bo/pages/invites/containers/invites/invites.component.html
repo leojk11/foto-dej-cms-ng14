@@ -20,6 +20,14 @@
           </div>
         </div>
 
+        <button 
+          class="btn btn__search px-2"
+          (click)="op.toggle($event)"
+        >
+          Search
+          <i class="pi pi-search"></i>
+        </button>
+
         <button
           class="btn btn__icon--blue btn__main--sm"
           type="button"
@@ -27,14 +35,6 @@
           pTooltip="{{ 'common.refresh' | translate }}" 
           tooltipPosition="top">
           <i class="pi pi-refresh"></i>
-        </button>
-  
-          <button 
-          class="btn btn__search px-2"
-          (click)="op.toggle($event)"
-        >
-          Search
-          <i class="pi pi-search"></i>
         </button>
       </div>
     </div>
@@ -162,7 +162,7 @@
         pButton
         type="submit"
         class="btn btn__icon--orange px-1"
-        (click)="filter()"
+        (click)="filter(); op.toggle($event)"
       >
         <i class="pi pi-filter"></i>
         Search

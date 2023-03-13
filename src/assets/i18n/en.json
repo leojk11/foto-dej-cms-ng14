@@ -155,7 +155,8 @@
     "enterImageName": "Enter image name.",
     "enterEmail": "You need to enter email.",
     "enterPassword": "You need to enter password.",
-    "noVideoSelected": "You need to select video file first."
+    "noVideoSelected": "You need to select video file first.",
+    "ivalidInviteStatus": "You have set invalid request status."
   },
   "success": {
     "success": "Success",
