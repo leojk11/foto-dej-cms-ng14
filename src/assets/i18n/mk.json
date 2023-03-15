@@ -107,7 +107,8 @@
     "accountStatus": "Статус на акаунтот",
     "logoWhite": "Бело лого",
     "logoIcon": "Лого икона",
-    "action": "Активност"
+    "action": "Активност",
+    "fullname": "Име и Презиме"
   },
   "errors": {
     "error": "Грешка",

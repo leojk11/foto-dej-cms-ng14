@@ -11,11 +11,11 @@
       <tr>
         <th></th>
         <th>
-          {{ 'properties.firstname' | translate }}
+          {{ 'properties.fullname' | translate }}
         </th>
-        <th>
+        <!-- <th>
           {{ 'properties.lastname' | translate }}
-        </th>
+        </th> -->
         <th>
           {{ 'properties.phoneNumber' | translate }}
         </th>
@@ -40,11 +40,13 @@
           {{ index + 1 }}
         </td>
         <td>
-          <p>{{ request.firstname }}</p>
+          <p>
+            {{ request.firstname }} {{ request.lastname }}
+          </p>
         </td>
-        <td>
+        <!-- <td>
           <p>{{ request.lastname }}</p>
-        </td>
+        </td> -->
         <td>
           <p>{{ request.phone_number }}</p>
         </td>

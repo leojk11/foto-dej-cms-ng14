@@ -107,7 +107,8 @@
     "accountStatus": "Account status",
     "logoWhite": "Logo white",
     "logoIcon": "Logo icon",
-    "action": "Action"
+    "action": "Action",
+    "fullname": "Fullname"
   },
   "errors": {
     "error": "Error",
