@@ -66,7 +66,8 @@
     "recentActivity": "Recent activity",
     "logs": "Logs",
     "search": "Search",
-    "reset": "Reset"
+    "reset": "Reset",
+    "pendingRequest": "Pending requests"
   },
   "properties": {
     "title": "Title",

@@ -4,6 +4,7 @@ export interface Request {
   lastname: string;
   phone_number: string;
   email: string;
+  status: string;
 
   time: string;
   date: string;

@@ -66,7 +66,8 @@
     "recentActivity": "Последна активност",
     "logs": "Активност",
     "search": "Пребарај",
-    "reset": "Исчисти"
+    "reset": "Исчисти",
+    "pendingRequest": "Барања на чекање"
   },
   "properties": {
     "title": "Наслов",

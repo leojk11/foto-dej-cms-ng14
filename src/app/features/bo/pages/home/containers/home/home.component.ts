@@ -7,6 +7,7 @@ import { DashboardService } from '../../services/dashboard.service';
 import { DashboardStore } from '../../services/dashboard.store';
 import { DashboardCardComponent } from '../../components/dashboard-card/dashboard-card.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { DashboardPendingComponent } from '../../components/dashboard-pending/dashboard-pending.component';
 
 @Component({
   selector: 'app-home',
@@ -15,7 +16,8 @@ import { TranslateModule } from '@ngx-translate/core';
     CommonModule,
     ButtonModule,
     DashboardCardComponent,
-    TranslateModule
+    TranslateModule,
+    DashboardPendingComponent
   ],
   providers: [DashboardStore],
   templateUrl: './home.component.html'

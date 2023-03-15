@@ -25,4 +25,20 @@
       [bg]="'bg-orange'"
     ></app-dashboard-card>
   </div>
+
+  <div class="dashboard__content">
+    <div class="dashboard__pending">
+      <p class="dashboard__pending--title">
+        {{ 'common.pendingRequest' | translate }}
+      </p>
+      <app-dashboard-pending
+        [requests]="state.pendingRequests"
+      ></app-dashboard-pending>
+
+    </div>
+
+    <div class="dashboard__schedule">
+      UPCOMING SCHEDULE
+    </div>
+  </div>
 </div>

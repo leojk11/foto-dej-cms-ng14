@@ -40,4 +40,8 @@ export class RequestsService {
     return this.http.get<GetAllRequestsResponse>(path);
   }
 
+  getPendingRequests(params: BasicParams): Observable<GetAllRequestsResponse> {
+    let path = `${ this.apiUrl }/requests/pending?take=${ params.take }&page=${ params.page }`;
+    return this.http.get<GetAllRequestsResponse>(path)
+  }
 }
