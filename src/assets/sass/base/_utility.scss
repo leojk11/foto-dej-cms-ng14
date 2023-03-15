@@ -310,6 +310,26 @@
   padding: 2rem;
 }
 
+.bg-highlight {
+  background-color: rgba($color-highlight, .3);
+}
+
+.bg-purple {
+  background-color: rgba($color-highlight-purple, .3);
+}
+
+.bg-green {
+  background-color: rgba($color-highlight-green, .3);
+}
+
+.bg-orange {
+  background-color: rgba($orange, .3);
+}
+
+.bg-red {
+  background-color: rgba($red, .3);
+}
+
 .mh-60 {
   min-height: 60vh;
 }

@@ -5,17 +5,20 @@ import { ButtonModule } from 'primeng/button';
 import { ToastService } from 'src/app/shared/services/toast.service';
 import { DashboardService } from '../../services/dashboard.service';
 import { DashboardStore } from '../../services/dashboard.store';
+import { DashboardCardComponent } from '../../components/dashboard-card/dashboard-card.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-home',
   standalone: true,
   imports: [
     CommonModule,
-    ButtonModule
+    ButtonModule,
+    DashboardCardComponent,
+    TranslateModule
   ],
   providers: [DashboardStore],
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  templateUrl: './home.component.html'
 })
 export class HomeComponent implements OnInit {
 
