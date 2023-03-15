@@ -102,7 +102,7 @@
             <p [ngClass]="invite.status === 'SUCCESSFULL' ? 'isActive' : 'isExpired'"
               class="mx-auto"
             >
-              {{ invite.status }}
+              {{ (invite.status === 'SUCCESSFULL' ? 'status.successful' : 'status.failed') | translate | uppercase }}
             </p>
           </td>
 

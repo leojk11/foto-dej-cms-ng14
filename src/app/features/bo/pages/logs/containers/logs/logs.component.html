@@ -34,15 +34,17 @@
         <app-spinner></app-spinner>
       </div>
 
-      <div *ngIf="!state.loading && state.list.length > 0" >
-        <div *ngFor="let log of state.list" class="logs__content--logs-wrapper">
-          <app-log
-            [log]="log"
-          ></app-log>
-        </div>
+
+      <div *ngIf="state.list.length > 0" >
+        <ng-container *ngIf="!state.loading">
+          <div *ngFor="let log of state.list" class="logs__content--logs-wrapper">
+            <app-log
+              [log]="log"
+            ></app-log>
+          </div>
+        </ng-container>
 
         <p-paginator
-          *ngIf="state.total > state.params.take"
           [rows]="state.params.take"
           [totalRecords]="state.total"
           (onPageChange)="onPageChange($event)"

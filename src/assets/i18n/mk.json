@@ -230,6 +230,24 @@
     "collaboration": "Соработка",
     "contactFormLabel": "Оставете ваши податоци и ние ќе ве контактираме"
   },
+  "status": {
+    "active": "Активен",
+    "suspended": "Суспендиран",
+    "successful": "Успешно",
+    "failed": "Неуспешно",
+    "login": "Најава",
+    "logout": "Одјава",
+    "accountActivation": "Активиран акаунт",
+    "selectedImages": "Избрани слики",
+    "updatedProfile": "Ажуриран профил"
+  },
+  "logs": {
+    "userLogin": " се најави",
+    "userLogout": " се одјави",
+    "userAccountActivation": " го активираше акаунтот",
+    "userSelectedImages": " ги селектираше сликите",
+    "userUpdatedProfile": " го ажурира својот профил"
+  },
   "primeng": {
     "closeText": "Затвори",
     "prevText": "Претходно",

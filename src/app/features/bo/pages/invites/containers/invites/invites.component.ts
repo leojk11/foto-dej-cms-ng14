@@ -52,16 +52,7 @@ export class InvitesComponent implements OnInit {
   filters: InviteFilter = { } as InviteFilter;
   dateToFilter: Date | null = null;
 
-  statuses = [
-    {
-      name: 'Successfull',
-      value: 'SUCCESSFULL'
-    },
-    {
-      name: 'Failed',
-      value: 'FAILED'
-    }
-  ];
+  statuses: any[] = [];
 
   searchTerms: string[] = [];
   
@@ -78,6 +69,24 @@ export class InvitesComponent implements OnInit {
   ngOnInit() {
     this.getInvites();
     this.adminLayoutService.setTitle('common.invites');
+    this.translateStatuses();
+
+    this.translate.onLangChange.subscribe( () => {
+      this.translateStatuses();
+    })
+  }
+
+  translateStatuses(): void {
+    this.statuses = [
+      {
+        name: this.translate.instant('status.successful'),
+        value: 'SUCCESSFULL'
+      },
+      {
+        name: this.translate.instant('status.failed'),
+        value: 'FAILED'
+      }
+    ];
   }
   
   getInvites(): void {

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
 import { LogStore } from '../../services/log.store';
 import { SpinnerComponent } from 'src/app/shared/components/loading/spinner/spinner.component';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { AdminLayoutService } from 'src/app/features/bo/layout/services/admin-layout.service';
 import { LogComponent } from 'src/app/shared/components/log/log.component';
 import { LogFilter } from '../../models/log-filter.model';
@@ -38,38 +38,50 @@ export class LogsComponent implements OnInit {
   dateSearch: Date | null = null;
   filters: LogFilter = {} as LogFilter;
 
-  actions: any[] = [
-    {
-      name: 'Login',
-      value: 'LOGIN'
-    },
-    {
-      name: 'Logout',
-      value: 'LOGOUT'
-    },
-    {
-      name: 'Account activation',
-      value: 'ACTIVATE_ACCOUNT'
-    },
-    {
-      name: 'Selected images',
-      value: 'SELECTED_IMAGES'
-    },
-    {
-      name: 'Updated profile',
-      value: 'UPDATED_PROFILE'
-    }
-  ];
+  actions: any[] = [];
 
   constructor(
     public logStore: LogStore,
     public location: Location,
-    private adminLayoutService: AdminLayoutService
+    private adminLayoutService: AdminLayoutService,
+    private translate: TranslateService
   ) { }
 
   ngOnInit(): void {
     this.adminLayoutService.setTitle('common.logs')
     this.logStore.getAllLogs();
+    this.translateActions();
+
+    this.translate.onLangChange.subscribe({
+      next: () => {
+        this.translateActions();
+      }
+    });
+  }
+
+  translateActions(): void {
+    this.actions = [
+      {
+        name: this.translate.instant('status.login'),
+        value: 'LOGIN'
+      },
+      {
+        name: this.translate.instant('status.logout'),
+        value: 'LOGOUT'
+      },
+      {
+        name: this.translate.instant('status.accountActivation'),
+        value: 'ACTIVATE_ACCOUNT'
+      },
+      {
+        name: this.translate.instant('status.selectedImages'),
+        value: 'SELECTED_IMAGES'
+      },
+      {
+        name: this.translate.instant('status.updatedProfile'),
+        value: 'UPDATED_PROFILE'
+      }
+    ];
   }
 
   onDateSelect(): void {
@@ -110,7 +122,7 @@ export class LogsComponent implements OnInit {
     const term = this.searchTerms.splice(index, 1)[0];
 
     if (term === this.filters.client) {
-      this.filters.client = ''
+      this.filters.client = '';
     }
     
     if (term === this.filters.action) {
@@ -118,7 +130,7 @@ export class LogsComponent implements OnInit {
     }
     
     if (term === this.filters.date) {
-      this.filters.date = ''
+      this.filters.date = '';
     }
 
     this.filter();

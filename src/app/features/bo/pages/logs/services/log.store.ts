@@ -50,6 +50,8 @@ export class LogStore extends ComponentStore<LogState> {
 
   getAllLogs(filters?: LogFilter): void {
     this.setLoading(true);
+    console.log('PARAMS', this.state.params);
+    
 
     this.logService.getAllLogs(this.state.params, filters).subscribe({
       next: res => {

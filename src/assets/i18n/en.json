@@ -230,6 +230,24 @@
     "collaboration": "Collaboration",
     "contactFormLabel": "Leave your information and we will contact you"
   },
+  "status": {
+    "active": "Active",
+    "suspended": "Suspended",
+    "successful": "Successful",
+    "failed": "Failed",
+    "login": "Login",
+    "logout": "Logout",
+    "accountActivation": "Accaunt activation",
+    "selectedImages": "Images selected",
+    "updatedProfile": "Updated profile"
+  },
+  "logs": {
+    "userLogin": " has logged in",
+    "userLogout": " has logged out",
+    "userAccountActivation": " has activated the account",
+    "userSelectedImages": " has selected images",
+    "userUpdatedProfile": " updated their profile"
+  },
   "primeng": {
     "closeText": "Close",
     "prevText": "&#x3C;Prec",
