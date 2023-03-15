@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { ComponentStore } from "@ngrx/component-store";
+import { NgxSpinnerService } from "ngx-spinner";
 import { catchError, EMPTY, switchMap, tap } from "rxjs";
 import { ToastService } from "src/app/shared/services/toast.service";
 import { Request } from "../../requests/models/request.model";
@@ -25,7 +26,8 @@ export class DashboardStore extends ComponentStore<DashboardState> {
   constructor(
     private service: DashboardService,
     private toastService: ToastService,
-    private requestService: RequestsService
+    private requestService: RequestsService,
+    private spinner: NgxSpinnerService
   ) {
     super(initialState)
   }
@@ -41,6 +43,7 @@ export class DashboardStore extends ComponentStore<DashboardState> {
           cardsData: {} as DashboardCardsData,
           loading: true,
         })
+        this.spinner.show().then();
         return this.service.getDashboardData().pipe(
           tap((res) => {
             console.log('DASHBOARD DATA RES', res);
@@ -49,6 +52,7 @@ export class DashboardStore extends ComponentStore<DashboardState> {
               cardsData: res,
               loading: false,
             });
+            this.spinner.hide().then();
             this.loadPendingRequests();
           })
         )
@@ -59,6 +63,7 @@ export class DashboardStore extends ComponentStore<DashboardState> {
           loading: false,
         });
         this.toastService.addError(err);
+        this.spinner.hide().then();
         return EMPTY;
       })
     )
@@ -71,6 +76,7 @@ export class DashboardStore extends ComponentStore<DashboardState> {
           ...this.state,
           pendingRequests: []
         });
+        this.spinner.show().then();
         return this.requestService.getPendingRequests({page: 1, take: 5}).pipe(
           tap((res) => {
             console.log('PENDING REQUESRS', res);
@@ -78,7 +84,9 @@ export class DashboardStore extends ComponentStore<DashboardState> {
             this.patchState({
               ...this.state,
               pendingRequests: res.list
-            })
+            });
+            this.spinner.hide().then();
+
           })
         )
       }),
@@ -87,6 +95,8 @@ export class DashboardStore extends ComponentStore<DashboardState> {
           ...this.state,
           loading: false,
         });
+        this.spinner.hide().then();
+
         this.toastService.addError(err);
         return EMPTY;
       })

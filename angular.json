@@ -51,6 +51,7 @@
               "./node_modules/@fullcalendar/daygrid/main.css",
               "./node_modules/@fullcalendar/list/main.css",
               "node_modules/ngx-toastr/toastr.css",
+              "node_modules/ngx-spinner/animations/ball-clip-rotate-multiple.css",
               "src/styles.scss"
             ],
             "scripts": []

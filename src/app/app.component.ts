@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { OnlineStatusModule, OnlineStatusService } from 'ngx-online-status';
+import { NgxSpinnerModule } from 'ngx-spinner';
 import { MessageService, PrimeNGConfig } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { AuthService } from './core/services/auth.service';
@@ -15,7 +16,8 @@ import { ToastService } from './shared/services/toast.service';
   imports: [
     RouterModule,
     ToastModule,
-    OnlineStatusModule
+    OnlineStatusModule,
+    NgxSpinnerModule
   ],
   providers: [
     MessageService,
@@ -24,6 +26,13 @@ import { ToastService } from './shared/services/toast.service';
   template: `
     <router-outlet></router-outlet>
     <p-toast position="top-right"></p-toast>
+    <ngx-spinner 
+      type="ball-clip-rotate-multiple"
+      bdColor = "rgba(0, 0, 0, 0.8)" 
+      size = "medium" 
+      color = "#fff" 
+      [fullScreen] = "true"
+    ></ngx-spinner>
   `
 })
 export class AppComponent implements OnInit {
