@@ -20,7 +20,7 @@
     
     <div class="client-card__status">
       <p [ngClass]="client.account_status === 'ACTIVE' ? 'isActive' : 'isExpired'">
-        {{ client.account_status | titlecase }}
+        {{ (client.account_status === 'ACTIVE' ? 'status.active' : 'status.suspended') | translate | titlecase }}
       </p>
     </div>
   </div>

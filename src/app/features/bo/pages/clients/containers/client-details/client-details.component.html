@@ -67,7 +67,7 @@
               {{ 'properties.accountStatus' | translate }}
             </div>
             <div class="client__details--items__item--info">
-              {{ state.client.account_status }}
+              {{ (state.client.account_status === 'ACTIVE' ? 'status.active' : 'status.suspended') | translate | uppercase }}
             </div>
           </div>
         </div>
