@@ -64,7 +64,9 @@
     "noResults": "No results found",
     "noData": "No data found",
     "recentActivity": "Recent activity",
-    "logs": "Logs"
+    "logs": "Logs",
+    "search": "Search",
+    "reset": "Reset"
   },
   "properties": {
     "title": "Title",

@@ -21,8 +21,8 @@
           class="btn btn__search px-2"
           (click)="op.toggle($event)"
         >
-          Search
-          <i class="pi pi-search"></i>
+          {{ 'common.search' | translate }}
+          <!-- <i class="pi pi-search"></i> -->
         </button>
       </div>
     </div>
@@ -96,7 +96,7 @@
         (click)="filter()"
       >
         <i class="pi pi-filter"></i>
-        Search
+        {{ 'common.search' | translate }}
       </button>
 
       <button 
@@ -106,7 +106,7 @@
         (click)="clearFilter(); op.toggle($event)"
       >
         <i class="pi pi-filter-slash"></i>
-        Reset
+        {{ 'common.reset' | translate }}
       </button>
     </div>
   </div>

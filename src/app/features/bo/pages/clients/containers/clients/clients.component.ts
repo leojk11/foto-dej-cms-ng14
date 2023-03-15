@@ -41,16 +41,7 @@ export class ClientsComponent implements OnInit {
 
   searchTerms: string[] = [];
 
-  statuses = [
-    {
-      name: 'Active',
-      value: 'ACTIVE'
-    },
-    {
-      name: 'Suspended',
-      value: 'SUSPENDED'
-    }
-  ];
+  statuses: any[] = [];
 
   constructor(
     private adminLayoutService: AdminLayoutService,
@@ -63,6 +54,7 @@ export class ClientsComponent implements OnInit {
   ngOnInit(): void {
     this.adminLayoutService.setTitle('common.clients');
     this.clientStore.getAllClients();
+    this.translateStatuses();
 
     this.adminLayoutService.isMobile$.subscribe({
       next: res => {
@@ -70,6 +62,23 @@ export class ClientsComponent implements OnInit {
         this.modalWidth = this.isMobile ? '90%' : '60%';
       }
     });
+
+    this.translate.onLangChange.subscribe(() => {
+      this.translateStatuses();
+    });
+  }
+
+  translateStatuses(): void {
+    this.statuses = [
+      {
+        name: this.translate.instant('status.active'),
+        value: 'ACTIVE'
+      },
+      {
+        name: this.translate.instant('status.suspended'),
+        value: 'SUSPENDED'
+      }
+    ];
   }
 
   openModal(): void {
