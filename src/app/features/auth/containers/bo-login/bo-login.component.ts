@@ -11,6 +11,7 @@ import { CommonModule } from '@angular/common';
 import { SpinnerComponent } from 'src/app/shared/components/loading/spinner/spinner.component';
 import {InputTextModule} from 'primeng/inputtext';
 import { LoginFormComponent } from '../../components/login-form/login-form.component';
+import { LangChangeComponent } from 'src/app/shared/components/lang-change/lang-change.component';
 
 @Component({
   selector: 'app-bo-login',
@@ -22,7 +23,8 @@ import { LoginFormComponent } from '../../components/login-form/login-form.compo
     TranslateModule,
     SpinnerComponent,
     InputTextModule,
-    LoginFormComponent
+    LoginFormComponent,
+    LangChangeComponent
   ],
   templateUrl: './bo-login.component.html'
 })

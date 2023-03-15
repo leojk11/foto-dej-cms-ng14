@@ -14,6 +14,7 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { ResetPasswordComponent } from '../../components/reset-password/reset-password.component';
 import { ToastService } from 'src/app/shared/services/toast.service';
 import { LoginFormComponent } from '../../components/login-form/login-form.component';
+import { LangChangeComponent } from 'src/app/shared/components/lang-change/lang-change.component';
 
 @Component({
   selector: 'app-user-login',
@@ -25,7 +26,8 @@ import { LoginFormComponent } from '../../components/login-form/login-form.compo
     TranslateModule,
     SpinnerComponent,
     InputTextModule,
-    LoginFormComponent
+    LoginFormComponent,
+    LangChangeComponent
   ],
   providers: [
     DialogService
