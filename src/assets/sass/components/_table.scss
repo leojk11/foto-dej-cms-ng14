@@ -1,9 +1,10 @@
-.table__img{
+.table__img {
   border-radius: 50%;
   width: 4rem;
   height: 4rem;
   overflow: hidden;
-  img{
+
+  img {
     object-fit: cover;
     width: 100%;
     height: 100%;
@@ -23,13 +24,7 @@
     background-color: #fff;
     border-radius: 5px !important;
 
-
-    // @media (min-width: 1400px) {
-    //   height: 71.5vh;
-    // }
   }
-
-  
 
   &-thead > tr {
     & > th {
@@ -40,6 +35,10 @@
       border: none !important;
       border-bottom: 1px solid rgba($dark, .5) !important;
       box-shadow: $shadow-bottom !important;
+
+      &:not(:first-child) {
+        min-width: 15rem !important;
+      }
 
       &:first-child {
         border-top-left-radius: 5px !important;
@@ -62,6 +61,10 @@
         border-color: #ccc !important;
         height: 6.3rem !important;
         padding: 0 1rem !important;
+
+        &:not(:first-child) {
+          min-width: 15rem !important;
+        }
       }
     }
   }
@@ -72,10 +75,6 @@
   height: 5rem;
   width: 100%;
   border-radius: 5px !important;
-
-  // position: absolute;
-  // bottom: 0;
-  // left: 0;
 
   & .p-paginator-pages .p-paginator-page{
     font-size: 1.4rem!important;

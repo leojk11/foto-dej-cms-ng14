@@ -44,9 +44,12 @@
   (onHide)="onHide.emit()"
 >
   <div class="sidebar">
-    <div>
-      <div class="sidebar__brand">
-        <div class="sidebar__logo-wrapper" *ngIf="frontConfigurationState.confState$ | async as config">
+    <div class="mb-4">
+      <div class="sidebar__brand mb-1">
+        <div 
+          *ngIf="frontConfigurationState.confState$ | async as config"
+          class="sidebar__logo-wrapper" 
+        >
           <img 
             [src]="config.imageUrl + config.configuration.logo"
             class="sidebar__logo-wrapper--img"
@@ -55,7 +58,7 @@
       </div>
 
       <ng-container *ngIf="authService.user$ | async as user">
-        <div class="sidebar__user">
+        <div class="sidebar__user mb-2">
           <i class="pi pi-user"></i>
           <p class="text-lg c-dark">
             {{ user.firstname }} {{ user.lastname }}
@@ -93,29 +96,6 @@
       </button>
     </div>
   
-    <div class="container__flex gap-1 justify-center">
-      <div 
-        class="lang-wrapper" 
-        [class.lang-selected]="selectedLang === 'mk'"
-      >
-        <span 
-          class="lang-text"
-          (click)="changeLang('mk')"
-        >
-          {{ 'common.mk' | translate }}
-        </span>
-      </div>
-      <div
-        class="lang-wrapper" 
-        [class.lang-selected]="selectedLang === 'en'"
-      >
-        <span 
-          class="lang-text"
-          (click)="changeLang('en')"
-        >
-          {{ 'common.en' | translate }}
-        </span>
-      </div>
-    </div>
+    <app-lang-change></app-lang-change>
   </div>
 </p-sidebar>

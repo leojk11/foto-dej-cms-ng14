@@ -19,6 +19,7 @@
       border-radius: 10px;
       // box-shadow: $shadow-small;
       color: $dark;
+      cursor: pointer;
 
       &__number {
         font-size: 2.4rem;
@@ -30,15 +31,25 @@
         font-weight: 600;
       }
     }
+
+    @include screen-md {
+      grid-template-columns: 1fr 1fr;
+    }
   }
 
   &__content {
     display: grid;
-    grid-template-columns: 1fr .5fr;
+    grid-template-columns: 1fr 42rem;
     gap: 5rem;
+
+    @include screen-md {
+      grid-template-columns: .5fr;
+    }
   }
 
   &__pending {
+    width: 100%;
+
     &--title {
       font-size: 2rem;
       font-weight: 500;
@@ -46,6 +57,13 @@
     }
 
     &--table {
+      overflow-x: auto;
+
+      @include screen-md {
+        .p-datatable {
+          width:  min-content !important;
+        }
+      }
       .p-datatable .p-datatable-wrapper {
         min-height: 47vh !important;
       }
@@ -56,8 +74,13 @@
   }
 
   &__schedule {
+    // width: 50%;
     background-color: rgba($sidebar-bg, .3);
     height: 100%;
     padding: 2rem;
+  }
+
+  @include screen-md {
+    padding: 3rem 1.5rem;
   }
 }
