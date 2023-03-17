@@ -49,14 +49,15 @@
 
   &__pending {
     width: 100%;
-
+    
     &--title {
       font-size: 2rem;
       font-weight: 500;
       margin-bottom: 2rem;
     }
-
+    
     &--table {
+      box-shadow: $shadow-small;
       overflow-x: auto;
 
       @include screen-md {
@@ -65,7 +66,7 @@
         }
       }
       .p-datatable .p-datatable-wrapper {
-        min-height: 47vh !important;
+        min-height: 50.5vh !important;
       }
       .p-datatable-tbody > tr > td {
         height: 4rem !important;
@@ -78,6 +79,11 @@
     background-color: rgba($sidebar-bg, .3);
     height: 100%;
     padding: 2rem;
+
+    &--title {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+    }
   }
 
   @include screen-md {

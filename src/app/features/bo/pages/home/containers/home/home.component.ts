@@ -8,6 +8,7 @@ import { DashboardStore } from '../../services/dashboard.store';
 import { DashboardCardComponent } from '../../components/dashboard-card/dashboard-card.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { DashboardPendingComponent } from '../../components/dashboard-pending/dashboard-pending.component';
+import { ScheduleCardComponent } from '../../components/schedule-card/schedule-card.component';
 
 @Component({
   selector: 'app-home',
@@ -17,7 +18,8 @@ import { DashboardPendingComponent } from '../../components/dashboard-pending/da
     ButtonModule,
     DashboardCardComponent,
     TranslateModule,
-    DashboardPendingComponent
+    DashboardPendingComponent,
+    ScheduleCardComponent
   ],
   providers: [DashboardStore],
   templateUrl: './home.component.html'

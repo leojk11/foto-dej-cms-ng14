@@ -67,7 +67,8 @@
     "logs": "Logs",
     "search": "Search",
     "reset": "Reset",
-    "pendingRequest": "Pending requests"
+    "pendingRequest": "Pending requests",
+    "upcomingEvents": "Upcoming events"
   },
   "properties": {
     "title": "Title",

@@ -67,7 +67,8 @@
     "logs": "Активност",
     "search": "Пребарај",
     "reset": "Исчисти",
-    "pendingRequest": "Барања на чекање"
+    "pendingRequest": "Барања на чекање",
+    "upcomingEvents": "Следни настани"
   },
   "properties": {
     "title": "Наслов",
@@ -274,7 +275,7 @@
     "monthNamesShort": [
       "Јан",
       "Феб",
-      "Мар",
+      "Март",
       "Апр",
       "Мај",
       "Јун",

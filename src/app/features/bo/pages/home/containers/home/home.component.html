@@ -1,4 +1,7 @@
-<div class="dashboard" *ngIf="dashboardStore.state$ | async as state">
+<div 
+  *ngIf="dashboardStore.state$ | async as state"
+  class="dashboard" 
+>
   <div class="dashboard__cards">
     <app-dashboard-card
       [data]="state.cardsData.albums"
@@ -41,7 +44,14 @@
     </div>
 
     <div class="dashboard__schedule">
-      UPCOMING SCHEDULE
+      <p class="dashboard__schedule--title">
+        {{ 'common.upcomingEvents' | translate }}
+      </p>
+
+      <div>
+        <app-schedule-card
+        ></app-schedule-card>
+      </div>
     </div>
   </div>
 </div>
