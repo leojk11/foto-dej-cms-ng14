@@ -3,6 +3,7 @@ import { ComponentStore } from "@ngrx/component-store";
 import { NgxSpinnerService } from "ngx-spinner";
 import { catchError, EMPTY, switchMap, tap } from "rxjs";
 import { ToastService } from "src/app/shared/services/toast.service";
+import { Schedule } from "../../calendar/models/schedule.model";
 import { Request } from "../../requests/models/request.model";
 import { RequestsService } from "../../requests/services/requests.service";
 import { DashboardCardsData } from "../models/dashboard-cards-data.model";
@@ -11,13 +12,15 @@ import { DashboardService } from "./dashboard.service";
 export interface DashboardState {
   loading: boolean;
   cardsData: DashboardCardsData;
-  pendingRequests: Request[]
+  pendingRequests: Request[];
+  events: Schedule[];
 }
 
 export const initialState: DashboardState = {
   loading: true,
   cardsData: {} as DashboardCardsData,
-  pendingRequests: []
+  pendingRequests: [],
+  events: []
 }
 
 @Injectable()
@@ -54,6 +57,7 @@ export class DashboardStore extends ComponentStore<DashboardState> {
             });
             this.spinner.hide().then();
             this.loadPendingRequests();
+            this.loadEvents();
           })
         )
       }),
@@ -84,6 +88,39 @@ export class DashboardStore extends ComponentStore<DashboardState> {
             this.patchState({
               ...this.state,
               pendingRequests: res.list
+            });
+            this.spinner.hide().then();
+          })
+        )
+      }),
+      catchError((err)=>{
+        this.patchState({
+          ...this.state,
+          loading: false,
+        });
+        this.spinner.hide().then();
+
+        this.toastService.addError(err);
+        return EMPTY;
+      })
+    )
+  );
+
+  loadEvents = this.effect((_$) =>
+    _$.pipe(
+      switchMap((_) => {
+        this.patchState({
+          ...this.state,
+          events: []
+        });
+        this.spinner.show().then();
+        return this.service.getUpcomingEvents(6).pipe(
+          tap((res) => {
+            console.log('UPCOMING EVENTS', res);
+            
+            this.patchState({
+              ...this.state,
+              events: res
             });
             this.spinner.hide().then();
 

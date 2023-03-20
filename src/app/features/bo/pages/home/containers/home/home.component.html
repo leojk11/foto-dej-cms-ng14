@@ -48,8 +48,12 @@
         {{ 'common.upcomingEvents' | translate }}
       </p>
 
-      <div>
+      <div 
+        *ngFor="let event of state.events" 
+        class="dashboard__schedule--cards"
+      >
         <app-schedule-card
+          [event]="event"
         ></app-schedule-card>
       </div>
     </div>

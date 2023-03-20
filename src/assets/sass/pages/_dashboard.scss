@@ -75,14 +75,21 @@
   }
 
   &__schedule {
-    // width: 50%;
     background-color: rgba($sidebar-bg, .3);
     height: 100%;
     padding: 2rem;
+    box-shadow: $shadow-small;
 
     &--title {
       font-size: 2rem;
       margin-bottom: 2rem;
+      font-weight: 500;
+    }
+
+    &--cards {
+      &:not(:last-child) {
+        margin-bottom: 3rem;
+      }
     }
   }
 
