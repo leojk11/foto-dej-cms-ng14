@@ -4,14 +4,20 @@ import { APP_VERSION } from 'src/app/core/data/staticData';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { AdminLayoutService } from '../../services/admin-layout.service';
 import { TranslateModule } from '@ngx-translate/core';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { NotificationComponent } from 'src/app/features/bo/pages/notifications/components/notification/notification.component';
+import { NotificationStore } from '../../../pages/notifications/services/notification.store';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
   imports: [
     CommonModule, 
-    TranslateModule
+    TranslateModule,
+    OverlayPanelModule,
+    NotificationComponent
   ],
+  providers: [NotificationStore],
   templateUrl: './navbar.component.html'
 })
 export class NavbarComponent implements OnInit {
@@ -25,11 +31,13 @@ export class NavbarComponent implements OnInit {
   constructor(
     public authService: AuthService,
     public adminLayoutService: AdminLayoutService,
-    public location: Location
+    public location: Location,
+    public notificationStore: NotificationStore
   ) { }
 
   ngOnInit(): void {
     console.log('USER', this.authService.user);
+    this.notificationStore.loadNotifications();
   }
 
   logout(): void {

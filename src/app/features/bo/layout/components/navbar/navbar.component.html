@@ -26,6 +26,15 @@
     </div>
   
     <div class="container__flex gap-3">
+      <button 
+        type="button"
+        pButton
+        class="btn btn__icon"
+        (click)="op.toggle($event)"
+      >
+        <i class="pi pi-bell"></i>
+      </button>
+
       <div *ngIf="authService.user$ | async as user">
         <p class="c-white text-lg">
           {{ user.firstname }} {{ user.lastname }}
@@ -44,3 +53,29 @@
     </div>
   </ng-container>
 </div>
+
+<p-overlayPanel #op>
+  <div class="notifications" >
+    <div class="notifications__top">
+      <p class="notifications__top--title">
+        {{ 'common.notifications' | translate }}
+      </p>
+
+      <p class="notifications__top--seeAll">
+        {{ 'common.seeAll' | translate }}
+      </p>
+    </div>
+
+    <ng-container *ngIf="notificationStore.state$ | async as notifState">
+      <div 
+        *ngFor="let notification of notifState.notifications"
+        class="notifications__list"
+      >
+        <app-notification
+          [notification]="notification"
+        ></app-notification>
+      </div>
+    </ng-container>
+
+  </div>
+</p-overlayPanel>

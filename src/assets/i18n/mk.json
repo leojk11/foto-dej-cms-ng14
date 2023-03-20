@@ -68,7 +68,9 @@
     "search": "Пребарај",
     "reset": "Исчисти",
     "pendingRequest": "Барања на чекање",
-    "upcomingEvents": "Следни настани"
+    "upcomingEvents": "Следни настани",
+    "notifications": "Известувања",
+    "seeAll": "Види повеќе"
   },
   "properties": {
     "title": "Наслов",

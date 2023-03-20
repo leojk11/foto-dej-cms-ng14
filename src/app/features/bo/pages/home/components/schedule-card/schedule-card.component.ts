@@ -20,11 +20,7 @@ export class ScheduleCardComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log('EVENT', this.event);
-    
     if(this.event) {
-      console.log('DATE MONT', new Date(this.event.date).getMonth())
-      console.log('DATE', new Date(this.event.date).toDateString().split(' '))
       this.date = new Date(this.event.date).toDateString().split(' ');
     }
   }

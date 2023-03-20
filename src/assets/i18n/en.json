@@ -68,7 +68,9 @@
     "search": "Search",
     "reset": "Reset",
     "pendingRequest": "Pending requests",
-    "upcomingEvents": "Upcoming events"
+    "upcomingEvents": "Upcoming events",
+    "notifications": "Notifications",
+    "seeAll": "See all"
   },
   "properties": {
     "title": "Title",
