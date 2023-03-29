@@ -5,9 +5,8 @@ import { ClientsService } from '../../services/clients.service'
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Client } from '../../models/client.model';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { catchError, Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { ToastService } from 'src/app/shared/services/toast.service';
 import { ClientsStore } from '../../services/clients.store';
 import { ConfirmationService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
@@ -55,7 +54,6 @@ export class ClientDetailsComponent implements OnInit, OnDestroy {
     private clientService: ClientsService,
     private route: ActivatedRoute,
     public location: Location,
-    private toast: ToastService,
     public clientStore: ClientsStore,
     private confirmationService: ConfirmationService,
     private translate: TranslateService,
@@ -88,23 +86,13 @@ export class ClientDetailsComponent implements OnInit, OnDestroy {
   }
 
   getClient(): void {
-    console.log('client ID', this.id);
-    // this.clientService.getSingleClient(this.id).subscribe({
-    //   next: client => {
-    //     this.client = client;
-    //   },
-    //   error: err => {
-    //     console.error(err);
-    //   }
-    // });
-
     this.clientStore.getSingleClient(this.id);
   }
 
   getClientLogs(): void {
     this.clientService.getLatestClientLogs(this.id).subscribe({
       next: logs => {
-        console.log('CLIENT LOGS', logs);
+        // console.log('CLIENT LOGS', logs);
         this.clientLogs = logs;
       },
       error: err => {
@@ -120,7 +108,7 @@ export class ClientDetailsComponent implements OnInit, OnDestroy {
     }
     this.albumService.getUserAlbums(this.id, params).subscribe({
       next: res => {
-        console.log('CLIENT ALBUMS', res);
+        // console.log('CLIENT ALBUMS', res);
         this.clientAlbums = res.list;
       }
     })
