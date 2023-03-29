@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { BasicParams } from 'src/app/shared/models/basicParams.model';
 import { ToastService } from 'src/app/shared/services/toast.service';
 import { GetAllRequestsResponse } from '../models/getAllRequestsResponse.model';
@@ -31,7 +32,8 @@ export class RequestsStore extends ComponentStore<RequestsState> {
 
   constructor(
     private requestsService: RequestsService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private spinner: NgxSpinnerService
   ) { 
     super(initialState);
   }
@@ -45,6 +47,8 @@ export class RequestsStore extends ComponentStore<RequestsState> {
   }
 
   getRequests(filters?: Partial<RequestFilters>): void {
+    this.spinner.show().then();
+
     this.requestsService.getAll(this.state.params, filters).subscribe({
       next: (res: GetAllRequestsResponse) => {
         this.patchState({
@@ -52,10 +56,12 @@ export class RequestsStore extends ComponentStore<RequestsState> {
           total: res.total,
           loading: false
         });
+        this.spinner.hide().then();
       },
       error: (error: any) => {
         this.patchState({ loading: false });
         this.toastService.addError(error.error.message);
+        this.spinner.hide().then();
       }
     });
   }

@@ -5,6 +5,7 @@ import { Log } from "src/app/features/bo/pages/logs/models/log.model";
 import { ToastService } from "src/app/shared/services/toast.service";
 import { LogService } from "./log.service";
 import { LogFilter } from "../models/log-filter.model";
+import { NgxSpinnerService } from "ngx-spinner";
 
 export interface LogState {
   list: Log[];
@@ -29,17 +30,14 @@ export class LogStore extends ComponentStore<LogState> {
 
   constructor(
     private logService: LogService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private spinner: NgxSpinnerService
   ) {
     super(initialState);
   }
 
   get state() {
     return this.get(s => s);
-  }
-
-  setLoading(loading: boolean): void {
-    this.patchState({ loading });
   }
 
   patchParams(page: number): void {
@@ -49,9 +47,7 @@ export class LogStore extends ComponentStore<LogState> {
   }
 
   getAllLogs(filters?: LogFilter): void {
-    this.setLoading(true);
-    console.log('PARAMS', this.state.params);
-    
+    this.spinner.show().then();
 
     this.logService.getAllLogs(this.state.params, filters).subscribe({
       next: res => {
@@ -62,10 +58,11 @@ export class LogStore extends ComponentStore<LogState> {
 
           loading: false
         });
+        this.spinner.hide().then();
       },
       error: error => {
-        this.setLoading(false);
         this.toastService.addError(error.error.message);
+        this.spinner.hide().then();
       }
     })
   }

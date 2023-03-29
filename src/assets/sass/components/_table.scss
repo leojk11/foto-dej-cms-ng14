@@ -39,6 +39,9 @@
       &:not(:first-child) {
         min-width: 15rem !important;
       }
+      &:last-child {
+        min-width: 5rem !important;
+      }
 
       &:first-child {
         border-top-left-radius: 5px !important;
@@ -64,6 +67,13 @@
 
         &:not(:first-child) {
           min-width: 15rem !important;
+        }
+
+        &:last-child {
+          min-width: 5rem !important;
+          display: flex;
+          justify-content: center;
+          align-items: center;
         }
       }
     }

@@ -33,7 +33,6 @@ FullCalendarModule.registerPlugins([
     CommonModule,
     TranslateModule,
     FullCalendarModule,
-    SpinnerComponent,
     CalendarModule,
     FormsModule,
     InputTextModule,
@@ -42,8 +41,7 @@ FullCalendarModule.registerPlugins([
   providers: [
     DialogService
   ],
-  templateUrl: './calendar.component.html',
-  styleUrls: ['./calendar.component.scss']
+  templateUrl: './calendar.component.html'
 })
 export class CalendarComponent implements OnInit {
 
