@@ -55,21 +55,27 @@
 </div>
 
 <p-overlayPanel #op>
-  <div class="notifications" >
-    <div class="notifications__top">
-      <p class="notifications__top--title">
+  <div class="notifications-panel" >
+    <div class="notifications-panel__top">
+      <p class="notifications-panel__top--title">
         {{ 'common.notifications' | translate }}
       </p>
 
-      <p class="notifications__top--seeAll">
+      <p 
+        class="notifications-panel__top--seeAll"
+        routerLink="/bo/notifications"
+        (click)="op.toggle($event)"
+      >
         {{ 'common.seeAll' | translate }}
       </p>
     </div>
 
+    <div class="separator mb-1"></div>
+
     <ng-container *ngIf="notificationStore.state$ | async as notifState">
       <div 
         *ngFor="let notification of notifState.notifications"
-        class="notifications__list"
+        class="notifications-panel__list"
       >
         <app-notification
           [notification]="notification"

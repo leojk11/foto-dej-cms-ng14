@@ -9,7 +9,8 @@ import { NotificationService } from "./notification.service";
 export interface NotificationState {
   loading: boolean;
   params: BasicParams;
-  notifications: any[];
+  total: number;
+  notifications: Notification[];
 }
 
 export const initialState: NotificationState = {
@@ -18,6 +19,7 @@ export const initialState: NotificationState = {
     page: 1,
     take: 6
   },
+  total: 0,
   notifications: []
 }
 
@@ -38,6 +40,13 @@ export class NotificationStore extends ComponentStore<NotificationState> {
     return this.get(s => s);
   }
 
+  setParams(params: BasicParams): void {
+    this.patchState({
+      ...this.state,
+      params
+    })
+  }
+
   loadNotifications = this.effect((_$) =>
     _$.pipe(
       switchMap((_) => {
@@ -52,7 +61,8 @@ export class NotificationStore extends ComponentStore<NotificationState> {
             
             this.patchState({
               ...this.state,
-              notifications: res.list
+              notifications: res.list,
+              total: res.total
             });
             this.spinner.hide().then();
           })

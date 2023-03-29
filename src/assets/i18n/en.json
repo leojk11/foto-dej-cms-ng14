@@ -70,7 +70,8 @@
     "pendingRequest": "Pending requests",
     "upcomingEvents": "Upcoming events",
     "notifications": "Notifications",
-    "seeAll": "See all"
+    "seeAll": "See all",
+    "ago": "ago"
   },
   "properties": {
     "title": "Title",
@@ -254,6 +255,18 @@
     "userAccountActivation": " has activated the account",
     "userSelectedImages": " has selected images",
     "userUpdatedProfile": " updated their profile"
+  },
+  "notMessages": {
+    "requestSent": "You have one new request",
+    "selectedImages": "has selected images",
+    "acceptedInvitation": "has accepted your invitation",
+    "eventReminder": "You have an upcoming event"
+  },
+  "types": {
+    "seconds": "seconds",
+    "minutes": "minutes",
+    "hours": "hours",
+    "days": "days"
   },
   "primeng": {
     "closeText": "Close",

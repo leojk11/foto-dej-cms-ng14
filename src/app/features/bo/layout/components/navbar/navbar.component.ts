@@ -7,6 +7,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { NotificationComponent } from 'src/app/features/bo/pages/notifications/components/notification/notification.component';
 import { NotificationStore } from '../../../pages/notifications/services/notification.store';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -15,7 +16,8 @@ import { NotificationStore } from '../../../pages/notifications/services/notific
     CommonModule, 
     TranslateModule,
     OverlayPanelModule,
-    NotificationComponent
+    NotificationComponent,
+    RouterModule
   ],
   providers: [NotificationStore],
   templateUrl: './navbar.component.html'

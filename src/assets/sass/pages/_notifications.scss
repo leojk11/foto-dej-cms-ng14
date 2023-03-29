@@ -1,5 +1,5 @@
-.notifications {
-  width: 40rem;
+.notifications-panel {
+  width: 43rem;
   padding: 1.5rem;
 
   &__top {
@@ -8,7 +8,7 @@
     justify-content: space-between;
     flex-wrap: wrap;
     row-gap: 1rem;
-    margin-bottom: 2.5rem;
+    margin-bottom: 1.5rem;
 
     &--title {
       font-size: 1.8rem;
@@ -26,7 +26,64 @@
 }
 
 .notification {
-  height: 5rem;
+  height: 6rem;
   margin-bottom: 1px solid $light-grey;
   font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 1rem ;
+  color: $dark;
+  cursor: pointer;
+  background-color: $sidebar-bg;
+  width: 40rem;
+  margin-bottom: 1rem;
+  border-radius: 5px;
+
+  &:hover {
+    box-shadow: $shadow-icon;
+  }
+
+  &__img {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    background-color: rgba($color-medium, .6);
+    color: $white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    letter-spacing: .8px;
+    box-shadow: $shadow-sm-full;
+  }
+
+  &__title {
+    font-size: 1.6rem;
+    font-weight: 500;
+    margin-bottom: .6rem;
+
+    &.read {
+      color: rgba($dark, .7);
+    }
+  }
+
+  &__time {
+    color: $light-grey-2;
+    font-size: 1.3rem;
+  }
+}
+
+.notifications {
+
+  &__header {
+    padding: 2rem;
+  }
+
+  &__list {
+    padding: 2rem 4rem;
+
+    .p-paginator {
+      background-color: transparent !important;
+    }
+  }
 }

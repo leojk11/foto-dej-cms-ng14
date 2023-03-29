@@ -1,7 +1,5 @@
 import { Route } from "@angular/router";
-import { BoLayoutComponent } from "./layout/bo-layout/bo-layout.component";
 import { CLIENT_ROUTES } from "./pages/clients/client.routes";
-import { LOGS_ROUTES } from "./pages/logs/logs.routes";
 
 export const BO_ROUTES: Route[] = [
   {
@@ -55,14 +53,14 @@ export const BO_ROUTES: Route[] = [
       },
       {
         path: 'logs',
-        children: [...LOGS_ROUTES]
-      }
+        loadComponent: () => import('./pages/logs/containers/logs/logs.component')
+          .then(c => c.LogsComponent)
+      },
+      {
+        path: 'notifications',
+        loadComponent: () => import('./pages/notifications/containers/notifications/notifications.component')
+          .then((m) => m.NotificationsComponent)
+      },
     ]
   },
-  // {
-  //   path: 'home',
-  //   component: BoLayoutComponent,
-  //   children: [
-  //   ]
-  // }
 ]

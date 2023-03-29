@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
@@ -12,6 +12,7 @@ import { SpinnerComponent } from 'src/app/shared/components/loading/spinner/spin
 import {InputTextModule} from 'primeng/inputtext';
 import { LoginFormComponent } from '../../components/login-form/login-form.component';
 import { LangChangeComponent } from 'src/app/shared/components/lang-change/lang-change.component';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-bo-login',
@@ -28,7 +29,7 @@ import { LangChangeComponent } from 'src/app/shared/components/lang-change/lang-
   ],
   templateUrl: './bo-login.component.html'
 })
-export class BoLoginComponent implements OnInit {
+export class BoLoginComponent implements OnInit, AfterViewInit {
 
   appVersion = APP_VERSION;
 
@@ -52,10 +53,16 @@ export class BoLoginComponent implements OnInit {
     private storageService: StorageService,
     private authService: AuthService,
     private router: Router,
+    private spinner: NgxSpinnerService
   ) { }
 
   ngOnInit(): void {
     this.selectedLang =  this.storageService.getItem('lang');
+    this.spinner.show().then();
+  }
+
+  ngAfterViewInit(): void {
+    this.spinner.hide().then();
   }
 
   viewPassword(): void{

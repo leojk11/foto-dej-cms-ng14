@@ -70,7 +70,8 @@
     "pendingRequest": "Барања на чекање",
     "upcomingEvents": "Следни настани",
     "notifications": "Известувања",
-    "seeAll": "Види повеќе"
+    "seeAll": "Види повеќе",
+    "ago": "пред"
   },
   "properties": {
     "title": "Наслов",
@@ -254,6 +255,18 @@
     "userAccountActivation": " го активираше акаунтот",
     "userSelectedImages": " ги селектираше сликите",
     "userUpdatedProfile": " го ажурира својот профил"
+  },
+  "notMessages": {
+    "requestSent": "Пристигна ново барање",
+    "selectedImages": "избра слики",
+    "acceptedInvitation": "ја прифати вашата покана",
+    "eventReminder": "Имате настан "
+  },
+  "types": {
+    "seconds": "секунди",
+    "minutes": "минути",
+    "hours": "саати",
+    "days": "дена"
   },
   "primeng": {
     "closeText": "Затвори",

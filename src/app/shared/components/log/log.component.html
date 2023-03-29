@@ -10,6 +10,7 @@
 
     <div class="log__body--title">
       <strong> {{ log.client.fullname }} </strong>
+      
       <span *ngIf="log.action === 'LOGIN'" >
         {{ 'logs.userLogin' | translate }}
       </span>
