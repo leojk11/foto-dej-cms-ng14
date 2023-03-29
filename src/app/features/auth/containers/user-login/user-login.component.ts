@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -8,13 +8,13 @@ import { AuthService } from 'src/app/core/services/auth.service';
 import { StorageService } from 'src/app/core/services/storage.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
-import { SpinnerComponent } from 'src/app/shared/components/loading/spinner/spinner.component';
 import {InputTextModule} from 'primeng/inputtext';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ResetPasswordComponent } from '../../components/reset-password/reset-password.component';
 import { ToastService } from 'src/app/shared/services/toast.service';
 import { LoginFormComponent } from '../../components/login-form/login-form.component';
 import { LangChangeComponent } from 'src/app/shared/components/lang-change/lang-change.component';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-user-login',
@@ -24,7 +24,6 @@ import { LangChangeComponent } from 'src/app/shared/components/lang-change/lang-
     FormsModule,
     ReactiveFormsModule,
     TranslateModule,
-    SpinnerComponent,
     InputTextModule,
     LoginFormComponent,
     LangChangeComponent
@@ -34,7 +33,7 @@ import { LangChangeComponent } from 'src/app/shared/components/lang-change/lang-
   ],
   templateUrl: './user-login.component.html'
 })
-export class UserLoginComponent implements OnInit {
+export class UserLoginComponent implements OnInit, AfterViewInit {
 
   @ViewChild('seePass') seePass!: ElementRef;
   @ViewChild('password') password!: ElementRef;
@@ -60,11 +59,17 @@ export class UserLoginComponent implements OnInit {
     private storageService: StorageService,
     private router: Router,
     private dialog: DialogService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private spinner: NgxSpinnerService
   ) { }
 
   ngOnInit(): void {
     this.selectedLang =  this.storageService.getItem('lang');
+    this.spinner.show().then();
+  }
+
+  ngAfterViewInit(): void {
+    this.spinner.hide().then();
   }
 
   viewPassword(): void{

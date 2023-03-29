@@ -1,7 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
-import { AlbumsState, AlbumsStore } from '../../../features/bo/pages/albums/services/albums.store';
-import { SpinnerComponent } from 'src/app/shared/components/loading/spinner/spinner.component';
+import { AlbumsStore } from '../../../features/bo/pages/albums/services/albums.store';
 import { SingleAlbumComponent } from '../single-album/single-album.component';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NewAlbumComponent } from '../../../features/bo/pages/albums/containers/new-album/new-album.component';
@@ -17,7 +16,6 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
   standalone: true,
   imports: [
     CommonModule,
-    SpinnerComponent,
     SingleAlbumComponent,
     TranslateModule,
     PaginatorModule,

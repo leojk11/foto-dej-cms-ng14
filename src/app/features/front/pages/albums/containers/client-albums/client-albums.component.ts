@@ -5,7 +5,6 @@ import { AlbumsStore } from 'src/app/features/bo/pages/albums/services/albums.st
 import { ConfirmationService } from 'primeng/api';
 import { SingleAlbumComponent } from 'src/app/shared/components/single-album/single-album.component';
 import { PaginatorModule } from 'primeng/paginator';
-import { SpinnerComponent } from 'src/app/shared/components/loading/spinner/spinner.component';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { AlbumsComponent } from 'src/app/shared/components/albums/albums.component';
 
@@ -17,7 +16,6 @@ import { AlbumsComponent } from 'src/app/shared/components/albums/albums.compone
     AlbumComponent,
     SingleAlbumComponent,
     PaginatorModule,
-    SpinnerComponent,
     AlbumsComponent
   ],
   providers: [ AlbumsStore, ConfirmationService ],
