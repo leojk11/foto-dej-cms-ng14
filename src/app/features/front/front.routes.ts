@@ -1,5 +1,6 @@
 import { Route, } from "@angular/router";
 import { PreviewComponent } from "./pages/albums/containers/preview/preview.component";
+import { ProfileComponent } from "./pages/profile/profile.component";
 
 export const FRONT_ROUTES: Route[] = [
   {
@@ -15,6 +16,10 @@ export const FRONT_ROUTES: Route[] = [
       {
         path: 'albums/:id',
         component: PreviewComponent
+      },
+      {
+        path: 'profile',
+        component: ProfileComponent
       }
     ]
   }
