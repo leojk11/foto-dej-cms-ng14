@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Client } from 'src/app/features/bo/pages/clients/models/client.model';
 import { ClientsService } from 'src/app/features/bo/pages/clients/services/clients.service';
 import { TranslateModule } from '@ngx-translate/core';
+import { ClientsStore } from 'src/app/features/bo/pages/clients/services/clients.store';
 
 @Component({
   selector: 'app-assign-album',
@@ -11,8 +12,7 @@ import { TranslateModule } from '@ngx-translate/core';
     CommonModule,
     TranslateModule
   ],
-  templateUrl: './assign-album.component.html',
-  styleUrls: ['./assign-album.component.scss']
+  templateUrl: './assign-album.component.html'
 })
 export class AssignAlbumComponent implements OnInit {
 
@@ -25,7 +25,8 @@ export class AssignAlbumComponent implements OnInit {
   loading: boolean = true;
 
   constructor(
-    private clientService: ClientsService
+    private clientService: ClientsService,
+    private clientStore: ClientsStore
   ) { }
 
   ngOnInit(): void {
@@ -37,17 +38,10 @@ export class AssignAlbumComponent implements OnInit {
   }
 
   getClients(): void {
-    this.clientService.getAllCLients({page: 1, take: 10}).subscribe({
-      next: res => {
-        this.clients = res.list;
-        console.log('Clients', this.clients);
-        this.loading = !this.loading;
-      }
-    });
+    this.clientStore.getAllClients();
   }
 
   selectClient(client: Client): void {
-    console.log('SELECTED CLIENT', client);
     this.clientSelected.emit(client);
   }
 

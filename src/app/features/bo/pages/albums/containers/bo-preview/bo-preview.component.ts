@@ -11,8 +11,6 @@ import { TooltipModule } from 'primeng/tooltip';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmationService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { AlbumsService } from '../../services/albums.service';
-import { ToastService } from 'src/app/shared/services/toast.service';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { FormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
@@ -58,8 +56,6 @@ export class BoPreviewComponent implements OnInit {
     private dialog: DialogService,
     private translate: TranslateService,
     private confirmationService: ConfirmationService,
-    private albumsService: AlbumsService,
-    private toastService: ToastService
   ) { }
 
   ngOnInit(): void {
@@ -99,15 +95,7 @@ export class BoPreviewComponent implements OnInit {
       acceptLabel: this.translate.instant('common.yes'),
       rejectLabel: this.translate.instant('common.no'),
       accept: () => {
-        this.albumsService.deleteAlbum(this.albumId).subscribe({
-          next: res => {
-            this.toastService.addSuccess(res.message);
-            this.router.navigate(['/bo/albums']).then();
-          },
-          error: error => {
-            this.toastService.addError(error.error.message);
-          }
-        })
+        this.albumsStore.deleteAlbum(this.albumId);
       }
     });
   }

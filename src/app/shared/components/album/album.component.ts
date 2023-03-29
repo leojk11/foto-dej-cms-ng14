@@ -29,8 +29,7 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
     PermitDirective,
     OverlayPanelModule
   ],
-  templateUrl: './album.component.html',
-  styleUrls: ['./album.component.scss']
+  templateUrl: './album.component.html'
 })
 export class AlbumComponent implements OnInit {
 
@@ -152,20 +151,11 @@ export class AlbumComponent implements OnInit {
     this.selectedImages = [];
     this.albumsStore.patchSelectedImages(this.selectedImages);
     this.albumsStore.selectImages();
-    // this.onSelect.emit({
-    //   images: this.selectedImages, 
-    //   isAdmin: this.isAdmin
-    // });
   }
 
   selectAllImages(): void {
     if (this.albumsStore.state.images) {
       this.selectedImages = this.albumsStore.state.images.images;
-
-      // this.onSelect.emit({
-      //   images: this.selectedImages, 
-      //   isAdmin: this.isAdmin
-      // });
       this.albumsStore.patchSelectedImages(this.selectedImages);
       this.albumsStore.selectImages();
     }

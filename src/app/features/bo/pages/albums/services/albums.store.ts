@@ -9,6 +9,7 @@ import {GetAlumImagesResponse} from "../models/getAlumImagesResponse.model";
 import { AdminLayoutService } from '../../../layout/services/admin-layout.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
 import { Image } from '../models/image.model';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 export interface AlbumsState {
   list: Album[],
@@ -59,7 +60,8 @@ export class AlbumsStore extends ComponentStore<AlbumsState> {
     private albumsService: AlbumsService,
     private router: Router,
     private adminLayoutService: AdminLayoutService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private spinner: NgxSpinnerService
   ) {
     super(initialState);
   }
@@ -77,7 +79,7 @@ export class AlbumsStore extends ComponentStore<AlbumsState> {
   }
 
   getAllAlbums(): void {
-    this.setLoading(true);
+    this.spinner.show().then();
 
     this.albumsService.getAllAlbums(this.state.params).subscribe({
       next: res => {
@@ -89,16 +91,17 @@ export class AlbumsStore extends ComponentStore<AlbumsState> {
 
           loading: false
         });
+        this.spinner.hide().then();
       },
       error: error => {
-        this.setLoading(false);
         this.toastService.addError(error.error.message);
+        this.spinner.hide().then();
       }
     });
   }
 
   getUserAlbums(userId: string): void {
-    this.setLoading(true);
+    this.spinner.show().then();
 
     this.albumsService.getUserAlbums(userId, this.state.params).subscribe({
       next: res => {
@@ -110,16 +113,17 @@ export class AlbumsStore extends ComponentStore<AlbumsState> {
 
           loading: false
         });
+        this.spinner.hide().then();
       },
       error: error => {
-        this.setLoading(false);
         this.toastService.addError(error.error.message);
+        this.spinner.hide().then();
       }
     });
   }
 
   getSingleAlbum(id: string, image?: string): void {
-    this.setLoading(true);
+    this.spinner.show().then();
 
     this.albumsService.getSingleAlbum(id).subscribe({
       next: singleAlbum => {
@@ -128,53 +132,59 @@ export class AlbumsStore extends ComponentStore<AlbumsState> {
             this.albumsService.getSelectedAlbumImages(id).subscribe({
               next: selectedImages => {
                 this.adminLayoutService.setTitle('common.albums', `${ singleAlbum.title } (${singleAlbum.date})`);
-                // console.log('SELECTED IMAGES', selectedImages);
-                // console.log('ALBUM', singleAlbum);
                 
                 this.patchState({
                   previewAlbum: singleAlbum,
                   images: albumImages,
-                  // selectedImages: selectedImages.images,
                   loading: false
                 });
+                this.spinner.hide().then();
               },
               error: error => {
-                this.setLoading(false);
                 this.toastService.addError(error.error.message);
+                this.spinner.hide().then();
               }
             });
           },
           error: error => {
-            this.setLoading(false);
             this.toastService.addError(error.error.message);
+            this.spinner.hide().then();
           }
         });
       },
       error: error => {
-        this.setLoading(false);
         this.toastService.addError(error.error.message);
+        this.spinner.hide().then();
       }
     });
   }
 
   getAlbumImages(id: string, image?: string): void {
+    this.spinner.show().then();
+
     this.albumsService.getAlbumImages(id, image).subscribe({
       next: albumImages => {
         this.patchState({ images: albumImages });
+        this.spinner.hide().then();
       },
       error: error => {
         this.toastService.addError(error.error.message);
+        this.spinner.hide().then();
       }
     });
   }
 
   getSelectedAlbumImages(albumId: string | undefined, image?: string): void {
+    this.spinner.show().then();
+
     this.albumsService.getSelectedAlbumImages(albumId, image).subscribe({
       next: selectedImages => {
         this.patchState({ selectedImages: selectedImages.images });
+        this.spinner.hide().then();
       },
       error: error => {
         this.toastService.addError(error.error.message);
+        this.spinner.hide().then();
       }
     });
   }
@@ -200,6 +210,8 @@ export class AlbumsStore extends ComponentStore<AlbumsState> {
   }
 
   updateStatus(status: boolean): void {
+    this.spinner.show().then();
+
     this.albumsService.updateStatus(this.state.previewAlbum?.id, status).subscribe({
       next: res => {
         const previewAlbum = this.state.previewAlbum;
@@ -209,14 +221,18 @@ export class AlbumsStore extends ComponentStore<AlbumsState> {
 
         this.patchState({ previewAlbum });
         this.toastService.addSuccess(res.message);
+        this.spinner.hide().then();
       },
       error: error => {
         this.toastService.addError(error.error.message);
+        this.spinner.hide().then();
       }
     });
   }
 
   deleteImage(image: string, index: number): void {
+    this.spinner.show().then();
+
     this.albumsService.deleteImage(this.state.previewAlbum?.id, image).subscribe({
       next: res => {
         // in the future be will return left images array
@@ -227,14 +243,18 @@ export class AlbumsStore extends ComponentStore<AlbumsState> {
         }
         this.toastService.addSuccess(res.message);
         this.patchState({ images });
+        this.spinner.hide().then();
       },
       error: error => {
-        this.toastService.addError(error.error.message);
+        this.toastService.addError(error.error.message);        
+        this.spinner.hide().then();
       }
     });
   }
 
   deleteMultipleImages(images: string[]): void {
+    this.spinner.show().then();
+
     this.albumsService.deleteMultipleImages(this.state.previewAlbum?.id, images).subscribe({
       next: res => {
         let savedImages = this.state.images;
@@ -252,14 +272,18 @@ export class AlbumsStore extends ComponentStore<AlbumsState> {
         
         this.patchState({ images: savedImages });
         this.toastService.addSuccess(res.message);
+        this.spinner.hide().then();
       },
       error: error => {
         this.toastService.addError(error.error.message);
+        this.spinner.hide().then();
       }
     });
   }
 
   disableMultipleImages(images: string[]): void {
+    this.spinner.show().then();
+
     this.albumsService.disableMultipleImages(this.state.previewAlbum?.id, images).subscribe({
       next: res => {
         let savedImages = this.state.images;
@@ -274,14 +298,18 @@ export class AlbumsStore extends ComponentStore<AlbumsState> {
 
         this.patchState({ images: savedImages });
         this.toastService.addSuccess(res.message);
+        this.spinner.hide().then();
       },
       error: error => {
         this.toastService.addError(error.error.message);
+        this.spinner.hide().then();
       }
     });
   }
 
   enableMultipleImages(images: string[]): void {
+    this.spinner.show().then();
+
     this.albumsService.enableMultipleImages(this.state.previewAlbum?.id, images).subscribe({
       next: res => {
         let savedImages = this.state.images;
@@ -296,9 +324,11 @@ export class AlbumsStore extends ComponentStore<AlbumsState> {
 
         this.patchState({ images: savedImages });
         this.toastService.addSuccess(res.message);
+        this.spinner.hide().then();
       },
       error: error => {
         this.toastService.addError(error.error.message);
+        this.spinner.hide().then();
       }
     });
   }
@@ -310,15 +340,33 @@ export class AlbumsStore extends ComponentStore<AlbumsState> {
   selectImages(): void {
     if (this.state.selectedImages) {
       console.log('STORE SELECTED', this.state.selectedImages);
-      
+      this.spinner.show().then();
+
       this.albumsService.selectImages(this.state.previewAlbum?.id, this.state.selectedImages).subscribe({
         next: res => {
           this.toastService.addSuccess(res.message);
+          this.spinner.hide().then();
         },
         error: error => {
-          this.toastService.addError(error.error.message);
+          this.toastService.addError(error.error.message);       
+          this.spinner.hide().then();
         }
       });
     }
+  }
+
+  deleteAlbum(id: string): void {
+    this.spinner.show().then();
+    this.albumsService.deleteAlbum(id).subscribe({
+      next: res => {
+        this.toastService.addSuccess(res.message);
+        this.spinner.hide().then();
+        this.router.navigate(['/bo/albums']).then();
+      },
+      error: error => {
+        this.toastService.addError(error.error.message);
+        this.spinner.hide().then();
+      }
+    })
   }
 }

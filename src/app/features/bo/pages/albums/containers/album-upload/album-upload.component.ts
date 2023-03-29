@@ -19,8 +19,7 @@ import { AdminLayoutService } from 'src/app/features/bo/layout/services/admin-la
     ProgressBarModule,
     DialogModule
   ],
-  templateUrl: './album-upload.component.html',
-  styleUrls: ['./album-upload.component.scss']
+  templateUrl: './album-upload.component.html'
 })
 export class AlbumUploadComponent implements OnInit {
 

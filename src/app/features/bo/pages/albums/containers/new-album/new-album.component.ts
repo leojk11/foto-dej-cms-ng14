@@ -13,6 +13,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ToastService } from 'src/app/shared/services/toast.service';
 import {AutoCompleteModule} from 'primeng/autocomplete';
 import { BasicParams } from 'src/app/shared/models/basicParams.model';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-new-album',
@@ -53,7 +54,8 @@ export class NewAlbumComponent implements OnInit {
     private albumsService: AlbumsService,
     private clientService: ClientsService,
     public dialogRef: DynamicDialogRef,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private spinner: NgxSpinnerService
   ) { }
 
   ngOnInit(): void {
@@ -64,14 +66,18 @@ export class NewAlbumComponent implements OnInit {
       this.editMode = true;
 
       if (this.config.data.assigned_to_id) {
+        this.spinner.show().then();
+
         this.clientService.getSingleClient(this.config.data.assigned_to_id).subscribe({
           next: client => {
             this.selectedClient = client;
             this.hasClient = true;
             this.onClientSelected(client);
+            this.spinner.hide().then();
           },
           error: error => {
             this.toastService.addError(error.error.message);
+            this.spinner.hide().then();
           }
         });
       }
@@ -102,11 +108,16 @@ export class NewAlbumComponent implements OnInit {
         name: query
       }
     }
+    this.spinner.show().then();
 
     this.clientService.getAllCLients(params).subscribe({
       next: res => {
         this.clients = res.list;
-        console.log('Clients', this.clients);
+        this.spinner.hide().then();
+      },
+      error: error => {
+        this.toastService.addError(error.error.message);
+        this.spinner.hide().then();
       }
     });
   }
@@ -131,6 +142,7 @@ export class NewAlbumComponent implements OnInit {
       this.addAlbumForm.removeControl('assignTo');
     }
 
+    this.spinner.show().then();
 
     if (this.editMode) {
       this.albumsService.editAlbum(
@@ -142,9 +154,11 @@ export class NewAlbumComponent implements OnInit {
           this.dialogRef.close();
 
           this.toastService.addSuccess(res.message);
+          this.spinner.hide().then();
         },
         error: error => {
           this.toastService.addError(error.error.message);
+          this.spinner.hide().then();
         }
       });
     } else {
@@ -154,9 +168,11 @@ export class NewAlbumComponent implements OnInit {
           this.toastService.addSuccess(res.message);
 
           this.dialogRef.close('new');
+          this.spinner.hide().then();
         },
         error: error => {
           this.toastService.addError(error.error.message);
+          this.spinner.hide().then();
         }
       });
     }

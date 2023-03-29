@@ -13,8 +13,7 @@ import { Image } from '../../models/image.model';
     CheckboxModule,
     FormsModule
   ],
-  templateUrl: './single-image.component.html',
-  styleUrls: ['./single-image.component.scss']
+  templateUrl: './single-image.component.html'
 })
 export class SingleImageComponent implements OnInit, OnChanges {
 
@@ -42,8 +41,6 @@ export class SingleImageComponent implements OnInit, OnChanges {
   }
 
   checkImage(): void {
-    // console.log('selected images on check', this.selectedImages);
-    
     if (this.selectedImages && this.image) {
       const selectedImage = this.selectedImages.find(inImg => inImg.name === this.image?.name);
       
@@ -83,8 +80,6 @@ export class SingleImageComponent implements OnInit, OnChanges {
       }
     }
 
-    console.log('SELECTED', this.selectedImages);
-    
     this.onSelect.emit(this.selectedImages);
   }
 

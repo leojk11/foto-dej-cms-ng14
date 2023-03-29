@@ -5,8 +5,7 @@ import { CommonModule } from '@angular/common';
   selector: 'app-file-to-upload',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './file-to-upload.component.html',
-  styleUrls: ['./file-to-upload.component.scss']
+  templateUrl: './file-to-upload.component.html'
 })
 export class FileToUploadComponent implements OnInit {
 
