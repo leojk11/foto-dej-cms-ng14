@@ -17,7 +17,6 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
   standalone: true,
   imports: [
     CommonModule,
-    SpinnerComponent,
     TranslateModule,
     ClientCardComponent,
     InputTextModule,
