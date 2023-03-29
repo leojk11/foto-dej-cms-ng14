@@ -7,12 +7,12 @@ import { ConfigurationStore } from '../../services/configuration.store';
 import { ConfigurationService } from '../../services/configuration.service';
 import { ImageOverviewService } from 'src/app/shared/services/image-overview.service';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
-import { SpinnerComponent } from 'src/app/shared/components/loading/spinner/spinner.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { InputTextModule } from 'primeng/inputtext';
 import { finalize, forkJoin, ignoreElements, merge, mergeMap, Observable, of, Subject, tap } from 'rxjs';
 import { ToastService } from 'src/app/shared/services/toast.service';
 import { ProgressBarModule } from 'primeng/progressbar';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-configuration',
@@ -20,7 +20,6 @@ import { ProgressBarModule } from 'primeng/progressbar';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    SpinnerComponent,
     TranslateModule,
     InputTextModule,
     ProgressBarModule
@@ -91,7 +90,8 @@ export class ConfigurationComponent implements OnInit {
     private fb: FormBuilder,
     private imageOverviewState: ImageOverviewService,
     private toastService: ToastService,
-    public location: Location
+    public location: Location,
+    private spinner: NgxSpinnerService
   ) { }
 
   ngOnInit(): void {
@@ -99,13 +99,21 @@ export class ConfigurationComponent implements OnInit {
 
     this.configurationStore.getConfiguration();
 
+    this.spinner.show().then();
+
     this.configurationStore.state$.subscribe({
       next: state => {
+        this.spinner.hide().then();
+
         if (!!state.configuration) {
           this.form.patchValue({
             ...state.configuration
           });
         }
+      },
+      error: err => {
+        this.toastService.addError(err.error.message);
+        this.spinner.hide().then();
       }
     });
   }
@@ -166,7 +174,7 @@ export class ConfigurationComponent implements OnInit {
               logo: this.selectedLogo?.name
             }).subscribe({
               next: updateImageRes => {
-                this.configurationStore.updateConfiguration(updateImageRes.configuration);
+                this.configurationStore.patchConfiguration(updateImageRes.configuration);
                 this.toastService.addSuccess(updateImageRes.message);
 
                 this.logoUploadInProgress = false;
@@ -217,7 +225,7 @@ export class ConfigurationComponent implements OnInit {
               logo_white: this.selectedWhiteLogo?.name
             }).subscribe({
               next: updateImageRes => {
-                this.configurationStore.updateConfiguration(updateImageRes.configuration);
+                this.configurationStore.patchConfiguration(updateImageRes.configuration);
                 this.toastService.addSuccess(updateImageRes.message);
 
                 this.whiteLogoUploadInProgress = false;
@@ -268,7 +276,7 @@ export class ConfigurationComponent implements OnInit {
               logo_icon: this.selectedLogoIcon?.name
             }).subscribe({
               next: updateImageRes => {
-                this.configurationStore.updateConfiguration(updateImageRes.configuration);
+                this.configurationStore.patchConfiguration(updateImageRes.configuration);
                 this.toastService.addSuccess(updateImageRes.message);
 
                 this.logoIconUploadInProgress = false;
@@ -303,7 +311,7 @@ export class ConfigurationComponent implements OnInit {
               main_image: this.selectedMainImage?.name
             }).subscribe({
               next: updateImageRes => {
-                this.configurationStore.updateConfiguration(updateImageRes.configuration);
+                this.configurationStore.patchConfiguration(updateImageRes.configuration);
                 this.toastService.addSuccess(updateImageRes.message);
 
                 this.mainImageUploadInProgress = false;
@@ -383,7 +391,7 @@ export class ConfigurationComponent implements OnInit {
       }).subscribe({
         next: updateConfRes => {
           this.selectedPromoImagesPreview = [];
-          this.configurationStore.updateConfiguration(updateConfRes.configuration);
+          this.configurationStore.patchConfiguration(updateConfRes.configuration);
           this.toastService.addSuccess(updateConfRes.message);
 
           this.promoImagesUploadInProgress = false;
@@ -436,7 +444,7 @@ export class ConfigurationComponent implements OnInit {
               promo_video: this.selectedVideo?.name
             }).subscribe({
               next: updatePromoVideoRes => {
-                this.configurationStore.updateConfiguration(updatePromoVideoRes.configuration);
+                this.configurationStore.patchConfiguration(updatePromoVideoRes.configuration);
                 this.toastService.addSuccess(updatePromoVideoRes.message);
 
                 this.videoUploadInProgress = false;

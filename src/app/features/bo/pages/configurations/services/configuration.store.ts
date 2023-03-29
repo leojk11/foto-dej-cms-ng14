@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastService } from 'src/app/shared/services/toast.service';
 import { Configuration } from '../models/configuration.model';
 import { ConfigurationService } from './configuration.service';
@@ -21,7 +22,8 @@ export class ConfigurationStore extends ComponentStore<ConfigurationState> {
 
     constructor(
         private configurationService: ConfigurationService,
-        private toastService: ToastService
+        private toastService: ToastService,
+        private spinner: NgxSpinnerService
     ) { 
         super(initialState);
     }
@@ -31,23 +33,26 @@ export class ConfigurationStore extends ComponentStore<ConfigurationState> {
     }
 
     getConfiguration(): void {
+        this.spinner.show().then();
+
         this.configurationService.getConfiguration().subscribe({
             next: res => {
                 console.log('configuration', res);
                 
                 this.patchState({
                     configuration: res,
-
                     loading: false
                 });
+                this.spinner.hide().then();
             },
             error: error => {
                 this.toastService.addError(error.error.message);
+                this.spinner.hide().then();
             }
         });
     }
 
-    updateConfiguration(configuration: Configuration): void {
+    patchConfiguration(configuration: Configuration): void {
         const newConfiguration = {
             ...this.state.configuration,
             ...configuration,
@@ -58,5 +63,7 @@ export class ConfigurationStore extends ComponentStore<ConfigurationState> {
             configuration: newConfiguration
         });
     }
+
+    
 
 }
