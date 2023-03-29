@@ -98,22 +98,15 @@ export class ConfigurationComponent implements OnInit {
     this.adminLayoutService.setTitle('common.settings');
 
     this.configurationStore.getConfiguration();
-
-    this.spinner.show().then();
-
+    
     this.configurationStore.state$.subscribe({
       next: state => {
-        this.spinner.hide().then();
 
         if (!!state.configuration) {
           this.form.patchValue({
             ...state.configuration
           });
         }
-      },
-      error: err => {
-        this.toastService.addError(err.error.message);
-        this.spinner.hide().then();
       }
     });
   }
