@@ -179,12 +179,13 @@ export class AlbumsStore extends ComponentStore<AlbumsState> {
 
     this.albumsService.getSelectedAlbumImages(albumId, image).subscribe({
       next: selectedImages => {
-        this.patchState({ selectedImages: selectedImages.images });
+        if(selectedImages)
+          this.patchState({ selectedImages: selectedImages?.images });
         this.spinner.hide().then();
       },
       error: error => {
-        this.toastService.addError(error.error.message);
         this.spinner.hide().then();
+        this.toastService.addError(error.error.message);
       }
     });
   }
