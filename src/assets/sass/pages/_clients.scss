@@ -1,6 +1,6 @@
 .clients{
   background-color: $color-wrapper;
-  padding: 0rem 2rem 2rem;
+  // padding: 0rem 2rem 2rem;
   min-height: 60vh;
 
   @include screen-md {
@@ -14,6 +14,7 @@
   &__header{
     width: 100%;
     border-radius: 5px;
+    padding: 0 2rem;
     
     &--buttons {
       display: flex;
@@ -37,7 +38,7 @@
   }
 
   &__content{
-    padding: 2rem 0;
+    padding: 2rem;
 
     &--items {
       display: grid;

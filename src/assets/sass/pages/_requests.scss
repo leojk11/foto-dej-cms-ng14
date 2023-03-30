@@ -1,6 +1,6 @@
 .requests {
   background-color: $color-wrapper;
-  padding: 0rem 2rem;
+  // padding: 0rem 2rem;
   min-height: 60vh;
 
   @include screen-md {
@@ -9,7 +9,7 @@
 
   &__header {
     width: 100%;
-    padding: 2rem 1rem ;
+    padding: 2rem;
 
     border-bottom: 1px solid rgba(60,60,59,0.19);
     border-radius: 5px;
@@ -41,7 +41,7 @@
   }
 
   &__content {
-    padding: 2rem 1rem;
+    padding: 2rem 3rem;
   }
 }
 
