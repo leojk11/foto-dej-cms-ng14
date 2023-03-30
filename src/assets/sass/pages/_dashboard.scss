@@ -17,7 +17,6 @@
       height: 12rem;
       padding: 2rem;
       border-radius: 10px;
-      // box-shadow: $shadow-small;
       color: $dark;
       cursor: pointer;
 
@@ -39,12 +38,8 @@
 
   &__content {
     display: grid;
-    grid-template-columns: 1fr 42rem;
+    grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
     gap: 5rem;
-
-    @include screen-md {
-      grid-template-columns: .5fr;
-    }
   }
 
   &__pending {
@@ -60,11 +55,6 @@
       box-shadow: $shadow-small;
       overflow-x: auto;
 
-      @include screen-md {
-        .p-datatable {
-          width:  min-content !important;
-        }
-      }
       .p-datatable .p-datatable-wrapper {
         min-height: 50.5vh !important;
       }
