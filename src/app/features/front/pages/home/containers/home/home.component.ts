@@ -13,6 +13,7 @@ import { ToastService } from 'src/app/shared/services/toast.service';
 import { FrontNavbarComponent } from 'src/app/features/front/layout/components/front-navbar/front-navbar.component';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { FrontConfigurationState } from 'src/app/shared/services/front-configuration.store';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-home',
@@ -42,27 +43,34 @@ export class HomeComponent implements OnInit {
   secondTitle: string = '';
 
   @ViewChild('collaboration') collaboration!: HTMLElement;
-  // @ViewChild(HTMLElement) slider!: HTMLElement;
 
   constructor(
     private service: FrontConfigurationService,
     public frontConfigurationState: FrontConfigurationState,
-    private storageService: StorageService,
     private translateService: TranslateService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private spinner: NgxSpinnerService
   ) { }
 
   ngOnInit(): void {
+    this.spinner.show().then();
+    this.translateService.onLangChange.subscribe({
+      next: (res:any) => {
+        this.selectedLang = res.lang;
+        this.getTitles();
+      }
+    });
+
     this.service.getConfiguration().subscribe({
       next: res => {
-        console.log('CONFIG', res);
-        
         this.configuration = res;
         this.frontConfigurationState.setConfiguration(res);
         this.getTitles();
+        this.spinner.hide().then();
       },
       error: error => {
         this.toastService.addError(error.error.message);
+        this.spinner.hide().then();
       }
     });
   }
@@ -93,9 +101,6 @@ export class HomeComponent implements OnInit {
       element = Object.entries(this.slider)[0][1];
     }
 
-    // console.log('ELEMENT', element);
-    
-    
     const y = element.getBoundingClientRect().top + window.pageYOffset + offset;
     window.scrollTo({ top: y, behavior: 'smooth'});
   }

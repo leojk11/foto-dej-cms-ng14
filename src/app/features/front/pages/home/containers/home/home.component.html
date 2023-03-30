@@ -11,16 +11,10 @@
 
     <div class="home__hero">
       <div class="home__hero--title">
-        {{ state.selectedLang === 'mk' ? 
-          state.configuration.main_title
-          : state.configuration.main_title_tr 
-        }}
+        {{ mainTitle }}
       </div>
       <div class="home__hero--text">
-        {{ state.selectedLang === 'mk' ? 
-          state.configuration.second_title 
-          : state.configuration.second_title_tr
-        }}
+        {{ secondTitle }}
       </div>
 
       <div class="home__hero--buttons">

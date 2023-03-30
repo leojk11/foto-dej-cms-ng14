@@ -5,6 +5,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { InputTextModule } from 'primeng/inputtext';
 import { FrontConfigurationService } from '../../../../../../shared/services/front-configuration.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-contact-form',
@@ -15,8 +16,7 @@ import { ToastService } from 'src/app/shared/services/toast.service';
     TranslateModule,
     InputTextModule
   ],
-  templateUrl: './contact-form.component.html',
-  styleUrls: ['./contact-form.component.scss']
+  templateUrl: './contact-form.component.html'
 })
 export class ContactFormComponent implements OnInit {
 
@@ -30,7 +30,8 @@ export class ContactFormComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private service: FrontConfigurationService,
-    private toast: ToastService
+    private toast: ToastService,
+    private spinner: NgxSpinnerService
   ) { }
 
   ngOnInit(): void {
@@ -38,16 +39,19 @@ export class ContactFormComponent implements OnInit {
   }
 
   onSubmit(): void {
+    this.spinner.show().then();
     this.service.sendRequest(this.contactForm.value).subscribe({
       next: res => {
         console.log('REQUEST RES', res);
         this.toast.addSuccess(res.message);
+        this.contactForm.reset();
+        this.spinner.hide().then();
       }, 
       error: err => {
-        // console.error('REQUEST ERR', err);
         this.toast.addError(err.message);
+        this.spinner.hide().then();
       }
-    })
+    });
   }
 
 }
