@@ -131,6 +131,7 @@
           [image]="image"
           [imageDisabled]="image.disabled"
           [selectedImages]="selectedImages"
+          [albumId]="albumId"
           (onImageClick)="onToggleOverview($event, images)"
           (onDelete)="deleteImage($event, i)"
           (onSelect)="onImageSelect($event)"

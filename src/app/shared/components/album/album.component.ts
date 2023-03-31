@@ -138,7 +138,7 @@ export class AlbumComponent implements OnInit {
       imagesArr.push(image.name);
     }
     
-    this.imageOverviewState.toggleOverview();
+    this.imageOverviewState.toggleOverview(this.albumId);
     this.imageOverviewState.setImages(event, imagesArr);
   }
 

@@ -7,13 +7,17 @@ export interface ImageOverviewState {
 
   overviewImage: string;
   overviewImages: string[];
+
+  albumId: string;
 }
 
 export const initialState: ImageOverviewState = {
   showOverview: false,
 
   overviewImage: '',
-  overviewImages: []
+  overviewImages: [],
+
+  albumId: ''
 }
 
 @Injectable({
@@ -30,7 +34,7 @@ export class ImageOverviewService {
     return this.overviewState.getValue();
   }
 
-  toggleOverview(): void {
+  toggleOverview(albumId?: string): void {
     const overviewBool = this.state.showOverview;
 
     if (!overviewBool === false) {
@@ -43,7 +47,8 @@ export class ImageOverviewService {
 
     this.overviewState.next({
       ...this.state,
-      showOverview: !overviewBool
+      showOverview: !overviewBool,
+      albumId: albumId ? albumId : ''
     });
   }
 
@@ -55,8 +60,6 @@ export class ImageOverviewService {
   }
 
   setImages(image: string, images: any): void {
-    console.log('images', images);
-    
     this.overviewState.next({
       ...this.state,
       overviewImage: image,
@@ -84,9 +87,16 @@ export class ImageOverviewService {
       }
     }
 
+    let path;
+    if (this.state.albumId) {
+      path = `${ environment.apiUrl }/images/album_image/${ this.state.albumId }/${ this.state.overviewImages[index] }`;
+    } else {
+      path = `${ environment.apiUrl }/images/${ this.state.overviewImages[index] }`;
+    }
+
     this.overviewState.next({
       ...this.state,
-      overviewImage: `${ environment.apiUrl }/images/${ this.state.overviewImages[index] }`
+      overviewImage: path
     });
   }
 
@@ -96,8 +106,5 @@ export class ImageOverviewService {
       overviewImage: '',
       overviewImages: []
     });
-
-    console.log('state after reset', this.state);
-    
   }
 }

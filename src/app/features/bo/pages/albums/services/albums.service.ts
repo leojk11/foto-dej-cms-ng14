@@ -93,7 +93,7 @@ export class AlbumsService {
     const formData: FormData = new FormData();
     formData.append('images', file);
 
-    const path = `${ this.apiUrl }/images/${ albumId }`;
+    const path = `${ this.apiUrl }/images/album/${ albumId }`;
     const req = new HttpRequest('POST', path, formData, {
       reportProgress: true,
       responseType: 'json'

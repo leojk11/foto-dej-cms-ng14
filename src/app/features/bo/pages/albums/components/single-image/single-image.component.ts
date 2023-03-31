@@ -20,6 +20,7 @@ export class SingleImageComponent implements OnInit, OnChanges {
   @Input() image?: Image;
   @Input() imageDisabled: boolean = false;
   @Input() selectedImages?: Image[] = [];
+  @Input() albumId: string = '';
 
   @Output() onImageClick = new EventEmitter<any>();
   @Output() onDelete = new EventEmitter<any>();
@@ -31,7 +32,7 @@ export class SingleImageComponent implements OnInit, OnChanges {
   constructor() { }
 
   ngOnInit(): void {
-    this.src = `${ environment.apiUrl }/images/${ this.image?.name }`;
+    this.src = `${ environment.apiUrl }/images/album_image/${ this.albumId }/${ this.image?.name }`;
 
     this.checkImage();
   }
