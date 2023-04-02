@@ -5,6 +5,7 @@ import {AddNewSchedulePayload} from "../models/addNewSchedulePayload.model";
 import {Observable} from "rxjs";
 import {AddNewScheduleResponse} from "../models/addNewScheduleResponse.model";
 import {Schedule} from "../models/schedule.model";
+import { Location } from '../models/location.model';
 
 export interface DatesParams {
   from: string;
@@ -50,6 +51,27 @@ export class CalendarService {
 
   deleteSchedule(id: string): Observable<any> {
     const path = `${ this.apiUrl }/schedules/${ id }`;
+    return this.http.delete<any>(path);
+  }
+
+  // locations
+  getScheduleLocations(id: string): Observable<Location[]> {
+    const path = `${ this.apiUrl }/schedules/${ id }/locations`;
+    return this.http.get<Location[]>(path);
+  }
+
+  addNewLocation(id: string, payload: Partial<Location>): Observable<any> {
+    const path = `${ this.apiUrl }/schedules/${ id }/locations`;
+    return this.http.post(path, payload);
+  }
+
+  updateLocation(scheduleId: string, locationId: string, payload: Partial<Location>): Observable<any> {
+    const path = `${ this.apiUrl }/schedules/${ scheduleId }/locations/${ locationId }`;
+    return this.http.patch<any>(path, payload);
+  }
+
+  deleteLocation(scheduleId: string, locationId: string): Observable<any> {
+    const path = `${ this.apiUrl }/schedules/${ scheduleId }/locations/${ locationId }`;
     return this.http.delete<any>(path);
   }
 }

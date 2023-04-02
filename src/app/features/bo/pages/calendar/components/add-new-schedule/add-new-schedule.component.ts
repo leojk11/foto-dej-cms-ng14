@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { CalendarService } from '../../services/calendar.service';
 import { Schedule } from '../../models/schedule.model';
 import * as dayjs from 'dayjs';
@@ -15,6 +15,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastService } from 'src/app/shared/services/toast.service';
 import { Location } from '../../models/location.model';
 import { TagModule } from 'primeng/tag';
+import { AddNewLocationsComponent } from '../add-new-locations/add-new-locations.component';
 
 @Component({
   selector: 'app-add-new-schedule',
@@ -54,6 +55,7 @@ export class AddNewScheduleComponent implements OnInit {
 
   editMode: boolean = false;
   loading: boolean = false;
+  loadingLocations: boolean = false;
 
   selectedSchedule: Schedule | null = null;
 
@@ -66,7 +68,8 @@ export class AddNewScheduleComponent implements OnInit {
     public config: DynamicDialogConfig,
     private confirmationService: ConfirmationService,
     private translate: TranslateService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private dialog: DialogService
   ) { }
 
   ngOnInit(): void {
@@ -91,6 +94,8 @@ export class AddNewScheduleComponent implements OnInit {
             });
 
             this.loading = false;
+
+            this.getLocations();
           },
           error: error => {
             this.toastService.addError(error.error.message);
@@ -98,6 +103,19 @@ export class AddNewScheduleComponent implements OnInit {
         });
       }
     }
+  }
+
+  getLocations(): void {
+    if (this.selectedSchedule)
+    this.calendarService.getScheduleLocations(this.selectedSchedule.id).subscribe({
+      next: locations => {
+        this.locations = locations;
+        this.loadingLocations = false;
+      },
+      error: error => {
+        this.toastService.addError(error.error.message);
+      }
+    });
   }
 
   handleSubmit(): void {
@@ -155,5 +173,24 @@ export class AddNewScheduleComponent implements OnInit {
         }
       });
     }
+  }
+
+  locationDialog(location?: Location): void {
+    const dialogRef = this.dialog.open(AddNewLocationsComponent, {
+      width: '50%',
+      data: { 
+        scheduleId: this.selectedSchedule?.id,
+        location
+      },
+      header: location ? this.translate.instant('calendar.editLocation')  : this.translate.instant('calendar.newLocation')
+    });
+    
+    dialogRef.onClose.subscribe({
+      next: (data) => {
+        if (data) {
+          this.getLocations();
+        }
+      }
+    });
   }
 }

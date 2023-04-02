@@ -67,7 +67,31 @@
             {{ 'properties.locations' | translate }}:
           </label>
 
-          <p-tag styleClass="mr-2" value="Primary" [rounded]="true"></p-tag>
+          <div class="w-full" *ngIf="loadingLocations">
+            <app-spinner></app-spinner>
+          </div>
+
+          <div class="locations" *ngIf="!loadingLocations">
+            <div class="locations__inner">
+              <ng-container *ngIf="locations.length > 0">
+                <p-tag styleClass="mr-2 cp" *ngFor="let location of locations"
+                  value="{{ location.title }} | {{ location.time }}" 
+                  [rounded]="true" (click)="locationDialog(location)"></p-tag>
+              </ng-container>
+              <ng-container *ngIf="locations.length === 0">
+                <p>No locations yet...</p>
+              </ng-container>
+            </div>
+
+            <div class="locations__btn">
+              <button
+                class="btn btn__icon btn__icon--dark"
+                type="button"
+                (click)="locationDialog()">
+                <i class="pi pi-plus fw-500 text-lg"></i>
+              </button>
+            </div>
+          </div>
         </div>
 
         <div class="form-field">
@@ -128,7 +152,7 @@
     </form>
   </div>
 
-  <p-confirmDialog
-    header="{{ 'common.confirmation' | translate }}" 
-    [style]="{width: '100%',  padding: '1rem'}"
-  ></p-confirmDialog>
+<p-confirmDialog
+  header="{{ 'common.confirmation' | translate }}" 
+  [style]="{width: '100%',  padding: '1rem'}"
+></p-confirmDialog>

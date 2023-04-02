@@ -203,6 +203,7 @@
   "messages": {
     "deleteClient": "Are you sure you want to delete this client?",
     "deleteSchedule": "Are you sure you want to delete this schedule?",
+    "deleteLocation": "Are you sure you want to delete this location?",
     "inviteClient": "Are you sure you want to send the invite?",
     "deleteAlbum": "Are you sure you want to delete this album?",
     "deleteImage": "Are you sure that you want to delete this image?",
@@ -230,7 +231,10 @@
   },
   "calendar": {
     "newSchedule": "Add schedule",
-    "editSchedule": "Edit schedule"
+    "editSchedule": "Edit schedule",
+
+    "newLocation": "Add location",
+    "editLocation": "Edit location"
   },
   "home": {
     "heroTitle": "Magical moments last forever",

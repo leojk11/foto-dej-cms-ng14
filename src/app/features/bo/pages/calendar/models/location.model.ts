@@ -1,7 +1,8 @@
 import { Schedule } from "./schedule.model";
 
 export interface Location {
-  title: string;
+	id: string;
+  	title: string;
 	place: string;
 
 	date: string;

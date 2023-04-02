@@ -1,0 +1,85 @@
+<div class="add-new-schedule">
+    <div class="add-new-schedule__inner">
+        <div class="w-full" *ngIf="loading">
+            <app-spinner></app-spinner>
+        </div>
+  
+        <form 
+            *ngIf="!loading" 
+            [formGroup]="form" 
+            (ngSubmit)="handleSubmit()"
+        >
+            <div class="container__flex gap-4 wrap" >
+                <div class="form-field">
+                    <label class="form-field__label">
+                    {{ 'properties.title' | translate }} (*):
+                    </label>
+        
+                    <input
+                    type="text"
+                    pInputText
+                    formControlName="title"
+                    placeholder="title...">
+                </div>
+
+                <div class="form-field">
+                    <label class="form-field__label">
+                    {{ 'properties.location' | translate }}:
+                    </label>
+        
+                    <input
+                    type="text"
+                    pInputText
+                    formControlName="place"
+                    placeholder="location...">
+                </div>
+
+                <div class="form-field">
+                    <label class="form-field__label">
+                    {{ 'properties.time' | translate }} (*):
+                    </label>
+        
+                    <input
+                    type="text"
+                    pInputText
+                    formControlName="time"
+                    placeholder="10:00...">
+                </div>
+            </div>
+
+            <div class="container__flex justify-center gap-2 mt-5 mb-2">
+                <button
+                    *ngIf="!editMode"
+                    class="btn btn__main"
+                    type="submit"
+                    [disabled]="form.invalid"
+                >
+                    {{ 'common.add' | translate }}
+                </button>
+        
+                <button
+                    *ngIf="editMode"
+                    class="btn btn__main"
+                    type="submit"
+                    [disabled]="form.invalid"
+                >
+                    {{ 'common.edit' | translate }}
+                </button>
+        
+                <button
+                    *ngIf="editMode"
+                    class="btn btn__red btn__lg"
+                    type="button"
+                    (click)="handleDelete()"
+                >
+                {{ 'common.delete' | translate }}
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<p-confirmDialog
+  header="{{ 'common.confirmation' | translate }}" 
+  [style]="{width: '100%',  padding: '1rem'}"
+></p-confirmDialog>

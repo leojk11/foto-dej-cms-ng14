@@ -113,3 +113,30 @@
     padding: 1rem 0rem;
   }
 }
+
+.locations {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+
+  &__inner {
+    width: 90%;
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 3px;
+    flex-wrap: wrap;
+
+    .p-tag {
+      background: $color-header !important;
+      padding: 0.5rem 1rem !important;
+    }
+
+  }
+
+  &__btn {
+    width: 10%;
+  }
+}
