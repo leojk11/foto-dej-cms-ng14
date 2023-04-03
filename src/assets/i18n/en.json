@@ -71,7 +71,8 @@
     "upcomingEvents": "Upcoming events",
     "notifications": "Notifications",
     "seeAll": "See all",
-    "ago": "ago"
+    "ago": "ago",
+    "choose": "Choose"
   },
   "properties": {
     "title": "Title",
