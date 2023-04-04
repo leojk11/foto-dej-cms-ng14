@@ -1,8 +1,14 @@
 <div class="w-full p-2">
-  <p-calendar
-    [(ngModel)]="selectedDate"
-    placeholder="{{ 'properties.date' | translate | lowercase }}..."
-    appendTo="body"
-    (onSelect)="onClose()"
-  ></p-calendar>
+  <input type="text" pInputText 
+    [(ngModel)]="selectedDate" placeholder="{{ 'properties.date' | translate | lowercase }}...">
+
+    <div class="container__flex justify-center gap-2 mt-5 mb-2">
+      <button
+        class="btn btn__main"
+        type="button"
+        [disabled]="!selectedDate"
+        (click)="onSelect()">
+        {{ 'common.choose' | translate }}
+      </button>
+    </div>
 </div>
