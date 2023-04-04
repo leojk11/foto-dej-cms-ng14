@@ -6,6 +6,13 @@
     >
       <i class="pi pi-arrow-left"></i>
     </button>
+
+    <p 
+      class="notifications-panel__top--seeAll"
+      (click)="markAllRead()"
+    >
+      {{ 'common.markAllRead' | translate }}
+    </p>
   </div>
 
   <div class="separator"></div>

@@ -8,6 +8,7 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { NotificationComponent } from 'src/app/features/bo/pages/notifications/components/notification/notification.component';
 import { NotificationStore } from '../../../pages/notifications/services/notification.store';
 import { RouterModule } from '@angular/router';
+import { BadgeModule } from 'primeng/badge';
 
 @Component({
   selector: 'app-navbar',
@@ -17,7 +18,8 @@ import { RouterModule } from '@angular/router';
     TranslateModule,
     OverlayPanelModule,
     NotificationComponent,
-    RouterModule
+    RouterModule,
+    BadgeModule
   ],
   providers: [NotificationStore],
   templateUrl: './navbar.component.html'

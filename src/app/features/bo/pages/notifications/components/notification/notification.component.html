@@ -1,7 +1,7 @@
 <div 
   class="notification" 
   [class.read]="notification.read"
-  (click)="onNotificationClick()"
+  (click)="onNotificationClick(notification.id)"
 >
   <div class="notification__img">
     <i 

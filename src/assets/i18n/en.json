@@ -71,7 +71,8 @@
     "upcomingEvents": "Upcoming events",
     "notifications": "Notifications",
     "seeAll": "See all",
-    "ago": "ago"
+    "ago": "ago",
+    "markAllRead": "Mark all read"
   },
   "properties": {
     "title": "Title",
@@ -198,7 +199,8 @@
     "scheduleUpdated": "Schedule has been updated.",
     "scheduleDeleted": "Schedule has been deleted.",
     "uploadCompleted": "Image upload has been completed. Click OK to go to the album preview page.",
-    "requestCreated": "New request has been created."
+    "requestCreated": "New request has been created.",
+    "allNotificationsMarkedRead": "All notifications have been marked as read."
   },
   "messages": {
     "deleteClient": "Are you sure you want to delete this client?",

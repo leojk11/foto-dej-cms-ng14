@@ -5,6 +5,8 @@ import { AdminLayoutService } from 'src/app/features/bo/layout/services/admin-la
 import { NotificationStore } from '../../services/notification.store';
 import { NotificationComponent } from '../../components/notification/notification.component';
 import { PaginatorModule } from 'primeng/paginator';
+import { NotificationService } from '../../services/notification.service';
+import { ToastService } from 'src/app/shared/services/toast.service';
 
 @Component({
   selector: 'app-notifications',
@@ -24,7 +26,9 @@ export class NotificationsComponent implements OnInit {
   constructor(
     public location: Location,
     public notificationStore: NotificationStore,
-    private adminLayoutService: AdminLayoutService
+    private adminLayoutService: AdminLayoutService,
+    private service: NotificationService,
+    private toastService: ToastService
   ) { }
 
   ngOnInit(): void {
@@ -36,12 +40,26 @@ export class NotificationsComponent implements OnInit {
     });
 
     this.notificationStore.loadNotifications();
-
   }
 
   onPageChange(event: any): void {
-    this.notificationStore.setParams(event.page + 1);
+    console.log('PAGE', event.page + 1);
+    
+    this.notificationStore.setParams({page: event.page + 1, take: 9});
     this.notificationStore.loadNotifications();
+  }
+
+  markAllRead(): void {
+    this.service.markAllRead().subscribe({
+      next: res => {
+        console.log('MARK ALL READ RES', res);
+        this.toastService.addSuccess(res.message);
+      }, 
+      error: err => {
+        console.error(err);
+        this.toastService.addError(err)
+      }
+    });
   }
 
 }

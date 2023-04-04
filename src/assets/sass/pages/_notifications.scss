@@ -27,7 +27,7 @@
 
 .notification {
   height: 6rem;
-  margin-bottom: 1px solid $light-grey;
+  border-bottom: 1px solid $light-grey;
   font-size: 1.4rem;
   display: flex;
   align-items: center;
@@ -35,8 +35,9 @@
   padding: 1rem ;
   color: $dark;
   cursor: pointer;
-  background-color: $sidebar-bg;
-  width: 40rem;
+  background-color: rgba($light-grey-1, .05);
+  min-width: 40rem;
+  width: 100%;
   margin-bottom: 1rem;
   border-radius: 5px;
 
@@ -74,9 +75,11 @@
 }
 
 .notifications {
-
   &__header {
     padding: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
 
   &__list {

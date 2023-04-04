@@ -19,4 +19,14 @@ export class NotificationService {
     const path = `${ this.apiUrl }/notifications?page=${params.page}&take=${params.take}`;
     return this.http.get<any>(path);
   }
+
+  markRead(id: string): Observable<any> {
+    const path = `${ this.apiUrl }/notifications/read/${id}`;
+    return this.http.patch<any>(path, {});
+  }
+
+  markAllRead(): Observable<any> {
+    const path = `${ this.apiUrl }/notifications/read/all`;
+    return this.http.patch<any>(path, {});
+  }
 }

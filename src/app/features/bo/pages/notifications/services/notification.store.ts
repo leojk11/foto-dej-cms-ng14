@@ -11,6 +11,7 @@ export interface NotificationState {
   params: BasicParams;
   total: number;
   notifications: Notification[];
+  not_read: number;
 }
 
 export const initialState: NotificationState = {
@@ -20,7 +21,8 @@ export const initialState: NotificationState = {
     take: 6
   },
   total: 0,
-  notifications: []
+  notifications: [],
+  not_read: 0
 }
 
 @Injectable({
@@ -62,7 +64,8 @@ export class NotificationStore extends ComponentStore<NotificationState> {
             this.patchState({
               ...this.state,
               notifications: res.list,
-              total: res.total
+              total: res.total,
+              not_read: res.not_read
             });
             this.spinner.hide().then();
           })

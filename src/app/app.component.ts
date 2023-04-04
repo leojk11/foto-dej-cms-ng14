@@ -89,7 +89,7 @@ export class AppComponent implements OnInit {
 
     this.translateService.get('primeng').subscribe({
       next: res => {
-        this.primengConfig.setTranslation(res);
+        this.primengConfig.setTranslation(res);        
       },
       error: ko => {
         console.log('Errore translate service get method', ko);
