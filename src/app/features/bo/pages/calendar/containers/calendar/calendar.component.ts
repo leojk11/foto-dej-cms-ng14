@@ -1,6 +1,6 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
-import { CalendarOptions, FullCalendarModule } from '@fullcalendar/angular';
+import { Calendar, CalendarOptions, FullCalendarComponent, FullCalendarModule } from '@fullcalendar/angular';
 import { map, Observable, shareReplay } from 'rxjs';
 import { AdminLayoutService } from 'src/app/features/bo/layout/services/admin-layout.service';
 import { BreakpointObserver } from '@angular/cdk/layout';
@@ -9,7 +9,6 @@ import * as dayjs from 'dayjs';
 import { DialogService } from 'primeng/dynamicdialog';
 import { AddNewScheduleComponent } from '../../components/add-new-schedule/add-new-schedule.component';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { SpinnerComponent } from 'src/app/shared/components/loading/spinner/spinner.component';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import listPlugin from '@fullcalendar/list';
@@ -44,6 +43,8 @@ FullCalendarModule.registerPlugins([
   templateUrl: './calendar.component.html'
 })
 export class CalendarComponent implements OnInit {
+
+  @ViewChild('calendar') calendar!: FullCalendarComponent;
 
   showCalendar: boolean = true;
   modalWidth: string = '';
@@ -249,6 +250,25 @@ export class CalendarComponent implements OnInit {
       },
       error: error => {
         this.toastService.addError(error.error.message);
+      }
+    });
+  }
+
+  goToDate(): void {
+    const dateDialogRef = this.dialog.open(SelectDateComponent, {
+      width: this.modalWidth,
+      header: this.translate.instant('common.chooseDate')
+    });
+
+    dateDialogRef.onClose.subscribe({
+      next: data => {
+        if (this.calendar) {
+          const formattedDate = dayjs(data.date).format();
+          console.log('formatted date', formattedDate);
+          
+          this.calendar.getApi().gotoDate(formattedDate);
+          this.cd.detectChanges();
+        }
       }
     });
   }

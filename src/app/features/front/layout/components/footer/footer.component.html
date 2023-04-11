@@ -14,7 +14,7 @@
       </span>
     </div>
 
-    <div class="footer__contact--item">
+    <div class="footer__contact--item" *ngIf="configuration.address">
       <i class="pi pi-map-marker"></i>
       <span class="footer__contact--item__text">
         {{ configuration.address }}

@@ -24,12 +24,22 @@
       >
         {{ 'calendar.newSchedule' | translate }}
       </button>
+
+      <button
+        class="btn btn__main "
+        type="button"
+        (click)="goToDate()"
+        *ngIf="mobile"
+      >
+        go to date
+      </button>
     </div>
   </div>
 
   <div class="p-2">
     <full-calendar
       *ngIf="showCalendar"
+      #calendar
       [options]="calendarOptions"
     ></full-calendar>
   </div>

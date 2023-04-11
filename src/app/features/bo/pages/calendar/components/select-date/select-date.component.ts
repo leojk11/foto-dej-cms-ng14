@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
-import * as dayjs from 'dayjs';
 import { ConfirmationService } from 'primeng/api';
 import { CalendarModule } from 'primeng/calendar';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
@@ -27,6 +26,7 @@ import { InputTextModule } from 'primeng/inputtext';
 export class SelectDateComponent implements OnInit {
 
   selectedDate: string = '';
+  finalSelectedDate: string = '';
 
   dateToOutpu: Date = new Date();
 
@@ -40,12 +40,9 @@ export class SelectDateComponent implements OnInit {
   onSelect(): void {
     console.log('selected date', this.selectedDate);
     
-    console.log('chosen date', dayjs(this.selectedDate + 'T00:00:00').format());
-    
-  }
+    const splitted = this.selectedDate.split('.');
+    this.finalSelectedDate = `${ splitted[2] }-${ splitted[1] }-${ splitted[0] }T00:00:00`;
 
-  onClose(): void {
-    this.dialogRef.close({date: this.selectedDate})
+    this.dialogRef.close({ date: new Date(this.finalSelectedDate) });
   }
-
 }
