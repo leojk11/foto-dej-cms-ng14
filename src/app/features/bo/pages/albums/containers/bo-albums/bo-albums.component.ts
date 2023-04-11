@@ -11,7 +11,7 @@ import { AlbumsComponent } from 'src/app/shared/components/albums/albums.compone
     AlbumsComponent
   ],
   providers: [AlbumsStore],
-  templateUrl: './bo-albums.component.html'
+  template: `<app-albums [isAdmin]="true"></app-albums>`
 })
 export class BoAlbumsComponent implements OnInit {
 

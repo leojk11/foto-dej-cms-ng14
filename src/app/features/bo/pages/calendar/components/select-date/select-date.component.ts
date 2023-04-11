@@ -21,7 +21,7 @@ import { InputTextModule } from 'primeng/inputtext';
   providers: [
     ConfirmationService
   ],
-  styleUrls: ['./select-date.component.css']
+  styleUrls: ['./select-date.component.scss']
 })
 export class SelectDateComponent implements OnInit {
 
@@ -38,8 +38,6 @@ export class SelectDateComponent implements OnInit {
   }
 
   onSelect(): void {
-    console.log('selected date', this.selectedDate);
-    
     const splitted = this.selectedDate.split('.');
     this.finalSelectedDate = `${ splitted[2] }-${ splitted[1] }-${ splitted[0] }T00:00:00`;
 

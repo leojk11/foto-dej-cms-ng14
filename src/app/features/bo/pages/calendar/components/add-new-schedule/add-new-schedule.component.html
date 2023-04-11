@@ -1,4 +1,4 @@
-<div class="add-new-schedule">
+<div class="add-new-schedule p-1">
   <div class="add-new-schedule__inner">
     <div class="w-full" *ngIf="loading">
       <app-spinner></app-spinner>
@@ -79,7 +79,7 @@
                   [rounded]="true" (click)="locationDialog(location)"></p-tag>
               </ng-container>
               <ng-container *ngIf="locations.length === 0">
-                <p>No locations yet...</p>
+                <p class="text">{{ 'messages.noLocations' | translate }}...</p>
               </ng-container>
             </div>
 

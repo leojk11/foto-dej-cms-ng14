@@ -1,37 +1,23 @@
 <div class="calendar">
-  <div class="calendar__header">
+  <div class="calendar__header flex">
     <button
       class="btn btn__icon btn__icon--blue shadow-small border-none"
-      (click)="location.back()"
-    >
+      (click)="location.back()">
       <i class="pi pi-arrow-left"></i>
     </button>
 
-    <div class="container__flex gap-2">
+    <div class="container__flex gap-1">
       <button 
-        class="btn btn__search px-2"
-        (click)="filterOp.toggle($event)"
-      >
-        {{ 'common.search' | translate }}
-        <!-- <i class="pi pi-search"></i> -->
+        class="btn btn__icon btn__icon--dark"
+        (click)="goToDate()">
+        <i class="pi pi-calendar"></i>
       </button>
 
       <button
         class="btn btn__main "
         type="button"
-        (click)="openModal()"
-        *ngIf="mobile"
-      >
+        (click)="openModal()">
         {{ 'calendar.newSchedule' | translate }}
-      </button>
-
-      <button
-        class="btn btn__main "
-        type="button"
-        (click)="goToDate()"
-        *ngIf="mobile"
-      >
-        go to date
       </button>
     </div>
   </div>
@@ -43,10 +29,10 @@
       [options]="calendarOptions"
     ></full-calendar>
   </div>
-
 </div>
 
-<p-overlayPanel #filterOp appendTo="body">
+<!-- MIGHT USE THIS SOMETIME IN THE FUTURE -->
+<!-- <p-overlayPanel #filterOp appendTo="body">
   <div class="calendar__header--filter">
     <input 
       type="text" 
@@ -55,7 +41,6 @@
       placeholder="{{ 'properties.title' | translate | lowercase }}..."
       [(ngModel)]="filters.title"
     >
-
     <div class="container__flex gap-1 justify-center">
       <button 
         pButton
@@ -78,4 +63,5 @@
       </button>
     </div>
   </div>
-</p-overlayPanel>
+</p-overlayPanel> -->
+<!-- MIGHT USE THIS SOMETIME IN THE FUTURE -->

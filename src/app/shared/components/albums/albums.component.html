@@ -7,7 +7,7 @@
       <i class="pi pi-arrow-left"></i>
     </button>
 
-    <div class="container__flex gap-2">
+    <div class="container__flex gap-1">
       <div *ngFor="let tearm of searchTerms; let i = index">
         <div class="chip">
           {{ tearm }}
@@ -38,7 +38,7 @@
   
   <div *ngIf="albumStore.state$ | async as state" class="relative">
     <ng-container *ngIf="!state.loading">
-      <div  class="albums__content">
+      <div class="albums__content">
         <div
           class="single-album-wrapper"
           *ngFor="let album of state.list"

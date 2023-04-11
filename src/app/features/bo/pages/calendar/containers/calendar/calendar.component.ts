@@ -70,7 +70,12 @@ export class CalendarComponent implements OnInit {
     eventClick: this.handleEventClick.bind(this),
     datesSet: this.handleDateChange.bind(this),
     dateClick: this.handleDateClick.bind(this),
-    events: []
+    events: [],
+    views: {
+      dayGrid: {
+        dayMaxEventRows: 3
+      }
+    }
   };
 
   isMobile$: Observable<boolean> = this.breakpointObserver.observe('(max-width: 878px)')

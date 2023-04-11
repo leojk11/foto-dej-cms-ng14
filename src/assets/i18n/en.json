@@ -73,7 +73,8 @@
     "seeAll": "See all",
     "ago": "ago",
     "markAllRead": "Mark all read",
-    "choose": "Choose"
+    "choose": "Choose",
+    "exampleShort": "Ex."
   },
   "properties": {
     "title": "Title",
@@ -216,7 +217,8 @@
     "contactInfo": "Leave your information ans we will contact you",
     "changeAccountStatus": "Are you sure you want to change the account status?",
     "translateMainTitle": "Add translation for the main title",
-    "translateSecondTitle": "Add translation for the second title"
+    "translateSecondTitle": "Add translation for the second title",
+    "noLocations": "No locations yet"
   },
   "clients": {
     "newClient": "Add new client",

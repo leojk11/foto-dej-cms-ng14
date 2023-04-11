@@ -112,5 +112,4 @@ export class AddNewLocationsComponent implements OnInit {
       });
     }
   }
-
 }
