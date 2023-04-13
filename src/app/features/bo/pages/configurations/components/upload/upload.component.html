@@ -1,0 +1,73 @@
+<div class="configuration-wrapper__configuration__multi__item">
+  <div class="multi-top">
+    <label>{{ label | translate }}</label>
+  </div>
+
+  <div class="multi-bottom">
+    <div class="multi-bottom__top">
+      <input 
+        [id]="id"
+        type="file" 
+        class="upload-input"
+        accept="image/*"
+        (change)="selectFile($event)"
+        pInputText>
+
+      <label 
+        class="btn btn__main upload-btn" 
+        [for]="id">
+        <i class="pi pi-plus"></i>
+        {{ 'common.chooseImage' | translate }}
+      </label>
+
+      <span *ngIf="!selectedFile">
+        {{ preselected }}
+        <!-- state.configuration?.logo -->
+      </span>
+
+      <span *ngIf="selectedFile">
+        {{ selectedFile.name }}
+      </span>
+    </div>
+
+    <div class="multi-bottom__bottom">
+      <div class="image-preview cp" 
+        *ngIf="selectedFile">
+        <img 
+          [src]="selectedFilePreview"
+          (click)="toggleOverview($event)">
+      </div>
+
+      <div class="image-preview cp"
+        [class.bg-blue]="darkBg" 
+        *ngIf="preselected && !selectedFile">
+        <img 
+          [src]="imagesUrl + preselected"
+          (click)="toggleOverview($event)">
+      </div>
+
+      <div
+        class="w-full mt-2"
+        *ngIf="uploadInProgress">
+        <p-progressBar [value]="uploadProgressValue"></p-progressBar>
+      </div>
+
+      <div class="buttons">
+        <p class="buttons__label">
+          {{ 'common.imageSizeInfo' | translate }}
+        </p>
+
+        <button 
+          *ngIf="selectedFile"
+          class="btn btn__main upload-btn" 
+          type="button"
+          (click)="uploadFile()"
+          [disabled]="uploadInProgress"
+        >
+          <i class="pi pi-upload"></i>
+          {{ 'common.upload' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

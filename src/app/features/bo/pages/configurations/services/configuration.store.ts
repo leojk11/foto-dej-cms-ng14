@@ -6,15 +6,13 @@ import { Configuration } from '../models/configuration.model';
 import { ConfigurationService } from './configuration.service';
 
 export interface ConfigurationState {
-    configuration: Configuration | null;
-
-    loading: boolean;
+  configuration: Configuration | null;
+  loading: boolean;
 }
 
 export const initialState: ConfigurationState = {
-    configuration: null,
-
-    loading: true
+  configuration: null,
+  loading: true
 }
 
 @Injectable()
@@ -29,7 +27,7 @@ export class ConfigurationStore extends ComponentStore<ConfigurationState> {
   }
 
   get state() {
-      return this.get(s => s);
+    return this.get(s => s);
   }
 
   getConfiguration(): void {
@@ -53,17 +51,17 @@ export class ConfigurationStore extends ComponentStore<ConfigurationState> {
   }
 
   patchConfiguration(configuration: Configuration): void {
+    console.log('configuration', configuration);
+    
     const newConfiguration = {
       ...this.state.configuration,
       ...configuration,
-      promo_images: JSON.parse(configuration.promo_images)
+      // promo_images: configuration.promo_images
     };
 
     this.patchState({
       configuration: newConfiguration
     });
   }
-
-  
 
 }

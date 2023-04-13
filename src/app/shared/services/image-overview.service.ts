@@ -52,6 +52,16 @@ export class ImageOverviewService {
     });
   }
 
+  closeOverview(): void {
+    this.overviewState.next({
+      ...this.state,
+      showOverview: false,
+      albumId: '',
+      overviewImage: '',
+      overviewImages: []
+    });
+  }
+
   setImage(image: string): void {
     this.overviewState.next({
       ...this.state,

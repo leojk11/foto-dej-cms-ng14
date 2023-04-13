@@ -340,7 +340,6 @@ export class AlbumsStore extends ComponentStore<AlbumsState> {
 
   selectImages(): void {
     if (this.state.selectedImages) {
-      console.log('STORE SELECTED', this.state.selectedImages);
       this.spinner.show().then();
 
       this.albumsService.selectImages(this.state.previewAlbum?.id, this.state.selectedImages).subscribe({

@@ -20,17 +20,17 @@
 
 <ng-template #albumImages>
   <div class="album">
-    <div 
-      class="album__top" 
-    >
-      <button
+    <div class="album__top">
+      <!-- WILL USE THIS IN THE FUTURE -->
+      <!-- <button
         *ngIf="(!showSelected && images!.length > 0) || (showSelected && selectedImages.length > 0) || imageSearch"
         class="btn btn__icon--blue"
         type="button"
         (click)="searchOp.toggle($event)"
       >
         <i class="pi pi-search"></i>
-      </button>
+      </button> -->
+      <!-- WILL USE THIS IN THE FUTURE -->
 
       <div class="album__top--actions" *ngIf="(!showSelected && images!.length > 0) || (showSelected && selectedImages.length > 0)">
         <button
@@ -148,6 +148,7 @@
           [image]="image"
           [imageDisabled]="image.disabled"
           [selectedImages]="selectedImages"
+          [albumId]="albumId"
           (onImageClick)="onToggleOverview($event, images)"
           (onDelete)="deleteImage($event, i)"
           (onSelect)="onImageSelect($event)"

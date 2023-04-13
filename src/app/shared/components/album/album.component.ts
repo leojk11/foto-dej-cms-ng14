@@ -150,14 +150,18 @@ export class AlbumComponent implements OnInit {
   deselectAllImages(): void {
     this.selectedImages = [];
     this.albumsStore.patchSelectedImages(this.selectedImages);
-    this.albumsStore.selectImages();
+    if (!this.isAdmin) {
+      this.albumsStore.selectImages();
+    }
   }
 
   selectAllImages(): void {
     if (this.albumsStore.state.images) {
       this.selectedImages = this.albumsStore.state.images.images;
       this.albumsStore.patchSelectedImages(this.selectedImages);
-      this.albumsStore.selectImages();
+      if (!this.isAdmin) {
+        this.albumsStore.selectImages();
+      }
     }
   }
 
@@ -166,6 +170,8 @@ export class AlbumComponent implements OnInit {
       this.albumsStore.getSelectedAlbumImages(this.albumsStore.state.previewAlbum?.id);
       this.showSelected = true;
     } else {
+      this.selectedImages = [];
+      this.albumsStore.patchSelectedImages(this.selectedImages);
       this.showSelected = false;
     }
   }

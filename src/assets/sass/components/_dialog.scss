@@ -8,6 +8,7 @@
   .p-dialog-content{
     padding: 0 !important;
     font-family: 'Poppins', sans-serif !important;
+    font-size: 1.4rem !important;
 
     .p-confirm-dialog-message{
       font-size: 1.6rem;
@@ -39,5 +40,9 @@
     display: flex;
     justify-content: end;
     gap: 1rem;
+
+    button {
+      font-size: 1.4rem !important;
+    }
   }
 }

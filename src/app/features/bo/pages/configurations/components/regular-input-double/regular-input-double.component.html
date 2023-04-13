@@ -1,0 +1,28 @@
+<form [formGroup]="form">
+  <div class="configuration-wrapper__configuration__item align-center">
+    <div class="left">
+      <label>{{ label | translate }}</label>
+    </div>
+  
+    <div class="right">
+      <input 
+        type="text" 
+        placeholder="{{ placeholder | translate | lowercase }}..."
+        [formControlName]="controlName"
+        pInputText>
+  
+      <div class="w-full">
+        <input 
+          type="text" 
+          placeholder="{{ placeholder | translate | lowercase }}..."
+          [formControlName]="secondFormControlName"
+          pInputText
+          class="mb-1">
+
+        <span>
+          {{ message | translate }}
+        </span>
+      </div>
+    </div>
+  </div>
+</form>
