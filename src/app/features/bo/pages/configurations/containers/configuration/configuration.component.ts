@@ -9,13 +9,13 @@ import { ImageOverviewService } from 'src/app/shared/services/image-overview.ser
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { TranslateModule } from '@ngx-translate/core';
 import { InputTextModule } from 'primeng/inputtext';
-import { finalize, forkJoin, ignoreElements, merge, mergeMap, Observable, of, Subject, tap } from 'rxjs';
 import { ToastService } from 'src/app/shared/services/toast.service';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { RegularInputComponent } from '../../components/regular-input/regular-input.component';
 import { RegularInputDoubleComponent } from '../../components/regular-input-double/regular-input-double.component';
 import { UploadComponent } from '../../components/upload/upload.component';
+import { MultiUploadComponent } from '../../components/multi-upload/multi-upload.component';
 
 @Component({
   selector: 'app-configuration',
@@ -28,7 +28,8 @@ import { UploadComponent } from '../../components/upload/upload.component';
     ProgressBarModule,
     RegularInputComponent,
     RegularInputDoubleComponent,
-    UploadComponent
+    UploadComponent,
+    MultiUploadComponent
   ],
   providers: [
     ConfigurationStore
@@ -44,13 +45,6 @@ export class ConfigurationComponent implements OnInit {
 
   imagesUrl: string = `${ environment.apiUrl }/images/`;
   videoUrl: string = `${ environment.apiUrl }/videos/`;
-
-  selectedPromoImages: File[] = [];
-  selectedPromoImagesPreview: string[] = [];
-  promoImagesUploadInProgress: boolean = false;
-  promoImagesToUpload: number = 0;
-  promoImagesUploaded: number = 0;
-  promoImagesProgressValue: number = 0;
 
   selectedVideo: File | null = null;
   videoUploadInProgress: boolean = false;
@@ -122,84 +116,6 @@ export class ConfigurationComponent implements OnInit {
     this.form.patchValue({
       ...this.configurationStore.state.configuration
     });
-  }
-
-  selectMultipleFiles(event: any): void {
-    if (event.target.files.length > 6) {
-      this.toastService.addError('errors.maxImages');
-    } else {
-      const files = [];
-      for (const file of event.target.files) {
-        files.push(file);
-
-        const reader = new FileReader();
-        reader.onload = () => {
-          this.selectedPromoImagesPreview.push(reader.result as string);
-        };
-        reader.readAsDataURL(file);
-      }
-
-      this.selectedPromoImages = files;
-    }
-  }
-
-  uploadPromoImagesNew(): void {
-    this.promoImagesUploadInProgress = true;
-
-    const imagesToSave: string[] = [];
-    const toUpload: Observable<any>[] = [];
-    for (const file of this.selectedPromoImages) {
-      imagesToSave.push(file.name);
-      toUpload.push(this.configurationService.uploadImage(file));
-    };
-
-    this.forkJoinWithProgress(toUpload).pipe(
-      mergeMap(([finalResult, progress]) => merge(
-        progress.pipe(
-          tap((value: number) => { this.promoImagesProgressValue = value; }),
-          ignoreElements()
-        ), finalResult
-      ))
-    ).subscribe(() => {
-      this.configurationService.updateConfiguration({
-        promo_images: JSON.stringify(imagesToSave)
-      }).subscribe({
-        next: updateConfRes => {
-          this.selectedPromoImagesPreview = [];
-          this.configurationStore.patchConfiguration(updateConfRes.configuration);
-          this.toastService.addSuccess(updateConfRes.message);
-
-          this.promoImagesUploadInProgress = false;
-        },
-        error: error => {
-          this.toastService.addError(error.error.message);
-          this.promoImagesUploadInProgress = false;
-        }
-      });
-    });
-  }
-
-  forkJoinWithProgress(toUpload: Observable<any>[]): Observable<any> {
-    let counter = 0;
-    const percent$ = new Subject();
-
-    const modifiedObservablesList = toUpload.map(
-      (item, index) => item.pipe(
-        finalize(() => {
-          const percentValue = ++counter * 100 / toUpload.length;
-          percent$.next(percentValue);
-        })
-      )
-    );
-
-    const finalResult$ = forkJoin(modifiedObservablesList).pipe(
-      tap(() => {
-        percent$.next(100);
-        percent$.complete();
-      })
-    );
-
-    return of([finalResult$, percent$.asObservable()]);
   }
 
   selectVideo(event: any): void {

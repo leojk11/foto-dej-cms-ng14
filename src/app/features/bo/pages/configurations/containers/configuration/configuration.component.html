@@ -8,9 +8,7 @@
 
 <div class="separator"></div>
 
-<form 
-  [formGroup]="form" 
-  (ngSubmit)="handleSubmit()"
+<form [formGroup]="form" (ngSubmit)="handleSubmit()"
   *ngIf="configurationStore.state$ | async as state">
   <div class="configuration-wrapper" *ngIf="state.configuration">
     <div class="configuration-wrapper__configuration">
@@ -37,90 +35,9 @@
       <app-regular-input-double [form]="form" [controlName]="'second_title'" 
         [label]="'properties.secondTitle'" [placeholder]="'properties.secondTitle'"
         [secondFormControlName]="'second_title_tr'" [message]="'messages.translateSecondTitle'"></app-regular-input-double>
-  
-      <div class="configuration-wrapper__configuration__item">
-        <div class="left">
-          <label>{{ 'properties.promoImages' | translate }}</label>
-        </div>
 
-        <div class="right">
-          <div class="right__top">
-            <input 
-              id="promo-images" 
-              type="file" 
-              accept="image/*"
-              class="upload-input"
-              multiple
-              (change)="selectMultipleFiles($event)"
-              pInputText
-            >
-
-            <label 
-              class="btn btn__main upload-btn" 
-              for="promo-images"
-            >
-              <i class="pi pi-plus"></i>
-              {{ 'common.chooseImages' | translate }}
-            </label>
-            
-            <div class="flex wrap w-80">
-              <span 
-                class="ml-1"
-                *ngFor="let file of selectedPromoImages">
-                {{ file.name }}, 
-              </span>
-            </div>
-          </div>
-
-          <div class="right__bottom">
-            <div class="images" *ngIf="selectedPromoImagesPreview.length > 0">
-              <div 
-                *ngFor="let imagePreview of selectedPromoImagesPreview" 
-                class="single-image cp"
-              >
-                <img [src]="imagePreview">
-              </div>
-            </div>
-            <div class="images" *ngIf="state.configuration?.promo_images && selectedPromoImagesPreview.length === 0">
-                <div 
-                  *ngFor="let image of state.configuration?.promo_images" 
-                  class="single-image cp"
-                >
-                  <img 
-                    [src]="imagesUrl + image"
-                    (click)="toggleOverviewPromo($event, state.configuration?.promo_images)"
-                  >
-                </div>
-            </div>
-
-            <div
-              class="w-full mt-2"
-              *ngIf="promoImagesUploadInProgress"
-            >
-              <p-progressBar 
-                [value]="promoImagesProgressValue"
-              ></p-progressBar>
-            </div>
-
-            <div class="buttons">
-              <p class="buttons__label">
-                {{ 'common.imagesSizeInfo' | translate }}
-              </p>
-
-              <button 
-                *ngIf="selectedPromoImages.length > 0"
-                class="btn btn__main upload-btn" 
-                type="button"
-                (click)="uploadPromoImagesNew()"
-                [disabled]="promoImagesUploadInProgress"
-              >
-                <i class="pi pi_upload"></i>
-                {{ 'common.upload' | translate }}
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+      <app-multi-upload [label]="'properties.promoImages'" [id]="'promo_images'"
+        [imagesUrl]="imagesUrl" [preselected]="state.configuration.promo_images"></app-multi-upload>
   
       <div class="configuration-wrapper__configuration__item">
         <div class="left">
@@ -178,7 +95,6 @@
                 class="btn btn__main upload-btn" 
                 type="button"
                 (click)="uploadVideo()"
-                [disabled]="promoImagesUploadInProgress"
               >
                 <i class="pi pi-upload"></i>
                 {{ 'common.upload' | translate }}
