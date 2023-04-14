@@ -102,10 +102,9 @@
 
   &__video {
     margin: 10rem 12rem;
-
-    video {
-      height: 670px;
-    }
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     @include screen-md {
       margin: 5rem 2rem 10rem;
