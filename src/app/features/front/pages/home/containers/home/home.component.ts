@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { RouterModule } from '@angular/router';
@@ -8,12 +8,11 @@ import { environment } from 'src/environments/environment';
 import { ContactFormComponent } from '../../components/contact-form/contact-form.component';
 import { FooterComponent } from '../../../../layout/components/footer/footer.component';
 import { Configuration } from 'src/app/features/bo/pages/configurations/models/configuration.model';
-import { StorageService } from 'src/app/core/services/storage.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
 import { FrontNavbarComponent } from 'src/app/features/front/layout/components/front-navbar/front-navbar.component';
-import { AuthService } from 'src/app/core/services/auth.service';
 import { FrontConfigurationState } from 'src/app/shared/services/front-configuration.store';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { NgxYoutubePlayerModule } from 'ngx-youtube-player';
 
 @Component({
   selector: 'app-home',
@@ -25,7 +24,8 @@ import { NgxSpinnerService } from 'ngx-spinner';
     SliderComponent,
     ContactFormComponent,
     FooterComponent,
-    FrontNavbarComponent
+    FrontNavbarComponent,
+    NgxYoutubePlayerModule
   ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
@@ -34,7 +34,8 @@ export class HomeComponent implements OnInit {
 
   @ViewChild('slider') slider!: HTMLElement;
 
-  videoUrl: string = `${ environment.apiUrl }/videos/`;
+  videoId: string = '';
+  showVideo: boolean = false;
 
   configuration: Configuration = {} as Configuration;
   selectedLang: string | null = 'mk';
@@ -63,6 +64,12 @@ export class HomeComponent implements OnInit {
 
     this.service.getConfiguration().subscribe({
       next: res => {
+        const splittedPromoVideUrl = res.promo_video.split('=');
+        const videoId = splittedPromoVideUrl[1].split('&');
+        this.videoId = videoId[0];
+        
+        this.showVideo = true;
+        
         this.configuration = res;
         this.frontConfigurationState.setConfiguration(res);
         this.getTitles();
@@ -86,18 +93,13 @@ export class HomeComponent implements OnInit {
   }
 
   goToElement(el: HTMLElement, offset: number): void {
-    console.log('EL', el);
     let element = el;
 
     if(typeof(el) !== 'string'){
       element = el;
     } else if(el === 'collaboration') {
-      console.log('COLLAB', Object.entries(this.collaboration)[0][1]);
-
       element = Object.entries(this.collaboration)[0][1];
     } else if (el === 'slider') {
-      console.log('SLIDER', this.slider.innerHTML);
-
       element = Object.entries(this.slider)[0][1];
     }
 

@@ -5,17 +5,15 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AdminLayoutService } from 'src/app/features/bo/layout/services/admin-layout.service';
 import { ConfigurationStore } from '../../services/configuration.store';
 import { ConfigurationService } from '../../services/configuration.service';
-import { ImageOverviewService } from 'src/app/shared/services/image-overview.service';
-import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { TranslateModule } from '@ngx-translate/core';
 import { InputTextModule } from 'primeng/inputtext';
 import { ToastService } from 'src/app/shared/services/toast.service';
 import { ProgressBarModule } from 'primeng/progressbar';
-import { NgxSpinnerService } from 'ngx-spinner';
 import { RegularInputComponent } from '../../components/regular-input/regular-input.component';
 import { RegularInputDoubleComponent } from '../../components/regular-input-double/regular-input-double.component';
 import { UploadComponent } from '../../components/upload/upload.component';
 import { MultiUploadComponent } from '../../components/multi-upload/multi-upload.component';
+import { NgxYoutubePlayerModule } from 'ngx-youtube-player';
 
 @Component({
   selector: 'app-configuration',
@@ -29,7 +27,8 @@ import { MultiUploadComponent } from '../../components/multi-upload/multi-upload
     RegularInputComponent,
     RegularInputDoubleComponent,
     UploadComponent,
-    MultiUploadComponent
+    MultiUploadComponent,
+    NgxYoutubePlayerModule
   ],
   providers: [
     ConfigurationStore
@@ -44,11 +43,6 @@ export class ConfigurationComponent implements OnInit {
   logoIconLoaded: boolean = true;
 
   imagesUrl: string = `${ environment.apiUrl }/images/`;
-  videoUrl: string = `${ environment.apiUrl }/videos/`;
-
-  selectedVideo: File | null = null;
-  videoUploadInProgress: boolean = false;
-  videoUploadProgressValue: number = 0;
 
   form: FormGroup = this.fb.group({
     logo: [''],
@@ -60,7 +54,8 @@ export class ConfigurationComponent implements OnInit {
     email: [''],
     address: [''],
     facebook_link: [''],
-    insta_link: ['']
+    insta_link: [''],
+    promo_video: ['']
   });
 
   constructor(
@@ -68,20 +63,16 @@ export class ConfigurationComponent implements OnInit {
     public configurationStore: ConfigurationStore,
     private configurationService: ConfigurationService,
     private fb: FormBuilder,
-    private imageOverviewState: ImageOverviewService,
     private toastService: ToastService,
-    public location: Location,
-    private spinner: NgxSpinnerService
+    public location: Location
   ) { }
 
   ngOnInit(): void {
     this.adminLayoutService.setTitle('common.settings');
 
     this.configurationStore.getConfiguration();
-    
     this.configurationStore.state$.subscribe({
       next: state => {
-
         if (!!state.configuration) {
           this.form.patchValue({
             ...state.configuration
@@ -89,16 +80,6 @@ export class ConfigurationComponent implements OnInit {
         }
       }
     });
-  }
-
-  toggleOverview(event: any): void {
-    this.imageOverviewState.toggleOverview();
-    this.imageOverviewState.setImage(event.target.src);
-  }
-
-  toggleOverviewPromo(event: any, images: any): void {
-    this.imageOverviewState.toggleOverview();
-    this.imageOverviewState.setImages(event.target.src, images);
   }
 
   handleSubmit(): void {
@@ -116,44 +97,5 @@ export class ConfigurationComponent implements OnInit {
     this.form.patchValue({
       ...this.configurationStore.state.configuration
     });
-  }
-
-  selectVideo(event: any): void {
-    this.selectedVideo = event.target.files[0];
-  }
-
-  uploadVideo(): void {
-    if (this.selectedVideo) {
-      this.videoUploadInProgress = true;
-
-      this.configurationService.uploadVideo(this.selectedVideo).subscribe({
-        next: res => {
-          if (res.type === HttpEventType.UploadProgress) {
-            this.videoUploadProgressValue =  Math.round((100 * res.loaded) / res.total);
-          } else if (res instanceof HttpResponse) {
-            this.configurationService.updateConfiguration({
-              promo_video: this.selectedVideo?.name
-            }).subscribe({
-              next: updatePromoVideoRes => {
-                this.configurationStore.patchConfiguration(updatePromoVideoRes.configuration);
-                this.toastService.addSuccess(updatePromoVideoRes.message);
-
-                this.videoUploadInProgress = false;
-              },
-              error: error => {
-                this.toastService.addError(error.error.message);
-                this.videoUploadInProgress = false;
-              }
-            });
-          }
-        },
-        error: error => {
-          this.toastService.addError(error.error.message);
-          this.videoUploadInProgress = false;
-        }
-      });
-    } else {
-      this.toastService.addError('errors.noVideoSelected');
-    }
   }
 }

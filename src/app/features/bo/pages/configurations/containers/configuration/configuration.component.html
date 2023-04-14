@@ -38,71 +38,9 @@
 
       <app-multi-upload [label]="'properties.promoImages'" [id]="'promo_images'"
         [imagesUrl]="imagesUrl" [preselected]="state.configuration.promo_images"></app-multi-upload>
-  
-      <div class="configuration-wrapper__configuration__item">
-        <div class="left">
-          <label>{{ 'properties.promoVideo' | translate }}</label>
-        </div>
-  
-        <div class="right">
-          <div class="right__top">
-            <input 
-              id="promo-video" 
-              type="file" 
-              accept="video/*"
-              class="upload-input"
-              (change)="selectVideo($event)"
-              pInputText>
 
-            <label 
-              class="btn btn__main upload-btn" 
-              for="promo-video"
-            >
-              <i class="pi pi-plus"></i>
-              {{ 'common.chooseVideo' | translate }}
-            </label>
-
-            <span *ngIf="!selectedVideo">
-              {{ state.configuration?.promo_video }}
-            </span>
-
-            <span *ngIf="selectedVideo">
-              {{ selectedVideo.name }}
-            </span>
-          </div>
-
-          <div class="right__bottom">
-            <video 
-              *ngIf="state.configuration?.promo_video" 
-              controls 
-              width="100%" 
-              height="300px"
-            >
-              <source [src]="videoUrl + state.configuration?.promo_video">
-            </video>
-
-            <div
-              class="w-full mt-2"
-              *ngIf="videoUploadInProgress"
-            >
-              <p-progressBar 
-                [value]="videoUploadProgressValue"
-              ></p-progressBar>
-            </div>
-
-            <div class="buttons" *ngIf="selectedVideo">
-              <button 
-                class="btn btn__main upload-btn" 
-                type="button"
-                (click)="uploadVideo()"
-              >
-                <i class="pi pi-upload"></i>
-                {{ 'common.upload' | translate }}
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>    
+      <app-regular-input [form]="form" [controlName]="'promo_video'" 
+        [label]="'properties.promoVideo'" [placeholder]="'properties.promoVideo'"></app-regular-input> 
 
       <app-regular-input [form]="form" [controlName]="'phone_number'" 
         [label]="'properties.phoneNumber'" [placeholder]="'properties.phoneNumber'"></app-regular-input>
