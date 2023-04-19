@@ -4,7 +4,6 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { RouterModule } from '@angular/router';
 import { SliderComponent } from '../../components/slider/slider.component';
 import { FrontConfigurationService } from '../../../../../../shared/services/front-configuration.service';
-import { environment } from 'src/environments/environment';
 import { ContactFormComponent } from '../../components/contact-form/contact-form.component';
 import { FooterComponent } from '../../../../layout/components/footer/footer.component';
 import { Configuration } from 'src/app/features/bo/pages/configurations/models/configuration.model';
@@ -13,6 +12,8 @@ import { FrontNavbarComponent } from 'src/app/features/front/layout/components/f
 import { FrontConfigurationState } from 'src/app/shared/services/front-configuration.store';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { NgxYoutubePlayerModule } from 'ngx-youtube-player';
+import { map, Observable, shareReplay } from 'rxjs';
+import { BreakpointObserver } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-home',
@@ -35,6 +36,8 @@ export class HomeComponent implements OnInit {
   @ViewChild('slider') slider!: HTMLElement;
 
   videoId: string = '';
+  videoWidth: number = 1000;
+  videoHeight: number = 650;
   showVideo: boolean = false;
 
   configuration: Configuration = {} as Configuration;
@@ -45,12 +48,20 @@ export class HomeComponent implements OnInit {
 
   @ViewChild('collaboration') collaboration!: HTMLElement;
 
+  isMobile$: Observable<boolean> = this.breakpointObserver.observe('(max-width: 878px)')
+    .pipe(
+      map(result => result.matches),
+      shareReplay()
+    );
+  mobile: boolean = false;
+
   constructor(
     private service: FrontConfigurationService,
     public frontConfigurationState: FrontConfigurationState,
     private translateService: TranslateService,
     private toastService: ToastService,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private breakpointObserver: BreakpointObserver
   ) { }
 
   ngOnInit(): void {
@@ -78,6 +89,20 @@ export class HomeComponent implements OnInit {
       error: error => {
         this.toastService.addError(error.error.message);
         this.spinner.hide().then();
+      }
+    });
+
+    this.isMobile$.subscribe({
+      next: (res: any) => {
+        this.mobile = res;
+
+        if (res) {
+          this.videoWidth = 350;
+          this.videoHeight = 250;
+        } else {
+          this.videoWidth = 1000;
+          this.videoHeight = 650;
+        }
       }
     });
   }
