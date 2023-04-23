@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://jealous-erin-handkerchief.cyclic.app'
+  apiUrl: 'https://api.photodej.com'
 };
