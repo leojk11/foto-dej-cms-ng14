@@ -12,8 +12,7 @@
             pInputText
             class="w-full"
             formControlName="title"
-            placeholder="{{ 'properties.title' | translate }}..."
-          >
+            placeholder="{{ 'properties.title' | translate }}...">
         </div>
 
         <div class="form-field w-full">
@@ -26,8 +25,7 @@
             pInputText
             class="w-full"
             formControlName="date"
-            placeholder="dd/mm/yyyy"
-          >
+            placeholder="dd/mm/yyyy">
         </div>
 
         <div class="form-field w-full">
@@ -46,15 +44,14 @@
             (onSelect)="onClientSelected($event)"
           ></p-autoComplete>
         </div>
-
       </div>
+
       <div class="container__flex justify-center mt-5">
         <button
           class="btn btn__main"
           type="submit"
-          [disabled]="addAlbumForm.invalid"
-        >
-          {{ 'common.add' | translate }}
+          [disabled]="addAlbumForm.invalid">
+          {{ (editMode ? 'common.edit' : 'common.add') | translate }}
         </button>
       </div>
     </form>

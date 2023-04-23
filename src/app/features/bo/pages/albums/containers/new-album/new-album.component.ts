@@ -62,7 +62,6 @@ export class NewAlbumComponent implements OnInit {
     this.getClients();
 
     if (this.config.data) {
-      console.log('data', this.config.data);
       this.editMode = true;
 
       if (this.config.data.assigned_to_id) {
@@ -93,7 +92,6 @@ export class NewAlbumComponent implements OnInit {
         assignTo: this.config.data.client
       })
     }
-
   }
 
   getClients(query?: string): void {
@@ -123,14 +121,7 @@ export class NewAlbumComponent implements OnInit {
   }
 
   search(event: any) {
-    console.log('AUTOCOMPLETE EVENT', event);
-    const params = {
-      page: 1, 
-      take: 10,
-      name: event.query
-    }
-    
-    this.getClients(event.query)
+    this.getClients(event.query);
   }
 
   handleSubmit(): void {
@@ -150,8 +141,7 @@ export class NewAlbumComponent implements OnInit {
         this.config.data.id
       ).subscribe({
         next: res => {
-          this.albumsStore.patchPreviewAlbum(res.album);
-          this.dialogRef.close();
+          this.dialogRef.close({ message: 'update', album: res.album });
 
           this.toastService.addSuccess(res.message);
           this.spinner.hide().then();
@@ -164,10 +154,9 @@ export class NewAlbumComponent implements OnInit {
     } else {
       this.albumsService.addNewAlbum(this.addAlbumForm.value).subscribe({
         next: res => {
-          this.albumsStore.patchExistingAlbums(res.album);
           this.toastService.addSuccess(res.message);
 
-          this.dialogRef.close('new');
+          this.dialogRef.close({ message: 'add', album: res.album });
           this.spinner.hide().then();
         },
         error: error => {
@@ -199,7 +188,5 @@ export class NewAlbumComponent implements OnInit {
     this.patchAsignee(client);
     this.selectedClient = client;
     this.hasClient = true;
-    console.log('FORM VALUE', this.addAlbumForm.value);
-    
   }
 }

@@ -20,7 +20,6 @@ export class BoAlbumsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.store.getAllAlbums();
   }
 
 }

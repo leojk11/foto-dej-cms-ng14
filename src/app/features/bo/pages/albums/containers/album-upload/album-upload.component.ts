@@ -67,7 +67,8 @@ export class AlbumUploadComponent implements OnInit {
     this.forkJoinWithProgress(toUpload).pipe(
       mergeMap(([finalResult, progress]) => merge(
         progress.pipe(
-          tap((value: number) => { this.progressValue = value; }),
+          tap((value: number) => { this.progressValue = value; console.log('value to be updated', value);
+           }),
           ignoreElements()
         ), finalResult
       ))
