@@ -38,6 +38,16 @@
     align-items: center;
     gap: 5rem;
 
+    &__middle {
+      display: flex;
+      justify-content: space-between;
+      gap: 30px;
+
+      position: absolute;
+      right: 50%;
+      transform: translate(50%);
+    }
+
     &__link{
       font-family: "Roboto", sans-serif;
       font-size: 2rem;

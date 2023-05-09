@@ -47,18 +47,19 @@
       </ng-container>
   
       <ng-container *ngIf="!isAuthenticated">
-        <a 
-          class="frontnav__actions__link" 
-          (click)="goToElement.emit('collaboration')"
-        >
-          {{ 'common.contact' | translate }}
-        </a>
-        <a 
-          class="frontnav__actions__link" 
-          (click)="goToElement.emit('slider')"
-        >
-          {{ 'common.gallery' | translate }}
-        </a>
+        <div class="frontnav__actions__middle">
+          <a 
+            class="frontnav__actions__link" 
+            (click)="goToElement.emit('collaboration')">
+            {{ 'common.contact' | translate }}
+          </a>
+
+          <a 
+            class="frontnav__actions__link" 
+            (click)="goToElement.emit('slider')">
+            {{ 'common.gallery' | translate }}
+          </a>
+        </div>
       </ng-container>
     </div>
   
