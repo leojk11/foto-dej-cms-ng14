@@ -14,6 +14,7 @@ import { RegularInputDoubleComponent } from '../../components/regular-input-doub
 import { UploadComponent } from '../../components/upload/upload.component';
 import { MultiUploadComponent } from '../../components/multi-upload/multi-upload.component';
 import { NgxYoutubePlayerModule } from 'ngx-youtube-player';
+import { VideoRegularInputComponent } from '../../components/video-regular-input/video-regular-input.component';
 
 @Component({
   selector: 'app-configuration',
@@ -28,7 +29,8 @@ import { NgxYoutubePlayerModule } from 'ngx-youtube-player';
     RegularInputDoubleComponent,
     UploadComponent,
     MultiUploadComponent,
-    NgxYoutubePlayerModule
+    NgxYoutubePlayerModule,
+    VideoRegularInputComponent
   ],
   providers: [
     ConfigurationStore

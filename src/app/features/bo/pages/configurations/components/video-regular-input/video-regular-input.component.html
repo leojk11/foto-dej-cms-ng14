@@ -1,0 +1,15 @@
+<form [formGroup]="form">
+  <div class="configuration-wrapper__configuration__item align-center">
+    <div class="left">
+      <label>{{ label | translate }}</label>
+    </div>
+
+    <div class="right">
+      <input 
+        type="text" 
+        placeholder="{{ placeholder | translate | lowercase }}..."
+        [formControlName]="controlName"
+        pInputText>
+    </div>
+  </div>
+</form>   
