@@ -27,11 +27,11 @@ export class ConfigurationService {
     return this.http.patch<UpdateConfResponse>(path, body);
   }
 
-  uploadImage(file: any): Observable<any> {
+  uploadImage(file: any, albumId: string): Observable<any> {
     const formData: FormData = new FormData();
     formData.append('images', file);
 
-    const path = `${ this.apiUrl }/images/confMainImage`;
+    const path = `${ this.apiUrl }/images/${ albumId }`;
     const req = new HttpRequest('POST', path, formData, {
       reportProgress: true,
       responseType: 'json'

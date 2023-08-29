@@ -49,9 +49,9 @@ export class MultiUploadComponent implements OnInit {
   }
 
   selectFiles(event: any): void {
-    if (event.target.files.length > 6) {
-      this.toastService.addError('errors.maxImages');
-    } else {
+    // if (event.target.files.length > 6) {
+    //   this.toastService.addError('errors.maxImages');
+    // } else {
       const files = [];
       for (const file of event.target.files) {
         files.push(file);
@@ -64,7 +64,7 @@ export class MultiUploadComponent implements OnInit {
       }
 
       this.selectedFiles = files;
-    }
+    // }
   }
 
   uploadFiles(): void {
@@ -74,7 +74,7 @@ export class MultiUploadComponent implements OnInit {
     const toUpload: Observable<any>[] = [];
     for (const file of this.selectedFiles) {
       imagesToSave.push(file.name);
-      toUpload.push(this.configurationService.uploadImage(file));
+      toUpload.push(this.configurationService.uploadImage(file, 'promo_images'));
     };
 
     this.forkJoinWithProgress(toUpload).pipe(

@@ -49,6 +49,8 @@ export class UploadComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    console.log('ID', this.id);
+    
   }
 
   toggleOverview(event: any): void {
@@ -76,32 +78,32 @@ export class UploadComponent implements OnInit {
     if (this.selectedFile) {
       this.uploadInProgress = true;
 
-      this.configurationService.uploadImage(this.selectedFile).subscribe({
-        next: res => {
-          if (res.type === HttpEventType.UploadProgress) {
-            this.uploadProgressValue = Math.round((100 * res.loaded) / res.total);
-          } else if (res instanceof HttpResponse) {
-            this.configurationService.updateConfiguration({
-              [this.id]: this.selectedFile?.name
-            }).subscribe({
-              next: updateImageRes => {
-                this.configurationStore.patchConfiguration(updateImageRes.configuration);
-                this.toastService.addSuccess(updateImageRes.message);
+      // this.configurationService.uploadImage(this.selectedFile).subscribe({
+      //   next: res => {
+      //     if (res.type === HttpEventType.UploadProgress) {
+      //       this.uploadProgressValue = Math.round((100 * res.loaded) / res.total);
+      //     } else if (res instanceof HttpResponse) {
+      //       this.configurationService.updateConfiguration({
+      //         [this.id]: this.selectedFile?.name
+      //       }).subscribe({
+      //         next: updateImageRes => {
+      //           this.configurationStore.patchConfiguration(updateImageRes.configuration);
+      //           this.toastService.addSuccess(updateImageRes.message);
                 
-                this.uploadInProgress = false;
-              },
-              error: error => {
-                this.toastService.addError(error.error.message);
-                this.uploadInProgress = false;
-              }
-            });
-          }
-        },
-        error: error => {
-          this.toastService.addError(error.error.message);
-          this.uploadInProgress = false;
-        }
-      });
+      //           this.uploadInProgress = false;
+      //         },
+      //         error: error => {
+      //           this.toastService.addError(error.error.message);
+      //           this.uploadInProgress = false;
+      //         }
+      //       });
+      //     }
+      //   },
+      //   error: error => {
+      //     this.toastService.addError(error.error.message);
+      //     this.uploadInProgress = false;
+      //   }
+      // });
     } else {
       this.toastService.addError('errors.mustSelectImage');
     }
