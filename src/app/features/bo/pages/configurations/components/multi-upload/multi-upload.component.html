@@ -20,6 +20,13 @@
         <i class="pi pi-plus"></i>
         {{ 'common.chooseImages' | translate }}
       </label>
+
+      <label 
+        class="btn btn__main upload-btn" 
+        [for]="id">
+        <i class="pi pi-trash"></i>
+        {{ 'common.clear' | translate }}
+      </label>
       
       <div class="flex wrap w-80">
         <span 
@@ -43,7 +50,7 @@
             *ngFor="let image of preselected" 
             class="single-image cp">
             <img 
-              [src]="imagesUrl + image"
+              [src]="imagesUrl + id + '/' + image"
               (click)="toggleOverview($event, preselected)">
           </div>
       </div>

@@ -7,6 +7,7 @@ import { ConfigurationStore } from '../../services/configuration.store';
 import { ImageOverviewService, ImageOverviewState } from 'src/app/shared/services/image-overview.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { ProgressBarModule } from 'primeng/progressbar';
+import { log } from 'console';
 
 @Component({
   selector: 'app-multi-upload',
@@ -41,6 +42,7 @@ export class MultiUploadComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    console.log('id on multi init', this.id);
   }
 
   toggleOverview(event: any, images: any): void {
