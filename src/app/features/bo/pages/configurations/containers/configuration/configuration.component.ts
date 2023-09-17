@@ -45,6 +45,7 @@ export class ConfigurationComponent implements OnInit {
   logoIconLoaded: boolean = true;
 
   imagesUrl: string = `${ environment.apiUrl }/images/`;
+  albumImagesUrl: string = `${ environment.apiUrl }/images/album_image/`;
 
   form: FormGroup = this.fb.group({
     logo: [''],
