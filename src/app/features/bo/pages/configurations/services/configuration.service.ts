@@ -20,18 +20,21 @@ export class ConfigurationService {
     return this.http.get<Configuration>(path);
   }
 
-  // addConfiguration(): Observable<>
-
   updateConfiguration(body: Partial<Configuration>): Observable<UpdateConfResponse> {
     const path = `${ this.apiUrl }/conf`;
     return this.http.patch<UpdateConfResponse>(path, body);
+  }
+
+  clearPromoImages(): Observable<UpdateConfResponse> {
+    const path = `${ this.apiUrl }/conf/images/promo/clear`;
+    return this.http.patch<UpdateConfResponse>(path, {});
   }
 
   uploadImage(file: any, albumId: string): Observable<any> {
     const formData: FormData = new FormData();
     formData.append('images', file);
 
-    const path = `${ this.apiUrl }/images/${ albumId }`;
+    const path = `${ this.apiUrl }/images/${ albumId }`;    
     const req = new HttpRequest('POST', path, formData, {
       reportProgress: true,
       responseType: 'json'
@@ -53,4 +56,13 @@ export class ConfigurationService {
     return this.http.request(req);
   }
 
+  getSingleImage(image: string): Observable<any> {
+    const path = `${ this.apiUrl }/images/${ image }`;
+    return this.http.get(path, { responseType: 'blob' });
+  }
+
+  getImageBase64(image: string): Observable<any> {
+    const path = `${ this.apiUrl }/images/base64/${ image }`;
+    return this.http.get<any>(path);
+  }
 }

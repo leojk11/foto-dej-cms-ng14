@@ -20,7 +20,7 @@ SwiperCore.use([Navigation])
 })
 export class SliderComponent implements OnInit {
 
-  @Input() promoImages: string = '';
+  @Input() promoImages: string[] = [];
   @Input() imageUrl: string = '';
 
   imagesUrl: string = `${ environment.apiUrl }/images/`;

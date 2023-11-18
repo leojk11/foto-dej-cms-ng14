@@ -219,7 +219,8 @@
     "changeAccountStatus": "Are you sure you want to change the account status?",
     "translateMainTitle": "Add translation for the main title",
     "translateSecondTitle": "Add translation for the second title",
-    "noLocations": "No locations yet"
+    "noLocations": "No locations yet",
+    "clearPromoImages": "Are you sure that you want to clear promo images?"
   },
   "clients": {
     "newClient": "Add new client",

@@ -15,6 +15,7 @@ import { UploadComponent } from '../../components/upload/upload.component';
 import { MultiUploadComponent } from '../../components/multi-upload/multi-upload.component';
 import { NgxYoutubePlayerModule } from 'ngx-youtube-player';
 import { VideoRegularInputComponent } from '../../components/video-regular-input/video-regular-input.component';
+import { ConfirmationService } from 'primeng/api';
 
 @Component({
   selector: 'app-configuration',
@@ -33,7 +34,8 @@ import { VideoRegularInputComponent } from '../../components/video-regular-input
     VideoRegularInputComponent
   ],
   providers: [
-    ConfigurationStore
+    ConfigurationStore,
+    ConfirmationService
   ],
   templateUrl: './configuration.component.html'
 })
