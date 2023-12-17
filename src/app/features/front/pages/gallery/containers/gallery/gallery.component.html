@@ -1,1 +1,21 @@
-<p>gallery works!</p>
+<div class="gallery" *ngIf="frontConfigurationState.confState$ | async as state">
+  <div class="gallery__header">
+    <app-front-navbar
+      (goToElement)="goToElement($event, -100)"
+      [gallery]="true"
+    ></app-front-navbar>
+  </div>
+
+  <div class="gallery__images">
+    <div class="gallery__images__image" *ngFor="let image of state.configuration.promo_images">
+      <img [src]="imagesUrl + image" [alt]="image" class="cp"
+        (click)="toggleOverview($event, state.configuration.promo_images)">
+    </div>
+  </div>
+
+  <app-footer
+    [configuration]="state.configuration"
+  ></app-footer>
+</div>
+
+<app-image-overview></app-image-overview>

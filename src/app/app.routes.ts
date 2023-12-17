@@ -13,6 +13,11 @@ export const routes: Routes = [
       .then(m => m.HomeComponent)
   },
   {
+    path: 'gallery',
+    loadComponent: () => import('./features/front/pages/gallery/containers/gallery/gallery.component')
+      .then(m => m.GalleryComponent)
+  },
+  {
     path: 'auth',
     children: [
       ...AUTH_ROUTES

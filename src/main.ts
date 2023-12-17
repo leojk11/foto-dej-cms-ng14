@@ -13,7 +13,6 @@ import { ToastrModule } from 'ngx-toastr';
 import { ToastService } from './app/shared/services/toast.service';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
-
 export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -25,7 +24,10 @@ if (environment.production) {
 bootstrapApplication(AppComponent, {
   providers: [
     importProvidersFrom(
-      RouterModule.forRoot(routes, { onSameUrlNavigation: 'reload'}),
+      RouterModule.forRoot(routes, { 
+        onSameUrlNavigation: 'reload',
+        scrollPositionRestoration: 'enabled' 
+      }),
       HttpClientModule,
       BrowserAnimationsModule,
       TranslateModule.forRoot({

@@ -1,4 +1,5 @@
 export interface Configuration {
+    id: string;
     logo: string;
     logo_white: string;
     logo_icon: string;

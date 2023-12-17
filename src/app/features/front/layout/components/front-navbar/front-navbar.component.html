@@ -5,6 +5,7 @@
         [src]="state.imageUrl + state.configuration.logo"
         alt="" 
         class="frontnav__brand--logo-wrapper--img"
+        routerLink="/home"
       >
     </div>
   </div>
@@ -46,7 +47,7 @@
         </a> -->
       </ng-container>
   
-      <ng-container *ngIf="!isAuthenticated">
+      <ng-container *ngIf="!isAuthenticated && !gallery">
         <div class="frontnav__actions__middle">
           <a 
             class="frontnav__actions__link" 
@@ -60,6 +61,14 @@
             {{ 'common.gallery' | translate }}
           </a>
         </div>
+      </ng-container>
+
+      <ng-container *ngIf="!isAuthenticated && gallery">
+        <a 
+          class="frontnav__actions__link" 
+          routerLink="/home">
+          {{ 'common.home' | translate }}
+        </a>
       </ng-container>
     </div>
   
@@ -84,8 +93,6 @@
         type="button"
         class="btn btn__main"
         routerLink="/auth/client"
-        [pTooltip]="'common.signIn' | translate"
-        tooltipPosition="bottom"
       >
         {{ 'common.signIn' | translate }}
       </button>

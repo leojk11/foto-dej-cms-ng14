@@ -34,6 +34,7 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 export class HomeComponent implements OnInit {
 
   @ViewChild('slider') slider!: HTMLElement;
+  @ViewChild('collaboration') collaboration!: HTMLElement;
 
   videoId: string = '';
   videoWidth: number = 1000;
@@ -45,8 +46,6 @@ export class HomeComponent implements OnInit {
 
   mainTitle: string = '';
   secondTitle: string = '';
-
-  @ViewChild('collaboration') collaboration!: HTMLElement;
 
   isMobile$: Observable<boolean> = this.breakpointObserver.observe('(max-width: 878px)')
     .pipe(

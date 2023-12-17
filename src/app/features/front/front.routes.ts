@@ -1,6 +1,7 @@
 import { Route, } from "@angular/router";
 import { PreviewComponent } from "./pages/albums/containers/preview/preview.component";
 import { ProfileComponent } from "./pages/profile/profile.component";
+import { GalleryComponent } from "./pages/gallery/containers/gallery/gallery.component";
 
 export const FRONT_ROUTES: Route[] = [
   {
