@@ -9,6 +9,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { ConfirmationService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-multi-upload',
@@ -44,7 +45,8 @@ export class MultiUploadComponent implements OnInit {
     private configurationStore: ConfigurationStore,
     private imageOverviewState: ImageOverviewService,
     private confirmationService: ConfirmationService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private spinner: NgxSpinnerService
   ) { }
 
   ngOnInit(): void { 
@@ -143,7 +145,9 @@ export class MultiUploadComponent implements OnInit {
           this.configurationStore.patchConfiguration(updateConfRes.configuration);
           this.toastService.addSuccess(updateConfRes.message);
 
+          this.selectedFiles = [];
           this.uploadInPorgress = false;
+          this.uploadProgressValue = 0;
         },
         error: error => {
           this.toastService.addError(error.error.message);
@@ -186,6 +190,8 @@ export class MultiUploadComponent implements OnInit {
       rejectLabel: this.translate.instant('common.no'),
       accept: () => {
         if (!this.preselected) {
+          console.log('if 9!this.preselected');
+          
           this.selectedFiles = [];
           this.selectedFilesPreview = [];
 
@@ -193,14 +199,18 @@ export class MultiUploadComponent implements OnInit {
             this.fileUploader.nativeElement.value = null;
           }
         } else {
+          this.spinner.show().then();
           this.configurationService.clearPromoImages().subscribe({
             next: res => {
               this.preselected = [];
               this.configurationStore.patchConfiguration(res.configuration);
               this.toastService.addSuccess(res.message);
+
+              this.spinner.hide().then();
             },
             error: error => {
               this.toastService.addError(error.error.message);
+              this.spinner.hide().then();
             }
           });
         }

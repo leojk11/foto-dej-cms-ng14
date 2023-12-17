@@ -36,7 +36,7 @@ export class UploadComponent implements OnInit {
 
   loaded: boolean = true;
 
-  selectedFile!: File; 
+  selectedFile: File | null = null; 
   selectedFilePreview: string = '';
   uploadInProgress: boolean = false;
   uploadProgressValue: number = 0;
@@ -87,7 +87,9 @@ export class UploadComponent implements OnInit {
                 this.configurationStore.patchConfiguration(updateImageRes.configuration);
                 this.toastService.addSuccess(updateImageRes.message);
                 
+                this.selectedFile = null;
                 this.uploadInProgress = false;
+                this.uploadProgressValue = 0;
               },
               error: error => {
                 this.toastService.addError(error.error.message);
