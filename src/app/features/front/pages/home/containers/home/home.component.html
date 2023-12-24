@@ -49,16 +49,19 @@
       [imageUrl]="state.imageUrl"
     ></app-slider>
 
-    <div class="w-full flex justify-center align-center mt-3">
-      <button 
-        pButton
-        type="button"
-        class="btn btn__main"
-        routerLink="/gallery"
-      >
-        {{ 'common.seeAll' | translate }}
-      </button>
-    </div>
+    <ng-container *ngIf="state.configuration.promo_images">
+      <div class="w-full flex justify-center align-center mt-3"
+        *ngIf="state.configuration.promo_images.length > 0">
+        <button 
+          pButton
+          type="button"
+          class="btn btn__main"
+          routerLink="/gallery"
+        >
+          {{ 'common.seeAll' | translate }}
+        </button>
+      </div>
+    </ng-container>
   </div>
 
   <div class="home__video" *ngIf="showVideo">

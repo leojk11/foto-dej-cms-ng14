@@ -44,6 +44,11 @@ export class AlbumComponent implements OnInit {
   tabsIndex: number = 0;
   showSelected: boolean = false;
 
+  defaultImagesAmoutToShow: number = 5;
+  imagesAmountToShow: number = 5;
+  imagesToDisplay: Image[] | undefined = [];
+  leftImagesToDisplay: Image[] | undefined = [];
+
   constructor(
     private albumsStore: AlbumsStore,
     private confirmationService: ConfirmationService,
@@ -53,6 +58,14 @@ export class AlbumComponent implements OnInit {
 
   ngOnInit(): void {
     console.log('images on onit', this.images);
+    this.imagesToDisplay = this.images?.slice(0, this.imagesAmountToShow);
+    this.leftImagesToDisplay = this.images?.slice(this.imagesAmountToShow, this.images.length - 1);
+  }
+
+  seeMoreImages(): void {
+    this.imagesAmountToShow = this.imagesAmountToShow + this.defaultImagesAmoutToShow;
+    this.imagesToDisplay = this.images?.slice(0, this.imagesAmountToShow);
+    this.leftImagesToDisplay = this.images?.slice(this.imagesAmountToShow, this.images.length - 1);
   }
 
   deleteSelected(): void {
@@ -69,6 +82,10 @@ export class AlbumComponent implements OnInit {
           selectedStrArr.push(img.name);
         }
         this.albumsStore.deleteMultipleImages(selectedStrArr);
+
+        console.log('iages', this.images);
+        
+        this.imagesToDisplay = this.images?.slice(0, this.imagesAmountToShow);
       }
     });
   }
@@ -133,6 +150,10 @@ export class AlbumComponent implements OnInit {
   }
 
   onToggleOverview(event: any, images: any): void {
+    console.log('event', event);
+    console.log('images', images);
+    
+    
     const imagesArr = [];
     for (const image of images) {
       imagesArr.push(image.name);

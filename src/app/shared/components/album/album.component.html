@@ -125,18 +125,31 @@
     <div class="album__images" *ngIf="!showSelected">
       <div 
         class="album__images--image"
-        *ngFor="let image of images; let i = index"
+        *ngFor="let image of imagesToDisplay; let i = index"
       >
         <app-single-image
           [image]="image"
           [imageDisabled]="image.disabled"
           [selectedImages]="selectedImages"
           [albumId]="albumId"
-          (onImageClick)="onToggleOverview($event, images)"
+          (onImageClick)="onToggleOverview($event, imagesToDisplay)"
           (onDelete)="deleteImage($event, i)"
           (onSelect)="onImageSelect($event)"
         ></app-single-image>
       </div>
+    </div>
+
+    <div class="w-full flex justify-center align-center mt-2" 
+      *ngIf="!showSelected && imagesToDisplay!.length > 0">
+      <button 
+        pButton
+        type="button"
+        class="btn btn__main"
+        (click)="seeMoreImages()"
+        [disabled]="leftImagesToDisplay?.length === 0"
+      >
+        {{ 'common.seeAll' | translate }}
+      </button>
     </div>
 
     <div class="album__images" *ngIf="showSelected">

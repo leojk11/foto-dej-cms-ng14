@@ -1,15 +1,19 @@
 <div class="bg-main" *ngIf="store.state$ | async as state">
-  <div class="container__flex gap-5 pb-2 border-b">
-    <button
-      class="btn btn__icon btn__icon--blue shadow-small border-none"
-      (click)="location.back()"
-    >
-      <i class="pi pi-arrow-left"></i>
-    </button>
-
-    <p class="album-title" *ngIf="!state.loading">
-      {{ state.previewAlbum?.title }} / {{ state.previewAlbum?.date }}
-    </p>
+  <div class="albums">
+    <div class="albums__header">
+      <div class="container__flex gap-3">
+        <button
+          class="btn btn__icon btn__icon--blue shadow-small border-none"
+          (click)="location.back()"
+        >
+          <i class="pi pi-arrow-left"></i>
+        </button>
+    
+        <p class="album-title" *ngIf="!state.loading">
+          {{ state.previewAlbum?.title }} / {{ state.previewAlbum?.date }}
+        </p>
+      </div>
+    </div>
   </div>
 
   <div class="separator"></div>

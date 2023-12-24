@@ -7,6 +7,7 @@ import { FrontConfigurationService } from '../../../../shared/services/front-con
 import { ToastService } from 'src/app/shared/services/toast.service';
 import { Configuration } from 'src/app/features/bo/pages/configurations/models/configuration.model';
 import { FrontConfigurationState } from 'src/app/shared/services/front-configuration.store';
+import { ImageOverviewComponent } from 'src/app/shared/components/image-overview/image-overview.component';
 
 @Component({
   selector: 'app-front-layout',
@@ -15,7 +16,8 @@ import { FrontConfigurationState } from 'src/app/shared/services/front-configura
     CommonModule,
     FrontNavbarComponent,
     RouterModule,
-    FooterComponent
+    FooterComponent,
+    ImageOverviewComponent
   ],
   templateUrl: './front-layout.component.html',
   styleUrls: ['./front-layout.component.scss']

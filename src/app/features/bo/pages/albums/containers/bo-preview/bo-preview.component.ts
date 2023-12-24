@@ -101,25 +101,10 @@ export class BoPreviewComponent implements OnInit {
   }
 
   openEditModal(): void {
-    const ref = this.dialog.open(NewAlbumComponent, {
+    this.dialog.open(NewAlbumComponent, {
       width: this.modalWidth,
       header: this.translate.instant('albums.editAlbum'),
       data: this.albumsStore.state.previewAlbum
     });
-
-    ref.onClose.subscribe({
-      next: data => {
-        if (data.message === 'add') {
-          if (data.album) {
-            this.albumsStore.patchExistingAlbums(data.album);
-          }
-        } else if (data.message === 'update') {
-          if (data.album) {
-            this.albumsStore.patchPreviewAlbum(data.album);
-          }
-        }
-      }
-    });
   }
-
 }

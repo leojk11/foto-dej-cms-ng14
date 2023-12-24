@@ -27,8 +27,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
     AutoCompleteModule
   ],
   providers: [
-    DialogService,
-    AlbumsStore
+    DialogService
   ],
   templateUrl: './new-album.component.html'
 })
@@ -84,13 +83,13 @@ export class NewAlbumComponent implements OnInit {
       this.addAlbumForm.patchValue({
         ...this.config.data
       });
-    }
 
-    if(this.config.data.client) {
-      this.onClientSelected(this.config.data.client);
-      this.addAlbumForm.patchValue({
-        assignTo: this.config.data.client
-      })
+      if(this.config.data.client) {
+        this.onClientSelected(this.config.data.client);
+        this.addAlbumForm.patchValue({
+          assignTo: this.config.data.client
+        });
+      }
     }
   }
 
@@ -141,9 +140,12 @@ export class NewAlbumComponent implements OnInit {
         this.config.data.id
       ).subscribe({
         next: res => {
-          this.dialogRef.close({ message: 'update', album: res.album });
-
           this.toastService.addSuccess(res.message);
+          this.dialogRef.close();
+
+          this.albumsStore.patchPreviewAlbum(res.album);
+
+          this.albumsStore.getAllAlbums();
           this.spinner.hide().then();
         },
         error: error => {
@@ -155,8 +157,9 @@ export class NewAlbumComponent implements OnInit {
       this.albumsService.addNewAlbum(this.addAlbumForm.value).subscribe({
         next: res => {
           this.toastService.addSuccess(res.message);
-
           this.dialogRef.close({ message: 'add', album: res.album });
+
+          this.albumsStore.getAllAlbums();
           this.spinner.hide().then();
         },
         error: error => {
