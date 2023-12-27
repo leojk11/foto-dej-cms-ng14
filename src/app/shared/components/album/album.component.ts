@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Image } from 'src/app/features/bo/pages/albums/models/image.model';
@@ -13,6 +13,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { TabViewModule } from 'primeng/tabview';
 import { PermitDirective } from 'src/app/core/directives/permit.directive';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { TableModule } from 'primeng/table';
 
 @Component({
   selector: 'app-album',
@@ -27,7 +28,8 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
     TooltipModule,
     TabViewModule,
     PermitDirective,
-    OverlayPanelModule
+    OverlayPanelModule,
+    TableModule
   ],
   templateUrl: './album.component.html'
 })
@@ -35,6 +37,7 @@ export class AlbumComponent implements OnInit {
 
   @Input() images: Image[] | undefined = [];
   @Input() selectedImages: Image[] = [];
+  @Input() selectedAdminImages: Image[] = [];
   @Input() isAdmin: boolean = true;
   @Input() isSelect: boolean = false;
   @Input() userId: string = '';
@@ -57,7 +60,6 @@ export class AlbumComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log('images on onit', this.images);
     this.imagesToDisplay = this.images?.slice(0, this.imagesAmountToShow);
     this.leftImagesToDisplay = this.images?.slice(this.imagesAmountToShow, this.images.length - 1);
   }
@@ -78,13 +80,11 @@ export class AlbumComponent implements OnInit {
       rejectLabel: this.translate.instant('common.no'),
       accept: () => {
         const selectedStrArr = [];
-        for (const img of this.selectedImages) {
+        for (const img of this.selectedAdminImages) {
           selectedStrArr.push(img.name);
         }
         this.albumsStore.deleteMultipleImages(selectedStrArr);
 
-        console.log('iages', this.images);
-        
         this.imagesToDisplay = this.images?.slice(0, this.imagesAmountToShow);
       }
     });
@@ -100,7 +100,7 @@ export class AlbumComponent implements OnInit {
       rejectLabel: this.translate.instant('common.no'),
       accept: () => {
         const selectedStrArr = [];
-        for (const img of this.selectedImages) {
+        for (const img of this.selectedAdminImages) {
           selectedStrArr.push(img.name);
         }
         this.albumsStore.enableMultipleImages(selectedStrArr);
@@ -118,7 +118,7 @@ export class AlbumComponent implements OnInit {
       rejectLabel: this.translate.instant('common.no'),
       accept: () => {
         const selectedStrArr = [];
-        for (const img of this.selectedImages) {
+        for (const img of this.selectedAdminImages) {
           selectedStrArr.push(img.name);
         }
         this.albumsStore.disableMultipleImages(selectedStrArr);
@@ -150,10 +150,6 @@ export class AlbumComponent implements OnInit {
   }
 
   onToggleOverview(event: any, images: any): void {
-    console.log('event', event);
-    console.log('images', images);
-    
-    
     const imagesArr = [];
     for (const image of images) {
       imagesArr.push(image.name);
@@ -164,23 +160,39 @@ export class AlbumComponent implements OnInit {
   }
 
   onImageSelect(selectedImages: Image[]): void {
-    this.selectedImages = selectedImages;
-    this.albumsStore.patchSelectedImages(this.selectedImages);
+    if (this.isAdmin) {
+      this.selectedAdminImages = selectedImages;
+      this.albumsStore.patchSelectedAdminImages(this.selectedImages);
+    } else {
+      this.selectedImages = selectedImages;
+      this.albumsStore.patchSelectedImages(this.selectedImages);
+    }
   }
 
   deselectAllImages(): void {
-    this.selectedImages = [];
-    this.albumsStore.patchSelectedImages(this.selectedImages);
-    if (!this.isAdmin) {
+    if (this.isAdmin) {
+      this.selectedAdminImages = [];
+      this.albumsStore.patchSelectedAdminImages(this.selectedAdminImages);
+    } else {
+      this.selectedImages = [];
+      this.albumsStore.patchSelectedImages(this.selectedImages);
+
       this.albumsStore.selectImages();
     }
   }
 
   selectAllImages(): void {
     if (this.albumsStore.state.images) {
-      this.selectedImages = this.albumsStore.state.images.images;
-      this.albumsStore.patchSelectedImages(this.selectedImages);
-      if (!this.isAdmin) {
+      if (this.isAdmin) {
+        this.selectedAdminImages = this.albumsStore.state.images.images;
+        this.albumsStore.patchSelectedAdminImages(this.selectedAdminImages);
+
+        console.log('selectedAdminImages', this.selectedAdminImages);
+        
+      } else {
+        this.selectedImages = this.albumsStore.state.images.images;
+        this.albumsStore.patchSelectedImages(this.selectedImages);
+
         this.albumsStore.selectImages();
       }
     }
@@ -191,8 +203,6 @@ export class AlbumComponent implements OnInit {
       this.albumsStore.getSelectedAlbumImages(this.albumsStore.state.previewAlbum?.id);
       this.showSelected = true;
     } else {
-      this.selectedImages = [];
-      this.albumsStore.patchSelectedImages(this.selectedImages);
       this.showSelected = false;
     }
   }

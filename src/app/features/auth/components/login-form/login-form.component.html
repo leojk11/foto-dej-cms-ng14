@@ -43,8 +43,10 @@
         ></p-password>
       </div>
 
-      <div class="container__flex justify-center" *ngIf="!loading">
+      <div class="container__flex justify-center">
+        <app-spinner *ngIf="loading"></app-spinner>
         <button 
+          *ngIf="!loading"
           class="btn btn__main"
           type="submit"
           [disabled]="loading"

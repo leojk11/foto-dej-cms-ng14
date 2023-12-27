@@ -1,8 +1,6 @@
 <div class="album-preview">
-  <div 
-    *ngIf="state.loading"
-    class="w-full h-full flex justify-center align-center" 
-  >
+  <div *ngIf="state.loading"
+    class="w-full h-full flex justify-center align-center">
     <app-spinner></app-spinner>
   </div>
 
@@ -11,7 +9,8 @@
     <app-album
       [images]="state.images?.images"
       [selectedImages]="state.selectedImages"
-      [isAdmin]="true"
+      [selectedAdminImages]="state.selectedAdminImages"
+      [isAdmin]="isAdmin"
       [isSelect]="false"
       [albumId]="albumId"
     ></app-album>

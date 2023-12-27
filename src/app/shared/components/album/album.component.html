@@ -37,7 +37,7 @@
           class="btn btn__icon--blue"
           type="button"
           (click)="deselectAllImages()"
-          *ngIf="selectedImages.length > 0"
+          *ngIf="selectedImages.length > 0 && !isAdmin"
           pTooltip="{{ 'common.unselectAll' | translate }}" 
           tooltipPosition="top"
         >
@@ -49,25 +49,39 @@
           type="button"
           pTooltip="{{ 'common.saveSelected' | translate }}" 
           tooltipPosition="top"
-          *ngIf="selectedImages.length > 0"
+          *ngIf="selectedImages.length > 0 && !isAdmin"
           (click)="saveSelected()"
         >
           <i class="pi pi-check"></i>
         </button>
 
+        <!-- ADMIN BUTTONS -->
         <ng-container *ngIf="!showSelected">
-          <button
-            class="btn btn__icon--purple"
-            type="button"
-            (click)="selectAllImages()"
-            pTooltip="{{ 'common.selectAll' | translate }}" 
-            tooltipPosition="top"
-            [disabled]="selectedImages.length > 0 || images?.length === 0"
-            [class.disabled]="selectedImages.length > 0 || images?.length === 0"
-            *permit="'BO'"
-          >
-            <i class="pi pi-check-circle"></i>
-          </button>
+          <ng-container *permit="'BO'">
+            <button
+              class="btn btn__icon--blue"
+              type="button"
+              (click)="deselectAllImages()"
+              *ngIf="selectedAdminImages.length > 0"
+              pTooltip="{{ 'common.unselectAll' | translate }}" 
+              tooltipPosition="top"
+            >
+              <i class="pi pi-times-circle"></i>
+            </button>
+
+            <button
+              class="btn btn__icon--purple"
+              type="button"
+              (click)="selectAllImages()"
+              pTooltip="{{ 'common.selectAll' | translate }}" 
+              tooltipPosition="top"
+              [disabled]="selectedAdminImages.length > 0 || images?.length === 0"
+              [class.disabled]="selectedAdminImages.length > 0 || images?.length === 0"
+              *ngIf="selectedAdminImages.length !== images?.length"
+            >
+              <i class="pi pi-check-circle"></i>
+            </button>
+          </ng-container>
 
           <button
             class="btn btn__icon--red"
@@ -75,8 +89,8 @@
             (click)="deleteSelected()"
             pTooltip="{{ 'common.deleteSelected' | translate }}" 
             tooltipPosition="top"
-            [disabled]="selectedImages.length === 0"
-            [class.disabled]="selectedImages.length === 0"
+            [disabled]="selectedAdminImages.length === 0"
+            [class.disabled]="selectedAdminImages.length === 0"
             *permit="'BO'"
           >
             <i class="pi pi-trash"></i>
@@ -88,8 +102,8 @@
             (click)="disableSelected()"
             pTooltip="{{ 'common.disableSelected' | translate }}" 
             tooltipPosition="top"
-            [disabled]="selectedImages.length === 0"
-            [class.disabled]="selectedImages.length === 0"
+            [disabled]="selectedAdminImages.length === 0"
+            [class.disabled]="selectedAdminImages.length === 0"
             *permit="'BO'"
           >
             <i class="pi pi-ban"></i>
@@ -101,12 +115,13 @@
             (click)="enableSelected()"
             pTooltip="{{ 'common.enableSelected' | translate }}" 
             tooltipPosition="top"
-            [disabled]="selectedImages.length === 0"
-            [class.disabled]="selectedImages.length === 0"
+            [disabled]="selectedAdminImages.length === 0"
+            [class.disabled]="selectedAdminImages.length === 0"
             *permit="'BO'"
           >
             <i class="pi pi-check"></i>
           </button>
+          <!-- ADMIN BUTTONS -->
         </ng-container>
       </div>
     </div>
@@ -131,10 +146,12 @@
           [image]="image"
           [imageDisabled]="image.disabled"
           [selectedImages]="selectedImages"
+          [selectedAdminImages]="selectedAdminImages"
           [albumId]="albumId"
           (onImageClick)="onToggleOverview($event, imagesToDisplay)"
           (onDelete)="deleteImage($event, i)"
           (onSelect)="onImageSelect($event)"
+          [isAdmin]="isAdmin"
         ></app-single-image>
       </div>
     </div>
@@ -152,22 +169,66 @@
       </button>
     </div>
 
-    <div class="album__images" *ngIf="showSelected">
-      <div 
-        class="album__images--image"
-        *ngFor="let image of selectedImages; let i = index"
-      >
-        <app-single-image
-          [image]="image"
-          [imageDisabled]="image.disabled"
-          [selectedImages]="selectedImages"
-          [albumId]="albumId"
-          (onImageClick)="onToggleOverview($event, images)"
-          (onDelete)="deleteImage($event, i)"
-          (onSelect)="onImageSelect($event)"
-        ></app-single-image>
+    <ng-container *ngIf="showSelected && isAdmin">
+      <div class="w-full">
+        <p-table
+          [value]="selectedImages"
+          [rows]="10"
+          [paginator]="false"
+        >
+          <ng-template pTemplate="header">
+            <tr>
+              <th></th>
+              <th>
+                {{ 'properties.image' | translate }}
+              </th>
+              <th></th>
+            </tr>
+          </ng-template>
+    
+          <ng-template pTemplate="emptymessage">
+            <tr>
+              <td colspan="3">{{ 'common.noResults' | translate }}</td>
+            </tr>
+          </ng-template>
+      
+          <ng-template pTemplate="body" let-image let-index="rowIndex">
+            <tr>
+              <td>
+                {{ index + 1 }}
+              </td>
+              <td>
+                <p>{{ image.name }}</p>
+              </td>
+              <td></td>
+            </tr>
+          </ng-template>
+        </p-table>
       </div>
+    </ng-container>
+
+    <!-- NOT ADMIN SECTION -->
+    <div class="album__images" *ngIf="showSelected && !isAdmin">
+      <ng-container *ngIf="!isAdmin">
+        <div 
+          class="album__images--image"
+          *ngFor="let image of selectedImages; let i = index"
+        >
+          <app-single-image
+            [image]="image"
+            [imageDisabled]="image.disabled"
+            [selectedImages]="selectedImages"
+            [albumId]="albumId"
+            (onImageClick)="onToggleOverview($event, images)"
+            (onDelete)="deleteImage($event, i)"
+            (onSelect)="onImageSelect($event)"
+            [isAdmin]="isAdmin"
+          ></app-single-image>
+        </div>
+      </ng-container>
+
     </div>
+    <!-- NOT ADMIN SECTION -->
   </div>
 </ng-template>
 

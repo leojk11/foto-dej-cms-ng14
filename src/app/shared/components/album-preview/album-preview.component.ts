@@ -16,8 +16,9 @@ import { AlbumComponent } from '../album/album.component';
 })
 export class AlbumPreviewComponent implements OnInit {
 
-  @Input() state: AlbumsState = {} as AlbumsState;
-  @Input() albumId: string = '';
+  @Input() public state: AlbumsState = {} as AlbumsState;
+  @Input() public albumId: string = '';
+  @Input() public isAdmin: boolean = true;
 
   constructor( ) { }
 

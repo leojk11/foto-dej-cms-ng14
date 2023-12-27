@@ -18,6 +18,7 @@ export interface AlbumsState {
 
   images: GetAlumImagesResponse | null;
   selectedImages: Image[];
+  selectedAdminImages: Image[];
 
   loading: boolean;
 
@@ -38,6 +39,7 @@ export const initialState: AlbumsState = {
 
   images: null,
   selectedImages: [],
+  selectedAdminImages: [],
 
   loading: true,
 
@@ -83,8 +85,6 @@ export class AlbumsStore extends ComponentStore<AlbumsState> {
 
     this.albumsService.getAllAlbums(this.state.params).subscribe({
       next: res => {
-        console.log('albums response', res);
-
         this.patchState({
           list: res.list,
           total: res.total,
@@ -105,8 +105,6 @@ export class AlbumsStore extends ComponentStore<AlbumsState> {
 
     this.albumsService.getUserAlbums(userId, this.state.params).subscribe({
       next: res => {
-        console.log('USER ALBUMS RES', res);
-
         this.patchState({
           list: res.list,
           total: res.total,
@@ -336,6 +334,10 @@ export class AlbumsStore extends ComponentStore<AlbumsState> {
 
   patchSelectedImages(images: Image[]): void {
     this.patchState({ selectedImages: images });
+  }
+
+  patchSelectedAdminImages(images: Image[]): void {
+    this.patchState({ selectedAdminImages: images });
   }
 
   selectImages(): void {

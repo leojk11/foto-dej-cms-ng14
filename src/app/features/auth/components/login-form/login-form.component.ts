@@ -12,6 +12,7 @@ import { PasswordModule } from 'primeng/password';
 import { ResetPasswordComponent } from '../reset-password/reset-password.component';
 import { DialogService } from 'primeng/dynamicdialog';
 import { LangChangeComponent } from 'src/app/shared/components/lang-change/lang-change.component';
+import { SpinnerComponent } from 'src/app/shared/components/loading/spinner/spinner.component';
 
 @Component({
   selector: 'app-login-form',
@@ -22,7 +23,8 @@ import { LangChangeComponent } from 'src/app/shared/components/lang-change/lang-
     ReactiveFormsModule,
     InputTextModule,
     PasswordModule,
-    LangChangeComponent
+    LangChangeComponent,
+    SpinnerComponent
   ],
   providers: [DialogService],
   templateUrl: './login-form.component.html'

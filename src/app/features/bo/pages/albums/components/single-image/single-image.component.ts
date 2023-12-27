@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, DoCheck, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { environment } from 'src/environments/environment';
 import { CheckboxModule } from 'primeng/checkbox';
@@ -20,7 +20,9 @@ export class SingleImageComponent implements OnInit, OnChanges {
   @Input() image?: Image;
   @Input() imageDisabled: boolean = false;
   @Input() selectedImages?: Image[] = [];
+  @Input() selectedAdminImages: Image[] = [];
   @Input() albumId: string = '';
+  @Input() isAdmin: boolean = true;
 
   @Output() onImageClick = new EventEmitter<any>();
   @Output() onDelete = new EventEmitter<any>();
@@ -42,13 +44,25 @@ export class SingleImageComponent implements OnInit, OnChanges {
   }
 
   checkImage(): void {
-    if (this.selectedImages && this.image) {
-      const selectedImage = this.selectedImages.find(inImg => inImg.name === this.image?.name);
-      
-      if (!selectedImage) {
-        this.selected = false;
-      } else {
-        this.selected = true;
+    if (this.isAdmin) {
+      if (this.selectedAdminImages && this.image) {
+        const selectedImage = this.selectedAdminImages.find(inImg => inImg.name === this.image?.name);
+  
+        if (!selectedImage) {
+          this.selected = false;
+        } else {
+          this.selected = true;
+        }
+      }
+    } else {
+      if (this.selectedImages && this.image) {
+        const selectedImage = this.selectedImages.find(inImg => inImg.name === this.image?.name);
+  
+        if (!selectedImage) {
+          this.selected = false;
+        } else {
+          this.selected = true;
+        }
       }
     }
   }
@@ -72,16 +86,31 @@ export class SingleImageComponent implements OnInit, OnChanges {
 
     if (this.selected) {
       if (this.image) {
-        this.selectedImages?.push(this.image);
+        if (this.isAdmin) {
+          this.selectedAdminImages.push(this.image);
+        } else {
+          this.selectedImages?.push(this.image);
+        }
       }
     } else {
-      const imageIndex: number = this.selectedImages?.findIndex(inImg => inImg.name === this.image?.name)!;
-      if (imageIndex >= 0) {
-        this.selectedImages?.splice(imageIndex, 1);
+      if (this.isAdmin) {
+        const imageIndex: number = this.selectedAdminImages?.findIndex(inImg => inImg.name === this.image?.name)!;
+        if (imageIndex >= 0) {
+          this.selectedAdminImages?.splice(imageIndex, 1);
+        }
+      } else {
+        const imageIndex: number = this.selectedImages?.findIndex(inImg => inImg.name === this.image?.name)!;
+        if (imageIndex >= 0) {
+          this.selectedImages?.splice(imageIndex, 1);
+        }
       }
     }
 
-    this.onSelect.emit(this.selectedImages);
+    if (this.isAdmin) {
+      this.onSelect.emit(this.selectedAdminImages);
+    } else {
+      this.onSelect.emit(this.selectedImages);
+    }
   }
 
 }
