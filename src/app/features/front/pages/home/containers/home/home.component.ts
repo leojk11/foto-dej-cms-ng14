@@ -14,6 +14,8 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { NgxYoutubePlayerModule } from 'ngx-youtube-player';
 import { map, Observable, shareReplay } from 'rxjs';
 import { BreakpointObserver } from '@angular/cdk/layout';
+import { Base64Service } from 'src/app/shared/services/base64.service';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-home',
@@ -54,13 +56,17 @@ export class HomeComponent implements OnInit {
     );
   mobile: boolean = false;
 
+  public mainImagePath: SafeResourceUrl = '';
+
   constructor(
     private service: FrontConfigurationService,
     public frontConfigurationState: FrontConfigurationState,
     private translateService: TranslateService,
     private toastService: ToastService,
     private spinner: NgxSpinnerService,
-    private breakpointObserver: BreakpointObserver
+    private breakpointObserver: BreakpointObserver,
+    private base64Service: Base64Service,
+    private _sanitizer: DomSanitizer
   ) { }
 
   ngOnInit(): void {
@@ -83,6 +89,13 @@ export class HomeComponent implements OnInit {
         this.configuration = res;
         this.frontConfigurationState.setConfiguration(res);
         this.getTitles();
+
+        this.base64Service.getBase64Image(res.main_image).subscribe({
+          next: buffer => {
+            this.mainImagePath = this._sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,' + buffer.buffer);
+          }
+        });
+
         this.spinner.hide().then();
       },
       error: error => {
