@@ -75,7 +75,11 @@
     "markAllRead": "Mark all read",
     "choose": "Choose",
     "exampleShort": "Ex.",
-    "clear": "Claer"
+    "clear": "Clear",
+    "addVideo": "Add video",
+    "preview": "Preview",
+    "imagesReadyToUpload": "Images ready to upload",
+    "alreadyUploadedImages": "Already uploaded images"
   },
   "properties": {
     "title": "Title",

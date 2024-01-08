@@ -10,6 +10,7 @@ import { ProgressBarModule } from 'primeng/progressbar';
 import { ConfirmationService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { CONF_SHOW_IMAGES_AMOUNT } from 'src/app/core/data/staticData';
 
 @Component({
   selector: 'app-multi-upload',
@@ -39,6 +40,11 @@ export class MultiUploadComponent implements OnInit {
   uploadInPorgress: boolean = false;
   uploadProgressValue: number = 0;
 
+  defaultImagesAmoutToShow: number = CONF_SHOW_IMAGES_AMOUNT;
+  imagesAmountToShow: number = CONF_SHOW_IMAGES_AMOUNT;
+  imagesToDisplay: string[] | undefined = [];
+  leftImagesToDisplay: string[] | undefined = [];
+
   constructor(
     private toastService: ToastService,
     private configurationService: ConfigurationService,
@@ -50,8 +56,10 @@ export class MultiUploadComponent implements OnInit {
   ) { }
 
   ngOnInit(): void { 
-    console.log('preselected', this.preselected);
-    
+    if (this.preselected) {
+      this.imagesToDisplay = this.preselected?.slice(0, this.imagesAmountToShow);
+      this.leftImagesToDisplay = this.preselected?.slice(this.imagesAmountToShow, this.preselected.length);
+    }
   }
 
   toggleOverview(event: any, images: any): void {
@@ -59,52 +67,26 @@ export class MultiUploadComponent implements OnInit {
     this.imageOverviewState.setImages(event.target.src, images);
   }
 
+  seeMoreImages(): void {
+    this.imagesAmountToShow = this.imagesAmountToShow + this.defaultImagesAmoutToShow;
+    this.imagesToDisplay = this.preselected?.slice(0, this.imagesAmountToShow);
+    this.leftImagesToDisplay = this.preselected?.slice(this.imagesAmountToShow, this.preselected.length);
+  }
+
   selectFiles(event: any): void {
     let files: any = [];
 
-    if (this.preselected) {
-      for (const preselectedImage of this.preselected) {
-        this.configurationService.getImageBase64(preselectedImage).subscribe({
-          next: res => {
-            console.log('single image res');
-            const imageBlob = this.dataURItoBlob(res.buffer);
-            const imageFile = new File([imageBlob], preselectedImage, { type: 'image/png' });
-            files.push(imageFile);
+    for (const file of event.target.files) {
+      files.push(file);
 
-            const reader = new FileReader();
-            reader.onload = () => {
-              this.selectedFilesPreview.push(reader.result as string);
-            };
-            reader.readAsDataURL(imageFile);
-          }
-        });
-      }
-
-      for (const file of event.target.files) {
-        files.push(file);
-  
-        const reader = new FileReader();
-        reader.onload = () => {
-          this.selectedFilesPreview.push(reader.result as string);
-        };
-        reader.readAsDataURL(file);
-      }
-  
-      this.selectedFiles = files;
-
-    } else {
-      for (const file of event.target.files) {
-        files.push(file);
-  
-        const reader = new FileReader();
-        reader.onload = () => {
-          this.selectedFilesPreview.push(reader.result as string);
-        };
-        reader.readAsDataURL(file);
-      }
-  
-      this.selectedFiles = files;
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.selectedFilesPreview.push(reader.result as string);
+      };
+      reader.readAsDataURL(file);
     }
+
+    this.selectedFiles = files;
   }
 
   dataURItoBlob(dataURI: string): Blob {
@@ -121,7 +103,7 @@ export class MultiUploadComponent implements OnInit {
   uploadFiles(): void {
     this.uploadInPorgress = true;
 
-    let imagesToSave: string[] = [];
+    let imagesToSave: string[] = this.preselected;
     const toUpload: Observable<any>[] = [];
     for (const file of this.selectedFiles) {
       imagesToSave.push(file.name);

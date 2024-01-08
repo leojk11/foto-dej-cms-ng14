@@ -1,15 +1,58 @@
 <form [formGroup]="form">
-  <div class="configuration-wrapper__configuration__item align-center">
+  <div class="configuration-wrapper__configuration__item">
     <div class="left">
       <label>{{ label | translate }}</label>
     </div>
 
     <div class="right">
-      <input 
-        type="text" 
-        placeholder="{{ placeholder | translate | lowercase }}..."
-        [formControlName]="controlName"
-        pInputText>
+      <div class="right__top">
+        <label 
+          class="btn btn__main upload-btn"
+          (click)="addPromoVideo()">
+          <i class="pi pi-plus"></i>
+          {{ 'common.addVideo' | translate }}
+        </label>
+
+        <label 
+          class="btn btn__main upload-btn"
+          (click)="onSave.emit()">
+          {{ 'common.save' | translate }}
+        </label>
+      </div>
+
+      <ng-container formArrayName="promo_videos">
+        <ng-container *ngFor="let videoForm of promoVideos.controls; let i = index">
+          <div class="w-full flex gap-2">
+            <input 
+              type="text" 
+              placeholder="{{ placeholder | translate | lowercase }}..."
+              [formControlName]="i"
+              pInputText>
+
+            <button
+              class="btn btn__icon--blue"
+              type="button"
+              pTooltip="{{ 'common.preview' | translate }}" 
+              tooltipPosition="top"
+              [disabled]="!promoVideos.controls[i].value"
+              [class.disabled]="!promoVideos.controls[i].value"
+              (click)="previewVideo(i)"
+            >
+              <i class="pi pi-youtube"></i>
+            </button>
+
+            <button
+              class="btn btn__icon--red"
+              type="button"
+              (click)="delete(i)"
+              pTooltip="{{ 'common.delete' | translate }}" 
+              tooltipPosition="top"
+            >
+              <i class="pi pi-trash"></i>
+            </button>
+          </div>
+        </ng-container>
+      </ng-container>
     </div>
   </div>
 </form>   

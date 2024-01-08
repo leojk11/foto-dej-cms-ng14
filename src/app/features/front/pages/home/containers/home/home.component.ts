@@ -14,8 +14,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { NgxYoutubePlayerModule } from 'ngx-youtube-player';
 import { map, Observable, shareReplay } from 'rxjs';
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { Base64Service } from 'src/app/shared/services/base64.service';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-home',
@@ -38,10 +37,10 @@ export class HomeComponent implements OnInit {
   @ViewChild('slider') slider!: HTMLElement;
   @ViewChild('collaboration') collaboration!: HTMLElement;
 
-  videoId: string = '';
-  videoWidth: number = 1000;
-  videoHeight: number = 650;
+  videoWidth: number = 800;
+  videoHeight: number = 450;
   showVideo: boolean = false;
+  videoIds: string[] = [];
 
   configuration: Configuration = {} as Configuration;
   selectedLang: string | null = 'mk';
@@ -64,9 +63,7 @@ export class HomeComponent implements OnInit {
     private translateService: TranslateService,
     private toastService: ToastService,
     private spinner: NgxSpinnerService,
-    private breakpointObserver: BreakpointObserver,
-    private base64Service: Base64Service,
-    private _sanitizer: DomSanitizer
+    private breakpointObserver: BreakpointObserver
   ) { }
 
   ngOnInit(): void {
@@ -80,21 +77,17 @@ export class HomeComponent implements OnInit {
 
     this.service.getConfiguration().subscribe({
       next: res => {
-        const splittedPromoVideUrl = res.promo_video.split('=');
-        const videoId = splittedPromoVideUrl[1].split('&');
-        this.videoId = videoId[0];
+        for (const video of res.promo_videos) {
+          const splittedPromoVideUrl = video.split('=');
+          const videoId = splittedPromoVideUrl[1].split('&');
+          this.videoIds.push(videoId[0]);
+        }
         
         this.showVideo = true;
         
         this.configuration = res;
         this.frontConfigurationState.setConfiguration(res);
         this.getTitles();
-
-        this.base64Service.getBase64Image(res.main_image).subscribe({
-          next: buffer => {
-            this.mainImagePath = this._sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,' + buffer.buffer);
-          }
-        });
 
         this.spinner.hide().then();
       },

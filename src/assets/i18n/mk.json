@@ -75,7 +75,11 @@
     "markAllRead": "Означи ги сите како прочитани",
     "choose": "Избери",
     "exampleShort": "Пр.",
-    "clear": "Исчисти"
+    "clear": "Исчисти",
+    "addVideo": "Додај видео",
+    "preview": "Прегледај",
+    "imagesReadyToUpload": "Слики подготвени за прикачување",
+    "alreadyUploadedImages": "Слики кои што се веќе прикачени"
   },
   "properties": {
     "title": "Наслов",

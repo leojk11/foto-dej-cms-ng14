@@ -39,7 +39,7 @@
       <app-multi-upload [label]="'properties.promoImages'" [id]="'promo_images'"
         [imagesUrl]="imagesUrl" [preselected]="state.configuration.promo_images"></app-multi-upload>
 
-      <app-video-regular-input [form]="form" [controlName]="'promo_video'" 
+      <app-video-regular-input [form]="form" (onSave)="handleSubmit()"
         [label]="'properties.promoVideo'" [placeholder]="'properties.promoVideo'"></app-video-regular-input> 
 
       <app-regular-input [form]="form" [controlName]="'phone_number'" 

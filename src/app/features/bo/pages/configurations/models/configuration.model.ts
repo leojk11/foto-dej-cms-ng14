@@ -9,7 +9,7 @@ export interface Configuration {
     second_title: string;
     second_title_tr: string;
     promo_images: string[]; // string[];
-    promo_video: string;
+    promo_videos: string[];
     contact_form_label: string;
     phone_number: string; // string[];
     email: string; // string[];

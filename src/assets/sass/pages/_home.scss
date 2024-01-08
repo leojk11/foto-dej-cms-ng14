@@ -105,6 +105,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
 
     @include screen-md {
       margin: 5rem 2rem 10rem;

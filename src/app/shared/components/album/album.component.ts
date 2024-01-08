@@ -14,6 +14,7 @@ import { TabViewModule } from 'primeng/tabview';
 import { PermitDirective } from 'src/app/core/directives/permit.directive';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { TableModule } from 'primeng/table';
+import { ALBUM_SHOW_IMAGES_AMOUNT } from 'src/app/core/data/staticData';
 
 @Component({
   selector: 'app-album',
@@ -47,8 +48,8 @@ export class AlbumComponent implements OnInit {
   tabsIndex: number = 0;
   showSelected: boolean = false;
 
-  defaultImagesAmoutToShow: number = 5;
-  imagesAmountToShow: number = 5;
+  defaultImagesAmoutToShow: number = ALBUM_SHOW_IMAGES_AMOUNT;
+  imagesAmountToShow: number = ALBUM_SHOW_IMAGES_AMOUNT;
   imagesToDisplay: Image[] | undefined = [];
   leftImagesToDisplay: Image[] | undefined = [];
 
@@ -127,11 +128,6 @@ export class AlbumComponent implements OnInit {
   }
 
   filter(): void {
-    const searchObj = {
-      searchValue: this.imageSearch,
-      showSelected: this.showSelected
-    };
-
     this.albumsStore.getAlbumImages(this.albumId, this.imageSearch);
   }
 
@@ -186,9 +182,6 @@ export class AlbumComponent implements OnInit {
       if (this.isAdmin) {
         this.selectedAdminImages = this.albumsStore.state.images.images;
         this.albumsStore.patchSelectedAdminImages(this.selectedAdminImages);
-
-        console.log('selectedAdminImages', this.selectedAdminImages);
-        
       } else {
         this.selectedImages = this.albumsStore.state.images.images;
         this.albumsStore.patchSelectedImages(this.selectedImages);
