@@ -89,17 +89,6 @@ export class MultiUploadComponent implements OnInit {
     this.selectedFiles = files;
   }
 
-  dataURItoBlob(dataURI: string): Blob {
-    const byteString = window.atob(dataURI);
-    const arrayBuffer = new ArrayBuffer(byteString.length);
-    const int8Array = new Uint8Array(arrayBuffer);
-    for (let i = 0; i < byteString.length; i++) {
-      int8Array[i] = byteString.charCodeAt(i);
-    }
-    const blob = new Blob([int8Array], { type: 'image/png' });    
-    return blob;
-  }
-
   uploadFiles(): void {
     this.uploadInPorgress = true;
 
@@ -111,7 +100,7 @@ export class MultiUploadComponent implements OnInit {
     const toUpload: Observable<any>[] = [];
     for (const file of this.selectedFiles) {
       imagesToSave.push(file.name);
-      toUpload.push(this.configurationService.uploadImage(file, 'promo_images'));
+      toUpload.push(this.configurationService.uploadImage(file, this.id));
     };
 
     this.forkJoinWithProgress(toUpload).pipe(
@@ -205,6 +194,57 @@ export class MultiUploadComponent implements OnInit {
               this.spinner.hide().then();
             }
           });
+        }
+      }
+    });
+  }
+
+  deletePreviewImage(index: number): void {
+    this.selectedFiles.splice(index, 1);
+    this.selectedFilesPreview.splice(index, 1);
+  }
+
+  deleteSavedImage(index: number): void {
+    this.confirmationService.confirm({
+      key: 'clearPromoImages',
+      message: this.translate.instant('messages.deleteImage'),
+      acceptButtonStyleClass: 'btn btn__red text',
+      rejectButtonStyleClass: 'btn btn__dark text',
+      acceptLabel: this.translate.instant('common.yes'),
+      rejectLabel: this.translate.instant('common.no'),
+      accept: () => {
+        if (this.preselected) {
+          if (this.preselected[index]) {
+            this.spinner.show().then();
+
+            this.configurationService.deleteSingleImage(this.preselected[index]).subscribe({
+              next: () => {
+                this.preselected.splice(index, 1);
+
+                this.imagesToDisplay = this.preselected?.slice(0, this.imagesAmountToShow);
+                this.leftImagesToDisplay = this.preselected?.slice(this.imagesAmountToShow, this.preselected.length);
+
+                this.configurationService.updateConfiguration({
+                  [this.id]: JSON.stringify(this.preselected)
+                }).subscribe({
+                  next: res => {
+                    this.configurationStore.patchConfiguration(res.configuration);
+                    this.toastService.addSuccess(res.message);
+                    
+                    this.spinner.hide().then();
+                  },
+                  error: error => {
+                    this.toastService.addError(error.error.message);
+                    this.spinner.hide().then();
+                  }
+                });
+              },
+              error: error => {
+                this.toastService.addError(error.error.message);
+                this.spinner.hide().then();
+              }
+            });
+          }
         }
       }
     });

@@ -61,6 +61,11 @@ export class ConfigurationService {
     return this.http.get(path, { responseType: 'blob' });
   }
 
+  deleteSingleImage(image: string): Observable<any> {
+    const path = `${ this.apiUrl }/images/${ image }`;
+    return this.http.delete(path);
+  }
+
   getImageBase64(image: string): Observable<any> {
     const path = `${ this.apiUrl }/images/base64/${ image }`;
     return this.http.get<any>(path);

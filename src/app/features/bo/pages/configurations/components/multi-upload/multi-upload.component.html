@@ -19,17 +19,20 @@
 
       <button class="btn btn__main upload-btn" type="button"
         (click)="clearPromoImages()">
-        <!-- [disabled]="selectedFiles.length === 0" -->
         {{ 'common.clear' | translate }}
       </button>
     </div>
 
     <div class="right__bottom">
-      <p *ngIf="selectedFilesPreview.length > 0">{{ 'common.imagesReadyToUpload' | translate }}</p>
+      <p class="info-label" 
+        *ngIf="selectedFilesPreview.length > 0">{{ 'common.imagesReadyToUpload' | translate }}</p>
       <div class="images" *ngIf="selectedFilesPreview.length > 0">
         <div 
-          *ngFor="let preview of selectedFilesPreview" 
+          *ngFor="let preview of selectedFilesPreview; let i = index"
           class="single-image cp">
+          <div class="delete-icon" (click)="deletePreviewImage(i)">
+            <i class="pi pi-trash"></i>
+          </div>
           <img [src]="preview">
         </div>
       </div>
@@ -53,11 +56,15 @@
         </button>
       </div>
 
-      <p *ngIf="preselected">{{ 'common.alreadyUploadedImages' | translate }}</p>
+      <p class="info-label" 
+        *ngIf="preselected">{{ 'common.alreadyUploadedImages' | translate }}</p>
       <div class="images" *ngIf="preselected">
         <div 
-          *ngFor="let image of imagesToDisplay" 
+          *ngFor="let image of imagesToDisplay; let i = index" 
           class="single-image cp">
+          <div class="delete-icon" (click)="deleteSavedImage(i)">
+            <i class="pi pi-trash"></i>
+          </div>
           <img 
             [src]="imagesUrl + image"
             (click)="toggleOverview($event, imagesToDisplay)">
