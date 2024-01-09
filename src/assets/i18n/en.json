@@ -79,7 +79,9 @@
     "addVideo": "Add video",
     "preview": "Preview",
     "imagesReadyToUpload": "Images ready to upload",
-    "alreadyUploadedImages": "Already uploaded images"
+    "alreadyUploadedImages": "Already uploaded images",
+    "inviteSettings": "Invite settings",
+    "previewInvitation": "Preview invitation"
   },
   "properties": {
     "title": "Title",
@@ -120,7 +122,17 @@
     "logoWhite": "Logo white",
     "logoIcon": "Logo icon",
     "action": "Action",
-    "fullname": "Fullname"
+    "fullname": "Fullname",
+    "invitePhoneNumberIcon": "Phone number icon",
+    "inviteEmailIcon": "Email icon",
+    "inviteLocationIcon": "Location icon",
+    "inviteFrom": "Invite from",
+    "inviteSubject": "Subject",
+    "inviteCredentialsMessage": "Credentials message",
+    "inviteEmailLabel": "Email label",
+    "invitePasswordLabel": "Password label",
+    "inviteLoginMessage": "Login message",
+    "inviteThankYouMessage": "Thank you message"
   },
   "errors": {
     "error": "Error",

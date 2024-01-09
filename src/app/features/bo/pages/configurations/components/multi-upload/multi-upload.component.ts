@@ -103,7 +103,11 @@ export class MultiUploadComponent implements OnInit {
   uploadFiles(): void {
     this.uploadInPorgress = true;
 
-    let imagesToSave: string[] = this.preselected;
+    let imagesToSave: string[] = [];
+    if (this.preselected) {
+      imagesToSave = this.preselected;
+    }
+
     const toUpload: Observable<any>[] = [];
     for (const file of this.selectedFiles) {
       imagesToSave.push(file.name);
@@ -130,6 +134,11 @@ export class MultiUploadComponent implements OnInit {
           this.selectedFiles = [];
           this.uploadInPorgress = false;
           this.uploadProgressValue = 0;
+
+          if (this.preselected) {
+            this.imagesToDisplay = this.preselected?.slice(0, this.imagesAmountToShow);
+            this.leftImagesToDisplay = this.preselected?.slice(this.imagesAmountToShow, this.preselected.length);
+          }
         },
         error: error => {
           this.toastService.addError(error.error.message);
@@ -172,8 +181,6 @@ export class MultiUploadComponent implements OnInit {
       rejectLabel: this.translate.instant('common.no'),
       accept: () => {
         if (!this.preselected) {
-          console.log('if 9!this.preselected');
-          
           this.selectedFiles = [];
           this.selectedFilesPreview = [];
 
@@ -187,6 +194,9 @@ export class MultiUploadComponent implements OnInit {
               this.preselected = [];
               this.configurationStore.patchConfiguration(res.configuration);
               this.toastService.addSuccess(res.message);
+
+              this.imagesToDisplay = this.preselected?.slice(0, this.imagesAmountToShow);
+              this.leftImagesToDisplay = this.preselected?.slice(this.imagesAmountToShow, this.preselected.length);
 
               this.spinner.hide().then();
             },

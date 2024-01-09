@@ -1,0 +1,71 @@
+<div style="max-width: 650px; width: 100%; background-color: #ffffff; padding: 50px; font-family: Open Sans, sans-serif; color: #25476a; font-size: 24px; overflow: hidden;">
+  <div>
+    <img 
+      style="width: 120px; height: auto;"
+      [src]="imagesUrl + configuration.logo">
+  </div>
+
+  <div style="position: relative; z-index: 2;">
+    <p style="line-height: 91%; margin-top: 50px; margin-bottom: 45px;">
+      Здраво <span style="font-weight: bold;">{{ authService.user.firstname }} {{ authService.user.lastname }}</span>,
+    </p>
+    <p style="max-width: 300px; line-height: 100%; margin-bottom: 13px;">
+      {{ configuration.invite_credentials_message }}
+    </p>
+    <div style="line-height: 130%; margin-bottom: 70px;">
+      <p>
+        <span style="font-size: 24px; opacity: 0.7; margin-right: 11px;">{{ configuration.invite_credentials_email_label }}:</span>
+        <span style="font-weight: bold; color: #25476a;">{{ authService.user.email }}</span>
+      </p>
+      <p>
+        <span style="font-size: 24px; opacity: 0.7; margin-right: 11px;">{{ configuration.invite_credentials_password_label }}:</span>
+        <span style="font-weight: bold;">******</span>
+      </p>
+    </div>
+    <p style="max-width: 372px; line-height: 100%;">
+      {{ configuration.invite_login_message }}
+    </p>
+    <div style="margin-top: 23px">
+      <a style="background-color: #25476a; width: 197px; height: 44px; border-radius: 10px; box-shadow: 2px 2px 7px -1px rgba(68, 68, 68, 0.3); padding: 0; color: #ffffff; text-decoration: none; line-height: 30px; font-weight: 600; font-size: 20px; margin-top: 63px; transition: 0.3s ease-in-out; padding: 10px 60px;" 
+        > Најава </a>
+    </div>
+    <p style="font-weight: 600; line-height: 91%; font-size: 15px; margin-top: 75px; margin-bottom: 30px;">
+      {{ configuration.invite_thank_you_message }}</p>
+  </div>
+  <div style="width: 100%; z-index: 2;">
+    <div style="float: left; display: inline-block; clear: both;">
+      <div style="display: flex; align-items: center; margin-bottom: 4px; transition: 0.3s ease-in-out; cursor: pointer;"
+        onMouseOver="this.style.opacity='0.7'"
+        onMouseOut="this.style.opacity='1'">
+        <div style="font-size: 14px; margin-right: 15px;">
+          <img [src]="imagesUrl + configuration.invite_phone_number_icon">
+        </div>
+        <a style="font-size: 13px; color: #25476a; text-decoration: none; font-weight: 600; line-height: 18px;">{{ configuration.phone_number }}</a>
+      </div>
+
+      <div style="display: flex; align-items: center; margin-bottom: 4px; transition: 0.3s ease-in-out; cursor: pointer;"
+        onMouseOver="this.style.opacity='0.7'"
+        onMouseOut="this.style.opacity='1'">
+        <div style="font-size: 14px; margin-right: 15px;">
+          <img [src]="imagesUrl + configuration.invite_email_icon">
+        </div>
+        <a style="font-size: 13px; color: #25476a; text-decoration: none; font-weight: 600; line-height: 18px;">{{ configuration.email }}</a>
+      </div>
+
+      <div style="display: flex; align-items: center; margin-bottom: 4px; transition: 0.3s ease-in-out; cursor: pointer;"
+        onMouseOver="this.style.opacity='0.7'"
+        onMouseOut="this.style.opacity='1'">
+        <div style="font-size: 14px; margin-right: 15px;">
+          <img [src]="imagesUrl + configuration.invite_location_icon">
+        </div>
+        <a style="font-size: 13px; color: #25476a; text-decoration: none; font-weight: 600; line-height: 18px;">{{ configuration.address }}</a>
+      </div>
+    </div>
+
+    <div style="float: right; clear: both; display: inline-block;">
+      <img    
+        style="width: 120px;"
+        [src]="imagesUrl + configuration.logo">
+    </div>
+  </div>
+</div>

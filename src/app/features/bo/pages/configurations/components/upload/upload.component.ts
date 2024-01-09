@@ -75,7 +75,7 @@ export class UploadComponent implements OnInit {
     if (this.selectedFile) {
       this.uploadInProgress = true;
 
-      this.configurationService.uploadImage(this.selectedFile, 'main_image').subscribe({
+      this.configurationService.uploadImage(this.selectedFile, 'configuration_image').subscribe({
         next: res => {
           if (res.type === HttpEventType.UploadProgress) {
             this.uploadProgressValue = Math.round((100 * res.loaded) / res.total);

@@ -79,7 +79,9 @@
     "addVideo": "Додај видео",
     "preview": "Прегледај",
     "imagesReadyToUpload": "Слики подготвени за прикачување",
-    "alreadyUploadedImages": "Слики кои што се веќе прикачени"
+    "alreadyUploadedImages": "Слики кои што се веќе прикачени",
+    "inviteSettings": "Поставки за покана",
+    "previewInvitation": "Прегледај покана"
   },
   "properties": {
     "title": "Наслов",
@@ -120,7 +122,17 @@
     "logoWhite": "Бело лого",
     "logoIcon": "Лого икона",
     "action": "Активност",
-    "fullname": "Име и Презиме"
+    "fullname": "Име и Презиме",
+    "invitePhoneNumberIcon": "Икона за телефонски број",
+    "inviteEmailIcon": "Икона за емаил",
+    "inviteLocationIcon": "Икона за локација",
+    "inviteFrom": "Поканет од",
+    "inviteSubject": "Предмет (наслов на емаил)",
+    "inviteCredentialsMessage": "Порака за податоците за најава",
+    "inviteEmailLabel": "Ознака за емаил",
+    "invitePasswordLabel": "Ознака за лозинка",
+    "inviteLoginMessage": "Порака за наваја",
+    "inviteThankYouMessage": "Порака за благодарност"
   },
   "errors": {
     "error": "Грешка",

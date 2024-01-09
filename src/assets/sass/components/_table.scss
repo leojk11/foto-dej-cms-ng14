@@ -11,7 +11,6 @@
   }
 }
 
-
 // PRIMENG TABLE
 .p-datatable {
   font-size: 1.6rem !important;
@@ -23,7 +22,6 @@
     min-height: 60.5vh;
     background-color: #fff;
     border-radius: 5px !important;
-
   }
 
   &-thead > tr {
@@ -74,6 +72,10 @@
           display: flex;
           justify-content: center;
           align-items: center;
+        }
+
+        &.no-results {
+          display: table-cell !important;
         }
       }
     }

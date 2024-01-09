@@ -5,7 +5,7 @@ import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule } f
 import { AdminLayoutService } from 'src/app/features/bo/layout/services/admin-layout.service';
 import { ConfigurationStore } from '../../services/configuration.store';
 import { ConfigurationService } from '../../services/configuration.service';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { InputTextModule } from 'primeng/inputtext';
 import { ToastService } from 'src/app/shared/services/toast.service';
 import { ProgressBarModule } from 'primeng/progressbar';
@@ -16,6 +16,9 @@ import { MultiUploadComponent } from '../../components/multi-upload/multi-upload
 import { NgxYoutubePlayerModule } from 'ngx-youtube-player';
 import { VideoRegularInputComponent } from '../../components/video-regular-input/video-regular-input.component';
 import { ConfirmationService } from 'primeng/api';
+import { TabViewModule } from 'primeng/tabview';
+import { DialogService } from 'primeng/dynamicdialog';
+import { InvitationPreviewComponent } from '../../components/invitation-preview/invitation-preview.component';
 
 @Component({
   selector: 'app-configuration',
@@ -31,11 +34,13 @@ import { ConfirmationService } from 'primeng/api';
     UploadComponent,
     MultiUploadComponent,
     NgxYoutubePlayerModule,
-    VideoRegularInputComponent
+    VideoRegularInputComponent,
+    TabViewModule
   ],
   providers: [
     ConfigurationStore,
-    ConfirmationService
+    ConfirmationService,
+    DialogService
   ],
   templateUrl: './configuration.component.html'
 })
@@ -60,7 +65,16 @@ export class ConfigurationComponent implements OnInit {
     address: [''],
     facebook_link: [''],
     insta_link: [''],
-    promo_videos: new FormArray([])
+    promo_videos: new FormArray([]),
+
+    // invite part
+    invite_from: [''],
+    invite_subject: [''],
+    invite_credentials_message: [''],
+    invite_credentials_email_label: [''],
+    invite_credentials_password_label: [''],
+    invite_login_message: [''],
+    invite_thank_you_message: ['']
   });
 
   constructor(
@@ -69,7 +83,9 @@ export class ConfigurationComponent implements OnInit {
     private configurationService: ConfigurationService,
     private fb: FormBuilder,
     private toastService: ToastService,
-    public location: Location
+    public location: Location,
+    private dialog: DialogService,
+    private translateService: TranslateService
   ) { }
 
   get promoVideos() {
@@ -107,6 +123,7 @@ export class ConfigurationComponent implements OnInit {
     this.configurationService.updateConfiguration(this.form.value).subscribe({
       next: res => {
         this.toastService.addSuccess(res.message);
+        this.configurationStore.patchConfiguration(res.configuration);
       },
       error: error => {
         this.toastService.addError(error.error.message);
@@ -126,5 +143,16 @@ export class ConfigurationComponent implements OnInit {
         this.promoVideos.push(formControl);
       }
     }
+  }
+
+  previewInvitation(): void {
+    this.dialog.open(InvitationPreviewComponent, {
+      width: '50vw',
+      header: this.translateService.instant('common.previewInvitation'),
+      data: {
+        configuration: this.configurationStore.state.configuration,
+        imagesUrl: this.imagesUrl
+      }
+    });
   }
 }
