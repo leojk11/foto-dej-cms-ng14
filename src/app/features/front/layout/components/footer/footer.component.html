@@ -1,13 +1,13 @@
 <div class="footer">
   <div class="footer__contact">
-    <div class="footer__contact--item">
+    <div class="footer__contact--item" *ngIf="configuration.phone_number">
       <i class="pi pi-phone"></i>
       <span class="footer__contact--item__text">
         {{ configuration.phone_number }}
       </span>
     </div>
 
-    <div class="footer__contact--item">
+    <div class="footer__contact--item" *ngIf="configuration.email">
       <i class="pi pi-envelope"></i>
       <span class="footer__contact--item__text">
         {{ configuration.email }}
