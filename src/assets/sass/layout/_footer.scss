@@ -7,7 +7,7 @@
   align-items: center;
   flex-wrap: wrap;
   justify-content: space-between;
-  overflow: hidden!important;
+  overflow: hidden !important;
   width: 100vw;
   position: relative;
 
@@ -116,6 +116,34 @@
       top: 75%;
       left: 50%;
       transform: translate(-50%, -50%);
+    }
+  }
+}
+
+.info-footer {
+  background-color: $color-dark;
+  color: $color-light;
+  height: 7rem;
+  padding: 0rem 12rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+
+  &__item {
+    &__link {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 6px;
+
+      padding-top: 5px;
+    }
+
+    &__multi_wrapper {
+      display: flex;
+      gap: 20px;
     }
   }
 }

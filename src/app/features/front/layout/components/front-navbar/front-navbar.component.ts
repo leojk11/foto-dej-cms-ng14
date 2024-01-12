@@ -28,8 +28,8 @@ import { LangChangeComponent } from 'src/app/shared/components/lang-change/lang-
 })
 export class FrontNavbarComponent implements OnInit {
 
-  @Input() imageUrl: string = '';
   @Input() gallery: boolean = false;
+  
   @Output() goToElement = new EventEmitter();
 
   selectedLang: string | null = 'mk';

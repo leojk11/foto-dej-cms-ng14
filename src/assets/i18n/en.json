@@ -81,7 +81,9 @@
     "imagesReadyToUpload": "Images ready to upload",
     "alreadyUploadedImages": "Already uploaded images",
     "inviteSettings": "Invite settings",
-    "previewInvitation": "Preview invitation"
+    "previewInvitation": "Preview invitation",
+    "appDesignedBy": "This application has been designed by:",
+    "appDevelopedBy": "This application has been developed by:"
   },
   "properties": {
     "title": "Title",

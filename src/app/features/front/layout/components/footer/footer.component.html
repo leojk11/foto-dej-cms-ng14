@@ -1,45 +1,91 @@
-<div class="footer">
+<div class="footer" *ngIf="frontConfigurationState.confState$ | async as state">
   <div class="footer__contact">
-    <div class="footer__contact--item" *ngIf="configuration.phone_number">
+    <div class="footer__contact--item" *ngIf="state.configuration.phone_number">
       <i class="pi pi-phone"></i>
       <span class="footer__contact--item__text">
-        {{ configuration.phone_number }}
+        {{ state.configuration.phone_number }}
       </span>
     </div>
 
-    <div class="footer__contact--item" *ngIf="configuration.email">
+    <div class="footer__contact--item" *ngIf="state.configuration.email">
       <i class="pi pi-envelope"></i>
       <span class="footer__contact--item__text">
-        {{ configuration.email }}
+        {{ state.configuration.email }}
       </span>
     </div>
 
-    <div class="footer__contact--item" *ngIf="configuration.address">
+    <div class="footer__contact--item" *ngIf="state.configuration.address">
       <i class="pi pi-map-marker"></i>
       <span class="footer__contact--item__text">
-        {{ configuration.address }}
+        {{ state.configuration.address }}
       </span>
     </div>
   </div>
 
   <div class="footer__socials">
-    <a [href]="configuration.insta_link" target="_blank">
+    <a [href]="state.configuration.insta_link" target="_blank" 
+      *ngIf="state.configuration.insta_link">
       <i class="pi pi-instagram footer__socials--icon"></i>
     </a>
 
-    <a [href]="configuration.facebook_link" target="_blank">
+    <a [href]="state.configuration.facebook_link" target="_blank" 
+      *ngIf="state.configuration.facebook_link">
       <i class="pi pi-facebook footer__socials--icon"></i>
     </a>
   </div>
 
   <div class="footer__logo">
     <ng-container *ngIf="isMobile$ | async; else notMobile">
-      <img src="../../../../../../../assets/img/svg/logo-belo.svg" alt="">
+      <img [src]="state.imageUrl + state.configuration.logo_white" 
+        [alt]="state.configuration.logo_white">
     </ng-container>
 
     <ng-template #notMobile>
-      <img src="../../../../../../../assets/img/svg/logo-belo.svg" alt="">
+      <img [src]="state.imageUrl + state.configuration.logo_white" 
+        [alt]="state.configuration.logo_white">
     </ng-template>
-    <!-- <img [src]="(isMobile$ | async) ? state.configuration.logo_white : state.configuration.logo_icon"> -->
   </div>
 </div>
+<div class="info-footer">
+  <div class="info-footer__item">
+    <p>{{ 'common.appDesignedBy' | translate }}</p>
+    <div class="info-footer__item__link">
+      <i class="pi pi-linkedin"></i>
+      <a href="https://www.linkedin.com/in/simona-simonovska-7a48bb182/" target="_blank">Simona Simonovska</a>
+    </div>
+    <div class="info-footer__item__link">
+      <i class="pi pi-instagram"></i>
+      <a href="https://www.instagram.com/simonovskadesign/" target="_blank">simonovskadesign</a>
+    </div>
+  </div>
+
+  <div class="info-footer__item">
+    <p>{{ 'common.appDevelopedBy' | translate }}</p>
+    <div class="info-footer__item__multi_wrapper">
+      <div>
+        <div class="info-footer__item__link">
+          <i class="pi pi-linkedin"></i>
+          <a href="https://www.linkedin.com/in/leonidjakimovski/" target="_blank">Leonid Jakimovski</a>
+        </div>
+        <div class="info-footer__item__link">
+          <i class="pi pi-github"></i>
+          <a href="https://github.com/leojk11" target="_blank">leojk11</a>
+        </div>
+      </div>
+  
+      <div>
+        <div class="info-footer__item__link">
+          <i class="pi pi-linkedin"></i>
+          <a href="https://www.linkedin.com/in/bojana-kuzeva/" target="_blank">Bojana Blazevska</a>
+        </div>
+        
+        <div class="info-footer__item__link">
+          <i class="pi pi-github"></i>
+          <a href="https://github.com/bblazevska" target="_blank">bblazevska</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

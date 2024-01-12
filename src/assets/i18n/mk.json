@@ -81,7 +81,9 @@
     "imagesReadyToUpload": "Слики подготвени за прикачување",
     "alreadyUploadedImages": "Слики кои што се веќе прикачени",
     "inviteSettings": "Поставки за покана",
-    "previewInvitation": "Прегледај покана"
+    "previewInvitation": "Прегледај покана",
+    "appDesignedBy": "Оваа апликација е дизајнирана од:",
+    "appDevelopedBy": "Оваа апликација е изградена од:"
   },
   "properties": {
     "title": "Наслов",
