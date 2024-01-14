@@ -27,6 +27,9 @@ export class VideoRegularInputComponent implements OnInit {
   @Input() label: string = '';
   @Input() placeholder: string = '';
 
+  @Input() id: string = '';
+  @Input() preview: boolean = false;
+
   @Output() onSave = new EventEmitter<null>();
 
   constructor() { }
@@ -34,19 +37,19 @@ export class VideoRegularInputComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  get promoVideos() {
-    return this.form.get('promo_videos') as FormArray;
+  get elements() {
+    return this.form.get(this.id) as FormArray;
   }
 
-  addPromoVideo(): void {
-    this.promoVideos.push(new FormControl());
+  addElement(): void {
+    this.elements.push(new FormControl());
   }
 
   delete(index: number): void {
-    this.promoVideos.removeAt(index);
+    this.elements.removeAt(index);
   }
 
-  previewVideo(index: number): void {
-    window.open(this.promoVideos.controls[index].value, "_blank");
+  togglePreview(index: number): void {
+    window.open(this.elements.controls[index].value, "_blank");
   }
 }

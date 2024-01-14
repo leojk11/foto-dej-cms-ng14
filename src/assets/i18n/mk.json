@@ -134,7 +134,8 @@
     "inviteEmailLabel": "Ознака за емаил",
     "invitePasswordLabel": "Ознака за лозинка",
     "inviteLoginMessage": "Порака за наваја",
-    "inviteThankYouMessage": "Порака за благодарност"
+    "inviteThankYouMessage": "Порака за благодарност",
+    "emailsForNotifications": "Емаил адреси за известувања"
   },
   "errors": {
     "error": "Грешка",

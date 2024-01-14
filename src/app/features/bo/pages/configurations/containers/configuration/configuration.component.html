@@ -41,7 +41,7 @@
           <app-multi-upload [label]="'properties.promoImages'" [id]="'promo_images'"
             [imagesUrl]="imagesUrl" [preselected]="state.configuration.promo_images"></app-multi-upload>
     
-          <app-video-regular-input [form]="form" (onSave)="handleSubmit()"
+          <app-video-regular-input [form]="form" (onSave)="handleSubmit()" [id]="'promo_videos'" [preview]="true"
             [label]="'properties.promoVideo'" [placeholder]="'properties.promoVideo'"></app-video-regular-input> 
     
           <app-regular-input [form]="form" [controlName]="'phone_number'" 
@@ -58,6 +58,9 @@
     
           <app-regular-input [form]="form" [controlName]="'insta_link'" 
             [label]="'Instagram'" [placeholder]="'instagram'"></app-regular-input>
+
+          <app-video-regular-input [form]="form" (onSave)="handleSubmit()" [id]="'emails_for_notifications'"
+            [label]="'properties.emailsForNotifications'" [placeholder]="'properties.emailsForNotifications'"></app-video-regular-input> 
     
           <div class="configuration-wrapper__configuration__buttons">
             <button 

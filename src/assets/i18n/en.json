@@ -134,7 +134,8 @@
     "inviteEmailLabel": "Email label",
     "invitePasswordLabel": "Password label",
     "inviteLoginMessage": "Login message",
-    "inviteThankYouMessage": "Thank you message"
+    "inviteThankYouMessage": "Thank you message",
+    "emailsForNotifications": "Emails for notifications"
   },
   "errors": {
     "error": "Error",

@@ -8,14 +8,15 @@ export interface Configuration {
     main_title_tr: string;
     second_title: string;
     second_title_tr: string;
-    promo_images: string[]; // string[];
+    promo_images: string[];
     promo_videos: string[];
     contact_form_label: string;
-    phone_number: string; // string[];
-    email: string; // string[];
-    address: string; // string[];
+    phone_number: string;
+    email: string;
+    address: string;
     facebook_link: string;
     insta_link: string;
+    emails_for_notifications: string[];
 
     // invite part
     invite_from: string;
@@ -28,4 +29,4 @@ export interface Configuration {
     invite_phone_number_icon: string;
     invite_email_icon: string;
     invite_location_icon: string;
-}
+};

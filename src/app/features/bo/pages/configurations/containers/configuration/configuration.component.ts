@@ -66,6 +66,7 @@ export class ConfigurationComponent implements OnInit {
     facebook_link: [''],
     insta_link: [''],
     promo_videos: new FormArray([]),
+    emails_for_notifications: new FormArray([]),
 
     // invite part
     invite_from: [''],
@@ -91,6 +92,9 @@ export class ConfigurationComponent implements OnInit {
   get promoVideos() {
     return this.form.get('promo_videos') as FormArray;
   }
+  get emailsForNotifications() {
+    return this.form.get('emails_for_notifications') as FormArray;
+  }
 
   ngOnInit(): void {
     this.adminLayoutService.setTitle('common.settings');
@@ -109,6 +113,15 @@ export class ConfigurationComponent implements OnInit {
             for (const video of state.configuration.promo_videos) {
               const formControl = new FormControl(video);
               this.promoVideos.push(formControl);
+            }
+          }
+
+          if (state.configuration.emails_for_notifications) {
+            this.emailsForNotifications.clear();
+            this.form.get('emails_for_notifications')?.patchValue([]);
+            for (const email of state.configuration.emails_for_notifications) {
+              const formControl = new FormControl(email);
+              this.emailsForNotifications.push(formControl);
             }
           }
         }
