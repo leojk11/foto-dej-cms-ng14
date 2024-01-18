@@ -10,6 +10,7 @@ import { ToastService } from 'src/app/shared/services/toast.service';
 import { environment } from 'src/environments/environment';
 import { ImageOverviewService } from 'src/app/shared/services/image-overview.service';
 import { ImageOverviewComponent } from 'src/app/shared/components/image-overview/image-overview.component';
+import { GALLERY_PAGE_IMAGES_AMOUNT } from 'src/app/core/data/staticData';
 
 @Component({
   selector: 'app-gallery',
@@ -28,6 +29,11 @@ export class GalleryComponent implements OnInit {
 
   imagesUrl: string = `${ environment.apiUrl }/images/`;
 
+  defaultImagesAmoutToShow: number = GALLERY_PAGE_IMAGES_AMOUNT;
+  imagesAmountToShow: number = GALLERY_PAGE_IMAGES_AMOUNT;
+  imagesToDisplay: string[] | undefined = [];
+  leftImagesToDisplay: string[] | undefined = [];
+
   constructor(
     public frontConfigurationState: FrontConfigurationState,
     private configurationService: ConfigurationService,
@@ -44,13 +50,27 @@ export class GalleryComponent implements OnInit {
         next: configuration => {
           this.frontConfigurationState.setConfiguration(configuration);
           this.spinner.hide().then();
+
+          this.imagesToDisplay = configuration.promo_images.slice(0, this.imagesAmountToShow);
+          this.leftImagesToDisplay = configuration.promo_images.slice(this.imagesAmountToShow, configuration.promo_images.length);
         },
         error: error => {
           this.toastService.addError(error.error.message);
           this.spinner.hide().then();
         }
       });
+    } else {
+      this.imagesToDisplay = this.frontConfigurationState.state.configuration.promo_images.slice(0, this.imagesAmountToShow);
+      this.leftImagesToDisplay = this.frontConfigurationState.state.configuration.promo_images.slice(this.imagesAmountToShow, 
+        this.frontConfigurationState.state.configuration.promo_images.length);
     }
+  }
+
+  seeMoreImages(): void {
+    this.imagesAmountToShow = this.imagesAmountToShow + this.defaultImagesAmoutToShow;
+    this.imagesToDisplay = this.frontConfigurationState.state.configuration.promo_images.slice(0, this.imagesAmountToShow);
+    this.leftImagesToDisplay = this.frontConfigurationState.state.configuration.promo_images.slice(this.imagesAmountToShow, 
+      this.frontConfigurationState.state.configuration.promo_images.length);
   }
 
   goToElement(el: HTMLElement, offset: number): void {

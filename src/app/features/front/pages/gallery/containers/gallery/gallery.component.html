@@ -7,10 +7,23 @@
   </div>
 
   <div class="gallery__images">
-    <div class="gallery__images__image" *ngFor="let image of state.configuration.promo_images">
+    <div class="gallery__images__image" *ngFor="let image of imagesToDisplay">
       <img [src]="imagesUrl + image" [alt]="image" class="cp"
-        (click)="toggleOverview($event, state.configuration.promo_images)">
+        (click)="toggleOverview($event, imagesToDisplay)">
     </div>
+  </div>
+
+  <div class="w-full flex justify-center align-center mt-2"
+    [style]="{ 'margin-bottom': '150px' }">
+    <button 
+      pButton
+      type="button"
+      class="btn btn__main"
+      (click)="seeMoreImages()"
+      [disabled]="leftImagesToDisplay?.length === 0 || imagesToDisplay!.length === 0"
+    >
+      {{ 'common.seeAll' | translate }}
+    </button>
   </div>
 
   <app-footer

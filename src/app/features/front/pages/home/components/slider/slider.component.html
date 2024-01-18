@@ -3,7 +3,7 @@
     [config]="config"
     *ngIf="promoImages.length > 0"
   > 
-    <ng-container *ngFor="let image of promoImages; index as i">
+    <ng-container *ngFor="let image of promoImages.splice(0, 6); index as i">
       <ng-template swiperSlide >
         <img [src]="imagesUrl + image">
         <div class="after"></div>

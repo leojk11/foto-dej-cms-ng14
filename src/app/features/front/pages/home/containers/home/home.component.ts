@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { RouterModule } from '@angular/router';
@@ -14,7 +14,8 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { NgxYoutubePlayerModule } from 'ngx-youtube-player';
 import { map, Observable, shareReplay } from 'rxjs';
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { SafeResourceUrl } from '@angular/platform-browser';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { Base64Service } from 'src/app/shared/services/base64.service';
 
 @Component({
   selector: 'app-home',
@@ -30,7 +31,8 @@ import { SafeResourceUrl } from '@angular/platform-browser';
     NgxYoutubePlayerModule
   ],
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomeComponent implements OnInit {
 
@@ -55,15 +57,13 @@ export class HomeComponent implements OnInit {
     );
   mobile: boolean = false;
 
-  public mainImagePath: SafeResourceUrl = '';
-
   constructor(
     private service: FrontConfigurationService,
     public frontConfigurationState: FrontConfigurationState,
     private translateService: TranslateService,
     private toastService: ToastService,
     private spinner: NgxSpinnerService,
-    private breakpointObserver: BreakpointObserver
+    private breakpointObserver: BreakpointObserver,
   ) { }
 
   ngOnInit(): void {
