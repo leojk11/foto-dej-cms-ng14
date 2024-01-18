@@ -68,6 +68,16 @@
     }
   }
 
+  .gallery-image {
+    position: relative;
+
+    .spinner {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+    }
+  }
+
   @include screen-md {
     overflow-y: scroll;
   }

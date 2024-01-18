@@ -1,7 +1,9 @@
 <div class="home" *ngIf="frontConfigurationState.confState$ | async as state">
   <div class="home__header">
     <div class="home__header--image">
-      <img [src]="state.imageUrl + state.configuration.main_image" alt="main_image">
+      <app-spinner *ngIf="!mainImageLoaded"></app-spinner>
+      <img [src]="state.imageUrl + state.configuration.main_image" alt="main_image" [class.hidden]="!mainImageLoaded"
+        (load)="onMainImageLoad()">
       <div class="after"></div>
     </div>
     
@@ -64,14 +66,14 @@
     </ng-container>
   </div>
 
-  <div class="home__video gap-2" *ngIf="showVideo">
+  <!-- <div class="home__video gap-2" *ngIf="showVideo">
     <youtube-player
       *ngFor="let videoId of videoIds"
       [videoId]="videoId"
       [height]="videoHeight" 
       [width]="videoWidth"
     ></youtube-player>
-  </div>
+  </div> -->
 
   <div class="home__contact" #collaboration>
     <p class="home__contact--title">

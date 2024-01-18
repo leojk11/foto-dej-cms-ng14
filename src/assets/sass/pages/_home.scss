@@ -16,6 +16,13 @@
         object-fit: cover;
       }
 
+      .spinner {
+        position: absolute;
+        top: 150px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
       & .after {
         position: absolute;
         top: 0;

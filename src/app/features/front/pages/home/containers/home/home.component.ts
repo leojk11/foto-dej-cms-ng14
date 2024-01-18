@@ -14,8 +14,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { NgxYoutubePlayerModule } from 'ngx-youtube-player';
 import { map, Observable, shareReplay } from 'rxjs';
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { Base64Service } from 'src/app/shared/services/base64.service';
+import { SpinnerComponent } from 'src/app/shared/components/loading/spinner/spinner.component';
 
 @Component({
   selector: 'app-home',
@@ -28,7 +27,8 @@ import { Base64Service } from 'src/app/shared/services/base64.service';
     ContactFormComponent,
     FooterComponent,
     FrontNavbarComponent,
-    NgxYoutubePlayerModule
+    NgxYoutubePlayerModule,
+    SpinnerComponent
   ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
@@ -56,6 +56,8 @@ export class HomeComponent implements OnInit {
       shareReplay()
     );
   mobile: boolean = false;
+
+  mainImageLoaded: boolean = false;
 
   constructor(
     private service: FrontConfigurationService,
@@ -135,5 +137,9 @@ export class HomeComponent implements OnInit {
 
     const y = element.getBoundingClientRect().top + window.pageYOffset + offset;
     window.scrollTo({ top: y, behavior: 'smooth'});
+  }
+
+  onMainImageLoad(): void {
+    this.mainImageLoaded = true;
   }
 }

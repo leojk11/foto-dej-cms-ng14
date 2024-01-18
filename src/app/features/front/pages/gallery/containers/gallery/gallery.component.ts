@@ -11,6 +11,7 @@ import { environment } from 'src/environments/environment';
 import { ImageOverviewService } from 'src/app/shared/services/image-overview.service';
 import { ImageOverviewComponent } from 'src/app/shared/components/image-overview/image-overview.component';
 import { GALLERY_PAGE_IMAGES_AMOUNT } from 'src/app/core/data/staticData';
+import { FrontSingleImageComponent } from 'src/app/shared/components/front-single-image/front-single-image.component';
 
 @Component({
   selector: 'app-gallery',
@@ -20,7 +21,8 @@ import { GALLERY_PAGE_IMAGES_AMOUNT } from 'src/app/core/data/staticData';
     FooterComponent,
     FrontNavbarComponent,
     TranslateModule,
-    ImageOverviewComponent
+    ImageOverviewComponent,
+    FrontSingleImageComponent
   ],
   templateUrl: './gallery.component.html',
   styleUrls: ['./gallery.component.scss']
