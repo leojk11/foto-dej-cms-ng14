@@ -15,6 +15,8 @@ import { NgxYoutubePlayerModule } from 'ngx-youtube-player';
 import { map, Observable, shareReplay } from 'rxjs';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { SpinnerComponent } from 'src/app/shared/components/loading/spinner/spinner.component';
+import { StartLoaderComponent } from 'src/app/shared/components/start-loader/start-loader.component';
+import { animate, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-home',
@@ -28,16 +30,33 @@ import { SpinnerComponent } from 'src/app/shared/components/loading/spinner/spin
     FooterComponent,
     FrontNavbarComponent,
     NgxYoutubePlayerModule,
-    SpinnerComponent
+    SpinnerComponent,
+    StartLoaderComponent
   ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [
+    trigger(
+      'enterAnimation', [
+        transition(':enter', [
+          style({transform: 'translateX(100%)', opacity: 0}),
+          animate('500ms', style({transform: 'translateX(0)', opacity: 1}))
+        ]),
+        transition(':leave', [
+          style({transform: 'translateX(0)', opacity: 1}),
+          animate('500ms', style({transform: 'translateX(100%)', opacity: 0}))
+        ])
+      ]
+    )
+  ]
 })
 export class HomeComponent implements OnInit {
 
   @ViewChild('slider') slider!: HTMLElement;
   @ViewChild('collaboration') collaboration!: HTMLElement;
+
+  showStartLoader: boolean = true;
 
   videoWidth: number = 800;
   videoHeight: number = 450;
@@ -58,6 +77,7 @@ export class HomeComponent implements OnInit {
   mobile: boolean = false;
 
   mainImageLoaded: boolean = false;
+  errorOnLoading: boolean = false;
 
   constructor(
     private service: FrontConfigurationService,
@@ -69,7 +89,8 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.spinner.show().then();
+    document.body.style.overflowY = 'hidden';
+
     this.translateService.onLangChange.subscribe({
       next: (res:any) => {
         this.selectedLang = res.lang;
@@ -91,11 +112,12 @@ export class HomeComponent implements OnInit {
         this.frontConfigurationState.setConfiguration(res);
         this.getTitles();
 
-        this.spinner.hide().then();
+        this.showStartLoader = false;
+        document.body.style.overflowY = 'auto';
       },
       error: error => {
         this.toastService.addError(error.error.message);
-        this.spinner.hide().then();
+        this.errorOnLoading = true;
       }
     });
 
