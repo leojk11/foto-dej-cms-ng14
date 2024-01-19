@@ -130,6 +130,7 @@
   justify-content: center;
   align-items: center;
   gap: 20px;
+  flex-wrap: wrap;
 
   &__item {
     &__link {
@@ -145,5 +146,11 @@
       display: flex;
       gap: 20px;
     }
+  }
+
+  @include screen-md {
+    padding: 0rem 10rem;
+    height: 20rem;
+    justify-content: flex-start;
   }
 }

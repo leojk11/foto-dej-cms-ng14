@@ -10,7 +10,6 @@ import { Configuration } from 'src/app/features/bo/pages/configurations/models/c
 import { ToastService } from 'src/app/shared/services/toast.service';
 import { FrontNavbarComponent } from 'src/app/features/front/layout/components/front-navbar/front-navbar.component';
 import { FrontConfigurationState } from 'src/app/shared/services/front-configuration.store';
-import { NgxSpinnerService } from 'ngx-spinner';
 import { NgxYoutubePlayerModule } from 'ngx-youtube-player';
 import { map, Observable, shareReplay } from 'rxjs';
 import { BreakpointObserver } from '@angular/cdk/layout';
@@ -84,11 +83,11 @@ export class HomeComponent implements OnInit {
     public frontConfigurationState: FrontConfigurationState,
     private translateService: TranslateService,
     private toastService: ToastService,
-    private spinner: NgxSpinnerService,
     private breakpointObserver: BreakpointObserver,
   ) { }
 
   ngOnInit(): void {
+    this.service.setVisit().subscribe();
     document.body.style.overflowY = 'hidden';
 
     this.translateService.onLangChange.subscribe({

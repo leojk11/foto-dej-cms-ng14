@@ -50,13 +50,10 @@ export class DashboardStore extends ComponentStore<DashboardState> {
         this.spinner.show().then();
         return this.service.getDashboardData().pipe(
           tap((res) => {
-            console.log('DASHBOARD DATA RES', res);
-            
             this.patchState({
               cardsData: res,
               loading: false,
             });
-            // this.spinner.hide().then();
             this.loadPendingRequests();
           })
         )
@@ -80,16 +77,12 @@ export class DashboardStore extends ComponentStore<DashboardState> {
           ...this.state,
           pendingRequests: []
         });
-        // this.spinner.show().then();
         return this.requestService.getPendingRequests({page: 1, take: 5}).pipe(
           tap((res) => {
-            console.log('PENDING REQUESRS', res);
-            
             this.patchState({
               ...this.state,
               pendingRequests: res.list
             });
-            // this.spinner.hide().then();
             this.loadEvents();
           })
         )
@@ -117,8 +110,6 @@ export class DashboardStore extends ComponentStore<DashboardState> {
         // this.spinner.show().then();
         return this.service.getUpcomingEvents(6).pipe(
           tap((res) => {
-            console.log('UPCOMING EVENTS', res);
-            
             this.patchState({
               ...this.state,
               events: res

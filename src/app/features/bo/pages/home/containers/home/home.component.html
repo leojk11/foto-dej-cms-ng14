@@ -30,6 +30,12 @@
       [bg]="'bg-light'"
       [route]="'/bo/requests'"
     ></app-dashboard-card>
+
+    <app-dashboard-card
+      [data]="state.cardsData.visitCounters"
+      [title]="'common.todayVisits' | translate"
+      [bg]="'bg-light'"
+    ></app-dashboard-card>
   </div>
 
   <div class="dashboard__content">

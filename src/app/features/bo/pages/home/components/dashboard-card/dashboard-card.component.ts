@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard-card',
@@ -18,9 +18,15 @@ export class DashboardCardComponent implements OnInit {
   @Input() bg: string = '';
   @Input() route: string = '';
 
-  constructor() { }
+  constructor(
+    private router: Router
+  ) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void { }
+
+  goTo(): void {
+    if (this.route && this.route !== '') {
+      this.router.navigate([this.route]).then();
+    }
   }
-
 }

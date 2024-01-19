@@ -1,7 +1,7 @@
 <div 
   class="dashboard__cards--item" 
   [ngClass]="bg"
-  [routerLink]="route"
+  (click)="goTo()"
 >
   <div class="dashboard__cards--item__number">
     {{ data }}

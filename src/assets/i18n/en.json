@@ -83,7 +83,8 @@
     "inviteSettings": "Invite settings",
     "previewInvitation": "Preview invitation",
     "appDesignedBy": "This application has been designed by:",
-    "appDevelopedBy": "This application has been developed by:"
+    "appDevelopedBy": "This application has been developed by:",
+    "todayVisits": "Today visits"
   },
   "properties": {
     "title": "Title",

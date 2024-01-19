@@ -24,4 +24,9 @@ export class FrontConfigurationService {
     const path = `${ this.apiUrl }/requests`;
     return this.http.post<RequestResponse>(path, body);
   }
+
+  setVisit(): Observable<string> {
+    const path = `${ this.apiUrl }/visit_counters`;
+    return this.http.post(path, {}, { responseType: 'text' });
+  }
 }
