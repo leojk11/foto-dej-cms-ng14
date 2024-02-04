@@ -84,7 +84,9 @@
     "previewInvitation": "Прегледај покана",
     "appDesignedBy": "Оваа апликација е дизајнирана од:",
     "appDevelopedBy": "Оваа апликација е изградена од:",
-    "todayVisits": "Денешни посети"
+    "todayVisits": "Денешни посети",
+    "sendInvite": "Испрати покана",
+    "moreInfo": "Информации"
   },
   "properties": {
     "title": "Наслов",

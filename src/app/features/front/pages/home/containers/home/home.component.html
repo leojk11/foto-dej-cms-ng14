@@ -4,7 +4,7 @@
     <div class="home__header--image">
       <app-spinner *ngIf="!mainImageLoaded"></app-spinner>
       <img [src]="state.imageUrl + state.configuration.main_image" alt="main_image" [class.hidden]="!mainImageLoaded"
-        (load)="onMainImageLoad()">
+        (load)="onMainImageLoad()" (error)="mainImageLoaded = true">
       <div class="after"></div>
     </div>
     

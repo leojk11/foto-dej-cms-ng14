@@ -8,6 +8,7 @@ import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {ConfirmationService} from 'primeng/api';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { RouterModule } from '@angular/router';
+import { TooltipModule } from 'primeng/tooltip';
 
 @Component({
   selector: 'app-client-card',
@@ -16,7 +17,8 @@ import { RouterModule } from '@angular/router';
     CommonModule,
     ConfirmDialogModule,
     TranslateModule,
-    RouterModule
+    RouterModule,
+    TooltipModule
   ],
   providers: [
     ConfirmationService

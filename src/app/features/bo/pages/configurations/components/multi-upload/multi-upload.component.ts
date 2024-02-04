@@ -127,6 +127,9 @@ export class MultiUploadComponent implements OnInit {
           if (this.preselected) {
             this.imagesToDisplay = this.preselected?.slice(0, this.imagesAmountToShow);
             this.leftImagesToDisplay = this.preselected?.slice(this.imagesAmountToShow, this.preselected.length);
+          } else {
+            this.imagesToDisplay = updateConfRes.configuration.promo_images.slice(0, this.imagesAmountToShow);
+            this.leftImagesToDisplay = updateConfRes.configuration.promo_images.slice(this.imagesAmountToShow, updateConfRes.configuration.promo_images.length);
           }
         },
         error: error => {

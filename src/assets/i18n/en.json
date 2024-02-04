@@ -84,7 +84,9 @@
     "previewInvitation": "Preview invitation",
     "appDesignedBy": "This application has been designed by:",
     "appDevelopedBy": "This application has been developed by:",
-    "todayVisits": "Today visits"
+    "todayVisits": "Today visits",
+    "sendInvite": "Send invite",
+    "moreInfo": "More info"
   },
   "properties": {
     "title": "Title",

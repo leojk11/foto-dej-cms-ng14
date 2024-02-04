@@ -29,6 +29,8 @@
     <button 
       class="btn btn__icon btn__icon--blue" 
       (click)="sendInvite($event)"
+      pTooltip="{{ 'common.sendInvite' | translate }}" 
+      tooltipPosition="top"
     >
       <i class="pi pi-envelope fw-500 text-lg"></i>
     </button>
@@ -36,6 +38,8 @@
     <button 
       class="btn btn__icon btn__icon--dark" 
       [routerLink]="['details', client.id]"
+      pTooltip="{{ 'common.moreInfo' | translate }}" 
+      tooltipPosition="top"
     >
       <i class="pi pi-info-circle fw-500 text-lg"></i>
     </button>
@@ -43,6 +47,8 @@
     <button 
       class="btn btn__icon btn__icon--red" 
       (click)="deleteClient($event)"
+      pTooltip="{{ 'common.delete' | translate }}" 
+      tooltipPosition="top"
     >
       <i class="pi pi-trash fw-500 text-lg"></i>
     </button>
