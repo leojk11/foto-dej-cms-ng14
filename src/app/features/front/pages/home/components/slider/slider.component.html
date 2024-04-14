@@ -1,13 +1,22 @@
-<ng-container *ngIf="promoImages">
-  <swiper
-    [config]="config"
-    *ngIf="promoImages.length > 0"
-  > 
-    <ng-container *ngFor="let image of promoImages.splice(0, 6); index as i">
-      <ng-template swiperSlide >
-        <img [src]="imagesUrl + image">
-        <div class="after"></div>
-      </ng-template>
-    </ng-container>
-  </swiper>
-</ng-container>
+<div class="outer-slider-wrapper">
+  <div class="main-slider-container">
+    <div class="slider-container">
+      <div 
+        class="slider-item" 
+        *ngFor="let image of promoImages; let i = index"
+        [ngClass]="{
+          'selected': i === selectedIndex,
+          'prev': i === selectedIndex - 1,
+          'next': i === selectedIndex + 1,
+          'hide-left': i < selectedIndex - 1,
+          'hide-right': i > selectedIndex + 1
+        }">
+        <img [src]="imagesUrl + image" class="slider-img"
+          (panright)="showPrev(i)"
+          (panleft)="showNext(i)">
+      </div>
+    </div>
+  </div>
+</div>
+
+

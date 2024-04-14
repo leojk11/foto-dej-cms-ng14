@@ -57,6 +57,8 @@ export class HomeComponent implements OnInit {
 
   showStartLoader: boolean = true;
 
+  promoImagesForSlider: string[] = [];
+
   videoWidth: number = 800;
   videoHeight: number = 450;
   showVideo: boolean = false;
@@ -99,6 +101,8 @@ export class HomeComponent implements OnInit {
 
     this.service.getConfiguration().subscribe({
       next: res => {
+        this.promoImagesForSlider = res.promo_images.splice(0, 6);
+        
         for (const video of res.promo_videos) {
           const splittedPromoVideUrl = video.split('=');
           const videoId = splittedPromoVideUrl[1].split('&');

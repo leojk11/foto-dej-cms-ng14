@@ -29,22 +29,16 @@
 @import './components/cards';
 @import './components/dialog';
 @import './components/file-upload';
-@import './components/swiper';
 @import './components/checkbox';
 @import './components/album';
 @import './components/_tabView';
 @import './components/chip';
 @import './components/log';
 @import './components/toast';
+@import './components/_slider';
 
 @import './layout/navbar';
 @import './layout/sidebar';
 @import './layout/front';
 @import './layout/frontnav';
 @import './layout/footer';
-// @import './components';
-// @import './pages';
-
-@import 'swiper/scss';
-@import 'swiper/scss/navigation';
-@import 'swiper/scss/pagination';

@@ -1,51 +1,36 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SwiperModule } from 'swiper/angular';
-import SwiperCore, { SwiperOptions, Navigation } from 'swiper';
 import { environment } from 'src/environments/environment';
-import { FrontConfigurationService } from '../../../../../../shared/services/front-configuration.service';
-import {CarouselModule} from 'primeng/carousel';
 
-SwiperCore.use([Navigation])
+import 'hammerjs';
+
 @Component({
   selector: 'app-slider',
   standalone: true,
   imports: [
-    CommonModule,
-    SwiperModule,
-    CarouselModule
+    CommonModule
   ],
   templateUrl: './slider.component.html',
   styleUrls: ['./slider.component.scss']
 })
-export class SliderComponent implements OnInit {
+export class SliderComponent {
 
   @Input() promoImages: string[] = [];
   @Input() imageUrl: string = '';
 
+  selectedIndex: number = 0;
+
   imagesUrl: string = `${ environment.apiUrl }/images/`;
-  // promoImages: any;
 
-  config: SwiperOptions = {
-    slidesPerView: 'auto',
-    spaceBetween: 45,
-    navigation: true,
-    pagination: { clickable: true },
-    scrollbar: { draggable: true },
-    centeredSlides: true,
-    centeredSlidesBounds: true,
-    loop: true
-  };
+  showPrev(index: number): void {
+    if (this.selectedIndex > 0) {
+      this.selectedIndex = index - 1;
+    }
+  }
 
-  constructor(
-    private service: FrontConfigurationService
-  ) { }
-
-  ngOnInit(): void {
-    // this.service.getConfiguration().subscribe({
-    //   next: res => {
-    //     this.promoImages = res.promo_images; 
-    //   }
-    // });
+  showNext(index: number): void {
+    if (this.selectedIndex < this.promoImages.length - 1) {
+      this.selectedIndex = index + 1;
+    }
   }
 }

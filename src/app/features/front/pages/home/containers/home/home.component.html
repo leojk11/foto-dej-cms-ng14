@@ -47,8 +47,9 @@
   </div>
 
   <div class="home__slider" #slider>
+
     <app-slider
-      [promoImages]="state.configuration.promo_images"
+      [promoImages]="promoImagesForSlider"
       [imageUrl]="state.imageUrl"
     ></app-slider>
 

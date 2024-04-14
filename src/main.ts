@@ -1,5 +1,5 @@
 import { enableProdMode, importProvidersFrom } from '@angular/core';
-import { bootstrapApplication } from '@angular/platform-browser';
+import { HammerModule, bootstrapApplication } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { AppComponent } from './app/app.component';
 import { routes } from './app/app.routes';
@@ -12,6 +12,8 @@ import { BasicHttpInterceptor } from './app/core/interceptors/basic-http.interce
 import { ToastrModule } from 'ngx-toastr';
 import { ToastService } from './app/shared/services/toast.service';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+
+import 'hammerjs';
 
 export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -38,7 +40,8 @@ bootstrapApplication(AppComponent, {
         }
       }),
       ToastrModule.forRoot(),
-      ToastService
+      ToastService,
+      HammerModule
     ),
     {
       provide: HTTP_INTERCEPTORS,
