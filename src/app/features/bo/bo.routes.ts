@@ -61,6 +61,11 @@ export const BO_ROUTES: Route[] = [
         loadComponent: () => import('./pages/notifications/containers/notifications/notifications.component')
           .then((m) => m.NotificationsComponent)
       },
+      {
+        path: 'back-logs',
+        loadComponent: () => import('./pages/back-logs/containers/back-logs.component')
+          .then((m) => m.BackLogsComponent)
+      },
     ]
   },
 ]

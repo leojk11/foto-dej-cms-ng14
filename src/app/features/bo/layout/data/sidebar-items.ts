@@ -45,9 +45,15 @@ export const SIDEBAR_ITEMS: SidebarItem[] = [
     perm: PermissionsType.ADMIN
   },
   {
+    title: 'common.backLogs',
+    icon: 'pi pi-file',
+    redirectTo: 'back-logs',
+    perm: PermissionsType.SUPER_ADMIN
+  },
+  {
     title: 'common.settings',
     icon: 'pi pi-cog',
     redirectTo: 'configuration',
     perm: PermissionsType.SUPER_ADMIN
-  }
+  },
 ]

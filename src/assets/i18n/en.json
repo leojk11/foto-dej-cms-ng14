@@ -86,7 +86,8 @@
     "appDevelopedBy": "This application has been developed by:",
     "todayVisits": "Today visits",
     "sendInvite": "Send invite",
-    "moreInfo": "More info"
+    "moreInfo": "More info",
+    "backLogs": "Back logs"
   },
   "properties": {
     "title": "Title",

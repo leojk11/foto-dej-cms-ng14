@@ -208,6 +208,8 @@ export class MultiUploadComponent implements OnInit {
   }
 
   deleteSavedImage(index: number): void {
+    console.log('here');
+    
     this.confirmationService.confirm({
       key: 'clearPromoImages',
       message: this.translate.instant('messages.deleteImage'),
@@ -220,7 +222,7 @@ export class MultiUploadComponent implements OnInit {
           if (this.preselected[index]) {
             this.spinner.show().then();
 
-            this.configurationService.deleteSingleImage(this.preselected[index]).subscribe({
+            this.configurationService.deleteSingleImage(this.preselected[index].split('.')[0]).subscribe({
               next: () => {
                 this.preselected.splice(index, 1);
 
