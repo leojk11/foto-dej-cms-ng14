@@ -35,26 +35,22 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    // gap: 10px;
     padding: 100px 20px;
-    // margin-bottom: 150px;
 
     overflow: auto;
 
     &__image {
       width: 30%;
-      height: 260px;
+      height: 360px;
       padding: 10px;
       overflow: hidden;
-      display: flex;
-      justify-content: center;
-      align-items: center;
       margin-bottom: 10px;
   
       img {
         width: 100%;
         height: 100%;
         object-fit: cover;
+        object-position: top;
       }
     }
 
@@ -75,6 +71,9 @@
 
   .gallery-image {
     position: relative;
+
+    width: 100%;
+    height: 100%;
 
     .spinner {
       position: absolute;

@@ -101,7 +101,8 @@ export class HomeComponent implements OnInit {
 
     this.service.getConfiguration().subscribe({
       next: res => {
-        this.promoImagesForSlider = res.promo_images.splice(0, 6);
+        const promoImagesCopy = JSON.parse(JSON.stringify(res.promo_images));
+        this.promoImagesForSlider = promoImagesCopy.splice(0, 6);
         
         for (const video of res.promo_videos) {
           const splittedPromoVideUrl = video.split('=');

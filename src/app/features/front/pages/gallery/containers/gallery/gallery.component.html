@@ -6,10 +6,8 @@
     ></app-front-navbar>
   </div>
 
-  <div class="gallery__images">
-    <div class="gallery__images__image" *ngFor="let image of imagesToDisplay">
-      <!-- <img [src]="imagesUrl + image" [alt]="image" class="cp"
-        (click)="toggleOverview($event, imagesToDisplay)"> -->
+  <div class="gallery__images gap-1">
+    <div class="gallery__images__image shadow-1" *ngFor="let image of imagesToDisplay">
       <front-single-image [imagesUrl]="imagesUrl" [image]="image" 
         [imagesToDisplay]="imagesToDisplay"></front-single-image>
     </div>
