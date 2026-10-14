@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://api.photodej.com'
+  apiUrl: 'https://api-photodej.softwareio.click'
 };
