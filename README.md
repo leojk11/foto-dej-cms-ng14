@@ -6,10 +6,6 @@
 ## BE Documentation
 - https://documenter.getpostman.com/view/14487622/VUjTmPW7
 
-## Pipe URL
-- https://photodej-ng14.web.app/
-- https://photodej-ng14.firebaseapp.com/
-
 ## BE Repository
  - https://github.com/leojk11/fotoDej-cms-api
  
