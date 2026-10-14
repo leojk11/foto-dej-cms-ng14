@@ -88,6 +88,8 @@ export class ClientsComponent implements OnInit {
 
   openModal(): void {
     const ref = this.dialog.open(NewClientComponent, {
+      dismissableMask: true,
+      closable: true,
       width: this.modalWidth,
       // height: '70%',
       header: this.translate.instant('clients.newClient')

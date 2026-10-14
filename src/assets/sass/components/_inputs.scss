@@ -65,9 +65,41 @@ textarea,
   font-family: $font-body;
 }
 
+.p-popover-content {
+  padding: 1.6rem 2rem !important;
+}
+
+.p-select-overlay {
+  overflow: hidden;
+}
+
+.p-select-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding: 0.6rem !important;
+}
+
 .p-select-option {
   font-size: 1.4rem !important;
+  padding: 1rem 1.2rem !important;
   border-radius: $radius-sm;
+  cursor: pointer;
+
+  &.p-focus {
+    background: rgba($color-dark, 0.06);
+  }
+
+  &.p-select-option-selected {
+    background: rgba($highlight, 0.12);
+    color: $color-dark;
+    font-weight: 500;
+  }
+}
+
+.p-select-empty-message {
+  padding: 1rem 1.2rem;
+  font-size: 1.4rem;
 }
 
 .p-password {

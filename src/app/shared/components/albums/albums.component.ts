@@ -71,6 +71,8 @@ export class AlbumsComponent implements OnInit {
 
   openAddModal(): void {
     this.dialog.open(NewAlbumComponent, {
+      dismissableMask: true,
+      closable: true,
       width: this.modalWidth,
       header: this.translate.instant('albums.addNewAlbum')
     });

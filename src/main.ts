@@ -11,7 +11,6 @@ import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
 import { BasicHttpInterceptor } from './app/core/interceptors/basic-http.interceptor';
 import { ToastrModule } from 'ngx-toastr';
 import { ToastService } from './app/shared/services/toast.service';
-import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { providePrimeNG } from 'primeng/config';
 import { AppPreset } from './app/core/primeng-theme';
 
@@ -52,10 +51,6 @@ bootstrapApplication(AppComponent, {
       provide: HTTP_INTERCEPTORS,
       useClass: BasicHttpInterceptor,
       multi: true,
-    },
-    {
-      provide: LocationStrategy,
-      useClass: HashLocationStrategy
     }
   ]
 }).catch(err => console.error(err));

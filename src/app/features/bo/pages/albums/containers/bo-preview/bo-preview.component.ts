@@ -102,6 +102,8 @@ export class BoPreviewComponent implements OnInit {
 
   openEditModal(): void {
     this.dialog.open(NewAlbumComponent, {
+      dismissableMask: true,
+      closable: true,
       width: this.modalWidth,
       header: this.translate.instant('albums.editAlbum'),
       data: this.albumsStore.snapshot.previewAlbum

@@ -40,7 +40,7 @@
   </div>
 </div>
 
-<p-dialog
+<p-dialog [dismissableMask]="true"
   header="{{ 'success.uploadSuccess' | translate }}"
   [modal]="true"
   [(visible)]="displayCompletedDialog"

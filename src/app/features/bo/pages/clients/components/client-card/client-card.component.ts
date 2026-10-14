@@ -42,6 +42,8 @@ export class ClientCardComponent implements OnInit {
 
   openEditModal(): void {
     const ref = this.dialog.open(NewClientComponent, {
+      dismissableMask: true,
+      closable: true,
       width: '90%',
       data: this.client,
       header: this.translate.instant('clients.editClient')

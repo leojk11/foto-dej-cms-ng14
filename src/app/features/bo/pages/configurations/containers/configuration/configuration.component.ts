@@ -162,6 +162,8 @@ export class ConfigurationComponent implements OnInit {
 
   previewInvitation(): void {
     this.dialog.open(InvitationPreviewComponent, {
+      dismissableMask: true,
+      closable: true,
       width: '50vw',
       header: this.translateService.instant('common.previewInvitation'),
       data: {

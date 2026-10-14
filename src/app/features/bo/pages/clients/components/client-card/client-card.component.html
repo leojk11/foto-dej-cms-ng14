@@ -55,13 +55,13 @@
   </div>
 </div>
 
-<p-confirmdialog 
+<p-confirmdialog [dismissableMask]="true" 
   [key]="'delete'"
   header="{{ 'common.confirmation' | translate }}" 
   [style]="{ width: '50%',  padding: '1rem' }"  
 ></p-confirmdialog>
 
-<p-confirmdialog 
+<p-confirmdialog [dismissableMask]="true" 
   [key]="'invite'"  
   header="{{ 'common.confirmation' | translate }}" 
   [style]="{ width: '50%',  padding: '1rem' }" 

@@ -79,6 +79,7 @@
       ></p-datepicker>
 
       <p-select
+        [showClear]="true"
         [(ngModel)]="filters.action"
         [options]="actions"
         optionLabel="name"

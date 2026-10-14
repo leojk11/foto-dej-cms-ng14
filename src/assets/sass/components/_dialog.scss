@@ -15,9 +15,11 @@
     font-family: $font-body !important;
     font-size: 1.4rem !important;
 
+    .p-confirmdialog-message,
     .p-confirm-dialog-message{
+      display: block;
       font-size: 1.5rem;
-      padding: 2rem 1rem;
+      padding: 2.4rem;
     }
   }
 
@@ -35,6 +37,16 @@
       border-radius: 50% !important;
       width: 3rem;
       height: 3rem;
+    }
+
+    .p-dialog-close-button.p-button {
+      background: transparent !important;
+      border-color: transparent !important;
+      color: $color-dark !important;
+
+      &:hover {
+        background: rgba($color-dark, 0.08) !important;
+      }
     }
   }
 

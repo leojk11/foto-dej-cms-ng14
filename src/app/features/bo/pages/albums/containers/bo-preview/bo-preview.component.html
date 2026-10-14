@@ -63,7 +63,7 @@
   ></app-album-preview>
 }
 
-<p-confirmdialog
+<p-confirmdialog [dismissableMask]="true"
   [key]="'delete'"
   header="{{ 'common.confirmation' | translate }}"
   [style]="{ width: '50%',  padding: '1rem' }"

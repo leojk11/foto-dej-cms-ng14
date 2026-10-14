@@ -348,7 +348,13 @@
   font-size: 1rem;
 }
 
+.p-tooltip {
+  max-width: 32rem !important;
+}
+
 .p-tooltip-text {
-  font-size: 1.3rem !important;
+  font-size: 1.5rem !important;
+  line-height: 1.4;
+  padding: 0.9rem 1.4rem !important;
   border-radius: $radius-sm;
 }

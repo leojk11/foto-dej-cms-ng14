@@ -114,7 +114,7 @@
   </div>
 }
 
-<p-confirmdialog
+<p-confirmdialog [dismissableMask]="true"
   [key]="'invite'"
   header="{{ 'common.confirmation' | translate }}"
   [style]="{ width: '30%' }"
@@ -140,6 +140,7 @@
       ></p-datepicker>
 
       <p-select
+        [showClear]="true"
         [(ngModel)]="filters.status"
         [options]="statuses"
         optionLabel="name"

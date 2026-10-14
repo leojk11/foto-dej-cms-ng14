@@ -156,6 +156,8 @@ export class CalendarComponent implements OnInit {
 
   handleDateClick(event: any): void {
     const dialogRef = this.dialog.open(AddNewScheduleComponent, {
+      dismissableMask: true,
+      closable: true,
       width: this.modalWidth,
       data: { date: event.date },
       header: this.translate.instant('calendar.newSchedule')
@@ -176,6 +178,8 @@ export class CalendarComponent implements OnInit {
 
   handleEventClick({ event }: any): void {
     const dialogRef = this.dialog.open(AddNewScheduleComponent, {
+      dismissableMask: true,
+      closable: true,
       width: this.modalWidth,
       data: { id: event._def.publicId },
       
@@ -197,13 +201,21 @@ export class CalendarComponent implements OnInit {
 
   openModal(): void {
     const dateDialogRef = this.dialog.open(SelectDateComponent, {
+      dismissableMask: true,
+      closable: true,
       width: this.modalWidth,
       header: this.translate.instant('common.chooseDate')
     });
 
     dateDialogRef?.onClose.subscribe({
       next: (output) => {
+        if (!output) {
+          return;
+        }
+
         const dialogRef = this.dialog.open(AddNewScheduleComponent, {
+          dismissableMask: true,
+          closable: true,
           width: this.modalWidth,
           data: { date: output.date },
           header: this.translate.instant('calendar.newSchedule')
@@ -256,13 +268,15 @@ export class CalendarComponent implements OnInit {
 
   goToDate(): void {
     const dateDialogRef = this.dialog.open(SelectDateComponent, {
+      dismissableMask: true,
+      closable: true,
       width: this.modalWidth,
       header: this.translate.instant('common.chooseDate')
     });
 
     dateDialogRef?.onClose.subscribe({
       next: data => {
-        if (this.calendar) {
+        if (data && this.calendar) {
           const formattedDate = dayjs(data.date).format();
           console.log('formatted date', formattedDate);
           

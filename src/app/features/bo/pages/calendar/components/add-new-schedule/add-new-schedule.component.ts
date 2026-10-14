@@ -177,6 +177,8 @@ export class AddNewScheduleComponent implements OnInit {
 
   locationDialog(location?: Location): void {
     const dialogRef = this.dialog.open(AddNewLocationsComponent, {
+      dismissableMask: true,
+      closable: true,
       width: '50%',
       data: { 
         scheduleId: this.selectedSchedule?.id,

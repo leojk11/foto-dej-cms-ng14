@@ -118,6 +118,8 @@ export class ClientDetailsComponent implements OnInit, OnDestroy {
 
   openAddModal(): void {
     const ref = this.dialog.open(NewAlbumComponent, {
+      dismissableMask: true,
+      closable: true,
       width: this.modalWidth,
       header: this.translate.instant('albums.addNewAlbum'),
       data: { client: this.clientStore.snapshot.client }
@@ -137,6 +139,8 @@ export class ClientDetailsComponent implements OnInit, OnDestroy {
     console.log("CLIENT", this.client);
     
     const ref = this.dialog.open(NewClientComponent, {
+      dismissableMask: true,
+      closable: true,
       width: this.modalWidth,
       data: {
         client: this.clientStore.snapshot.client},

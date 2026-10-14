@@ -1,9 +1,53 @@
 .p-toast {
-  font-size: 1.4rem !important;
+  width: 42rem !important;
+  max-width: calc(100vw - 3.2rem);
+  font-size: 1.6rem !important;
+  font-family: $font-body;
 }
 
 .p-toast-message {
   border-radius: $radius-md !important;
   box-shadow: $shadow-card-hover !important;
   backdrop-filter: blur(10px);
+
+  .p-toast-message-content {
+    padding: 1.8rem 2rem !important;
+    gap: 1.4rem !important;
+    align-items: flex-start;
+  }
+
+  .p-toast-message-icon {
+    width: 2.4rem !important;
+    height: 2.4rem !important;
+    font-size: 2.4rem !important;
+    flex-shrink: 0;
+  }
+
+  .p-toast-message-text {
+    gap: 0.6rem !important;
+  }
+
+  .p-toast-summary {
+    font-size: 1.7rem !important;
+    font-weight: 600;
+  }
+
+  .p-toast-detail {
+    font-size: 1.5rem !important;
+    line-height: 1.45;
+    margin: 0 !important;
+  }
+
+  .p-toast-close-button {
+    width: 3.2rem !important;
+    height: 3.2rem !important;
+    flex-shrink: 0;
+    background: transparent !important;
+    border-color: transparent !important;
+
+    .p-toast-close-icon {
+      width: 1.6rem !important;
+      height: 1.6rem !important;
+    }
+  }
 }
