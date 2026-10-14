@@ -3,7 +3,6 @@
 A photography studio web application built with Angular. It combines a **public website** for the studio, a **client area** where customers view their photo albums and pick their favourite photos, and a **back office (BO)** where the studio manages clients, albums, bookings and the site's own content.
 
 - **Live site:** https://photodej.com/#/home
-- **Landing page design (Figma):** https://www.figma.com/file/X4uvSBxAOab0nYU9mrD54m/FOTO-DEJ?node-id=0%3A1
 - **Backend repository:** https://github.com/leojk11/fotoDej-cms-api
 - **Backend API docs (Postman):** https://documenter.getpostman.com/view/14487622/VUjTmPW7
 
