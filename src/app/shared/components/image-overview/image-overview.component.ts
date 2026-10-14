@@ -1,15 +1,15 @@
-import { Component, HostListener, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ImageOverviewService } from '../../services/image-overview.service';
 
 @Component({
-  selector: 'app-image-overview',
-  standalone: true,
-  imports: [
-    CommonModule
-  ],
-  templateUrl: './image-overview.component.html',
-  styleUrls: ['./image-overview.component.scss']
+    selector: 'app-image-overview',
+    imports: [
+        CommonModule
+    ],
+    templateUrl: './image-overview.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
+    styleUrls: ['./image-overview.component.scss']
 })
 export class ImageOverviewComponent implements OnInit, OnDestroy {
 

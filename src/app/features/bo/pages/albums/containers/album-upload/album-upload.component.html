@@ -3,15 +3,15 @@
     <button
       class="btn btn__icon btn__icon--blue shadow-small border-none"
       (click)="location.back()"
-    >
+      >
       <i class="pi pi-arrow-left"></i>
     </button>
   </div>
   <!-- [maxFileSize]="1000000"  -->
 
-  <p-fileUpload name="images"
-    [multiple]="true" 
-    accept="image/*" 
+  <p-fileupload name="images"
+    [multiple]="true"
+    accept="image/*"
     chooseLabel="{{ 'common.chooseImages' | translate }}"
     uploadLabel="{{ 'common.upload' | translate }}"
     cancelLabel="{{ 'common.cancel' | translate }}"
@@ -19,37 +19,41 @@
     uploadStyleClass="btn btn__main p-0"
     cancelStyleClass="btn btn__red p-0"
     [disabled]="uploadDisabled"
-    (onSelect)="onSelect($event)" 
+    (onSelect)="onSelect($event)"
     (onRemove)="onRemove($event)"
     (onBeforeUpload)="handleUpload($event)">
     <ng-template pTemplate="content">
-      <ul *ngIf="uploadedFiles.length">
-        <li *ngFor="let file of uploadedFiles">
-          {{ file.name }} - {{ file.size }} bytes
-        </li>
-      </ul>
+      @if (uploadedFiles.length) {
+        <ul>
+          @for (file of uploadedFiles; track file) {
+            <li>
+              {{ file.name }} - {{ file.size }} bytes
+            </li>
+          }
+        </ul>
+      }
     </ng-template>
-  </p-fileUpload>
-  
+  </p-fileupload>
+
   <div class="upload-images__progress mt-2">
-    <p-progressBar [value]="progressValue"></p-progressBar>
+    <p-progressbar [value]="progressValue"></p-progressbar>
   </div>
 </div>
 
-<p-dialog 
-  header="{{ 'success.uploadSuccess' | translate }}" 
+<p-dialog
+  header="{{ 'success.uploadSuccess' | translate }}"
   [modal]="true"
-  [(visible)]="displayCompletedDialog" 
+  [(visible)]="displayCompletedDialog"
   [style]="{ width: '50vw' }">
   <div class="p-3">
     <p>{{ 'success.uploadCompleted' | translate }}</p>
   </div>
 
   <ng-template pTemplate="footer">
-    <p-button 
-      icon="pi pi-check" 
-      (click)="goToPreview()" 
-      label="OK" 
+    <p-button
+      icon="pi pi-check"
+      (click)="goToPreview()"
+      label="OK"
       styleClass="p-button-text"
     ></p-button>
   </ng-template>

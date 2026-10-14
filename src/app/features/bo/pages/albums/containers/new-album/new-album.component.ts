@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+
 import { Client } from '../../../clients/models/client.model';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
@@ -7,7 +7,7 @@ import { DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { AlbumsStore } from '../../services/albums.store';
 import { AlbumsService } from '../../services/albums.service';
 import { ClientsService } from '../../../clients/services/clients.service';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { AssignAlbumComponent } from 'src/app/shared/components/assign-album/assign-album.component';
 import { InputTextModule } from 'primeng/inputtext';
 import { ToastService } from 'src/app/shared/services/toast.service';
@@ -16,20 +16,19 @@ import { BasicParams } from 'src/app/shared/models/basicParams.model';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
-  selector: 'app-new-album',
-  standalone: true,
-  imports: [
-    CommonModule,
+    selector: 'app-new-album',
+    imports: [
     ReactiveFormsModule,
-    TranslateModule,
+    TranslatePipe,
     AssignAlbumComponent,
     InputTextModule,
     AutoCompleteModule
-  ],
-  providers: [
-    DialogService
-  ],
-  templateUrl: './new-album.component.html'
+],
+    providers: [
+        DialogService
+    ],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    templateUrl: './new-album.component.html'
 })
 export class NewAlbumComponent implements OnInit {
 

@@ -1,6 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { RevealDirective } from 'src/app/shared/directives/reveal.directive';
+import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { Image } from 'src/app/features/bo/pages/albums/models/image.model';
 import { SingleImageComponent } from 'src/app/features/bo/pages/albums/components/single-image/single-image.component';
 import { FormsModule } from '@angular/forms';
@@ -10,29 +11,30 @@ import { ImageOverviewService } from '../../services/image-overview.service';
 import { InputTextModule } from 'primeng/inputtext';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { TooltipModule } from 'primeng/tooltip';
-import { TabViewModule } from 'primeng/tabview';
+import { TabsModule } from 'primeng/tabs';
 import { PermitDirective } from 'src/app/core/directives/permit.directive';
-import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { PopoverModule } from 'primeng/popover';
 import { TableModule } from 'primeng/table';
 import { ALBUM_SHOW_IMAGES_AMOUNT } from 'src/app/core/data/staticData';
 
 @Component({
-  selector: 'app-album',
-  standalone: true,
-  imports: [
-    CommonModule,
-    TranslateModule,
-    SingleImageComponent,
-    FormsModule,
-    InputTextModule,
-    ConfirmDialogModule,
-    TooltipModule,
-    TabViewModule,
-    PermitDirective,
-    OverlayPanelModule,
-    TableModule
-  ],
-  templateUrl: './album.component.html'
+    selector: 'app-album',
+    imports: [
+        RevealDirective,
+        CommonModule,
+        TranslatePipe,
+        SingleImageComponent,
+        FormsModule,
+        InputTextModule,
+        ConfirmDialogModule,
+        TooltipModule,
+        TabsModule,
+        PermitDirective,
+        PopoverModule,
+        TableModule
+    ],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    templateUrl: './album.component.html'
 })
 export class AlbumComponent implements OnInit {
 
@@ -178,12 +180,12 @@ export class AlbumComponent implements OnInit {
   }
 
   selectAllImages(): void {
-    if (this.albumsStore.state.images) {
+    if (this.albumsStore.snapshot.images) {
       if (this.isAdmin) {
-        this.selectedAdminImages = this.albumsStore.state.images.images;
+        this.selectedAdminImages = this.albumsStore.snapshot.images.images;
         this.albumsStore.patchSelectedAdminImages(this.selectedAdminImages);
       } else {
-        this.selectedImages = this.albumsStore.state.images.images;
+        this.selectedImages = this.albumsStore.snapshot.images.images;
         this.albumsStore.patchSelectedImages(this.selectedImages);
 
         this.albumsStore.selectImages();
@@ -191,9 +193,11 @@ export class AlbumComponent implements OnInit {
     }
   }
 
-  onTabChange(): void {
+  onTabChange(value: string | number | undefined): void {
+    this.tabsIndex = Number(value);
+
     if (this.tabsIndex === 1) {
-      this.albumsStore.getSelectedAlbumImages(this.albumsStore.state.previewAlbum?.id);
+      this.albumsStore.getSelectedAlbumImages(this.albumsStore.snapshot.previewAlbum?.id);
       this.showSelected = true;
     } else {
       this.showSelected = false;

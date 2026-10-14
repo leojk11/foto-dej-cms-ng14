@@ -1,29 +1,31 @@
+import { RevealDirective } from 'src/app/shared/directives/reveal.directive';
 import { CommonModule, Location } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { InputTextModule } from 'primeng/inputtext';
 import { TableModule } from 'primeng/table';
 import { AdminLayoutService } from 'src/app/features/bo/layout/services/admin-layout.service';
 import { RequestsStore } from '../../services/requests.store';
-import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { PopoverModule } from 'primeng/popover';
 import { RequestFilters } from '../../models/requestFilters.model';
 
 @Component({
-  selector: 'app-requests',
-  standalone: true,
-  imports: [
-    CommonModule,
-    TranslateModule,
-    TableModule,
-    FormsModule,
-    InputTextModule,
-    OverlayPanelModule
-  ],
-  providers: [
-    RequestsStore
-  ],
-  templateUrl: './requests.component.html'
+    selector: 'app-requests',
+    imports: [
+        RevealDirective,
+        CommonModule,
+        TranslatePipe,
+        TableModule,
+        FormsModule,
+        InputTextModule,
+        PopoverModule
+    ],
+    providers: [
+        RequestsStore
+    ],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    templateUrl: './requests.component.html'
 })
 export class RequestsComponent implements OnInit {
 

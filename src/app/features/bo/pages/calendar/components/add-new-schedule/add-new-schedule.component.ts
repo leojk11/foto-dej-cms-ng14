@@ -1,14 +1,14 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { CalendarService } from '../../services/calendar.service';
 import { Schedule } from '../../models/schedule.model';
-import * as dayjs from 'dayjs';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import dayjs from 'dayjs';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { SpinnerComponent } from 'src/app/shared/components/loading/spinner/spinner.component';
 import { InputTextModule } from 'primeng/inputtext';
-import {InputTextareaModule} from 'primeng/inputtextarea';
+import {TextareaModule} from 'primeng/textarea';
 import { ConfirmationService } from 'primeng/api';
 import { DialogModule } from 'primeng/dialog';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
@@ -18,25 +18,25 @@ import { TagModule } from 'primeng/tag';
 import { AddNewLocationsComponent } from '../add-new-locations/add-new-locations.component';
 
 @Component({
-  selector: 'app-add-new-schedule',
-  standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    TranslateModule,
-    SpinnerComponent,
-    InputTextModule,
-    InputTextareaModule,
-    DialogModule,
-    ConfirmDialogModule,
-    TagModule
-  ],
-  providers: [
-    ConfirmationService
-  ],
-  templateUrl: './add-new-schedule.component.html',
-  styleUrls: ['./add-new-schedule.component.scss']
+    selector: 'app-add-new-schedule',
+    imports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        TranslatePipe,
+        SpinnerComponent,
+        InputTextModule,
+        TextareaModule,
+        DialogModule,
+        ConfirmDialogModule,
+        TagModule
+    ],
+    providers: [
+        ConfirmationService
+    ],
+    templateUrl: './add-new-schedule.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
+    styleUrls: ['./add-new-schedule.component.scss']
 })
 export class AddNewScheduleComponent implements OnInit {
 
@@ -185,7 +185,7 @@ export class AddNewScheduleComponent implements OnInit {
       header: location ? this.translate.instant('calendar.editLocation')  : this.translate.instant('calendar.newLocation')
     });
     
-    dialogRef.onClose.subscribe({
+    dialogRef?.onClose.subscribe({
       next: (data) => {
         if (data) {
           this.getLocations();

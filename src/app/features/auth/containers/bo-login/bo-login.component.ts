@@ -1,4 +1,5 @@
-import { Component, ElementRef, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { RevealDirective } from 'src/app/shared/directives/reveal.directive';
+import { Component, ElementRef, OnInit, ViewChild, AfterViewInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
@@ -6,8 +7,8 @@ import { APP_VERSION } from 'src/app/core/data/staticData';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { StorageService } from 'src/app/core/services/storage.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { TranslateModule } from '@ngx-translate/core';
-import { CommonModule } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
+
 import { SpinnerComponent } from 'src/app/shared/components/loading/spinner/spinner.component';
 import {InputTextModule} from 'primeng/inputtext';
 import { LoginFormComponent } from '../../components/login-form/login-form.component';
@@ -15,19 +16,19 @@ import { LangChangeComponent } from 'src/app/shared/components/lang-change/lang-
 import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
-  selector: 'app-bo-login',
-  standalone: true,
-  imports: [
-    CommonModule,
+    selector: 'app-bo-login',
+    imports: [
     FormsModule,
     ReactiveFormsModule,
-    TranslateModule,
+    TranslatePipe,
     SpinnerComponent,
     InputTextModule,
     LoginFormComponent,
-    LangChangeComponent
-  ],
-  templateUrl: './bo-login.component.html'
+    LangChangeComponent,
+        RevealDirective
+],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    templateUrl: './bo-login.component.html'
 })
 export class BoLoginComponent implements OnInit, AfterViewInit {
 

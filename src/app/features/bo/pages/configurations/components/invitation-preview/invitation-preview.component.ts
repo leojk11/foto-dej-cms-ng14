@@ -1,17 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+
 import { Configuration } from '../../models/configuration.model';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { DynamicDialogConfig } from 'primeng/dynamicdialog';
 
 @Component({
-  selector: 'app-invitation-preview',
-  standalone: true,
-  imports: [
-    CommonModule
-  ],
-  templateUrl: './invitation-preview.component.html',
-  styleUrls: ['./invitation-preview.component.scss']
+    selector: 'app-invitation-preview',
+    imports: [],
+    templateUrl: './invitation-preview.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
+    styleUrls: ['./invitation-preview.component.scss']
 })
 export class InvitationPreviewComponent implements OnInit {
 

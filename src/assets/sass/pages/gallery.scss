@@ -1,77 +1,77 @@
 .gallery {
   margin: 0 auto;
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
+  background: $color-wrapper;
 
-  &__header {
-    color: $color-light;
-    position: relative;
+  &__intro {
+    padding: 14rem 2rem 5rem;
+    text-align: center;
 
-    &--image {
-      width: 100vw;
-      height: 100vh;
-      position: relative;
+    .section-head {
+      margin-bottom: 0;
+    }
 
-      img { 
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-
-      & .after {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(0deg, rgba(37, 71, 106, 0.44), rgba(37, 71, 106, 0.44));
-      }
+    @include screen-md {
+      padding-top: 11rem;
     }
   }
 
   &__images {
     width: 100%;
-    
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    padding: 100px 20px;
-
-    overflow: auto;
+    max-width: 134rem;
+    margin: 0 auto;
+    padding: 0 3rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(30rem, 1fr));
+    gap: 2.4rem;
 
     &__image {
-      width: 30%;
-      height: 360px;
-      padding: 10px;
+      aspect-ratio: 4 / 5;
       overflow: hidden;
-      margin-bottom: 10px;
-  
+      border-radius: $radius-lg;
+      background: $color-light;
+      box-shadow: $shadow-card;
+      transition: box-shadow 0.5s $ease-out;
+
+      &:hover {
+        box-shadow: $shadow-card-hover;
+
+        img {
+          transform: scale(1.06);
+        }
+      }
+
       img {
         width: 100%;
         height: 100%;
         object-fit: cover;
         object-position: top;
+        transition: transform 0.9s $ease-out;
       }
     }
 
     @include screen-md {
+      padding: 0 1.6rem;
+      gap: 1.2rem;
+      grid-template-columns: repeat(2, 1fr);
+
       &__image {
-        width: 100%;
-        height: 220px;
-        padding: 10px;
-    
-        img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-        }
+        border-radius: $radius-md;
       }
     }
   }
 
+  &__more {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5rem 0 10rem;
+  }
+
   .gallery-image {
     position: relative;
-
     width: 100%;
     height: 100%;
 
@@ -79,10 +79,7 @@
       position: absolute;
       top: 50%;
       left: 50%;
+      margin: -22px 0 0 -22px;
     }
-  }
-
-  @include screen-md {
-    overflow-y: scroll;
   }
 }

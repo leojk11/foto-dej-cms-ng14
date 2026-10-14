@@ -38,13 +38,13 @@ export class NotificationStore extends ComponentStore<NotificationState> {
     super(initialState)
   }
 
-  get state() {
+  get snapshot() {
     return this.get(s => s);
   }
 
   setParams(params: BasicParams): void {
     this.patchState({
-      ...this.state,
+      ...this.snapshot,
       params
     })
   }
@@ -57,12 +57,12 @@ export class NotificationStore extends ComponentStore<NotificationState> {
           notifications: []
         });
         this.spinner.show().then();
-        return this.service.getNotifications(this.state.params).pipe(
+        return this.service.getNotifications(this.snapshot.params).pipe(
           tap((res) => {
             console.log('NOTIFICATIONS', res);
             
             this.patchState({
-              ...this.state,
+              ...this.snapshot,
               notifications: res.list,
               total: res.total,
               not_read: res.not_read
@@ -73,7 +73,7 @@ export class NotificationStore extends ComponentStore<NotificationState> {
       }),
       catchError((err)=>{
         this.patchState({
-          ...this.state,
+          ...this.snapshot,
           loading: false,
         });
         this.spinner.hide().then();

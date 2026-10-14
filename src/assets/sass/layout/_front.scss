@@ -1,17 +1,22 @@
 .front {
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
 
   .container{
     width: 100%;
     height: 100%;
-    margin-top: 8.8rem;
-    padding: 4.9rem 12rem;
+    flex: 1;
+    margin-top: 7.2rem;
+    padding: 4rem 6rem 6rem;
     min-height: 72.2vh;
+    max-width: 140rem;
+    margin-left: auto;
+    margin-right: auto;
 
     @include screen-md {
       min-height: 80vh;
-      padding: 2.5rem 2.5rem 5rem;
+      padding: 2rem 1.6rem 4rem;
     }
   }
 }

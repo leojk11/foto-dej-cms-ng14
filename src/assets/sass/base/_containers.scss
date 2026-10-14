@@ -15,51 +15,54 @@
     flex-direction: column;
   }
 
+  // ---- admin shell ----
   &__bo--inner {
     width: 100%;
     height: 100vh;
     padding-left: 0;
+    display: flex;
+    flex-direction: column;
+    transition: padding-left 0.4s $ease-out;
 
     &.container-mobile{
       padding-left: 0 !important;
     }
 
     @media (min-width: 887px) {
-      padding-left: 23rem !important;
+      padding-left: $sidebar-width !important;
     }
   }
 
   &__bo--router-wrapper {
     width: 100%;
-    background-color: $color-wrapper;
-    border-bottom-left-radius: 0.5rem;
-    border-bottom-right-radius: 0.5rem;
+    height: 100%;
     overflow-y: auto;
-    height: 86vh;
     position: relative;
+    border-radius: inherit;
 
-    & > * {
-      background-color: $color-wrapper;
-    }
-
-    @include screen-md {
-      height: 78vh;
+    // each admin page fades in when the route changes
+    & > *:not(router-outlet) {
+      animation: page-in 0.55s $ease-out both;
     }
   }
 
   &__bo--content-wrapper{
-    width: 95%;
-    margin: -12rem auto 2rem;
+    flex: 1;
+    min-height: 0;
+    width: auto;
+    margin: 0 2rem 2rem;
     padding: 0;
-    background-color: $color-wrapper;
+    background-color: $surface;
     position: relative;
-    z-index: 13;
-    border-radius: 1rem;
-    box-shadow: $shadow-icon;
+    z-index: 2;
+    border-radius: $radius-lg;
+    border: 1px solid $border-color;
+    box-shadow: $shadow-card;
     overflow: hidden;
 
     @include screen-md {
-      // margin-bottom: 4rem !important;
+      margin: 0 1rem 1rem;
+      border-radius: $radius-md;
     }
   }
 }

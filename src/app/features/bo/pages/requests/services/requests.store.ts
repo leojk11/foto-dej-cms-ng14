@@ -38,7 +38,7 @@ export class RequestsStore extends ComponentStore<RequestsState> {
     super(initialState);
   }
 
-  get state() {
+  get snapshot() {
     return this.get(s => s);
   }
 
@@ -49,7 +49,7 @@ export class RequestsStore extends ComponentStore<RequestsState> {
   getRequests(filters?: Partial<RequestFilters>): void {
     this.spinner.show().then();
 
-    this.requestsService.getAll(this.state.params, filters).subscribe({
+    this.requestsService.getAll(this.snapshot.params, filters).subscribe({
       next: (res: GetAllRequestsResponse) => {
         this.patchState({
           list: res.list,

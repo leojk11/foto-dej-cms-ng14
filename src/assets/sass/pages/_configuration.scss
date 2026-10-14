@@ -345,3 +345,10 @@
 .p-tag {
     font-size: 1.6rem !important;
 }
+.configuration-wrapper app-upload,
+.configuration-wrapper app-multi-upload,
+.configuration-wrapper app-regular-input,
+.configuration-wrapper app-regular-input-double,
+.configuration-wrapper app-video-regular-input {
+  display: block;
+}

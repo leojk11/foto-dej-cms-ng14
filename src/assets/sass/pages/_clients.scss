@@ -1,14 +1,8 @@
 .clients{
-  background-color: $color-wrapper;
-  // padding: 0rem 2rem 2rem;
   min-height: 60vh;
 
   @include screen-md {
     padding-bottom: 4rem;
-  }
-
-  .p-paginator{
-    background-color: $main-bg!important;
   }
 
   &__header{
@@ -42,9 +36,8 @@
 
     &--items {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(25rem, 1fr));
-      gap: 5rem;
-      row-gap: 3rem;
+      grid-template-columns: repeat(auto-fill, minmax(26rem, 1fr));
+      gap: 2.4rem;
       // max-width: 25rem;
 
       @include screen-md {
@@ -138,7 +131,7 @@
         height: 12rem;
         border-radius: 1.5rem;
         background-color: $color-light;
-        box-shadow: $shadow-small;
+        box-shadow: $shadow-card;
         margin-bottom: 1rem;
 
         display: flex;
@@ -276,14 +269,14 @@
     align-items: center;
     row-gap: .5rem;
 
-    box-shadow: $shadow-small;
-    padding: 1rem 1rem;
-    border-radius: 10px;
+    box-shadow: $shadow-card;
+    padding: 1.4rem 1rem;
+    border-radius: $radius-md;
 
-    background-color: rgba($color-medium, .7);
+    background: linear-gradient(160deg, $color-medium, $color-dark);
     color: $color-light;
     cursor: pointer;
-    transition: all .2s;
+    transition: transform .35s $ease-out, box-shadow .35s $ease-out;
 
     &--top {
       width: 100%;
@@ -306,12 +299,13 @@
     }
 
     &:hover {
-      background-color: rgba($color-medium, .8);
+      transform: translateY(-4px);
+      box-shadow: $shadow-card-hover;
     }
   }
 
   &__logs {
-    background-color: $white;
+    background-color: transparent;
     padding: 2rem 2rem 0;
   }
 }

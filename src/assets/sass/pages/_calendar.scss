@@ -33,8 +33,9 @@
 .fc.fc-theme-standard .fc-toolbar .fc-button-group .fc-button {
   width: 4rem !important;
   height: 4rem !important;
-  background: $highlight !important;
-  border-color: $highlight !important;
+  background: $color-dark !important;
+  border-color: $color-dark !important;
+  border-radius: 50% !important;
   margin-right: .5rem !important;
 
   &:hover {
@@ -47,13 +48,19 @@
   font-size: 2rem !important;
 }
 
+.fc {
+  font-family: $font-body;
+  --fc-border-color: #{$border-color};
+}
+
 .fc .fc-daygrid-day.fc-day-today{
-  background-color: $light-grey !important;
+  background-color: rgba($color-1, 0.12) !important;
 }
 
 .fc.fc-theme-standard .fc-view-harness .fc-event.fc-daygrid-block-event{
   background: $color-medium;
   border-color: $color-medium;
+  border-radius: 0.6rem;
   padding: 4px;
 
   &:hover {
@@ -63,15 +70,11 @@
 }
 
 .calendar {
-  background-color: $color-wrapper;
-  // padding: 0rem 2rem 2rem;
-  // height: 60vh;
-
   &__header{
     width: 100%;
     padding: 2rem;
 
-    border-bottom: 1px solid rgba(60,60,59,0.19);
+    border-bottom: 1px solid $border-color;
     border-radius: 5px;
     display: flex;
     justify-content: space-between;

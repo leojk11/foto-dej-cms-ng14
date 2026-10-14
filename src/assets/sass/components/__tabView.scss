@@ -1,36 +1,50 @@
-.p-tabview {
-  .p-tabview-nav  {
-    font-size: 1.8rem !important;
-    background: $color-wrapper !important;
+.p-tabs {
+  background: transparent !important;
+
+  .p-tablist,
+  .p-tablist-content,
+  .p-tablist-tab-list {
+    background: transparent !important;
+    border: none !important;
+  }
+
+  .p-tablist-tab-list {
     justify-content: center !important;
-    border: none !important; 
-    gap: 3rem;
-    font-family: 'Roboto', serif;
+    gap: 1rem;
     padding: 1rem 0;
+  }
 
-    li {
-      .p-tabview-nav-link {
-        background: $color-wrapper !important;
-        // border-radius: 6px;
+  .p-tab {
+    font-size: 1.4rem !important;
+    font-weight: 600;
+    font-family: $font-body;
+    padding: 0.9rem 2.2rem !important;
+    border-radius: $radius-pill;
+    background: transparent !important;
+    color: $text-muted;
+    border: none !important;
+    transition: background-color 0.25s, color 0.25s;
 
-        &:not(.p-disabled):focus {
-          outline: none;
-          box-shadow: none;
-        }
-      }
+    &:hover {
+      background: rgba($color-dark, 0.06) !important;
+    }
 
-      &.p-highlight {
-        .p-tabview-nav-link {
-          color: $color-dark !important;
-          box-shadow: none;
-          border-color: $highlight;
-        }
-      }
+    &.p-tab-active {
+      background: $color-dark !important;
+      color: $white !important;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $highlight;
     }
   }
 
-  .p-tabview-panels {
-    background: $color-wrapper !important;
-    padding: 3rem 0;
+  .p-tablist-active-bar {
+    display: none;
+  }
+
+  .p-tabpanels {
+    background: transparent !important;
+    padding: 2rem 0;
   }
 }

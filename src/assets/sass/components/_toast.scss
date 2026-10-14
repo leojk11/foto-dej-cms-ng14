@@ -1,3 +1,9 @@
 .p-toast {
   font-size: 1.4rem !important;
 }
+
+.p-toast-message {
+  border-radius: $radius-md !important;
+  box-shadow: $shadow-card-hover !important;
+  backdrop-filter: blur(10px);
+}

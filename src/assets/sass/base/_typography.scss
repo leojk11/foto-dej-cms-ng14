@@ -1,37 +1,40 @@
 .forgot-password{
-  font-size: 1.6rem;
-  letter-spacing: 1px;
+  font-size: 1.4rem;
   font-style: italic;
   margin-bottom: 2rem;
   margin-left: auto;
   cursor: pointer;
+  transition: color 0.2s;
 
   &:hover{
-    color: $color-highlight;
+    color: $highlight;
   }
 }
 
-.isActive{
-  background-color: #c8e7c8;
-  color: #246028;
-  padding: 0 1.5rem;
-  border-radius: 15px;
-  width: 15rem !important;
+.isActive,
+.isExpired {
+  padding: 0.3rem 1.4rem;
+  border-radius: $radius-pill;
+  width: auto !important;
+  display: inline-block;
+  font-size: 1.3rem;
+  font-weight: 600;
   text-align: center;
 }
 
+.isActive{
+  background-color: rgba($color-highlight-green, 0.18);
+  color: #3f5a0b;
+}
+
 .isExpired{
-  background-color: #ffccd3;
-  color: #c63755;
-  padding: 0 1.5rem;
-  border-radius: 15px;
-  width: 15rem !important;
-  text-align: center;
+  background-color: rgba($red, 0.1);
+  color: #a90b00;
 }
 
 .text-light{
   font-size: 1.3rem;
-  color: rgba($black, 0.9);
+  color: $text-muted;
 }
 
 .pi{
@@ -44,5 +47,44 @@ a{
 
 .album-title {
   font-size: 2rem;
-  font-weight: 500;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+h1, h2, h3 {
+  letter-spacing: -0.01em;
+}
+
+// reusable section heading (homepage + gallery)
+.section-head {
+  text-align: center;
+  margin: 0 auto 4.5rem;
+  max-width: 62rem;
+
+  &__eyebrow {
+    display: inline-block;
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: $color-1;
+    margin-bottom: 1.2rem;
+  }
+
+  &__title {
+    font-family: $font-display;
+    font-size: clamp(2.8rem, 4vw, 4rem);
+    font-weight: 600;
+    line-height: 1.15;
+    color: $color-dark;
+  }
+
+  &__line {
+    display: block;
+    width: 5rem;
+    height: 3px;
+    border-radius: 3px;
+    background: $color-1;
+    margin: 2rem auto 0;
+  }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FrontNavbarComponent } from '../components/front-navbar/front-navbar.component';
 import { RouterModule } from '@angular/router';
@@ -11,18 +11,18 @@ import { ImageOverviewComponent } from 'src/app/shared/components/image-overview
 import { StartLoaderComponent } from 'src/app/shared/components/start-loader/start-loader.component';
 
 @Component({
-  selector: 'app-front-layout',
-  standalone: true,
-  imports: [
-    CommonModule,
-    FrontNavbarComponent,
-    RouterModule,
-    FooterComponent,
-    ImageOverviewComponent,
-    StartLoaderComponent
-  ],
-  templateUrl: './front-layout.component.html',
-  styleUrls: ['./front-layout.component.scss']
+    selector: 'app-front-layout',
+    imports: [
+        CommonModule,
+        FrontNavbarComponent,
+        RouterModule,
+        FooterComponent,
+        ImageOverviewComponent,
+        StartLoaderComponent
+    ],
+    templateUrl: './front-layout.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
+    styleUrls: ['./front-layout.component.scss']
 })
 export class FrontLayoutComponent implements OnInit {
 

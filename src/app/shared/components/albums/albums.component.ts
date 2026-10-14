@@ -1,33 +1,37 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { RevealDirective } from 'src/app/shared/directives/reveal.directive';
+import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
 import { AlbumsStore } from '../../../features/bo/pages/albums/services/albums.store';
 import { SingleAlbumComponent } from '../single-album/single-album.component';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { NewAlbumComponent } from '../../../features/bo/pages/albums/containers/new-album/new-album.component';
 import { DialogService } from 'primeng/dynamicdialog';
 import { AdminLayoutService } from 'src/app/features/bo/layout/services/admin-layout.service';
 import { PaginatorModule } from 'primeng/paginator';
 import { InputTextModule } from 'primeng/inputtext';
 import { PermitDirective } from 'src/app/core/directives/permit.directive';
-import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { PopoverModule } from 'primeng/popover';
+import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-albums',
-  standalone: true,
-  imports: [
-    CommonModule,
-    SingleAlbumComponent,
-    TranslateModule,
-    PaginatorModule,
-    InputTextModule,
-    PermitDirective,
-    OverlayPanelModule
-  ],
-  providers: [
-    AlbumsStore,
-    DialogService
-  ],
-  templateUrl: './albums.component.html'
+    selector: 'app-albums',
+    imports: [
+        RevealDirective,
+        CommonModule,
+        SingleAlbumComponent,
+        TranslatePipe,
+        PaginatorModule,
+        InputTextModule,
+        PermitDirective,
+        PopoverModule,
+        FormsModule
+    ],
+    providers: [
+        AlbumsStore,
+        DialogService
+    ],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    templateUrl: './albums.component.html'
 })
 export class AlbumsComponent implements OnInit {
 
@@ -86,7 +90,7 @@ export class AlbumsComponent implements OnInit {
     if(this.nameSearch !== '' && this.dateSearch === ''){
       this.albumStore.patchState({
         params: {
-          ...this.albumStore.state.params,
+          ...this.albumStore.snapshot.params,
           title: this.nameSearch
         }
       });
@@ -96,7 +100,7 @@ export class AlbumsComponent implements OnInit {
     } else if(this.dateSearch !== '' && this.nameSearch === ''){
       this.albumStore.patchState({
         params: {
-          ...this.albumStore.state.params,
+          ...this.albumStore.snapshot.params,
           date: this.dateSearch
         }
       });
@@ -106,7 +110,7 @@ export class AlbumsComponent implements OnInit {
     } else if(this.dateSearch !== '' && this.nameSearch !== ''){
       this.albumStore.patchState({
         params: {
-          ...this.albumStore.state.params,
+          ...this.albumStore.snapshot.params,
           title: this.nameSearch,
           date: this.dateSearch
         }
@@ -116,8 +120,8 @@ export class AlbumsComponent implements OnInit {
     } else {
       this.albumStore.patchState({
         params: {
-          page: this.albumStore.state.params.page,
-          take: this.albumStore.state.params.take
+          page: this.albumStore.snapshot.params.page,
+          take: this.albumStore.snapshot.params.take
         }
       });
     }

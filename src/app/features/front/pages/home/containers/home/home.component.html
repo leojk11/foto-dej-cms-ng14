@@ -1,93 +1,121 @@
-<div class="home" *ngIf="frontConfigurationState.confState$ | async as state">
-  <app-start-loader *ngIf="showStartLoader" [@enterAnimation] [errorOccured]="errorOnLoading"></app-start-loader>
-  <div class="home__header">
-    <div class="home__header--image">
-      <app-spinner *ngIf="!mainImageLoaded"></app-spinner>
-      <img [src]="state.imageUrl + state.configuration.main_image" alt="main_image" [class.hidden]="!mainImageLoaded"
-        (load)="onMainImageLoad()" (error)="mainImageLoaded = true">
-      <div class="after"></div>
-    </div>
-    
-    <app-front-navbar
-      (goToElement)="goToElement($event, -100)"
-    ></app-front-navbar>
+@if (frontConfigurationState.confState$ | async; as state) {
+  <div class="home">
+    @if (showStartLoader) {
+      <app-start-loader [@enterAnimation] [errorOccured]="errorOnLoading"></app-start-loader>
+    }
 
-    <div class="home__hero">
-      <div class="home__hero--title">
-        {{ mainTitle }}
-      </div>
-      <div class="home__hero--text">
-        {{ secondTitle }}
+    <section class="home__header">
+      <div class="home__header--image">
+        @if (!mainImageLoaded) {
+          <app-spinner></app-spinner>
+        }
+        <div class="home__header--media" [appParallax]="0.28">
+          <img [src]="state.imageUrl + state.configuration.main_image" alt="main_image" [class.hidden]="!mainImageLoaded"
+            (load)="onMainImageLoad()" (error)="mainImageLoaded = true">
+        </div>
+        <div class="after"></div>
       </div>
 
-      <div class="home__hero--buttons">
-        <button 
-          pButton
-          type="button"
-          routerLink="/auth/client"
-          class="btn btn__main"
-        >
-          {{ 'common.signIn' | translate }}
+      <app-front-navbar
+        [overlay]="true"
+        (goToElement)="goToElement($event, -70)"
+      ></app-front-navbar>
+
+      @if (!showStartLoader) {
+        <div class="home__hero">
+          <h1 class="home__hero--title">
+            {{ mainTitle }}
+          </h1>
+          <p class="home__hero--text">
+            {{ secondTitle }}
+          </p>
+          <div class="home__hero--buttons">
+            <button
+              pButton
+              type="button"
+              routerLink="/auth/client"
+              class="btn btn__hero"
+              >
+              {{ 'common.signIn' | translate }}
+            </button>
+            <button
+              pButton
+              type="button"
+              class="btn btn__hero btn__hero--ghost"
+              (click)="goToElement(collaboration, -70)"
+              >
+              {{ 'home.collaboration' | translate }}
+            </button>
+          </div>
+        </div>
+        <button type="button" class="home__arrow" aria-label="Scroll down" (click)="goToElement(slider, -70)">
+          <i class="pi pi-chevron-down"></i>
         </button>
+      }
+    </section>
 
-        <button 
-          pButton
-          type="button"
-          class="btn btn__main--outline"
-          (click)="goToElement(collaboration, -100)"
-        >
-          {{ 'home.collaboration' | translate }}
-        </button>
+    <section class="home__slider" #slider>
+      <div class="section-head" appReveal>
+        <span class="section-head__eyebrow">{{ 'common.name' | translate }}</span>
+        <h2 class="section-head__title">{{ 'common.gallery' | translate }}</h2>
+        <span class="section-head__line"></span>
       </div>
-    </div>
 
-    <div class="home__arrow" (click)="goToElement(slider, -100)">
-      <img src="../../../../../../../assets/img/hero-arrow.svg" alt="">
-    </div>
-  </div>
-
-  <div class="home__slider" #slider>
-
-    <app-slider
-      [promoImages]="promoImagesForSlider"
-      [imageUrl]="state.imageUrl"
-    ></app-slider>
-
-    <ng-container *ngIf="state.configuration.promo_images">
-      <div class="w-full flex justify-center align-center mt-3"
-        *ngIf="state.configuration.promo_images.length > 0">
-        <button 
-          pButton
-          type="button"
-          class="btn btn__main"
-          routerLink="/gallery"
-        >
-          {{ 'common.seeAll' | translate }}
-        </button>
+      <div appReveal="zoom" [revealDelay]="100">
+        <app-slider
+          [promoImages]="promoImagesForSlider"
+          [imageUrl]="state.imageUrl"
+        ></app-slider>
       </div>
-    </ng-container>
+
+      @if (state.configuration.promo_images) {
+        @if (state.configuration.promo_images.length > 0) {
+          <div class="w-full flex justify-center align-center mt-5" appReveal>
+            <button
+              pButton
+              type="button"
+              class="btn btn__main btn__main--outline"
+              routerLink="/gallery"
+              >
+              {{ 'common.seeAll' | translate }}
+              <i class="pi pi-arrow-right"></i>
+            </button>
+          </div>
+        }
+      }
+    </section>
+
+    @if (showVideo && videoIds.length > 0) {
+      <section class="home__video">
+        @for (videoId of videoIds; track videoId; let i = $index) {
+          <div class="home__video--frame" appReveal [revealDelay]="i * 120">
+            <youtube-player
+              [videoId]="videoId"
+              [height]="videoHeight"
+              [width]="videoWidth"
+            ></youtube-player>
+          </div>
+        }
+      </section>
+    }
+
+    <section class="home__contact" #collaboration>
+      <div class="home__contact--card" appReveal>
+        <div class="section-head">
+          <span class="section-head__eyebrow">{{ 'common.contact' | translate }}</span>
+          <h2 class="section-head__title">
+            {{ 'home.contactFormLabel' | translate }}
+          </h2>
+          <span class="section-head__line"></span>
+        </div>
+        <div class="home__contact--form">
+          <app-contact-form></app-contact-form>
+        </div>
+      </div>
+    </section>
+
+    <app-footer
+      [configuration]="state.configuration"
+    ></app-footer>
   </div>
-
-  <div class="home__video gap-2" *ngIf="showVideo">
-    <youtube-player
-      *ngFor="let videoId of videoIds"
-      [videoId]="videoId"
-      [height]="videoHeight" 
-      [width]="videoWidth"
-    ></youtube-player>
-  </div>
-
-  <div class="home__contact" #collaboration>
-    <p class="home__contact--title">
-      {{ 'home.contactFormLabel' | translate }}
-    </p>
-
-    <div class="home__contact--form">
-      <app-contact-form></app-contact-form>
-    </div>
-  </div>
-
-  <app-footer
-    [configuration]="state.configuration"
-  ></app-footer>
-</div>
+}

@@ -3,12 +3,11 @@
     width: 100%;
     display: flex;
     align-items: center;
-    // justify-content: space-between;
     justify-content: flex-end;
     flex-wrap: wrap;
-    gap: 1.5rem;
+    gap: 1.2rem;
     row-gap: 1rem;
-    margin-bottom: 3rem;
+    margin-bottom: 2.4rem;
 
     &--search {
       position: relative;
@@ -25,9 +24,8 @@
     &--actions {
       display: flex;
       align-items: center;
-      gap: 1.5rem;
+      gap: 1rem;
       flex-wrap: wrap;
-
     }
   }
 
@@ -36,7 +34,8 @@
     height: 30rem;
     margin: 0 auto;
     text-align: center;
-    font-size: 2rem;
+    font-size: 1.8rem;
+    color: $text-muted;
 
     img {
       width: 100%;
@@ -48,56 +47,71 @@
   &__images {
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
-    gap: 2.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
+    gap: 1.8rem;
 
     &--image {
       &__inner {
         width: 100%;
-        border: 1px solid $color-dark;
-        border-radius: 10px;
-        height: 15.5rem;
+        border-radius: $radius-md;
+        height: 17rem;
         position: relative;
         overflow: hidden;
-  
+        box-shadow: $shadow-card;
+        background: $color-light;
+        transition: transform 0.4s $ease-out, box-shadow 0.4s $ease-out;
+
+        &:hover {
+          transform: translateY(-4px);
+          box-shadow: $shadow-card-hover;
+
+          img {
+            transform: scale(1.08);
+          }
+        }
+
         &--select {
           position: absolute;
           top: 1rem;
           right: 1rem;
+          z-index: 2;
         }
-  
+
         img {
           width: 100%;
           height: 100%;
           object-fit: cover;
+          transition: transform 0.7s $ease-out;
         }
-  
+
         &--name {
           width: 100%;
           font-size: 1.2rem;
           text-align: center;
-          color: $color-light;
-          padding: .5rem 0rem;
+          color: $white;
+          padding: 1.4rem 0.6rem 0.6rem;
           position: absolute;
           bottom: 0;
           left: 0;
-          background: linear-gradient(0deg, rgba(37, 71, 106, 0.44), rgba(37, 71, 106, 0.44));
+          background: linear-gradient(0deg, rgba($color-dark, 0.75), rgba($color-dark, 0));
         }
       }
     }
   }
 
   @include screen-md {
-
     &__top {
       justify-content: flex-end;
     }
 
     &__images {
       padding: 1rem 0 10rem;
+      grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+      gap: 1.2rem;
 
       &--image {
         &__inner {
+          height: 14rem;
 
           &--select {
             top: .5rem;

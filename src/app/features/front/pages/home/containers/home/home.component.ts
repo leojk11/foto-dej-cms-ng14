@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { RouterModule } from '@angular/router';
 import { SliderComponent } from '../../components/slider/slider.component';
 import { FrontConfigurationService } from '../../../../../../shared/services/front-configuration.service';
@@ -10,45 +10,46 @@ import { Configuration } from 'src/app/features/bo/pages/configurations/models/c
 import { ToastService } from 'src/app/shared/services/toast.service';
 import { FrontNavbarComponent } from 'src/app/features/front/layout/components/front-navbar/front-navbar.component';
 import { FrontConfigurationState } from 'src/app/shared/services/front-configuration.store';
-import { NgxYoutubePlayerModule } from 'ngx-youtube-player';
+import { YouTubePlayerModule } from '@angular/youtube-player';
 import { map, Observable, shareReplay } from 'rxjs';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { SpinnerComponent } from 'src/app/shared/components/loading/spinner/spinner.component';
 import { StartLoaderComponent } from 'src/app/shared/components/start-loader/start-loader.component';
 import { animate, style, transition, trigger } from '@angular/animations';
+import { RevealDirective } from 'src/app/shared/directives/reveal.directive';
+import { ParallaxDirective } from 'src/app/shared/directives/parallax.directive';
 
 @Component({
-  selector: 'app-home',
-  standalone: true,
-  imports: [
-    CommonModule,
-    TranslateModule,
-    RouterModule,
-    SliderComponent,
-    ContactFormComponent,
-    FooterComponent,
-    FrontNavbarComponent,
-    NgxYoutubePlayerModule,
-    SpinnerComponent,
-    StartLoaderComponent
-  ],
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [
-    trigger(
-      'enterAnimation', [
-        transition(':enter', [
-          style({transform: 'translateX(100%)', opacity: 0}),
-          animate('500ms', style({transform: 'translateX(0)', opacity: 1}))
-        ]),
-        transition(':leave', [
-          style({transform: 'translateX(0)', opacity: 1}),
-          animate('500ms', style({transform: 'translateX(100%)', opacity: 0}))
+    selector: 'app-home',
+    imports: [
+        CommonModule,
+        TranslatePipe,
+        RouterModule,
+        SliderComponent,
+        ContactFormComponent,
+        FooterComponent,
+        FrontNavbarComponent,
+        YouTubePlayerModule,
+        SpinnerComponent,
+        StartLoaderComponent,
+        RevealDirective,
+        ParallaxDirective
+    ],
+    templateUrl: './home.component.html',
+    styleUrls: ['./home.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    animations: [
+        trigger('enterAnimation', [
+            transition(':enter', [
+                style({ transform: 'translateX(100%)', opacity: 0 }),
+                animate('500ms', style({ transform: 'translateX(0)', opacity: 1 }))
+            ]),
+            transition(':leave', [
+                style({ transform: 'translateX(0)', opacity: 1 }),
+                animate('500ms', style({ transform: 'translateX(100%)', opacity: 0 }))
+            ])
         ])
-      ]
-    )
-  ]
+    ]
 })
 export class HomeComponent implements OnInit {
 
@@ -59,8 +60,8 @@ export class HomeComponent implements OnInit {
 
   promoImagesForSlider: string[] = [];
 
-  videoWidth: number = 800;
-  videoHeight: number = 450;
+  videoWidth: number = 960;
+  videoHeight: number = 540;
   showVideo: boolean = false;
   videoIds: string[] = [];
 
@@ -130,11 +131,12 @@ export class HomeComponent implements OnInit {
         this.mobile = res;
 
         if (res) {
-          this.videoWidth = 350;
-          this.videoHeight = 250;
+          // keep the 16:9 ratio and leave room for the page padding
+          this.videoWidth = Math.min(window.innerWidth - 40, 560);
+          this.videoHeight = Math.round(this.videoWidth * 9 / 16);
         } else {
-          this.videoWidth = 1000;
-          this.videoHeight = 650;
+          this.videoWidth = 960;
+          this.videoHeight = 540;
         }
       }
     });

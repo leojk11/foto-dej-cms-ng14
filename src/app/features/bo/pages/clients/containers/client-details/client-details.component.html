@@ -1,193 +1,183 @@
-<div class="client" *ngIf="clientStore.state$ | async as state">
-  <div class="client__header">
-    <button
-      class="btn btn__icon btn__icon--blue shadow-small border-none"
-      (click)="location.back()"
-    >
-      <i class="pi pi-arrow-left"></i>
-    </button>
-  </div>
-
-  <div class="separator"></div>
-
-  <div class="client__content" *ngIf="state.client">
-    <div class="client__details">
-      <div class="client__details--main">
-        <div class="client__details--main__image">
-          <img [src]="imageUrl + state.client.profile_image" *ngIf="state.client.profile_image">
-
-          <i class="pi pi-user" *ngIf="!state.client.profile_image"></i>
-        </div>
-
-
-        <div class="client__details--main__name">
-          {{ state.client.fullname }}
-        </div>
-      </div>
-
-      <div>
-        <p class="client__details--label">
-          {{ 'clients.clientDetails' | translate }}
-  
-          <i class="pi pi-pencil ml-3"
-            (click)="onEditClient()"
-          ></i>
-        </p>
-  
-        <div class="client__details--items">
-          <div class="client__details--items__item">
-            <div class="client__details--items__item--label">
-              {{ 'properties.email' | translate }}
-            </div>
-            <div class="client__details--items__item--info">
-              {{ state.client.email }}
-            </div>
-          </div>
-  
-          <div class="client__details--items__item">
-            <div class="client__details--items__item--label">
-              {{ 'properties.phoneNumber' | translate }}
-            </div>
-            <div class="client__details--items__item--info">
-              {{ state.client.phone_number }}
-            </div>
-          </div>
-  
-          <div class="client__details--items__item">
-            <div class="client__details--items__item--label">
-              {{ 'properties.createdDate' | translate }}
-            </div>
-            <div class="client__details--items__item--info">
-              {{ state.client.created_date | date: "dd/MM/YYYY" }}
-            </div>
-          </div>
-  
-          <div class="client__details--items__item">
-            <div class="client__details--items__item--label">
-              {{ 'properties.accountStatus' | translate }}
-            </div>
-            <div class="client__details--items__item--info">
-              {{ (state.client.account_status === 'ACTIVE' ? 'status.active' : 'status.suspended') | translate | uppercase }}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="client__details--danger">
-        <div class="client__details--danger__item">
-          <div>
-            <p class="client__details--danger__item--label">
-              {{ 'clients.changeClientStatus' | translate }}
-            </p>
-  
-            <p class="client__details--danger__item--text">
-              {{ (state.client.account_status === 'ACTIVE' ? 'clients.suspendAccount' : 'clients.activateAccount') | translate  }}
-            </p>
-          </div>
-
-          <button 
-            type="button"
-            pButton
-            class="btn btn__red--outline btn__lg px-1"
-            (click)="changeStatus($event, state.client.account_status)"
-          >
-            {{ 'clients.changeStatus' | translate }}
-          </button>
-        </div>
-
-        <div class="client__details--danger__item">
-          <div>
-            <p class="client__details--danger__item--label">
-              {{ 'clients.deleteClient' | translate }}
-            </p>
-  
-            <p class="client__details--danger__item--text">
-              {{ 'clients.deleteClientText' | translate  }}
-            </p>
-          </div>
-
-          <button 
-            type="button"
-            pButton
-            class="btn btn__red--outline btn__sm"
-            (click)="deleteClient($event)"
-          >
-            {{ 'common.delete' | translate }}
-          </button>
-        </div>
-      </div>
+@if (clientStore.state$ | async; as state) {
+  <div class="client">
+    <div class="client__header">
+      <button
+        class="btn btn__icon btn__icon--blue shadow-small border-none"
+        (click)="location.back()"
+        >
+        <i class="pi pi-arrow-left"></i>
+      </button>
     </div>
-    
-    <div class="client__general">
-      <div class="client__albums">
-        <div class="client__albums--top">
-          <p class="client__albums--top__title">
-            {{ 'clients.assignedAlbums' | translate }}
-          </p>
-
-          <button 
-            type="button"
-            pButton
-            class="btn btn__main btn__sm"
-            (click)="openAddModal()"
-          >
-            {{ 'albums.addNewAlbum' | translate }}
-          </button>
-        </div>
-
-        <div class="client__albums--content">
-          <div 
-            *ngIf="clientAlbums.length === 0"
-            class="client__albums--empty" 
-          >
-            {{ 'clients.noAssignedAlbums' | translate }}
+    <div class="separator"></div>
+    @if (state.client) {
+      <div class="client__content">
+        <div class="client__details">
+          <div class="client__details--main">
+            <div class="client__details--main__image">
+              @if (state.client.profile_image) {
+                <img [src]="imageUrl + state.client.profile_image">
+              }
+              @if (!state.client.profile_image) {
+                <i class="pi pi-user"></i>
+              }
+            </div>
+            <div class="client__details--main__name">
+              {{ state.client.fullname }}
+            </div>
           </div>
-
-          <div
-            *ngIf="clientAlbums.length !== 0" 
-            class="client__albums--content__albums"
-          >
-            <div 
-              *ngFor="let album of clientAlbums" 
-              class="client__album"
-              [routerLink]="['/bo/albums/', album.id]"
-            >
-              <span class="client__album--top">
-                <img src="../../../../../../../assets/img/svg/images-interface.svg" alt="">
-              </span>
-              <span 
-                class="client__album--title"
-              >
-                {{ album.title | titlecase }}
-              </span>
+          <div>
+            <p class="client__details--label">
+              {{ 'clients.clientDetails' | translate }}
+              <i class="pi pi-pencil ml-3"
+                (click)="onEditClient()"
+              ></i>
+            </p>
+            <div class="client__details--items">
+              <div class="client__details--items__item">
+                <div class="client__details--items__item--label">
+                  {{ 'properties.email' | translate }}
+                </div>
+                <div class="client__details--items__item--info">
+                  {{ state.client.email }}
+                </div>
+              </div>
+              <div class="client__details--items__item">
+                <div class="client__details--items__item--label">
+                  {{ 'properties.phoneNumber' | translate }}
+                </div>
+                <div class="client__details--items__item--info">
+                  {{ state.client.phone_number }}
+                </div>
+              </div>
+              <div class="client__details--items__item">
+                <div class="client__details--items__item--label">
+                  {{ 'properties.createdDate' | translate }}
+                </div>
+                <div class="client__details--items__item--info">
+                  {{ state.client.created_date | date: "dd/MM/YYYY" }}
+                </div>
+              </div>
+              <div class="client__details--items__item">
+                <div class="client__details--items__item--label">
+                  {{ 'properties.accountStatus' | translate }}
+                </div>
+                <div class="client__details--items__item--info">
+                  {{ (state.client.account_status === 'ACTIVE' ? 'status.active' : 'status.suspended') | translate | uppercase }}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="client__details--danger">
+            <div class="client__details--danger__item">
+              <div>
+                <p class="client__details--danger__item--label">
+                  {{ 'clients.changeClientStatus' | translate }}
+                </p>
+                <p class="client__details--danger__item--text">
+                  {{ (state.client.account_status === 'ACTIVE' ? 'clients.suspendAccount' : 'clients.activateAccount') | translate  }}
+                </p>
+              </div>
+              <button
+                type="button"
+                pButton
+                class="btn btn__red--outline btn__lg px-1"
+                (click)="changeStatus($event, state.client.account_status)"
+                >
+                {{ 'clients.changeStatus' | translate }}
+              </button>
+            </div>
+            <div class="client__details--danger__item">
+              <div>
+                <p class="client__details--danger__item--label">
+                  {{ 'clients.deleteClient' | translate }}
+                </p>
+                <p class="client__details--danger__item--text">
+                  {{ 'clients.deleteClientText' | translate  }}
+                </p>
+              </div>
+              <button
+                type="button"
+                pButton
+                class="btn btn__red--outline btn__sm"
+                (click)="deleteClient($event)"
+                >
+                {{ 'common.delete' | translate }}
+              </button>
             </div>
           </div>
         </div>
-      </div>
-
-      <div class="client__logs">
-        <p class="client__details--label">
-          {{ 'clients.clientActivity' | translate }}
-        </p>
-
-        <div *ngFor="let log of clientLogs">
-          <app-log
-            [log]="log"
-          ></app-log>
+        <div class="client__general">
+          <div class="client__albums">
+            <div class="client__albums--top">
+              <p class="client__albums--top__title">
+                {{ 'clients.assignedAlbums' | translate }}
+              </p>
+              <button
+                type="button"
+                pButton
+                class="btn btn__main btn__sm"
+                (click)="openAddModal()"
+                >
+                {{ 'albums.addNewAlbum' | translate }}
+              </button>
+            </div>
+            <div class="client__albums--content">
+              @if (clientAlbums.length === 0) {
+                <div
+                  class="client__albums--empty"
+                  >
+                  {{ 'clients.noAssignedAlbums' | translate }}
+                </div>
+              }
+              @if (clientAlbums.length !== 0) {
+                <div
+                  class="client__albums--content__albums"
+                  >
+                  @for (album of clientAlbums; track album) {
+                    <div
+                      class="client__album"
+                      [routerLink]="['/bo/albums/', album.id]"
+                      >
+                      <span class="client__album--top">
+                        <img src="../../../../../../../assets/img/svg/images-interface.svg" alt="">
+                      </span>
+                      <span
+                        class="client__album--title"
+                        >
+                        {{ album.title | titlecase }}
+                      </span>
+                    </div>
+                  }
+                </div>
+              }
+            </div>
+          </div>
+          <div class="client__logs">
+            <p class="client__details--label">
+              {{ 'clients.clientActivity' | translate }}
+            </p>
+            @for (log of clientLogs; track log) {
+              <div>
+                <app-log
+                  [log]="log"
+                ></app-log>
+              </div>
+            }
+          </div>
         </div>
       </div>
-    </div>
+    }
   </div>
-</div>
+}
 
-<p-confirmDialog 
+<p-confirmdialog
   [key]="'delete'"
-  header="{{ 'common.confirmation' | translate }}" 
-  [style]="{ width: '50%',  padding: '1rem' }"  
-></p-confirmDialog>
+  header="{{ 'common.confirmation' | translate }}"
+  [style]="{ width: '50%',  padding: '1rem' }"
+></p-confirmdialog>
 
-<p-confirmDialog 
-  [key]="'changeStatus'"  
-  header="{{ 'common.confirmation' | translate }}" 
-  [style]="{ width: '50%',  padding: '1rem' }" 
-></p-confirmDialog>
+<p-confirmdialog
+  [key]="'changeStatus'"
+  header="{{ 'common.confirmation' | translate }}"
+  [style]="{ width: '50%',  padding: '1rem' }"
+></p-confirmdialog>

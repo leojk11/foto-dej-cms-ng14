@@ -1,18 +1,17 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
+
 import { Client } from 'src/app/features/bo/pages/clients/models/client.model';
 import { ClientsService } from 'src/app/features/bo/pages/clients/services/clients.service';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { ClientsStore } from 'src/app/features/bo/pages/clients/services/clients.store';
 
 @Component({
-  selector: 'app-assign-album',
-  standalone: true,
-  imports: [
-    CommonModule,
-    TranslateModule
-  ],
-  templateUrl: './assign-album.component.html'
+    selector: 'app-assign-album',
+    imports: [
+    TranslatePipe
+],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    templateUrl: './assign-album.component.html'
 })
 export class AssignAlbumComponent implements OnInit {
 

@@ -1,24 +1,24 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormArray, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
 
 @Component({
-  selector: 'app-video-regular-input',
-  standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    TranslateModule,
-    InputTextModule,
-    ButtonModule,
-    TooltipModule
-  ],
-  templateUrl: './video-regular-input.component.html',
-  styleUrls: ['./video-regular-input.component.scss']
+    selector: 'app-video-regular-input',
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        TranslatePipe,
+        InputTextModule,
+        ButtonModule,
+        TooltipModule
+    ],
+    templateUrl: './video-regular-input.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
+    styleUrls: ['./video-regular-input.component.scss']
 })
 export class VideoRegularInputComponent implements OnInit {
 

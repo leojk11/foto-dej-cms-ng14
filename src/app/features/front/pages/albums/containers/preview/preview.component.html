@@ -1,26 +1,27 @@
-<div class="bg-main" *ngIf="store.state$ | async as state">
-  <div class="albums">
-    <div class="albums__header">
-      <div class="container__flex gap-3">
-        <button
-          class="btn btn__icon btn__icon--blue shadow-small border-none"
-          (click)="location.back()"
-        >
-          <i class="pi pi-arrow-left"></i>
-        </button>
-    
-        <p class="album-title" *ngIf="!state.loading">
-          {{ state.previewAlbum?.title }} / {{ state.previewAlbum?.date }}
-        </p>
+@if (store.state$ | async; as state) {
+  <div class="bg-main">
+    <div class="albums">
+      <div class="albums__header">
+        <div class="container__flex gap-3">
+          <button
+            class="btn btn__icon btn__icon--blue shadow-small border-none"
+            (click)="location.back()"
+            >
+            <i class="pi pi-arrow-left"></i>
+          </button>
+          @if (!state.loading) {
+            <p class="album-title">
+              {{ state.previewAlbum?.title }} / {{ state.previewAlbum?.date }}
+            </p>
+          }
+        </div>
       </div>
     </div>
+    <div class="separator"></div>
+    <app-album-preview
+      [state]="state"
+      [albumId]="albumId"
+      [isAdmin]="isAdmin"
+    ></app-album-preview>
   </div>
-
-  <div class="separator"></div>
-
-  <app-album-preview
-    [state]="state"
-    [albumId]="albumId"
-    [isAdmin]="isAdmin"
-  ></app-album-preview>
-</div>
+}

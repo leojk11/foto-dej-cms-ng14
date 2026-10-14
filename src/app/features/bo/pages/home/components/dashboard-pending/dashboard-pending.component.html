@@ -5,7 +5,6 @@
     [paginator]="true"
     [lazy]="true"
     (onLazyLoad)="onLazyLoad($event)"
-    [responsive]="true"
     [scrollable]="true"
     >
     <ng-template pTemplate="header">
@@ -36,7 +35,7 @@
     </ng-template>
   
     <ng-template pTemplate="body" let-request let-index="rowIndex">
-      <tr>
+      <tr appReveal [revealDelay]="index * 60">
         <td>
           {{ index + 1 }}
         </td>

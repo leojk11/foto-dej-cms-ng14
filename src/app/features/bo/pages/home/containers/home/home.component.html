@@ -1,67 +1,68 @@
-<div 
-  *ngIf="dashboardStore.state$ | async as state"
-  class="dashboard" 
->
-  <div class="dashboard__cards">
-    <app-dashboard-card
-      [data]="state.cardsData.albums"
-      [title]="'common.albums' | translate"
-      [bg]="'bg-light'"
-      [route]="'/bo/albums'"
-    ></app-dashboard-card>
-
-    <app-dashboard-card
-      [data]="state.cardsData.clients"
-      [title]="'common.clients' | translate"
-      [bg]="'bg-light'"
-      [route]="'/bo/clients'"
-    ></app-dashboard-card>
-
-    <app-dashboard-card
-      [data]="state.cardsData.invites"
-      [title]="'common.invites' | translate"
-      [bg]="'bg-light'"
-      [route]="'/bo/invites'"
-    ></app-dashboard-card>
-
-    <app-dashboard-card
-      [data]="state.cardsData.requests"
-      [title]="'common.requests' | translate"
-      [bg]="'bg-light'"
-      [route]="'/bo/requests'"
-    ></app-dashboard-card>
-
-    <app-dashboard-card
-      [data]="state.cardsData.visitCounters"
-      [title]="'common.todayVisits' | translate"
-      [bg]="'bg-light'"
-    ></app-dashboard-card>
-  </div>
-
-  <div class="dashboard__content">
-    <div class="dashboard__pending">
-      <p class="dashboard__pending--title">
-        {{ 'common.pendingRequest' | translate }}
-      </p>
-      <app-dashboard-pending
-        [requests]="state.pendingRequests"
-      ></app-dashboard-pending>
-
+@if (dashboardStore.state$ | async; as state) {
+  <div
+    class="dashboard"
+    >
+    <div class="dashboard__cards">
+      <app-dashboard-card
+        appReveal
+        [data]="state.cardsData.albums"
+        [title]="'common.albums' | translate"
+        [bg]="'bg-light'"
+        [route]="'/bo/albums'"
+      ></app-dashboard-card>
+      <app-dashboard-card
+        appReveal [revealDelay]="80"
+        [data]="state.cardsData.clients"
+        [title]="'common.clients' | translate"
+        [bg]="'bg-light'"
+        [route]="'/bo/clients'"
+      ></app-dashboard-card>
+      <app-dashboard-card
+        appReveal [revealDelay]="160"
+        [data]="state.cardsData.invites"
+        [title]="'common.invites' | translate"
+        [bg]="'bg-light'"
+        [route]="'/bo/invites'"
+      ></app-dashboard-card>
+      <app-dashboard-card
+        appReveal [revealDelay]="240"
+        [data]="state.cardsData.requests"
+        [title]="'common.requests' | translate"
+        [bg]="'bg-light'"
+        [route]="'/bo/requests'"
+      ></app-dashboard-card>
+      <app-dashboard-card
+        appReveal [revealDelay]="320"
+        [data]="state.cardsData.visitCounters"
+        [title]="'common.todayVisits' | translate"
+        [bg]="'bg-light'"
+      ></app-dashboard-card>
     </div>
-
-    <div class="dashboard__schedule">
-      <p class="dashboard__schedule--title">
-        {{ 'common.upcomingEvents' | translate }}
-      </p>
-
-      <div 
-        *ngFor="let event of state.events" 
-        class="dashboard__schedule--cards"
-      >
-        <app-schedule-card
-          [event]="event"
-        ></app-schedule-card>
+    <div class="dashboard__content">
+      <div class="dashboard__pending" appReveal>
+        <p class="dashboard__pending--title">
+          {{ 'common.pendingRequest' | translate }}
+        </p>
+        <app-dashboard-pending
+          [requests]="state.pendingRequests"
+        ></app-dashboard-pending>
+      </div>
+      <div class="dashboard__schedule" appReveal [revealDelay]="120">
+        <p class="dashboard__schedule--title">
+          {{ 'common.upcomingEvents' | translate }}
+        </p>
+        @for (event of state.events; track event; let i = $index) {
+          <div
+            class="dashboard__schedule--cards"
+            appReveal="right"
+            [revealDelay]="i * 90"
+            >
+            <app-schedule-card
+              [event]="event"
+            ></app-schedule-card>
+          </div>
+        }
       </div>
     </div>
   </div>
-</div>
+}

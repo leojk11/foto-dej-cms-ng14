@@ -36,12 +36,12 @@ export class LogStore extends ComponentStore<LogState> {
     super(initialState);
   }
 
-  get state() {
+  get snapshot() {
     return this.get(s => s);
   }
 
   patchParams(page: number): void {
-    const newParams = { ...this.state.params, page };
+    const newParams = { ...this.snapshot.params, page };
 
     this.patchState({ params: newParams });
   }
@@ -49,7 +49,7 @@ export class LogStore extends ComponentStore<LogState> {
   getAllLogs(filters?: LogFilter): void {
     this.spinner.show().then();
 
-    this.logService.getAllLogs(this.state.params, filters).subscribe({
+    this.logService.getAllLogs(this.snapshot.params, filters).subscribe({
       next: res => {
         console.log('LOGS RESPONSE', res);
         this.patchState({

@@ -1,14 +1,14 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
+
 import { ImageOverviewService } from '../../services/image-overview.service';
 import { SpinnerComponent } from '../loading/spinner/spinner.component';
 
 @Component({
-  selector: 'front-single-image',
-  standalone: true,
-  imports: [CommonModule, SpinnerComponent],
-  templateUrl: './front-single-image.component.html',
-  styleUrls: ['./front-single-image.component.scss']
+    selector: 'front-single-image',
+    imports: [SpinnerComponent],
+    templateUrl: './front-single-image.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
+    styleUrls: ['./front-single-image.component.scss']
 })
 export class FrontSingleImageComponent implements OnInit {
 

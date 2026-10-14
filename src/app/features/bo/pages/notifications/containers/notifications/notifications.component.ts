@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { RevealDirective } from 'src/app/shared/directives/reveal.directive';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { AdminLayoutService } from 'src/app/features/bo/layout/services/admin-layout.service';
 import { NotificationStore } from '../../services/notification.store';
 import { NotificationComponent } from '../../components/notification/notification.component';
@@ -9,16 +10,17 @@ import { NotificationService } from '../../services/notification.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
 
 @Component({
-  selector: 'app-notifications',
-  standalone: true,
-  imports: [
-    CommonModule,
-    TranslateModule,
-    NotificationComponent,
-    PaginatorModule
-  ],
-  providers: [NotificationStore],
-  templateUrl: './notifications.component.html'
+    selector: 'app-notifications',
+    imports: [
+        RevealDirective,
+        CommonModule,
+        TranslatePipe,
+        NotificationComponent,
+        PaginatorModule
+    ],
+    providers: [NotificationStore],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    templateUrl: './notifications.component.html'
 })
 export class NotificationsComponent implements OnInit {
 

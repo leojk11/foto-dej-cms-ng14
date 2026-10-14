@@ -1,18 +1,17 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
+
 import { AlbumsState } from 'src/app/features/bo/pages/albums/services/albums.store';
 import { SpinnerComponent } from '../loading/spinner/spinner.component';
 import { AlbumComponent } from '../album/album.component';
 
 @Component({
-  selector: 'app-album-preview',
-  standalone: true,
-  imports: [
-    CommonModule,
+    selector: 'app-album-preview',
+    imports: [
     SpinnerComponent,
     AlbumComponent
-  ],
-  templateUrl: './album-preview.component.html'
+],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    templateUrl: './album-preview.component.html'
 })
 export class AlbumPreviewComponent implements OnInit {
 

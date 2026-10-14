@@ -1,22 +1,23 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { InputTextModule } from 'primeng/inputtext';
 import { FrontConfigurationService } from '../../../../../../shared/services/front-configuration.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { RevealDirective } from 'src/app/shared/directives/reveal.directive';
 
 @Component({
-  selector: 'app-contact-form',
-  standalone: true,
-  imports: [
-    CommonModule,
+    selector: 'app-contact-form',
+    imports: [
     ReactiveFormsModule,
-    TranslateModule,
-    InputTextModule
-  ],
-  templateUrl: './contact-form.component.html'
+    TranslatePipe,
+    InputTextModule,
+    RevealDirective
+],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    templateUrl: './contact-form.component.html'
 })
 export class ContactFormComponent implements OnInit {
 

@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { RevealDirective } from 'src/app/shared/directives/reveal.directive';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
 import { environment } from 'src/environments/environment';
 import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AdminLayoutService } from 'src/app/features/bo/layout/services/admin-layout.service';
 import { ConfigurationStore } from '../../services/configuration.store';
 import { ConfigurationService } from '../../services/configuration.service';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { InputTextModule } from 'primeng/inputtext';
 import { ToastService } from 'src/app/shared/services/toast.service';
 import { ProgressBarModule } from 'primeng/progressbar';
@@ -13,36 +14,37 @@ import { RegularInputComponent } from '../../components/regular-input/regular-in
 import { RegularInputDoubleComponent } from '../../components/regular-input-double/regular-input-double.component';
 import { UploadComponent } from '../../components/upload/upload.component';
 import { MultiUploadComponent } from '../../components/multi-upload/multi-upload.component';
-import { NgxYoutubePlayerModule } from 'ngx-youtube-player';
+import { YouTubePlayerModule } from '@angular/youtube-player';
 import { VideoRegularInputComponent } from '../../components/video-regular-input/video-regular-input.component';
 import { ConfirmationService } from 'primeng/api';
-import { TabViewModule } from 'primeng/tabview';
+import { TabsModule } from 'primeng/tabs';
 import { DialogService } from 'primeng/dynamicdialog';
 import { InvitationPreviewComponent } from '../../components/invitation-preview/invitation-preview.component';
 
 @Component({
-  selector: 'app-configuration',
-  standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    TranslateModule,
-    InputTextModule,
-    ProgressBarModule,
-    RegularInputComponent,
-    RegularInputDoubleComponent,
-    UploadComponent,
-    MultiUploadComponent,
-    NgxYoutubePlayerModule,
-    VideoRegularInputComponent,
-    TabViewModule
-  ],
-  providers: [
-    ConfigurationStore,
-    ConfirmationService,
-    DialogService
-  ],
-  templateUrl: './configuration.component.html'
+    selector: 'app-configuration',
+    imports: [
+        RevealDirective,
+        CommonModule,
+        ReactiveFormsModule,
+        TranslatePipe,
+        InputTextModule,
+        ProgressBarModule,
+        RegularInputComponent,
+        RegularInputDoubleComponent,
+        UploadComponent,
+        MultiUploadComponent,
+        YouTubePlayerModule,
+        VideoRegularInputComponent,
+        TabsModule
+    ],
+    providers: [
+        ConfigurationStore,
+        ConfirmationService,
+        DialogService
+    ],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    templateUrl: './configuration.component.html'
 })
 export class ConfigurationComponent implements OnInit {
 
@@ -146,12 +148,12 @@ export class ConfigurationComponent implements OnInit {
 
   cancel(): void {
     this.form.patchValue({
-      ...this.configurationStore.state.configuration
+      ...this.configurationStore.snapshot.configuration
     });
 
-    if (this.configurationStore.state.configuration?.promo_videos) {
+    if (this.configurationStore.snapshot.configuration?.promo_videos) {
       this.form.get('promo_videos')?.patchValue([]);
-      for (const video of this.configurationStore.state.configuration.promo_videos) {
+      for (const video of this.configurationStore.snapshot.configuration.promo_videos) {
         const formControl = new FormControl(video);
         this.promoVideos.push(formControl);
       }
@@ -163,7 +165,7 @@ export class ConfigurationComponent implements OnInit {
       width: '50vw',
       header: this.translateService.instant('common.previewInvitation'),
       data: {
-        configuration: this.configurationStore.state.configuration,
+        configuration: this.configurationStore.snapshot.configuration,
         imagesUrl: this.imagesUrl
       }
     });

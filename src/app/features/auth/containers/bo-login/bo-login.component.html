@@ -1,10 +1,12 @@
 <div class="login">
-  <div class="app-version container__flex">
+  <div class="login__bg"></div>
+
+  <div class="login__top">
     {{ appVersion }}
     <app-lang-change></app-lang-change>
   </div>
-  
-  <div class="login__image">
+
+  <div class="login__image" appReveal="left" [revealDelay]="200">
     <img src="../../../../../assets/img/admin-login.svg" alt="">
   </div>
 

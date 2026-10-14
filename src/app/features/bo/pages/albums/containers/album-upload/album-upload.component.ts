@@ -1,25 +1,26 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule, Location } from '@angular/common';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Location } from '@angular/common';
 import { FileUploadModule } from 'primeng/fileupload';
+import { ButtonModule } from 'primeng/button';
 import { finalize, forkJoin, ignoreElements, merge, mergeMap, Observable, of, Subject, tap } from 'rxjs';
 import { AlbumsService } from '../../services/albums.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProgressBarModule } from 'primeng/progressbar';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { DialogModule } from 'primeng/dialog';
 import { AdminLayoutService } from 'src/app/features/bo/layout/services/admin-layout.service';
 
 @Component({
-  selector: 'app-album-upload',
-  standalone: true,
-  imports: [
-    CommonModule,
-    TranslateModule,
+    selector: 'app-album-upload',
+    imports: [
+    TranslatePipe,
     FileUploadModule,
     ProgressBarModule,
-    DialogModule
-  ],
-  templateUrl: './album-upload.component.html'
+    DialogModule,
+    ButtonModule
+],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    templateUrl: './album-upload.component.html'
 })
 export class AlbumUploadComponent implements OnInit {
 

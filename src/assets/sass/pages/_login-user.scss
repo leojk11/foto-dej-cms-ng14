@@ -5,39 +5,81 @@
   flex-wrap: wrap;
   gap: 8rem;
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
+  padding: 8rem 2rem 4rem;
   position: relative;
+  overflow: hidden;
+  background: $color-wrapper;
+
+  // slow moving color blobs behind the card
+  &__bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(70px);
+    }
+
+    &::before {
+      width: 52rem;
+      height: 52rem;
+      top: -14rem;
+      left: -10rem;
+      background: rgba($highlight, 0.28);
+      animation: drift 16s ease-in-out infinite;
+    }
+
+    &::after {
+      width: 46rem;
+      height: 46rem;
+      bottom: -12rem;
+      right: -8rem;
+      background: rgba($color-1, 0.3);
+      animation: drift 20s ease-in-out infinite reverse;
+    }
+  }
 
   &__top {
-    padding: 5px;
-    background-color: rgba(white, 0.4);
-    color: #000000;
+    padding: 0.6rem 0.6rem 0.6rem 1.6rem;
+    background-color: rgba($white, 0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid $border-color;
+    color: $color-dark;
     display: flex;
     align-items: center;
-    gap: 2rem;
-    border-radius: 5px;
-    font-size: 20px;
-    z-index: 999;
+    gap: 1.6rem;
+    border-radius: $radius-pill;
+    font-size: 1.3rem;
+    font-weight: 500;
+    z-index: 10;
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 2rem;
+    right: 2rem;
   }
 
   &__content{
-    height: 60rem;
-    opacity: 0.8;
-    border-radius: 6px;
-    box-shadow: $shadow-small;
-    padding: 2rem;
+    position: relative;
+    z-index: 2;
+    width: min(100%, 46rem);
+    background: rgba($white, 0.88);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba($white, 0.9);
+    border-radius: 2.8rem;
+    box-shadow: 0 50px 100px -40px rgba($color-dark, 0.5);
+    padding: 3.6rem 3rem 4rem;
     display: flex;
     flex-direction: column;
-    gap: 3rem;
+    gap: 2rem;
 
     &--logo-wrapper{
-      width: 30rem;
-      height: 15em;
+      width: 20rem;
+      height: 9rem;
       margin: 0 auto;
-      margin-bottom: 2rem;
 
       .logo{
         width: 100%;
@@ -46,63 +88,61 @@
       }
     }
 
-    @media (min-width: 1100px) {
-      width: 50rem;
-      padding: 5rem;
+    &--title {
+      font-family: $font-display;
+      font-size: 3rem;
+      font-weight: 600;
+      text-align: center;
+      color: $color-dark;
     }
 
+    &--submit {
+      width: 100%;
+      height: 4.8rem;
+    }
+
+    @media (min-width: 1100px) {
+      padding: 4.4rem 5rem 5rem;
+    }
   }
-  
+
   &__image {
-    width: 46%;
-    height: 70%;
+    position: relative;
+    z-index: 2;
+    width: 44rem;
+    max-width: 44%;
     display: none;
 
     img{
       width: 100%;
-      height: 100%;
+      height: auto;
+      max-height: 60vh;
       object-fit: contain;
+      animation: float-slow 6s ease-in-out infinite;
+      filter: drop-shadow(0 30px 40px rgba($color-dark, 0.18));
     }
 
     @media (min-width: 1100px) {
       display: block !important;
     }
   }
-  
+
   &__loading {
     width: 100%;
-    
     display: flex;
     justify-content: center;
     align-items: center;
-    
-  }
-}
-@media (min-width: 2100px) {
-  .login {
-    &__content{
-      height: 57%;
-      right: 15rem;
-    }
-
-    &__image{
-      display: block;
-    }
   }
 }
 
 .app-version {
   position: absolute;
-  top: 10px;
-  right: 10px;
-
-  padding: 5px;
-
-  background-color: rgba(white, 0.4);
-  color: #000000;
-
-  border-radius: 5px;
-
-  font-size: 20px;
-  z-index: 999;
+  top: 2rem;
+  right: 2rem;
+  padding: 0.6rem 1.6rem;
+  background-color: rgba($white, 0.7);
+  color: $color-dark;
+  border-radius: $radius-pill;
+  font-size: 1.3rem;
+  z-index: 10;
 }

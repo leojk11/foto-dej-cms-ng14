@@ -1,18 +1,22 @@
 <div class="album-preview">
-  <div *ngIf="state.loading"
-    class="w-full h-full flex justify-center align-center">
-    <app-spinner></app-spinner>
-  </div>
+  @if (state.loading) {
+    <div
+      class="w-full h-full flex justify-center align-center">
+      <app-spinner></app-spinner>
+    </div>
+  }
 
 
-  <div class="p-2" *ngIf="!state.loading && state.images?.images">
-    <app-album
-      [images]="state.images?.images"
-      [selectedImages]="state.selectedImages"
-      [selectedAdminImages]="state.selectedAdminImages"
-      [isAdmin]="isAdmin"
-      [isSelect]="false"
-      [albumId]="albumId"
-    ></app-album>
-  </div>
+  @if (!state.loading && state.images?.images) {
+    <div class="p-2">
+      <app-album
+        [images]="$safeNavigationMigration(state.images?.images)"
+        [selectedImages]="state.selectedImages"
+        [selectedAdminImages]="state.selectedAdminImages"
+        [isAdmin]="isAdmin"
+        [isSelect]="false"
+        [albumId]="albumId"
+      ></app-album>
+    </div>
+  }
 </div>

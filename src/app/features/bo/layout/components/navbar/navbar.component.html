@@ -1,87 +1,92 @@
-<ng-container *ngIf="notificationStore.state$ | async as notifState">
+@if (notificationStore.state$ | async; as notifState) {
   <div class="navbar">
-    <div class="flex align-center gap-2">
-      <div 
-        class="toggle" 
+    <div class="navbar__left">
+      <button
+        type="button"
+        class="navbar__toggle"
+        aria-label="Menu"
         (click)="toggleSidebar.emit(); showToggle = true"
-      >
+        >
         <i class="pi pi-bars"></i>
-      </div>
-
-      <div
-        *ngIf="adminLayoutService.adminLayoutState$ | async as state"
-      >
+      </button>
+      @if (adminLayoutService.adminLayoutState$ | async; as state) {
         <div class="page-header__title">
           {{ state.pageTitle | translate }}
-
-          <span *ngIf="state.detail">  
-            &#8250;  {{ state.detail | translate }} 
-          </span>
+          @if (state.detail) {
+            <span>
+              &#8250;  {{ state.detail | translate }}
+            </span>
+          }
         </div>
-      </div>
+      }
     </div>
-
-    <ng-container *ngIf="!isMobile">
-      <div class="text">
-        {{ appVersion }}
-      </div>
-    
-      <div class="container__flex gap-3">
-        <button 
+    @if (!isMobile) {
+      <div class="navbar__right">
+        <span class="navbar__version">
+          {{ appVersion }}
+        </span>
+        <button
           type="button"
           pButton
-          class="btn btn__icon"
+          class="navbar__bell"
+          aria-label="Notifications"
           (click)="op.toggle($event)"
-        >
-          <i class="pi pi-bell" *ngIf="notifState.not_read === 0"></i>
-          <i class="pi pi-bell" *ngIf="notifState.not_read > 0" pBadge [value]="notifState.not_read.toString()" severity="danger" style="font-size: 1.8rem !important"></i>
+          >
+          @if (notifState.not_read === 0) {
+            <i class="pi pi-bell"></i>
+          }
+          @if (notifState.not_read > 0) {
+            <p-overlaybadge [value]="notifState.not_read.toString()" severity="danger">
+              <i class="pi pi-bell"></i>
+            </p-overlaybadge>
+          }
         </button>
-
-        <div *ngIf="authService.user$ | async as user">
-          <p class="c-white text-lg">
-            {{ user.firstname }} {{ user.lastname }}
-          </p>
-        </div>
-
-        <button 
+        @if (authService.user$ | async; as user) {
+          <div class="navbar__user">
+            <span class="navbar__user--avatar">
+              {{ user.firstname?.slice(0, 1) }}{{ user.lastname?.slice(0, 1) }}
+            </span>
+            <span class="navbar__user--name">
+              {{ user.firstname }} {{ user.lastname }}
+            </span>
+          </div>
+        }
+        <button
           type="button"
           pButton
-          class="btn btn__main btn__sm shadow-small px-1"
+          class="btn btn__main btn__sm px-1"
           (click)="logout()"
-        >
+          >
           <i class="pi pi-sign-out"></i>
           {{ 'common.signOut' | translate }}
         </button>
       </div>
-    </ng-container>
+    }
   </div>
-
-  <p-overlayPanel #op>
+  <p-popover #op>
     <div class="notifications-panel" >
       <div class="notifications-panel__top">
         <p class="notifications-panel__top--title">
           {{ 'common.notifications' | translate }}
         </p>
-  
-        <p 
+        <p
           class="notifications-panel__top--seeAll"
           routerLink="/bo/notifications"
           (click)="op.toggle($event)"
-        >
+          >
           {{ 'common.seeAll' | translate }}
         </p>
       </div>
-  
       <div class="separator mb-1"></div>
-      
-      <div 
-        *ngFor="let notification of notifState.notifications"
-        class="notifications-panel__list"
-      >
-        <app-notification
-          [notification]="notification"
-        ></app-notification>
-      </div>
+      @for (notification of notifState.notifications; track notification) {
+        <div
+          class="notifications-panel__list"
+          >
+          <app-notification
+            [notification]="notification"
+          ></app-notification>
+        </div>
+      }
     </div>
-  </p-overlayPanel>
-</ng-container>
+  </p-popover>
+}

@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FrontConfigurationState } from 'src/app/shared/services/front-configuration.store';
 import { FooterComponent } from 'src/app/features/front/layout/components/footer/footer.component';
 import { FrontNavbarComponent } from 'src/app/features/front/layout/components/front-navbar/front-navbar.component';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { ConfigurationService } from 'src/app/features/bo/pages/configurations/services/configuration.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastService } from 'src/app/shared/services/toast.service';
@@ -12,20 +12,22 @@ import { ImageOverviewService } from 'src/app/shared/services/image-overview.ser
 import { ImageOverviewComponent } from 'src/app/shared/components/image-overview/image-overview.component';
 import { GALLERY_PAGE_IMAGES_AMOUNT } from 'src/app/core/data/staticData';
 import { FrontSingleImageComponent } from 'src/app/shared/components/front-single-image/front-single-image.component';
+import { RevealDirective } from 'src/app/shared/directives/reveal.directive';
 
 @Component({
-  selector: 'app-gallery',
-  standalone: true,
-  imports: [
-    CommonModule,
-    FooterComponent,
-    FrontNavbarComponent,
-    TranslateModule,
-    ImageOverviewComponent,
-    FrontSingleImageComponent
-  ],
-  templateUrl: './gallery.component.html',
-  styleUrls: ['./gallery.component.scss']
+    selector: 'app-gallery',
+    imports: [
+        CommonModule,
+        FooterComponent,
+        FrontNavbarComponent,
+        TranslatePipe,
+        ImageOverviewComponent,
+        FrontSingleImageComponent,
+        RevealDirective
+    ],
+    templateUrl: './gallery.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
+    styleUrls: ['./gallery.component.scss']
 })
 export class GalleryComponent implements OnInit {
 

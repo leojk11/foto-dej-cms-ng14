@@ -1,24 +1,23 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ClientsStore } from '../../services/clients.store';
 import { ClientsService } from '../../services/clients.service';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { DynamicDialogConfig } from 'primeng/dynamicdialog';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { InputTextModule } from 'primeng/inputtext';
 import { ToastService } from 'src/app/shared/services/toast.service';
 
 @Component({
-  selector: 'app-new-client',
-  standalone: true,
-  imports: [
-    CommonModule,
-    TranslateModule,
+    selector: 'app-new-client',
+    imports: [
+    TranslatePipe,
     ReactiveFormsModule,
     InputTextModule
-  ],
-  templateUrl: './new-client.component.html'
+],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    templateUrl: './new-client.component.html'
 })
 export class NewClientComponent implements OnInit {
 

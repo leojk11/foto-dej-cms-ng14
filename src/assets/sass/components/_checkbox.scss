@@ -1,31 +1,26 @@
 .p-checkbox {
-  border-color: $color-light !important;
-  
-  &-box {
-    border-radius: 10px !important;
-    width: 1.8rem !important;
-    height: 1.8rem !important;
+  .p-checkbox-box {
+    border-radius: 0.6rem !important;
+    width: 2rem !important;
+    height: 2rem !important;
+    border: 1.5px solid rgba($color-dark, 0.35);
+    background: $white;
+    transition: all .2s;
 
-    &.p-highlight {
-      background: $color-medium !important;
-      border-color: $color-medium !important;
+    &.p-highlight,
+    &.p-checkbox-checked {
+      background: $color-dark !important;
+      border-color: $color-dark !important;
       outline: none !important;
       box-shadow: none !important;
     }
 
     & .p-checkbox-icon{
-      font-size: 1.3rem !important;
+      font-size: 1.2rem !important;
     }
   }
 
-  &:not(.p-checkbox-disabled) .p-checkbox-box.p-focus {
-    outline: none !important;
-    box-shadow: none !important;
-    border: 2px solid $color-medium !important;
-  }
-
   &:not(.p-checkbox-disabled) .p-checkbox-box:hover {
-    border: 2px solid $color-medium !important;
-    outline: none !important;
+    border-color: $color-dark !important;
   }
 }

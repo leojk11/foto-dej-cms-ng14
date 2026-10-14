@@ -1,40 +1,48 @@
 .log {
-  margin-bottom: 2rem;
-  
+  @include card;
+  padding: 1.4rem 1.8rem;
+  transition: transform .3s $ease-out, box-shadow .3s $ease-out;
+
+  &:hover {
+    transform: translateX(4px);
+    box-shadow: $shadow-card-hover;
+  }
+
   &__body {
     display: flex;
     align-items: center;
-    gap: 3rem;
+    gap: 1.6rem;
 
     &--icon {
-      width: 3.4rem;
-      height: 3.4rem;
+      width: 4rem;
+      height: 4rem;
+      flex-shrink: 0;
       display: flex;
       align-items: center;
       justify-content: center;
       border-radius: 50%;
-      background-color: rgba($color-highlight, .2);
-      color: $color-highlight;
+      background-color: rgba($highlight, .12);
+      color: $highlight;
 
       .pi {
-        font-size: 1.4rem !important;
+        font-size: 1.5rem !important;
       }
     }
-    
+
     &--title {
-      font-size: 1.8rem;
-      margin-bottom: .5rem;
-      
+      font-size: 1.5rem;
+      margin-bottom: .2rem;
+
       span {
-        color: rgba($dark, .7);
+        color: $text-muted;
       }
     }
   }
 
   &__time {
-    color: rgba($dark, .5);;
-    font-size: 1.4rem;
+    color: $text-muted;
+    font-size: 1.2rem;
     font-weight: 500;
-    margin-left: 6.4rem;
+    margin-left: 5.6rem;
   }
 }

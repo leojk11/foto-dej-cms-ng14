@@ -2,17 +2,35 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100vw;
-  padding: 0 12rem;
-  position: absolute;
+  width: 100%;
+  height: 7.2rem;
+  padding: 0 6rem;
+  position: fixed;
   top: 0;
   left: 0;
-  color: $color-dark; 
-  box-shadow: $shadow-small;
-  background-color: $white;
+  z-index: 200;
+  color: $color-dark;
+  background-color: rgba($white, 0.82);
+  backdrop-filter: saturate(160%) blur(16px);
+  border-bottom: 1px solid $border-color;
+  transition: background-color 0.4s, color 0.4s, box-shadow 0.4s, border-color 0.4s, height 0.4s $ease-out;
+  animation: frontnav-in 0.7s $ease-out both;
 
   @media (max-width: 887px) {
-    padding: 0 4rem;
+    padding: 0 2rem;
+  }
+
+  &--scrolled {
+    height: 6.2rem;
+    box-shadow: 0 10px 30px -18px rgba($color-dark, 0.4);
+  }
+
+  // transparent on top of the hero photo until the page is scrolled
+  &--overlay:not(&--scrolled) {
+    background-color: transparent;
+    backdrop-filter: none;
+    border-bottom-color: transparent;
+    color: $white;
   }
 
   &__brand {
@@ -20,15 +38,21 @@
     align-items: center;
 
     &--logo-wrapper {
-      width: 14rem;
-      height: 6.8rem;
+      width: 13rem;
+      height: 5rem;
       display: flex;
       align-items: center;
-  
+
       &--img {
         width: 100%;
         height: 100%;
         object-fit: contain;
+        cursor: pointer;
+        transition: transform 0.4s $ease-out;
+
+        &:hover {
+          transform: scale(1.04);
+        }
       }
     }
   }
@@ -36,12 +60,12 @@
   &__actions{
     display: flex;
     align-items: center;
-    gap: 5rem;
+    gap: 4rem;
 
     &__middle {
       display: flex;
       justify-content: space-between;
-      gap: 30px;
+      gap: 4rem;
 
       position: absolute;
       right: 50%;
@@ -49,41 +73,68 @@
     }
 
     &__link{
-      font-family: "Roboto", sans-serif;
-      font-size: 2rem;
-      line-height: 3rem;
-      min-width: 8rem;
-      font-weight: 700;
+      font-family: $font-body;
+      font-size: 1.4rem;
+      min-width: 6rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
       position: relative;
       text-align: center;
       cursor: pointer;
       text-decoration: none;
+      padding: 0.6rem 0;
 
       &::after{
         content: '';
-        min-width: 8rem;
+        width: 100%;
         height: 2px;
-        background-color: $highlight;
+        background-color: currentColor;
         border-radius: 10px;
         position: absolute;
         bottom: 0;
         left: 0;
-        transition: all .2s;
+        transform: scaleX(0);
+        transform-origin: right;
+        transition: transform .4s $ease-out;
       }
 
       &:hover::after{
-        height: 5px;
-        bottom: -3px;
+        transform: scaleX(1);
+        transform-origin: left;
       }
 
       &.active {
         &::after{
-          height: 5px;
-          bottom: -3px;
+          transform: scaleX(1);
         }
       }
     }
   }
+
+  // language switch on top of the photo
+  &--overlay:not(&--scrolled) .p-selectbutton {
+    background: rgba($white, 0.16);
+
+    .p-togglebutton,
+    .p-button {
+      color: $white;
+
+      &.p-togglebutton-checked,
+      &.p-highlight {
+        background: $white !important;
+        color: $color-dark;
+
+        .p-togglebutton-label {
+          color: $color-dark;
+        }
+      }
+    }
+  }
+}
+
+@keyframes frontnav-in {
+  from { transform: translateY(-100%); opacity: 0; }
+  to { transform: none; opacity: 1; }
 }
 
 .front {
@@ -101,7 +152,7 @@
   padding: 1rem !important;
 
   .p-menuitem-link {
-    font-size: 1.6rem !important;
+    font-size: 1.5rem !important;
     font-weight: 500;
     padding: .75rem .3rem .75rem .1rem !important;
 

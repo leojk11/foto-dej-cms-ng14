@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { SpinnerComponent } from 'src/app/shared/components/loading/spinner/spinner.component';
 import { InputTextModule } from 'primeng/inputtext';
 import { CalendarService } from '../../services/calendar.service';
@@ -13,23 +13,22 @@ import { DialogModule } from 'primeng/dialog';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 @Component({
-  selector: 'app-add-new-locations',
-  standalone: true,
-  imports: [
-    CommonModule,
+    selector: 'app-add-new-locations',
+    imports: [
     FormsModule,
     ReactiveFormsModule,
-    TranslateModule,
+    TranslatePipe,
     SpinnerComponent,
     InputTextModule,
     DialogModule,
     ConfirmDialogModule
-  ],
-  providers: [
-    ConfirmationService
-  ],
-  templateUrl: './add-new-locations.component.html',
-  styleUrls: ['./add-new-locations.component.scss']
+],
+    providers: [
+        ConfirmationService
+    ],
+    templateUrl: './add-new-locations.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
+    styleUrls: ['./add-new-locations.component.scss']
 })
 export class AddNewLocationsComponent implements OnInit {
 

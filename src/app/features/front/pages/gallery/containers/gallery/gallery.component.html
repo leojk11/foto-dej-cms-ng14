@@ -1,34 +1,42 @@
-<div class="gallery" *ngIf="frontConfigurationState.confState$ | async as state">
-  <div class="gallery__header">
+@if (frontConfigurationState.confState$ | async; as state) {
+  <div class="gallery">
     <app-front-navbar
       (goToElement)="goToElement($event, -100)"
       [gallery]="true"
     ></app-front-navbar>
-  </div>
 
-  <div class="gallery__images gap-1">
-    <div class="gallery__images__image shadow-1" *ngFor="let image of imagesToDisplay">
-      <front-single-image [imagesUrl]="imagesUrl" [image]="image" 
-        [imagesToDisplay]="imagesToDisplay"></front-single-image>
+    <div class="gallery__intro" appReveal>
+      <div class="section-head">
+        <span class="section-head__eyebrow">{{ 'common.name' | translate }}</span>
+        <h1 class="section-head__title">{{ 'common.gallery' | translate }}</h1>
+        <span class="section-head__line"></span>
+      </div>
     </div>
-  </div>
 
-  <div class="w-full flex justify-center align-center mt-2"
-    [style]="{ 'margin-bottom': '150px' }">
-    <button 
-      pButton
-      type="button"
-      class="btn btn__main"
-      (click)="seeMoreImages()"
-      [disabled]="leftImagesToDisplay?.length === 0 || imagesToDisplay!.length === 0"
-    >
-      {{ 'common.seeAll' | translate }}
-    </button>
-  </div>
+    <div class="gallery__images">
+      @for (image of imagesToDisplay; track image; let i = $index) {
+        <div class="gallery__images__image" appReveal [revealDelay]="(i % 3) * 100">
+          <front-single-image [imagesUrl]="imagesUrl" [image]="image"
+          [imagesToDisplay]="imagesToDisplay"></front-single-image>
+        </div>
+      }
+    </div>
 
-  <app-footer
-    [configuration]="state.configuration"
-  ></app-footer>
-</div>
+    <div class="gallery__more" appReveal>
+      <button
+        pButton
+        type="button"
+        class="btn btn__main"
+        (click)="seeMoreImages()"
+        [disabled]="leftImagesToDisplay?.length === 0 || imagesToDisplay!.length === 0"
+        >
+        {{ 'common.seeAll' | translate }}
+      </button>
+    </div>
+    <app-footer
+      [configuration]="state.configuration"
+    ></app-footer>
+  </div>
+}
 
 <app-image-overview></app-image-overview>

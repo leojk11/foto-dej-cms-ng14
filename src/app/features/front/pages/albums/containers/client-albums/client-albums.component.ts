@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+
 import { AlbumComponent } from 'src/app/shared/components/album/album.component';
 import { AlbumsStore } from 'src/app/features/bo/pages/albums/services/albums.store';
 import { ConfirmationService } from 'primeng/api';
@@ -9,17 +9,16 @@ import { AuthService } from 'src/app/core/services/auth.service';
 import { AlbumsComponent } from 'src/app/shared/components/albums/albums.component';
 
 @Component({
-  selector: 'app-client-albums',
-  standalone: true,
-  imports: [
-    CommonModule,
+    selector: 'app-client-albums',
+    imports: [
     AlbumComponent,
     SingleAlbumComponent,
     PaginatorModule,
     AlbumsComponent
-  ],
-  providers: [ AlbumsStore, ConfirmationService ],
-  templateUrl: './client-albums.component.html',
+],
+    providers: [AlbumsStore, ConfirmationService],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    templateUrl: './client-albums.component.html'
 })
 export class ClientAlbumsComponent implements OnInit {
 

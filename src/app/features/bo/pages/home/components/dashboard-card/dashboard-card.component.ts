@@ -1,15 +1,17 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
+import { CountUpDirective } from 'src/app/shared/directives/count-up.directive';
 
 @Component({
-  selector: 'app-dashboard-card',
-  standalone: true,
-  imports: [
-    CommonModule,
-    RouterModule
-  ],
-  templateUrl: './dashboard-card.component.html'
+    selector: 'app-dashboard-card',
+    imports: [
+        CommonModule,
+        RouterModule,
+        CountUpDirective
+    ],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    templateUrl: './dashboard-card.component.html'
 })
 export class DashboardCardComponent implements OnInit {
 

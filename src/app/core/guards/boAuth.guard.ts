@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, Router, UrlTree } from '@angular/router';
+import { Router, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { StorageService } from '../services/storage.service';
@@ -7,7 +7,7 @@ import { StorageService } from '../services/storage.service';
 @Injectable({
   providedIn: 'root',
 })
-export class BoAuthGuard implements CanActivate {
+export class BoAuthGuard  {
 
   constructor(
     private authService: AuthService,

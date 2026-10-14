@@ -1,29 +1,32 @@
 .sidebar{
   height: 100vh;
-  width: 23rem;
-  background-color: $sidebar-bg;
+  width: $sidebar-width;
+  background-color: $surface;
+  border-right: 1px solid $border-color;
   position: fixed;
   left: 0;
-  top: 0rem;
-  padding: 0 2rem 2rem;
-  box-shadow: $shadow-right;
+  top: 0;
+  padding: 0 1.6rem 2rem;
   overflow-y: auto;
+  z-index: 20;
+  animation: sidebar-in 0.6s $ease-out both;
 
-  // padding-top: 8rem;
-  
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 
   &.hide{
-    visibility: hidden ;
+    visibility: hidden;
     opacity: 0;
     display: none;
   }
-   
+
   &__brand {
     display: flex;
     align-items: center;
+    padding: 1.8rem 0.4rem 1.2rem;
+    margin-bottom: 1.6rem;
+    border-bottom: 1px solid $border-color;
 
     &--name {
       font-size: 2.4rem;
@@ -34,8 +37,7 @@
   &__user {
     display: flex;
     align-items: center;
-    font-size: 1.8rem;
-    
+    font-size: 1.6rem;
     font-weight: 500;
     gap: 1rem;
     transition: all .2s;
@@ -43,10 +45,8 @@
     i {
       width: 4rem;
       height: 4rem;
-      background-color: $color-wrapper;
+      background-color: $color-light;
       border-radius: 50%;
-
-      box-shadow: $shadow-small;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -55,20 +55,11 @@
     p {
       color: $color-header;
     }
-
-    &:hover {
-      p {
-        font-weight: 600;
-        color: $color-dark;
-
-      }
-    }
   }
 
   &__logo-wrapper {
     width: 100%;
-    // width: 6rem;
-    // height: 6rem;
+    height: 7rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -76,36 +67,54 @@
     &--img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
     }
   }
 
   &__list{
     list-style: none;
-    // margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
 
     &--item{
-      margin: 1rem 0;
-      padding: 1rem 0;
+      margin: 0;
+      padding: 0;
+      animation: sidebar-item-in 0.55s $ease-out backwards;
+
+      @for $i from 1 through 12 {
+        &:nth-child(#{$i}) {
+          animation-delay: #{0.15 + $i * 0.05}s;
+        }
+      }
     }
   }
 
   &__link{
     display: flex;
     align-items: center;
-    font-size: 2.4rem;
-    gap: 1rem;
-    color: $color-header;
+    font-size: 1.45rem;
+    font-weight: 500;
+    gap: 1.2rem;
+    padding: 0.8rem 1.2rem 0.8rem 0.8rem;
+    border-radius: $radius-md;
+    color: $text-muted;
     text-decoration: none;
     cursor: pointer;
+    transition: background-color 0.25s, color 0.25s, transform 0.3s $ease-out;
 
     &--icon{
-      box-shadow: $shadow-small;
-      padding: 0.3rem .8rem;
-      border-radius: 5px;
+      width: 3.8rem;
+      height: 3.8rem;
+      border-radius: 1rem;
+      background: rgba($color-dark, 0.06);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.25s, color 0.25s;
 
       i {
-        font-size: 2rem !important;
+        font-size: 1.7rem !important;
       }
     }
 
@@ -115,14 +124,21 @@
     }
 
     &:hover{
-      color: $black;
+      color: $color-dark;
+      background: rgba($color-light, 0.7);
+      transform: translateX(3px);
     }
 
     &.active-link {
-      color: $black;
+      color: $white;
+      background: $color-dark;
+      box-shadow: 0 12px 22px -12px rgba($color-dark, 0.7);
+
+      .sidebar__link--icon {
+        background: rgba($white, 0.16);
+        color: $white;
+      }
     }
-
-
   }
 
   .lang-wrapper{
@@ -138,13 +154,26 @@
   }
 }
 
-.p-sidebar{
-  .p-sidebar-header, .p-sidebar-footer{
+.p-sidebar,
+.p-drawer {
+  .p-sidebar-header, .p-sidebar-footer,
+  .p-drawer-header {
     display: none !important;
   }
 
-  .p-sidebar-content{
+  .p-sidebar-content,
+  .p-drawer-content {
     padding: 0 !important;
-    width: 23rem !important;
+    width: $sidebar-width !important;
   }
+}
+
+@keyframes sidebar-in {
+  from { transform: translateX(-3rem); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+
+@keyframes sidebar-item-in {
+  from { transform: translateX(-2rem); opacity: 0; }
+  to { transform: none; opacity: 1; }
 }

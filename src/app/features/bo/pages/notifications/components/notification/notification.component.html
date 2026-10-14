@@ -1,44 +1,53 @@
-<div 
-  class="notification" 
+<div
+  class="notification"
   [class.read]="notification.read"
   (click)="onNotificationClick(notification.id)"
->
+  >
   <div class="notification__img">
-    <i 
-      *ngIf="notification.type === 'REQUEST_SENT'"
-      class="pi pi-link" 
-    ></i>
+    @if (notification.type === 'REQUEST_SENT') {
+      <i
+        class="pi pi-link"
+      ></i>
+    }
 
-    <i 
-      *ngIf="notification.type === 'EVENT_REMINDER'"
-      class="pi pi-calendar" 
-    ></i>
+    @if (notification.type === 'EVENT_REMINDER') {
+      <i
+        class="pi pi-calendar"
+      ></i>
+    }
 
-    <span
-      *ngIf="notification.type === 'SELECTED_IMAGES' || notification.type === 'ACCEPTED_INVITATION'"
-    >
-      {{ notification.client.firstname.slice(0, 1) }}{{ notification.client.lastname.slice(0, 1) }}
-    </span>
+    @if (notification.type === 'SELECTED_IMAGES' || notification.type === 'ACCEPTED_INVITATION') {
+      <span
+        >
+        {{ notification.client.firstname.slice(0, 1) }}{{ notification.client.lastname.slice(0, 1) }}
+      </span>
+    }
   </div>
 
   <div class="notification__content">
     <p class="notification__title" [class.read]="notification.read">
-      <span *ngIf="notification.client">
-        {{ notification.client.fullname }}
-      </span>
+      @if (notification.client) {
+        <span>
+          {{ notification.client.fullname }}
+        </span>
+      }
       {{ notification.message | translate}}
     </p>
 
     <div class="notification__time">
-      <span *ngIf="selectedLang && selectedLang === 'mk'">
-        {{ 'common.ago' | translate }}
-      </span>
-      {{ notification.time_passed }} 
-      {{ notification.time_passed_type | translate | lowercase }} 
+      @if (selectedLang && selectedLang === 'mk') {
+        <span>
+          {{ 'common.ago' | translate }}
+        </span>
+      }
+      {{ notification.time_passed }}
+      {{ notification.time_passed_type | translate | lowercase }}
 
-      <span *ngIf="selectedLang && selectedLang === 'en'">
-        {{ 'common.ago' | translate }}
-      </span>
+      @if (selectedLang && selectedLang === 'en') {
+        <span>
+          {{ 'common.ago' | translate }}
+        </span>
+      }
     </div>
   </div>
 </div>

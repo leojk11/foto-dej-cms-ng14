@@ -7,7 +7,7 @@
     </button>
 
     <div class="container__flex gap-1">
-      <button 
+      <button
         class="btn btn__icon btn__icon--dark"
         (click)="goToDate()">
         <i class="pi pi-calendar"></i>
@@ -23,45 +23,46 @@
   </div>
 
   <div class="p-2">
-    <full-calendar
-      *ngIf="showCalendar"
-      #calendar
-      [options]="calendarOptions"
-    ></full-calendar>
+    @if (showCalendar) {
+      <full-calendar
+        #calendar
+        [options]="calendarOptions"
+      ></full-calendar>
+    }
   </div>
 </div>
 
 <!-- MIGHT USE THIS SOMETIME IN THE FUTURE -->
-<!-- <p-overlayPanel #filterOp appendTo="body">
-  <div class="calendar__header--filter">
-    <input 
-      type="text" 
-      pInputText
-      class="max-w-3"
-      placeholder="{{ 'properties.title' | translate | lowercase }}..."
-      [(ngModel)]="filters.title"
+<!-- <p-popover #filterOp appendTo="body">
+<div class="calendar__header--filter">
+  <input
+    type="text"
+    pInputText
+    class="max-w-3"
+    placeholder="{{ 'properties.title' | translate | lowercase }}..."
+    [(ngModel)]="filters.title"
     >
     <div class="container__flex gap-1 justify-center">
-      <button 
+      <button
         pButton
         type="button"
         class="btn btn__icon--orange px-1"
         (click)="filter()"
-      >
+        >
         <i class="pi pi-filter"></i>
         {{ 'common.search' | translate }}
       </button>
 
-      <button 
+      <button
         pButton
         type="button"
         class="btn btn__icon--dark px-1"
         (click)="clearFilter(); filterOp.toggle($event)"
-      >
+        >
         <i class="pi pi-filter-slash"></i>
         {{ 'common.reset' | translate }}
       </button>
     </div>
   </div>
-</p-overlayPanel> -->
+</p-popover> -->
 <!-- MIGHT USE THIS SOMETIME IN THE FUTURE -->

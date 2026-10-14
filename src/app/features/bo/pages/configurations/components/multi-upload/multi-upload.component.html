@@ -5,96 +5,111 @@
 
   <div class="right">
     <div class="right__top">
-      <input #fileUploader [id]="id" 
+      <input #fileUploader [id]="id"
         type="file" accept="image/*"
         class="upload-input" multiple
         (change)="selectFiles($event)" pInputText>
 
-      <label 
-        class="btn btn__main upload-btn" 
-        [for]="id">
-        <i class="pi pi-plus"></i>
-        {{ 'common.chooseImages' | translate }}
-      </label>
+        <label
+          class="btn btn__main upload-btn"
+          [for]="id">
+          <i class="pi pi-plus"></i>
+          {{ 'common.chooseImages' | translate }}
+        </label>
 
-      <button class="btn btn__main upload-btn" type="button"
-        (click)="clearPromoImages()">
-        {{ 'common.clear' | translate }}
-      </button>
-    </div>
-
-    <div class="right__bottom">
-      <p class="info-label" 
-        *ngIf="selectedFilesPreview.length > 0">{{ 'common.imagesReadyToUpload' | translate }}</p>
-      <div class="images" *ngIf="selectedFilesPreview.length > 0">
-        <div 
-          *ngFor="let preview of selectedFilesPreview; let i = index"
-          class="single-image cp">
-          <div class="delete-icon" (click)="deletePreviewImage(i)">
-            <i class="pi pi-trash"></i>
-          </div>
-          <img [src]="preview">
-        </div>
-      </div>
-
-      <div
-        class="w-full mt-2"
-        *ngIf="uploadInPorgress">
-        <p-progressBar [value]="uploadProgressValue"></p-progressBar>
-      </div>
-
-      <div class="w-full flex justify-end pt-2">
-        <button 
-          *ngIf="selectedFiles.length > 0"
-          class="btn btn__main upload-btn" 
-          type="button"
-          (click)="uploadFiles()"
-          [disabled]="uploadInPorgress"
-        >
-          <i class="pi pi_upload"></i>
-          {{ 'common.upload' | translate }}
+        <button class="btn btn__main upload-btn" type="button"
+          (click)="clearPromoImages()">
+          {{ 'common.clear' | translate }}
         </button>
       </div>
 
-      <p class="info-label" 
-        *ngIf="preselected">{{ 'common.alreadyUploadedImages' | translate }}</p>
-      <div class="images" *ngIf="preselected">
-        <div 
-          *ngFor="let image of imagesToDisplay; let i = index" 
-          class="single-image cp">
-          <div class="delete-icon" (click)="deleteSavedImage(i)">
-            <i class="pi pi-trash"></i>
+      <div class="right__bottom">
+        @if (selectedFilesPreview.length > 0) {
+          <p class="info-label"
+          >{{ 'common.imagesReadyToUpload' | translate }}</p>
+        }
+        @if (selectedFilesPreview.length > 0) {
+          <div class="images">
+            @for (preview of selectedFilesPreview; track preview; let i = $index) {
+              <div
+                class="single-image cp">
+                <div class="delete-icon" (click)="deletePreviewImage(i)">
+                  <i class="pi pi-trash"></i>
+                </div>
+                <img [src]="preview">
+              </div>
+            }
           </div>
-          <img 
-            [src]="imagesUrl + image"
-            (click)="toggleOverview($event, imagesToDisplay)">
+        }
+
+        @if (uploadInPorgress) {
+          <div
+            class="w-full mt-2"
+            >
+            <p-progressbar [value]="uploadProgressValue"></p-progressbar>
+          </div>
+        }
+
+        <div class="w-full flex justify-end pt-2">
+          @if (selectedFiles.length > 0) {
+            <button
+              class="btn btn__main upload-btn"
+              type="button"
+              (click)="uploadFiles()"
+              [disabled]="uploadInPorgress"
+              >
+              <i class="pi pi_upload"></i>
+              {{ 'common.upload' | translate }}
+            </button>
+          }
+        </div>
+
+        @if (preselected) {
+          <p class="info-label"
+          >{{ 'common.alreadyUploadedImages' | translate }}</p>
+        }
+        @if (preselected) {
+          <div class="images">
+            @for (image of imagesToDisplay; track image; let i = $index) {
+              <div
+                class="single-image cp">
+                <div class="delete-icon" (click)="deleteSavedImage(i)">
+                  <i class="pi pi-trash"></i>
+                </div>
+                <img
+                  [src]="imagesUrl + image"
+                  (click)="toggleOverview($event, imagesToDisplay)">
+                </div>
+              }
+            </div>
+          }
+
+          @if (imagesToDisplay!.length > 0) {
+            <div class="w-full flex justify-center align-center mt-2"
+              >
+              <button
+                pButton
+                type="button"
+                class="btn btn__main"
+                (click)="seeMoreImages()"
+                [disabled]="leftImagesToDisplay?.length === 0"
+                >
+                {{ 'common.seeAll' | translate }}
+              </button>
+            </div>
+          }
+
+          <div class="buttons">
+            <p class="buttons__label">
+              {{ 'common.imagesSizeInfo' | translate }}
+            </p>
+          </div>
         </div>
       </div>
-
-      <div class="w-full flex justify-center align-center mt-2" 
-        *ngIf="imagesToDisplay!.length > 0">
-        <button 
-          pButton
-          type="button"
-          class="btn btn__main"
-          (click)="seeMoreImages()"
-          [disabled]="leftImagesToDisplay?.length === 0"
-        >
-          {{ 'common.seeAll' | translate }}
-        </button>
-      </div>
-
-      <div class="buttons">
-        <p class="buttons__label">
-          {{ 'common.imagesSizeInfo' | translate }}
-        </p>
-      </div>
     </div>
-  </div>
-</div>
 
-<p-confirmDialog 
-  [key]="'clearPromoImages'"
-  header="{{ 'common.confirmation' | translate }}" 
-  [style]="{ width: '50%',  padding: '1rem' }"
-></p-confirmDialog>
+    <p-confirmdialog
+      [key]="'clearPromoImages'"
+      header="{{ 'common.confirmation' | translate }}"
+      [style]="{ width: '50%',  padding: '1rem' }"
+    ></p-confirmdialog>

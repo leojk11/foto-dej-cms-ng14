@@ -1,89 +1,155 @@
+app-dashboard-card,
+app-schedule-card,
+app-client-card,
+app-notification {
+  display: block;
+}
+
 .dashboard {
   padding: 3rem;
 
   &__cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(15rem, .5fr));
-    gap: 5rem;
+    grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+    gap: 2rem;
     margin: 0 auto;
-    margin-bottom: 5rem;
+    margin-bottom: 4rem;
+
+    app-dashboard-card:nth-child(1) { --accent: #{$color-highlight}; }
+    app-dashboard-card:nth-child(2) { --accent: #{$color-highlight-purple}; }
+    app-dashboard-card:nth-child(3) { --accent: #{$color-highlight-green}; }
+    app-dashboard-card:nth-child(4) { --accent: #{$color-1}; }
+    app-dashboard-card:nth-child(5) { --accent: #{$highlight}; }
 
     &--item {
+      @include card;
+      position: relative;
+      overflow: hidden;
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: center;
       flex-direction: column;
-      gap: .5rem;
-      height: 12rem;
-      padding: 2rem;
-      border-radius: 10px;
-      color: $dark;
-      cursor: pointer;
+      gap: .4rem;
+      min-height: 12rem;
+      padding: 2.2rem 2.4rem;
+      color: $color-dark;
+      transition: transform 0.35s $ease-out, box-shadow 0.35s $ease-out;
+
+      // accent glow + bar
+      &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 2rem;
+        bottom: 2rem;
+        width: 4px;
+        border-radius: 0 4px 4px 0;
+        background: var(--accent, #{$highlight});
+      }
+
+      &::after {
+        content: '';
+        position: absolute;
+        right: -3rem;
+        top: -3rem;
+        width: 10rem;
+        height: 10rem;
+        border-radius: 50%;
+        background: var(--accent, #{$highlight});
+        opacity: 0.12;
+        transition: transform 0.6s $ease-out, opacity 0.4s;
+      }
+
+      &--link {
+        cursor: pointer;
+
+        &:hover {
+          transform: translateY(-5px);
+          box-shadow: $shadow-card-hover;
+
+          &::after {
+            transform: scale(1.8);
+            opacity: 0.18;
+          }
+        }
+      }
 
       &__number {
-        font-size: 2.4rem;
-        font-weight: 600;
+        font-size: 3.6rem;
+        font-weight: 700;
+        letter-spacing: -0.03em;
+        line-height: 1.1;
+        font-variant-numeric: tabular-nums;
       }
 
       &__title {
-        font-size: 2rem;
-        font-weight: 600;
+        font-size: 1.4rem;
+        font-weight: 500;
+        color: $text-muted;
       }
     }
 
     @include screen-md {
       grid-template-columns: 1fr 1fr;
+      gap: 1.2rem;
     }
   }
 
   &__content {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
-    gap: 5rem;
+    grid-template-columns: minmax(0, 1.7fr) minmax(28rem, 1fr);
+    gap: 3rem;
+
+    @media (max-width: 1100px) {
+      grid-template-columns: minmax(0, 1fr);
+    }
   }
 
   &__pending {
     width: 100%;
-    
-    &--title {
-      font-size: 2rem;
-      font-weight: 500;
-      margin-bottom: 2rem;
-    }
-    
-    &--table {
-      box-shadow: $shadow-small;
-      overflow-x: auto;
+    min-width: 0;
 
+    &--title {
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: 1.6rem;
+    }
+
+    &--table {
+      overflow-x: auto;
+      border-radius: $radius-md;
+
+      .p-datatable .p-datatable-table-container,
       .p-datatable .p-datatable-wrapper {
-        min-height: 50.5vh !important;
+        min-height: 35vh !important;
       }
       .p-datatable-tbody > tr > td {
-        height: 4rem !important;
+        height: 4.6rem !important;
       }
     }
   }
 
   &__schedule {
-    background-color: rgba($sidebar-bg, .3);
     height: 100%;
-    padding: 2rem;
-    box-shadow: $shadow-small;
+    padding: 2.4rem;
+    background: rgba($color-light, 0.5);
+    border: 1px solid $border-color;
+    border-radius: $radius-md;
 
     &--title {
-      font-size: 2rem;
-      margin-bottom: 2rem;
-      font-weight: 500;
+      font-size: 1.8rem;
+      margin-bottom: 1.6rem;
+      font-weight: 600;
     }
 
     &--cards {
       &:not(:last-child) {
-        margin-bottom: 3rem;
+        margin-bottom: 1.2rem;
       }
     }
   }
 
   @include screen-md {
-    padding: 3rem 1.5rem;
+    padding: 2rem 1.2rem;
   }
 }

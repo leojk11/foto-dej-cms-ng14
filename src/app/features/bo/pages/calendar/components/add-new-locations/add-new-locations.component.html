@@ -1,81 +1,79 @@
 <div class="add-new-schedule p-1">
-	<div class="add-new-schedule__inner">
-		<div class="w-full" *ngIf="loading">
-			<app-spinner></app-spinner>
-		</div>
+  <div class="add-new-schedule__inner">
+    @if (loading) {
+      <div class="w-full">
+        <app-spinner></app-spinner>
+      </div>
+    }
 
-		<form 
-			*ngIf="!loading" 
-			[formGroup]="form" 
-			(ngSubmit)="handleSubmit()">
-			<div class="container__flex gap-4 wrap">
-				<div class="form-field w-full">
-					<label class="form-field__label">
-						{{ 'properties.title' | translate }} (*):
-					</label>
+    @if (!loading) {
+      <form
+        [formGroup]="form"
+        (ngSubmit)="handleSubmit()">
+        <div class="container__flex gap-4 wrap">
+          <div class="form-field w-full">
+            <label class="form-field__label">
+              {{ 'properties.title' | translate }} (*):
+            </label>
+            <input
+              type="text"
+              pInputText
+              formControlName="title"
+              placeholder="{{ 'properties.title' | translate }}...">
+            </div>
+            <div class="form-field w-full">
+              <label class="form-field__label">
+                {{ 'properties.location' | translate }}:
+              </label>
+              <input
+                type="text"
+                pInputText
+                formControlName="place"
+                placeholder="{{ 'properties.location' | translate }}...">
+              </div>
+              <div class="form-field w-full">
+                <label class="form-field__label">
+                  {{ 'properties.time' | translate }} (*):
+                </label>
+                <input
+                  type="text"
+                  pInputText
+                  formControlName="time"
+                  placeholder="10:00...">
+                </div>
+              </div>
+              <div class="container__flex justify-center gap-2 mt-5 mb-2">
+                @if (!editMode) {
+                  <button
+                    class="btn btn__main"
+                    type="submit"
+                    [disabled]="form.invalid">
+                    {{ 'common.add' | translate }}
+                  </button>
+                }
+                @if (editMode) {
+                  <button
+                    class="btn btn__main"
+                    type="submit"
+                    [disabled]="form.invalid">
+                    {{ 'common.edit' | translate }}
+                  </button>
+                }
+                @if (editMode) {
+                  <button
+                    class="btn btn__red btn__lg"
+                    type="button"
+                    (click)="handleDelete()">
+                    {{ 'common.delete' | translate }}
+                  </button>
+                }
+              </div>
+            </form>
+          }
+        </div>
+      </div>
 
-					<input
-						type="text"
-						pInputText
-						formControlName="title"
-						placeholder="{{ 'properties.title' | translate }}...">
-				</div>
-
-				<div class="form-field w-full">
-					<label class="form-field__label">
-						{{ 'properties.location' | translate }}:
-					</label>
-
-					<input
-						type="text"
-						pInputText
-						formControlName="place"
-						placeholder="{{ 'properties.location' | translate }}...">
-				</div>
-
-				<div class="form-field w-full">
-					<label class="form-field__label">
-						{{ 'properties.time' | translate }} (*):
-					</label>
-
-					<input
-						type="text"
-						pInputText
-						formControlName="time"
-						placeholder="10:00...">
-				</div>
-			</div>
-
-			<div class="container__flex justify-center gap-2 mt-5 mb-2">
-				<button
-					*ngIf="!editMode"
-					class="btn btn__main"
-					type="submit"
-					[disabled]="form.invalid">
-					{{ 'common.add' | translate }}
-				</button>
-	
-				<button
-					*ngIf="editMode"
-					class="btn btn__main"
-					type="submit"
-					[disabled]="form.invalid">
-					{{ 'common.edit' | translate }}
-				</button>
-	
-				<button
-					*ngIf="editMode"
-					class="btn btn__red btn__lg"
-					type="button"
-					(click)="handleDelete()">
-					{{ 'common.delete' | translate }}
-				</button>
-			</div>
-		</form>
-	</div>
-</div>
-
-<p-confirmDialog
-  header="{{ 'common.confirmation' | translate }}" 
-  [style]="{width: '100%',  padding: '1rem'}"
-></p-confirmDialog>
+      <p-confirmdialog
+        header="{{ 'common.confirmation' | translate }}"
+        [style]="{width: '100%',  padding: '1rem'}"
+      ></p-confirmdialog>

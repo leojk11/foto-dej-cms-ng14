@@ -1,61 +1,85 @@
-.p-inputtext, textarea,.p-autocomplete-input, .p-dropdown {
+.p-inputtext,
+textarea,
+.p-textarea,
+.p-autocomplete-input,
+.p-select,
+.p-datepicker-input,
+.p-multiselect {
   width: 100%;
-  padding: 1rem 1.5rem;
-  border: none;
-  border-radius: 10px;
+  padding: 1.1rem 1.5rem;
+  border-radius: $radius-md;
   font-size: 1.4rem;
-  letter-spacing: 1.5px;
-  font-family: 'Poppins', sans-serif;
+  letter-spacing: 0;
+  font-family: $font-body;
   min-width: 20rem;
-  background-color: $color-light;
-  box-shadow: 2px 2px 7px -1px rgba(68, 68, 68, 0.3);
-  cursor: pointer;
-  transition: all .2s;
-  border: 1px solid transparent !important;
+  background-color: $surface;
+  color: $color-dark;
+  box-shadow: none;
+  border: 1px solid rgba($color-dark, 0.16);
+  transition: border-color .2s, box-shadow .2s, background-color .2s;
+
+  &::placeholder {
+    color: rgba($color-dark, 0.4);
+  }
 
   &:focus, &:focus-visible{
     outline: none;
   }
 
-  &:enabled:focus{  
-    box-shadow: 2px 2px 7px -1px rgba(68, 68, 68, 0.3);
-    border: 1px solid rgba(60,60,59,0.7) !important;
+  &:enabled:hover {
+    border-color: rgba($color-dark, 0.38);
   }
 
-  &:hover{
-    border:  1px solid rgba(60,60,59,0.5) !important;
+  &:enabled:focus {
+    border-color: $highlight;
+    box-shadow: 0 0 0 4px rgba($highlight, 0.14);
   }
-
 }
 
-.p-dropdown {
-  padding: 0rem !important;
+// dropdown (p-select) keeps its own inner padding
+.p-select {
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
 
-  .p-dropdown-label {
-    box-shadow: none !important;
-    // padding: 0 1.5rem !important;
-    border: none !important;
-
-    &:hover {
-      border: none !important;
-    }
-
-    &:enabled:focus {
-      border: none !important;
-      box-shadow: none !important;
-    }
+  .p-select-label {
+    padding: 1.1rem 1.5rem;
+    font-size: 1.4rem;
+    color: $color-dark;
   }
 
-  .p-dropdown-panel .p-dropdown-items .p-dropdown-item {
-    font-size: 1.4rem !important;
+  &.p-focus,
+  &.p-select-open {
+    border-color: $highlight;
+    box-shadow: 0 0 0 4px rgba($highlight, 0.14);
+  }
+}
 
-    &.p-highlight {
-      color: $dark;
-    }
+.p-select-overlay,
+.p-datepicker-panel,
+.p-popover,
+.p-menu {
+  border-radius: $radius-md !important;
+  border: 1px solid $border-color !important;
+  box-shadow: $shadow-card-hover !important;
+  font-family: $font-body;
+}
+
+.p-select-option {
+  font-size: 1.4rem !important;
+  border-radius: $radius-sm;
+}
+
+.p-password {
+  width: 100%;
+
+  .p-password-input {
+    width: 100%;
   }
 
-  &:not(.p-disabled).p-focus {
-    box-shadow: 2px 2px 7px -1px rgba(68, 68, 68, 0.3);
+  .p-icon-field,
+  .p-iconfield {
+    width: 100%;
   }
 }
 
@@ -63,14 +87,12 @@
   position: absolute;
   right: .8rem;
   top: .8rem;
-
   cursor: pointer;
 
   &:hover{
     color: $color-header;
   }
 }
-
 
 .btn-icon{
   cursor: pointer;
@@ -89,50 +111,22 @@
 }
 
 input[type="radio"]{
-  width: 2.4rem;
-  height: 2.4rem;
-  border-radius: 50% !important;
-  background-color: $color-highlight-purple;
-  box-shadow: none;
+  width: 2.2rem;
+  height: 2.2rem;
+  accent-color: $color-dark;
   cursor: pointer;
-
-  &:checked{
-    background-color: $color-highlight-green !important;
-  }
 }
 
-// INPUT SWITCH
-
+// SWITCH
+.p-toggleswitch,
 .p-inputswitch {
   margin-right: 2rem;
-  display: block !important;
 
-  &.p-inputswitch-checked {
-    & .p-inputswitch-slider {
-      background-color: $color-medium !important;
-    }
-  }
-
-  & .p-inputswitch-slider {
-    background: rgba($color-medium, 0.5) !important;
-    width: 4rem !important;
-    height: 2rem !important;
-
-    &::before {
-      left: 0.8rem !important;
-    }
-  }
-
-  &.p-focus {
-    & .p-inputswitch-slider {
-      outline: none !important;
-      box-shadow: none !important;
-    }
+  &.p-toggleswitch-checked .p-toggleswitch-slider,
+  &.p-inputswitch-checked .p-inputswitch-slider {
+    background-color: $color-dark !important;
   }
 }
-
-// AUTOCOMPLETE
-
 
 .p-autocomplete {
   display: block !important;
@@ -147,6 +141,7 @@ input[type="radio"]{
   width: 100% !important;
 }
 
+.p-datepicker,
 .p-calendar {
   width: 100% !important;
 }

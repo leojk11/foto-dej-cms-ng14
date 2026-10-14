@@ -38,7 +38,7 @@ export class InvitesStore extends ComponentStore<InvitesState> {
     super(initialState);
   }
 
-  get state() {
+  get snapshot() {
     return this.get(s => s);
   }
 
@@ -49,7 +49,7 @@ export class InvitesStore extends ComponentStore<InvitesState> {
   getInvites(filters?: InviteFilter): void {
     this.spinner.show().then();
 
-    this.invitesService.getAll(this.state.params, filters).subscribe({
+    this.invitesService.getAll(this.snapshot.params, filters).subscribe({
       next: (res: GetAllInvitesResponse) => {
         // console.log('INVITES', res);
         

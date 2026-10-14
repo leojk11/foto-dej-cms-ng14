@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+
 
 @Component({
-  selector: 'app-profile',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './profile.component.html'
+    selector: 'app-profile',
+    imports: [],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    templateUrl: './profile.component.html'
 })
 export class ProfileComponent implements OnInit {
 

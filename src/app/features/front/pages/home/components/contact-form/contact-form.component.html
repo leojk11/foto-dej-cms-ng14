@@ -1,8 +1,8 @@
-<form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
-  <div class="container__flex gap-3" >
-    <div class="form-field w-full">
+<form class="contact-form" [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+  <div class="contact-form__grid">
+    <div class="form-field" appReveal>
       <label class="form-field__label">
-        {{ 'properties.firstname' | translate }}:
+        {{ 'properties.firstname' | translate }}
       </label>
 
       <input
@@ -14,9 +14,9 @@
       >
     </div>
 
-    <div class="form-field w-full">
+    <div class="form-field" appReveal [revealDelay]="80">
       <label class="form-field__label">
-        {{ 'properties.lastname' | translate }}:
+        {{ 'properties.lastname' | translate }}
       </label>
 
       <input
@@ -28,9 +28,9 @@
       >
     </div>
 
-    <div class="form-field w-full">
+    <div class="form-field" appReveal [revealDelay]="160">
       <label class="form-field__label">
-        {{ 'properties.phoneNumber' | translate }}:
+        {{ 'properties.phoneNumber' | translate }}
       </label>
 
       <input
@@ -42,9 +42,9 @@
       >
     </div>
 
-    <div class="form-field w-full">
+    <div class="form-field" appReveal [revealDelay]="240">
       <label class="form-field__label">
-        {{ 'properties.email' | translate }}:
+        {{ 'properties.email' | translate }}
       </label>
 
       <input
@@ -56,13 +56,14 @@
       >
     </div>
   </div>
-  <div class="container__flex justify-center mt-5">
+  <div class="container__flex justify-center mt-5" appReveal [revealDelay]="320">
     <button
       class="btn btn__main"
       type="submit"
       [disabled]="contactForm.invalid"
     >
       {{ 'common.send' | translate }}
+      <i class="pi pi-send"></i>
     </button>
   </div>
 </form>

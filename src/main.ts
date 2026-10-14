@@ -1,23 +1,21 @@
-import { enableProdMode, importProvidersFrom } from '@angular/core';
-import { HammerModule, bootstrapApplication } from '@angular/platform-browser';
+import { enableProdMode, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
+import { bootstrapApplication } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { AppComponent } from './app/app.component';
 import { routes } from './app/app.routes';
 import { environment } from './environments/environment';
-import { HTTP_INTERCEPTORS, HttpClientModule, HttpClient } from "@angular/common/http";
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi, withXhr } from "@angular/common/http";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { provideTranslateService } from '@ngx-translate/core';
+import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
 import { BasicHttpInterceptor } from './app/core/interceptors/basic-http.interceptor';
 import { ToastrModule } from 'ngx-toastr';
 import { ToastService } from './app/shared/services/toast.service';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { providePrimeNG } from 'primeng/config';
+import { AppPreset } from './app/core/primeng-theme';
 
-import 'hammerjs';
 
-export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
-  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
-}
 
 if (environment.production) {
   enableProdMode();
@@ -25,23 +23,30 @@ if (environment.production) {
 
 bootstrapApplication(AppComponent, {
   providers: [
+    provideZoneChangeDetection(),provideHttpClient(withXhr(), withInterceptorsFromDi()),
+    providePrimeNG({
+      theme: {
+        preset: AppPreset,
+        options: {
+          darkModeSelector: false,
+          cssLayer: {
+            name: 'primeng',
+            order: 'theme, base, primeng'
+          }
+        }
+      }
+    }),
+    provideTranslateService({
+      loader: provideTranslateHttpLoader({ prefix: './assets/i18n/', suffix: '.json' })
+    }),
     importProvidersFrom(
       RouterModule.forRoot(routes, { 
         onSameUrlNavigation: 'reload',
         scrollPositionRestoration: 'enabled' 
       }),
-      HttpClientModule,
       BrowserAnimationsModule,
-      TranslateModule.forRoot({
-        loader: {
-          provide: TranslateLoader,
-          useFactory: createTranslateLoader,
-          deps: [HttpClient]
-        }
-      }),
       ToastrModule.forRoot(),
-      ToastService,
-      HammerModule
+      ToastService
     ),
     {
       provide: HTTP_INTERCEPTORS,

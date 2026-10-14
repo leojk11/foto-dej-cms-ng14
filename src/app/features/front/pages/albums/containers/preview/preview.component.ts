@@ -1,22 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
 import { AlbumsStore } from 'src/app/features/bo/pages/albums/services/albums.store';
 import { ActivatedRoute } from '@angular/router';
 import { ConfirmationService } from 'primeng/api';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { AlbumPreviewComponent } from 'src/app/shared/components/album-preview/album-preview.component';
 import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
-  selector: 'app-preview',
-  standalone: true,
-  imports: [
-    CommonModule,
-    TranslateModule,
-    AlbumPreviewComponent
-  ],
-  providers: [AlbumsStore, ConfirmationService],
-  templateUrl: './preview.component.html'
+    selector: 'app-preview',
+    imports: [
+        CommonModule,
+        TranslatePipe,
+        AlbumPreviewComponent
+    ],
+    providers: [AlbumsStore, ConfirmationService],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    templateUrl: './preview.component.html'
 })
 export class PreviewComponent implements OnInit {
 

@@ -1,12 +1,11 @@
-<div class="front" *ngIf="frontConfigState.confState$ | async as state">
-  <app-front-navbar></app-front-navbar>
-
-  <div class="container">
-    <router-outlet></router-outlet>
+@if (frontConfigState.confState$ | async; as state) {
+  <div class="front">
+    <app-front-navbar></app-front-navbar>
+    <div class="container">
+      <router-outlet></router-outlet>
+    </div>
+    <app-footer></app-footer>
+    <app-image-overview></app-image-overview>
   </div>
-
-  <app-footer></app-footer>
-
-  <app-image-overview></app-image-overview>
-</div>
+}
 

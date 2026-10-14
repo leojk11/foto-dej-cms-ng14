@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { OnlineStatusModule, OnlineStatusService } from 'ngx-online-status';
 import { NgxSpinnerModule } from 'ngx-spinner';
-import { MessageService, PrimeNGConfig } from 'primeng/api';
+import { MessageService } from 'primeng/api';
+import { PrimeNG } from 'primeng/config';
 import { ToastModule } from 'primeng/toast';
 import { AuthService } from './core/services/auth.service';
 import { StorageService } from './core/services/storage.service';
@@ -11,19 +12,19 @@ import { LanguageService } from './shared/services/language-change.store';
 import { ToastService } from './shared/services/toast.service';
 
 @Component({
-  standalone: true,
-  selector: 'app-root',
-  imports: [
-    RouterModule,
-    ToastModule,
-    OnlineStatusModule,
-    NgxSpinnerModule
-  ],
-  providers: [
-    MessageService,
-    ToastService
-  ],
-  template: `
+    selector: 'app-root',
+    imports: [
+        RouterModule,
+        ToastModule,
+        OnlineStatusModule,
+        NgxSpinnerModule
+    ],
+    providers: [
+        MessageService,
+        ToastService
+    ],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    template: `
     <router-outlet></router-outlet>
     <p-toast position="top-right"></p-toast>
     <ngx-spinner 
@@ -44,7 +45,7 @@ export class AppComponent implements OnInit {
     private authService: AuthService,
     private toastService: ToastService,
     private onlineStatusService: OnlineStatusService,
-    private primengConfig: PrimeNGConfig,
+    private primengConfig: PrimeNG,
     private languageService: LanguageService
   ) {
     this.initTranslation();
@@ -83,7 +84,7 @@ export class AppComponent implements OnInit {
     this.languageService.setLanguage(defaultLang);
 
     this.translateService.addLangs(['mk','en']);
-    this.translateService.setDefaultLang(defaultLang);
+    this.translateService.setFallbackLang(defaultLang);
 
     this.storageService.setItem('lang', defaultLang);
 

@@ -13,26 +13,31 @@
 
 // PRIMENG TABLE
 .p-datatable {
-  font-size: 1.6rem !important;
-  font-family: 'Poppins', sans-serif !important;
-  box-shadow: $shadow-small !important;
-  border-radius: 5px !important;
+  font-size: 1.4rem !important;
+  font-family: $font-body !important;
+  border-radius: $radius-md !important;
+  border: 1px solid $border-color;
+  overflow: hidden;
+  background: $surface;
 
+  .p-datatable-table-container,
   .p-datatable-wrapper{
-    min-height: 60.5vh;
-    background-color: #fff;
-    border-radius: 5px !important;
+    min-height: 40vh;
+    background-color: $surface;
   }
 
-  &-thead > tr {
+  .p-datatable-thead > tr {
     & > th {
       height: 5rem;
-      letter-spacing: .5px;
+      font-size: 1.2rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: $text-muted;
       text-align: center !important;
-      background-color: #fff !important;
+      background-color: rgba($color-light, 0.45) !important;
       border: none !important;
-      border-bottom: 1px solid rgba($dark, .5) !important;
-      box-shadow: $shadow-bottom !important;
+      border-bottom: 1px solid $border-color !important;
 
       &:not(:first-child) {
         min-width: 15rem !important;
@@ -40,28 +45,25 @@
       &:last-child {
         min-width: 5rem !important;
       }
-
-      &:first-child {
-        border-top-left-radius: 5px !important;
-      }
-
-      &:last-child {
-        border-top-right-radius: 5px !important;
-      }
     }
   }
 
-  &-tbody{
-    font-size: 1.4rem !important;
-
+  .p-datatable-tbody{
     & > tr{
-      border-bottom: 1px solid #ccc !important;
+      background: $surface;
+      transition: background-color .2s;
+
+      &:hover {
+        background-color: rgba($color-light, 0.45);
+      }
 
       & > td {
         text-align: center !important;
-        border-color: #ccc !important;
-        height: 6.3rem !important;
+        border: none !important;
+        border-bottom: 1px solid rgba($color-dark, 0.07) !important;
+        height: 6rem !important;
         padding: 0 1rem !important;
+        color: $color-dark;
 
         &:not(:first-child) {
           min-width: 15rem !important;
@@ -69,13 +71,11 @@
 
         &:last-child {
           min-width: 5rem !important;
-          display: flex;
-          justify-content: center;
-          align-items: center;
         }
 
         &.no-results {
           display: table-cell !important;
+          color: $text-muted;
         }
       }
     }
@@ -83,21 +83,38 @@
 }
 
 .p-paginator{
-  font-size: 1.6rem !important;
-  height: 5rem;
+  font-size: 1.4rem !important;
+  min-height: 5.4rem;
   width: 100%;
-  border-radius: 5px !important;
+  background: transparent !important;
+  border: none !important;
+  gap: .4rem;
 
-  & .p-paginator-pages .p-paginator-page{
-    font-size: 1.4rem!important;
+  .p-paginator-page,
+  .p-paginator-next,
+  .p-paginator-prev,
+  .p-paginator-first,
+  .p-paginator-last {
+    border-radius: 50% !important;
+    min-width: 3.6rem;
+    height: 3.6rem;
+    font-size: 1.3rem !important;
+    transition: background-color .2s, color .2s;
+  }
 
-    &.p-highlight{
-      background-color: $sidebar-bg;
-      color: $dark;
-    }
+  .p-paginator-page.p-paginator-page-selected,
+  .p-paginator-page.p-highlight{
+    background-color: $color-dark;
+    color: $white;
   }
 }
 
 .p-link:focus{
   box-shadow: none !important;
+}
+
+// action buttons inside table cells stay centered
+.p-datatable-tbody > tr > td .btn {
+  margin-left: auto;
+  margin-right: auto;
 }

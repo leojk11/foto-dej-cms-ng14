@@ -1,34 +1,36 @@
-import { Component, OnInit } from '@angular/core';
+import { RevealDirective } from 'src/app/shared/directives/reveal.directive';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
 import { LogStore } from '../../services/log.store';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { AdminLayoutService } from 'src/app/features/bo/layout/services/admin-layout.service';
 import { LogComponent } from 'src/app/shared/components/log/log.component';
 import { LogFilter } from '../../models/log-filter.model';
-import { OverlayPanelModule } from 'primeng/overlaypanel';
-import { CalendarModule } from 'primeng/calendar';
-import { DropdownModule } from 'primeng/dropdown';
+import { PopoverModule } from 'primeng/popover';
+import { DatePickerModule } from 'primeng/datepicker';
+import { SelectModule } from 'primeng/select';
 import { FormsModule } from '@angular/forms';
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs';
 import { InputTextModule } from 'primeng/inputtext';
 import { PaginatorModule } from 'primeng/paginator';
 
 @Component({
-  selector: 'app-logs',
-  standalone: true,
-  imports: [
-    CommonModule,
-    TranslateModule,
-    LogComponent,
-    OverlayPanelModule,
-    CalendarModule,
-    DropdownModule,
-    FormsModule,
-    InputTextModule,
-    PaginatorModule
-  ],
-  providers: [ LogStore ],
-  templateUrl: './logs.component.html'
+    selector: 'app-logs',
+    imports: [
+        RevealDirective,
+        CommonModule,
+        TranslatePipe,
+        LogComponent,
+        PopoverModule,
+        DatePickerModule,
+        SelectModule,
+        FormsModule,
+        InputTextModule,
+        PaginatorModule
+    ],
+    providers: [LogStore],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    templateUrl: './logs.component.html'
 })
 export class LogsComponent implements OnInit {
 

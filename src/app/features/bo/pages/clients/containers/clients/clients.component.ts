@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { RevealDirective } from 'src/app/shared/directives/reveal.directive';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
 import { SpinnerComponent } from 'src/app/shared/components/loading/spinner/spinner.component';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { ClientsStore } from '../../services/clients.store';
 import { AdminLayoutService } from 'src/app/features/bo/layout/services/admin-layout.service';
 import { Client } from '../../models/client.model';
@@ -10,24 +11,29 @@ import {InputTextModule} from 'primeng/inputtext';
 import {DialogService} from 'primeng/dynamicdialog';
 import { NewClientComponent } from '../new-client/new-client.component';
 import { PaginatorModule } from 'primeng/paginator';
-import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { PopoverModule } from 'primeng/popover';
+import { SelectModule } from 'primeng/select';
+import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-clients',
-  standalone: true,
-  imports: [
-    CommonModule,
-    TranslateModule,
-    ClientCardComponent,
-    InputTextModule,
-    PaginatorModule,
-    OverlayPanelModule
-  ],
-  providers: [ 
-    ClientsStore,
-    DialogService
-  ],
-  templateUrl: './clients.component.html'
+    selector: 'app-clients',
+    imports: [
+        RevealDirective,
+        CommonModule,
+        TranslatePipe,
+        ClientCardComponent,
+        InputTextModule,
+        PaginatorModule,
+        PopoverModule,
+        SelectModule,
+        FormsModule
+    ],
+    providers: [
+        ClientsStore,
+        DialogService
+    ],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    templateUrl: './clients.component.html'
 })
 export class ClientsComponent implements OnInit {
 
@@ -99,7 +105,7 @@ export class ClientsComponent implements OnInit {
     if (this.phoneSearch !== '' && this.nameSearch !== '' && this.statusSearch !== '') {
       this.clientStore.patchState({
         params: {
-          ...this.clientStore.state.params,
+          ...this.clientStore.snapshot.params,
           name: this.nameSearch,
           phone_number: this.phoneSearch,
           status: this.statusSearch
@@ -113,8 +119,8 @@ export class ClientsComponent implements OnInit {
     } else {
       this.clientStore.patchState({
         params: {
-          page: this.clientStore.state.params.page,
-          take: this.clientStore.state.params.take
+          page: this.clientStore.snapshot.params.page,
+          take: this.clientStore.snapshot.params.take
         }
       });
       this.searchTerms = [];
@@ -123,7 +129,7 @@ export class ClientsComponent implements OnInit {
     if(this.nameSearch !== ''){
       this.clientStore.patchState({
         params: {
-          ...this.clientStore.state.params,
+          ...this.clientStore.snapshot.params,
           name: this.nameSearch
         }
       });
@@ -134,7 +140,7 @@ export class ClientsComponent implements OnInit {
     if(this.phoneSearch !== ''){
       this.clientStore.patchState({
         params: {
-          ...this.clientStore.state.params,
+          ...this.clientStore.snapshot.params,
           phone_number: this.phoneSearch
         }
       });
@@ -145,7 +151,7 @@ export class ClientsComponent implements OnInit {
     if (this.statusSearch !== ''){
       this.clientStore.patchState({
         params: {
-          ...this.clientStore.state.params,
+          ...this.clientStore.snapshot.params,
           status: this.statusSearch
         }
       });

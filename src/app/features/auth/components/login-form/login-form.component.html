@@ -1,38 +1,43 @@
-<div class="login__content">
-  <div 
-    *ngIf="frontConfigState.confState$ | async as config"
-    class="login__content--logo-wrapper" 
-  >
-    <img 
-      [src]="config.imageUrl + config.configuration.logo" 
-      class="logo">
-  </div>
+<div class="login__content" appReveal="up">
+  @if (frontConfigState.confState$ | async; as config) {
+    <div
+      class="login__content--logo-wrapper"
+      >
+      <img
+        [src]="config.imageUrl + config.configuration.logo"
+        class="logo">
+    </div>
+  }
+
+  <h1 class="login__content--title" appReveal [revealDelay]="150">
+    {{ 'login.login' | translate }}
+  </h1>
 
   <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
     <div class="container__flex-col gap-2">
-      <div class="form-field wrap w-full">
-        <label 
+      <div class="form-field wrap w-full" appReveal [revealDelay]="250">
+        <label
           class="form-field__label"
           for="email"
-        >
-          {{ 'login.email' | translate }}:
+          >
+          {{ 'login.email' | translate }}
         </label>
 
-        <input 
+        <input
           type="email"
           pInputText
           id="email"
           formControlName="email"
           placeholder="example@gmail.com"
-        >
+          >
       </div>
-      
-      <div class="form-field wrap w-full">
-        <label 
+
+      <div class="form-field wrap w-full" appReveal [revealDelay]="350">
+        <label
           class="form-field__label"
           for="password"
-        >
-          {{ 'login.password' | translate }}:
+          >
+          {{ 'login.password' | translate }}
         </label>
 
         <p-password
@@ -43,16 +48,20 @@
         ></p-password>
       </div>
 
-      <div class="container__flex justify-center">
-        <app-spinner *ngIf="loading"></app-spinner>
-        <button 
-          *ngIf="!loading"
-          class="btn btn__main"
-          type="submit"
-          [disabled]="loading"
-        >
-          {{ 'login.login' | translate }}
-        </button>
+      <div class="container__flex justify-center mt-1" appReveal [revealDelay]="450">
+        @if (loading) {
+          <app-spinner></app-spinner>
+        }
+        @if (!loading) {
+          <button
+            class="btn btn__main login__content--submit"
+            type="submit"
+            [disabled]="loading"
+            >
+            {{ 'login.login' | translate }}
+            <i class="pi pi-arrow-right"></i>
+          </button>
+        }
       </div>
     </div>
   </form>

@@ -1,108 +1,111 @@
-<div *ngIf="logStore.state$ | async as state">
-  <div class="logs">
-    <div class="logs__header">
-      <button
-        class="btn btn__icon btn__icon--blue shadow-small border-none"
-        (click)="location.back()"
-      >
-        <i class="pi pi-arrow-left"></i>
-      </button>
-
-      <div class="container__flex gap-2">
-        <div *ngFor="let tearm of searchTerms; let i = index">
-          <div class="chip">
-            {{ tearm }}
-
-            <i class="pi pi-times" (click)="clearTerm(i)"></i>
-          </div>
-        </div>
-  
-        <button 
-          class="btn btn__search px-2"
-          (click)="op.toggle($event)"
-        >
-          {{ 'common.search' | translate }}
-          <!-- <i class="pi pi-search"></i> -->
+@if (logStore.state$ | async; as state) {
+  <div>
+    <div class="logs">
+      <div class="logs__header">
+        <button
+          class="btn btn__icon btn__icon--blue shadow-small border-none"
+          (click)="location.back()"
+          >
+          <i class="pi pi-arrow-left"></i>
         </button>
-      </div>
-    </div>
-
-    <div class="separator"></div>
-
-    <div class="logs__content">
-      <div *ngIf="state.list.length > 0" >
-        <ng-container *ngIf="!state.loading">
-          <div *ngFor="let log of state.list" class="logs__content--logs-wrapper">
-            <app-log
-              [log]="log"
-            ></app-log>
-          </div>
-        </ng-container>
-
-        <p-paginator
-          [rows]="state.params.take"
-          [totalRecords]="state.total"
-          (onPageChange)="onPageChange($event)"
-        ></p-paginator>
-      </div>
-      
-      <div *ngIf="!state.loading && state.list.length === 0">
-        <div class="logs__content--empty">
-          <img src="../../../../assets/img/svg/no-results.svg">
-          {{ 'common.noData' | translate }}
+        <div class="container__flex gap-2">
+          @for (tearm of searchTerms; track tearm; let i = $index) {
+            <div>
+              <div class="chip">
+                {{ tearm }}
+                <i class="pi pi-times" (click)="clearTerm(i)"></i>
+              </div>
+            </div>
+          }
+          <button
+            class="btn btn__search px-2"
+            (click)="op.toggle($event)"
+            >
+            {{ 'common.search' | translate }}
+            <!-- <i class="pi pi-search"></i> -->
+          </button>
         </div>
+      </div>
+      <div class="separator"></div>
+      <div class="logs__content">
+        @if (state.list.length > 0) {
+          <div >
+            @if (!state.loading) {
+              @for (log of state.list; track log; let i = $index) {
+                <div class="logs__content--logs-wrapper" appReveal [revealDelay]="(i % 8) * 60">
+                  <app-log
+                    [log]="log"
+                  ></app-log>
+                </div>
+              }
+            }
+            <p-paginator
+              [rows]="state.params.take"
+              [totalRecords]="state.total"
+              (onPageChange)="onPageChange($event)"
+            ></p-paginator>
+          </div>
+        }
+        @if (!state.loading && state.list.length === 0) {
+          <div>
+            <div class="logs__content--empty">
+              <img src="../../../../assets/img/svg/no-results.svg">
+              {{ 'common.noData' | translate }}
+            </div>
+          </div>
+        }
       </div>
     </div>
   </div>
-</div>
+}
 
-<p-overlayPanel #op appendTo="body">
+<p-popover #op appendTo="body">
   <div class="invites__header--filter">
-    <input 
-      type="text" 
+    <input
+      type="text"
       pInputText
       class="max-w-3"
       placeholder="{{ 'properties.client' | translate | lowercase }}..."
       [(ngModel)]="filters.client"
       (keydown.enter)="filter(); op.toggle($event)"
-    >
-
-    <p-calendar
-      [(ngModel)]="dateSearch"
-      placeholder="{{ 'properties.date' | translate | lowercase }}..."
-      [showClear]="true"
-      (onSelect)="onDateSelect()"
-      (onClear)="onDateClear()"
-    ></p-calendar>
-
-    <p-dropdown
-      [(ngModel)]="filters.action"
-      [options]="actions"
-      optionLabel="name"
-      optionValue="value"
-      placeholder="{{ 'properties.action' | translate | lowercase }}..."
-    ></p-dropdown>
-
-    <div class="container__flex gap-1 justify-center">
-      <button 
-        pButton
-        type="submit"
-        class="btn btn__icon--orange px-1"
-        (click)="filter()"
       >
-        <i class="pi pi-filter"></i>
-        {{ 'common.search' | translate }}
-      </button>
 
-      <button 
-        pButton
-        type="button"
-        class="btn btn__icon--dark px-1"
-        (click)="clearFilter(); op.toggle($event)"
-      >
-        <i class="pi pi-filter-slash"></i>
-        {{ 'common.reset' | translate }}
-      </button>
+      <p-datepicker
+        [(ngModel)]="dateSearch"
+        placeholder="{{ 'properties.date' | translate | lowercase }}..."
+        [showClear]="true"
+        (onSelect)="onDateSelect()"
+        (onClear)="onDateClear()"
+      ></p-datepicker>
+
+      <p-select
+        [(ngModel)]="filters.action"
+        [options]="actions"
+        optionLabel="name"
+        optionValue="value"
+        placeholder="{{ 'properties.action' | translate | lowercase }}..."
+      ></p-select>
+
+      <div class="container__flex gap-1 justify-center">
+        <button
+          pButton
+          type="submit"
+          class="btn btn__icon--orange px-1"
+          (click)="filter()"
+          >
+          <i class="pi pi-filter"></i>
+          {{ 'common.search' | translate }}
+        </button>
+
+        <button
+          pButton
+          type="button"
+          class="btn btn__icon--dark px-1"
+          (click)="clearFilter(); op.toggle($event)"
+          >
+          <i class="pi pi-filter-slash"></i>
+          {{ 'common.reset' | translate }}
+        </button>
+      </div>
     </div>
-  </div>
-</p-overlayPanel>
+  </p-popover>

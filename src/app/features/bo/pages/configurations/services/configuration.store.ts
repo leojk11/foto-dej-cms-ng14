@@ -26,7 +26,7 @@ export class ConfigurationStore extends ComponentStore<ConfigurationState> {
     super(initialState);
   }
 
-  get state() {
+  get snapshot() {
     return this.get(s => s);
   }
 
@@ -54,7 +54,7 @@ export class ConfigurationStore extends ComponentStore<ConfigurationState> {
     console.log('configuration', configuration);
     
     const newConfiguration = {
-      ...this.state.configuration,
+      ...this.snapshot.configuration,
       ...configuration,
       // promo_images: configuration.promo_images
     };

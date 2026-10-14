@@ -68,7 +68,7 @@ export class AlbumsStore extends ComponentStore<AlbumsState> {
     super(initialState);
   }
 
-  get state() {
+  get snapshot() {
     return this.get(s => s);
   }
 
@@ -83,7 +83,7 @@ export class AlbumsStore extends ComponentStore<AlbumsState> {
   getAllAlbums(): void {
     this.spinner.show().then();
 
-    this.albumsService.getAllAlbums(this.state.params).subscribe({
+    this.albumsService.getAllAlbums(this.snapshot.params).subscribe({
       next: res => {
         this.patchState({
           list: res.list,
@@ -103,7 +103,7 @@ export class AlbumsStore extends ComponentStore<AlbumsState> {
   getUserAlbums(userId: string): void {
     this.spinner.show().then();
 
-    this.albumsService.getUserAlbums(userId, this.state.params).subscribe({
+    this.albumsService.getUserAlbums(userId, this.snapshot.params).subscribe({
       next: res => {
         this.patchState({
           list: res.list,
@@ -193,17 +193,17 @@ export class AlbumsStore extends ComponentStore<AlbumsState> {
   }
 
   patchExistingAlbums(newAlbum: Album): void {
-    const list = this.state.list;
+    const list = this.snapshot.list;
     list.push(newAlbum);
 
     this.patchState({
       list,
-      total: this.state.total + 1
+      total: this.snapshot.total + 1
     });
   }
 
   patchParams(page: number): void {
-    const newParams = { ...this.state.params, page };
+    const newParams = { ...this.snapshot.params, page };
 
     this.patchState({ params: newParams });
   }
@@ -211,9 +211,9 @@ export class AlbumsStore extends ComponentStore<AlbumsState> {
   updateStatus(status: boolean): void {
     this.spinner.show().then();
 
-    this.albumsService.updateStatus(this.state.previewAlbum?.id, status).subscribe({
+    this.albumsService.updateStatus(this.snapshot.previewAlbum?.id, status).subscribe({
       next: res => {
-        const previewAlbum = this.state.previewAlbum;
+        const previewAlbum = this.snapshot.previewAlbum;
         if (previewAlbum) {
           previewAlbum.active = status;
         }
@@ -232,10 +232,10 @@ export class AlbumsStore extends ComponentStore<AlbumsState> {
   deleteImage(image: string, index: number): void {
     this.spinner.show().then();
 
-    this.albumsService.deleteImage(this.state.previewAlbum?.id, image).subscribe({
+    this.albumsService.deleteImage(this.snapshot.previewAlbum?.id, image).subscribe({
       next: res => {
         // in the future be will return left images array
-        let images = this.state.images;
+        let images = this.snapshot.images;
         images?.images.splice(index, 1);
         if(images?.imagesCount) {
           images.imagesCount = images.imagesCount - 1;
@@ -254,9 +254,9 @@ export class AlbumsStore extends ComponentStore<AlbumsState> {
   deleteMultipleImages(images: string[]): void {
     this.spinner.show().then();
 
-    this.albumsService.deleteMultipleImages(this.state.previewAlbum?.id, images).subscribe({
+    this.albumsService.deleteMultipleImages(this.snapshot.previewAlbum?.id, images).subscribe({
       next: res => {
-        let savedImages = this.state.images;
+        let savedImages = this.snapshot.images;
         for (const image of images) {
           if (savedImages) {
             const index = savedImages.images.findIndex(imImage => imImage.name === image);
@@ -283,9 +283,9 @@ export class AlbumsStore extends ComponentStore<AlbumsState> {
   disableMultipleImages(images: string[]): void {
     this.spinner.show().then();
 
-    this.albumsService.disableMultipleImages(this.state.previewAlbum?.id, images).subscribe({
+    this.albumsService.disableMultipleImages(this.snapshot.previewAlbum?.id, images).subscribe({
       next: res => {
-        let savedImages = this.state.images;
+        let savedImages = this.snapshot.images;
         for (const image of images) {
           const index = savedImages?.images.findIndex(imImage => imImage.name === image);
           if (index) {
@@ -309,9 +309,9 @@ export class AlbumsStore extends ComponentStore<AlbumsState> {
   enableMultipleImages(images: string[]): void {
     this.spinner.show().then();
 
-    this.albumsService.enableMultipleImages(this.state.previewAlbum?.id, images).subscribe({
+    this.albumsService.enableMultipleImages(this.snapshot.previewAlbum?.id, images).subscribe({
       next: res => {
-        let savedImages = this.state.images;
+        let savedImages = this.snapshot.images;
         for (const image of images) {
           const index = savedImages?.images.findIndex(imImage => imImage.name === image);
           if (index) {
@@ -341,10 +341,10 @@ export class AlbumsStore extends ComponentStore<AlbumsState> {
   }
 
   selectImages(): void {
-    if (this.state.selectedImages) {
+    if (this.snapshot.selectedImages) {
       this.spinner.show().then();
 
-      this.albumsService.selectImages(this.state.previewAlbum?.id, this.state.selectedImages).subscribe({
+      this.albumsService.selectImages(this.snapshot.previewAlbum?.id, this.snapshot.selectedImages).subscribe({
         next: res => {
           this.toastService.addSuccess(res.message);
           this.spinner.hide().then();

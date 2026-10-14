@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+
 
 @Component({
-  selector: 'app-back-logs',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './back-logs.component.html',
-  styleUrls: ['./back-logs.component.scss']
+    selector: 'app-back-logs',
+    imports: [],
+    templateUrl: './back-logs.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
+    styleUrls: ['./back-logs.component.scss']
 })
 export class BackLogsComponent implements OnInit {
 

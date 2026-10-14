@@ -3,106 +3,113 @@
     <button
       class="btn btn__icon btn__icon--blue shadow-small border-none"
       (click)="location.back()"
-    >
+      >
       <i class="pi pi-arrow-left"></i>
     </button>
 
     <div class="container__flex gap-1">
-      <div *ngFor="let tearm of searchTerms; let i = index">
-        <div class="chip">
-          {{ tearm }}
-
-          <i class="pi pi-times" (click)="clearTerm(i)"></i>
+      @for (tearm of searchTerms; track tearm; let i = $index) {
+        <div>
+          <div class="chip">
+            {{ tearm }}
+            <i class="pi pi-times" (click)="clearTerm(i)"></i>
+          </div>
         </div>
-      </div>
+      }
 
-      <button 
+      <button
         class="btn btn__search px-2"
         (click)="filterOp.toggle($event)"
-      >
+        >
         {{ 'common.search' | translate }}
       </button>
-  
+
       <button
         class="btn btn__main albums-buttons__add-button"
         type="submit"
         (click)="openAddModal()"
         *permit="'BO'"
-      >
+        >
         {{ 'albums.addNewAlbum' | translate }}
       </button>
     </div>
   </div>
 
   <div class="separator"></div>
-  
-  <div *ngIf="albumStore.state$ | async as state" class="relative">
-    <ng-container *ngIf="!state.loading">
-      <div class="albums__content">
-        <div
-          class="single-album-wrapper"
-          *ngFor="let album of state.list"
-        >
-          <app-single-album
-            [album]="album"
-          ></app-single-album>
+
+  @if (albumStore.state$ | async; as state) {
+    <div class="relative">
+      @if (!state.loading) {
+        <div class="albums__content">
+          @for (album of state.list; track album; let i = $index) {
+            <div
+              class="single-album-wrapper"
+              appReveal [revealDelay]="(i % 8) * 70"
+              >
+              <app-single-album
+                [album]="album"
+              ></app-single-album>
+            </div>
+          }
         </div>
-      </div>
-      <p-paginator 
-        *ngIf="state.total > state.params.take"
-        [rows]="state.params.take"
-        [totalRecords]="state.total"
-        (onPageChange)="onPageChange($event)"
-      ></p-paginator>
-    
-      <div class="album__empty" *ngIf="state.list.length === 0">
-        <img src="../../../../assets//img/svg/no-results.svg" alt="">
-        {{ 'common.noResults' | translate }}
-      </div>
-    </ng-container>
-  </div>
+        @if (state.total > state.params.take) {
+          <p-paginator
+            [rows]="state.params.take"
+            [totalRecords]="state.total"
+            (onPageChange)="onPageChange($event)"
+          ></p-paginator>
+        }
+        @if (state.list.length === 0) {
+          <div class="album__empty">
+            <img src="../../../../assets//img/svg/no-results.svg" alt="">
+            {{ 'common.noResults' | translate }}
+          </div>
+        }
+      }
+    </div>
+  }
 </div>
 
-<p-overlayPanel #filterOp appendTo="body">
+<p-popover #filterOp appendTo="body">
   <div class="albums__header--filter">
-    <input 
-      type="text" 
+    <input
+      type="text"
       pInputText
       class="w-25r"
       placeholder="{{ 'common.searchName' | translate}}"
       [(ngModel)]="nameSearch"
       (keydown.enter)="filter()"
-    >
-    
-    <input 
-      type="text" 
-      pInputText
-      class="w-25r"
-      placeholder="{{ 'common.searchDate' | translate}}"
-      [(ngModel)]="dateSearch"
-      (keydown.enter)="filter()"
-    >
-
-    <div class="container__flex gap-1 justify-center">
-      <button 
-        pButton
-        type="button"
-        class="btn btn__icon--orange px-1"
-        (click)="filter()"
       >
-        <i class="pi pi-filter"></i>
-        {{ 'common.search' | translate }}
-      </button>
 
-      <button 
-        pButton
-        type="button"
-        class="btn btn__icon--dark px-1"
-        (click)="clearFilter(); filterOp.toggle($event)"
-      >
-        <i class="pi pi-filter-slash"></i>
-        {{ 'common.reset' | translate }}
-      </button>
-    </div>
-  </div>
-</p-overlayPanel>
+      <input
+        type="text"
+        pInputText
+        class="w-25r"
+        placeholder="{{ 'common.searchDate' | translate}}"
+        [(ngModel)]="dateSearch"
+        (keydown.enter)="filter()"
+        >
+
+        <div class="container__flex gap-1 justify-center">
+          <button
+            pButton
+            type="button"
+            class="btn btn__icon--orange px-1"
+            (click)="filter()"
+            >
+            <i class="pi pi-filter"></i>
+            {{ 'common.search' | translate }}
+          </button>
+
+          <button
+            pButton
+            type="button"
+            class="btn btn__icon--dark px-1"
+            (click)="clearFilter(); filterOp.toggle($event)"
+            >
+            <i class="pi pi-filter-slash"></i>
+            {{ 'common.reset' | translate }}
+          </button>
+        </div>
+      </div>
+    </p-popover>

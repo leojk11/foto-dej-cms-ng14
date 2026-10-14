@@ -1,27 +1,26 @@
-import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { ConfirmationService } from 'primeng/api';
-import { CalendarModule } from 'primeng/calendar';
+import { DatePickerModule } from 'primeng/datepicker';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
-  selector: 'app-select-date',
-  templateUrl: './select-date.component.html',
-  standalone: true,
-  imports: [
-    CommonModule,
+    selector: 'app-select-date',
+    templateUrl: './select-date.component.html',
+    imports: [
     FormsModule,
-    CalendarModule,
-    TranslateModule,
+    DatePickerModule,
+    TranslatePipe,
     InputTextModule
-  ],
-  providers: [
-    ConfirmationService
-  ],
-  styleUrls: ['./select-date.component.scss']
+],
+    providers: [
+        ConfirmationService
+    ],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    styleUrls: ['./select-date.component.scss']
 })
 export class SelectDateComponent implements OnInit {
 

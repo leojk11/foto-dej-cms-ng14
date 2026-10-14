@@ -1,4 +1,4 @@
-import {HttpClient, HttpParams, HttpRequest} from '@angular/common/http';
+import { HttpClient, HttpParams, HttpRequest } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { API_URL } from 'src/app/core/tokens/api-url.token';

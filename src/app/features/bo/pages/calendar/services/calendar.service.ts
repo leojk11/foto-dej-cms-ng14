@@ -1,6 +1,6 @@
 import {Inject, Injectable} from '@angular/core';
 import {API_URL} from "../../../../../core/tokens/api-url.token";
-import {HttpClient} from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import {AddNewSchedulePayload} from "../models/addNewSchedulePayload.model";
 import {Observable} from "rxjs";
 import {AddNewScheduleResponse} from "../models/addNewScheduleResponse.model";

@@ -1,7 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
+
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { InputTextModule } from 'primeng/inputtext';
 import { ImageOverviewService } from 'src/app/shared/services/image-overview.service';
 import { ConfigurationService } from '../../services/configuration.service';
@@ -11,17 +11,16 @@ import { ToastService } from 'src/app/shared/services/toast.service';
 import { ProgressBarModule } from 'primeng/progressbar';
 
 @Component({
-  selector: 'app-upload',
-  standalone: true,
-  imports: [
-    CommonModule,
+    selector: 'app-upload',
+    imports: [
     ReactiveFormsModule,
-    TranslateModule,
+    TranslatePipe,
     InputTextModule,
     ProgressBarModule
-  ],
-  templateUrl: './upload.component.html',
-  styleUrls: ['./upload.component.scss']
+],
+    templateUrl: './upload.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
+    styleUrls: ['./upload.component.scss']
 })
 export class UploadComponent implements OnInit {
 

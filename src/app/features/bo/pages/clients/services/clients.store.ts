@@ -38,7 +38,7 @@ export class ClientsStore extends ComponentStore<ClientsState> {
     super(initialState);
   }
 
-  get state() {
+  get snapshot() {
     return this.get(s => s);
   }
 
@@ -49,7 +49,7 @@ export class ClientsStore extends ComponentStore<ClientsState> {
   getAllClients(name?: string): void {
     this.setLoading(true);
     this.spinner.show().then();
-    this.clientsService.getAllCLients(this.state.params, name).subscribe({
+    this.clientsService.getAllCLients(this.snapshot.params, name).subscribe({
       next: res => {
         this.patchState({
           list: res.list,
@@ -68,26 +68,26 @@ export class ClientsStore extends ComponentStore<ClientsState> {
   }
 
   pathExistingClients(client: Client): void {
-    const list = this.state.list;
+    const list = this.snapshot.list;
     list.push(client);
 
     this.patchState({
       list,
-      total: this.state.total + 1
+      total: this.snapshot.total + 1
     });
   }
   
   patchExistingClientSingle(client: Client): void {
-    const list = this.state.list;
+    const list = this.snapshot.list;
 
-    const index = this.state.list.findIndex(inClient => inClient.id === client.id);
+    const index = this.snapshot.list.findIndex(inClient => inClient.id === client.id);
     list[index] = client;
 
     this.patchState({ list });
   }
 
   patchParams(page: number): void {
-    const newParams = { ...this.state.params, page };
+    const newParams = { ...this.snapshot.params, page };
 
     this.patchState({ params: newParams });
   }
@@ -98,7 +98,7 @@ export class ClientsStore extends ComponentStore<ClientsState> {
     this.clientsService.getSingleClient(id).subscribe({
       next: client => {
         this.patchState({
-          ...this.state,
+          ...this.snapshot,
           client: client
         });
 

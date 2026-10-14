@@ -1,7 +1,7 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, NgZone, ChangeDetectorRef, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { StorageService } from 'src/app/core/services/storage.service';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { Router, RouterModule } from '@angular/router';
 import { Configuration } from 'src/app/features/bo/pages/configurations/models/configuration.model';
@@ -14,22 +14,24 @@ import { FrontConfigurationState } from 'src/app/shared/services/front-configura
 import { LangChangeComponent } from 'src/app/shared/components/lang-change/lang-change.component';
 
 @Component({
-  selector: 'app-front-navbar',
-  standalone: true,
-  imports: [
-    CommonModule,
-    TranslateModule,
-    RouterModule,
-    TooltipModule,
-    MenuModule,
-    LangChangeComponent
-  ],
-  templateUrl: './front-navbar.component.html'
+    selector: 'app-front-navbar',
+    imports: [
+        CommonModule,
+        TranslatePipe,
+        RouterModule,
+        TooltipModule,
+        MenuModule,
+        LangChangeComponent
+    ],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    templateUrl: './front-navbar.component.html'
 })
-export class FrontNavbarComponent implements OnInit {
+export class FrontNavbarComponent implements OnInit, OnDestroy {
 
   @Input() gallery: boolean = false;
-  
+  // transparent over the hero photo until the page is scrolled
+  @Input() overlay: boolean = false;
+
   @Output() goToElement = new EventEmitter();
 
   selectedLang: string | null = 'mk';
@@ -44,18 +46,44 @@ export class FrontNavbarComponent implements OnInit {
       shareReplay()
     );
 
+  scrolled: boolean = false;
+
+  private onScroll = () => {
+    const scrolled = window.scrollY > 40;
+
+    // only re-enter angular when the state actually flips
+    if (scrolled !== this.scrolled) {
+      this.zone.run(() => {
+        this.scrolled = scrolled;
+        // the homepage hosting this navbar is OnPush
+        this.cdr.markForCheck();
+      });
+    }
+  };
+
   constructor(
     private storageService: StorageService,
     private translateService: TranslateService,
     private authService: AuthService,
     public frontConfigurationState: FrontConfigurationState,
     private brakepointObserver: BreakpointObserver,
-    private router: Router
+    private router: Router,
+    private zone: NgZone,
+    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
     this.isAuthenticated = this.authService.isLoggedInUser();
     this.getTranslateMenuItems();
+
+    this.scrolled = window.scrollY > 40;
+    this.zone.runOutsideAngular(() => {
+      window.addEventListener('scroll', this.onScroll, { passive: true });
+    });
+  }
+
+  ngOnDestroy(): void {
+    window.removeEventListener('scroll', this.onScroll);
   }
 
   getTranslateMenuItems(): void {

@@ -1,17 +1,17 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { Router } from '@angular/router';
 import { NotificationService } from '../../services/notification.service';
 
 @Component({
-  selector: 'app-notification',
-  standalone: true,
-  imports: [
-    CommonModule,
-    TranslateModule
-  ],
-  templateUrl: './notification.component.html'
+    selector: 'app-notification',
+    imports: [
+        CommonModule,
+        TranslatePipe
+    ],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    templateUrl: './notification.component.html'
 })
 export class NotificationComponent implements OnInit {
 

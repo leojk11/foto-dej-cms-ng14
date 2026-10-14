@@ -1,73 +1,70 @@
-<ng-container *ngIf="albumsStore.state$ | async as state">
+@if (albumsStore.state$ | async; as state) {
   <div class="albums-buttons">
     <div class="container__flex gap-5 row-gap-2">
       <button
         class="btn btn__icon btn__icon--blue shadow-small border-none"
         (click)="location.back()"
-      >
+        >
         <i class="pi pi-arrow-left"></i>
       </button>
-
-      <div class="album-preview__info" *ngIf="!state.loading">
-        <div class="album-preview__info__item">
-          <div class="label">{{ 'properties.numImages' | translate }}: </div>
-          <div class="content">{{ state.images?.imagesCount }}</div>
+      @if (!state.loading) {
+        <div class="album-preview__info">
+          <div class="album-preview__info__item">
+            <div class="label">{{ 'properties.numImages' | translate }}: </div>
+            <div class="content">{{ state.images?.imagesCount }}</div>
+          </div>
+          <div class="album-preview__info__item">
+            <div class="label">{{ 'properties.assignedTo' | translate }}: </div>
+            <div class="content">{{ state.previewAlbum?.assigned_to?.fullname }}</div>
+          </div>
         </div>
-    
-        <div class="album-preview__info__item">
-          <div class="label">{{ 'properties.assignedTo' | translate }}: </div>
-          <div class="content">{{ state.previewAlbum?.assigned_to?.fullname }}</div>
-        </div>
-      </div>
+      }
     </div>
-  
     <div class="container__flex ml-auto">
-      <p-inputSwitch 
-        class="mr-1" 
-        *ngIf="state.previewAlbum" 
-        [(ngModel)]="state.previewAlbum.active"
-        (onChange)="changeStatus($event)"
-      ></p-inputSwitch>
-
+      @if (state.previewAlbum) {
+        <p-toggleswitch
+          class="mr-1"
+          [(ngModel)]="state.previewAlbum.active"
+          (onChange)="changeStatus($event)"
+        ></p-toggleswitch>
+      }
       <button
         class="btn btn__icon--blue btn__main--sm mr-1"
         type="submit"
         (click)="goToUpload()"
-        pTooltip="{{ 'common.upload' | translate }}" 
+        pTooltip="{{ 'common.upload' | translate }}"
         tooltipPosition="top">
         <i class="pi pi-upload"></i>
       </button>
-    
       <button
         class="btn btn__icon--orange btn__main--sm mr-1"
         type="button"
         (click)="openEditModal()"
-        pTooltip="{{ 'common.edit' | translate }}" 
+        pTooltip="{{ 'common.edit' | translate }}"
         tooltipPosition="top">
         <i class="pi pi-pencil"></i>
       </button>
-    
       <button
         class="btn btn__icon--red btn__main--sm"
         type="button"
         (click)="deleteAlbum()"
-        pTooltip="{{ 'common.delete' | translate }}" 
+        pTooltip="{{ 'common.delete' | translate }}"
         tooltipPosition="top">
         <i class="pi pi-trash"></i>
       </button>
     </div>
   </div>
-
-  <div class="separator mb-2" *ngIf="!state.loading"></div>
-
+  @if (!state.loading) {
+    <div class="separator mb-2"></div>
+  }
   <app-album-preview
     [state]="state"
     [albumId]="albumId"
   ></app-album-preview>
-</ng-container>
+}
 
-<p-confirmDialog 
+<p-confirmdialog
   [key]="'delete'"
-  header="{{ 'common.confirmation' | translate }}" 
-  [style]="{ width: '50%',  padding: '1rem' }"  
-></p-confirmDialog>
+  header="{{ 'common.confirmation' | translate }}"
+  [style]="{ width: '50%',  padding: '1rem' }"
+></p-confirmdialog>

@@ -1,101 +1,96 @@
-<div class="frontnav" *ngIf="frontConfigurationState.confState$ | async as state">
-  <div class="frontnav__brand">
-    <div class="frontnav__brand--logo-wrapper">
-      <img 
-        [src]="state.imageUrl + state.configuration.logo"
-        alt="" 
-        class="frontnav__brand--logo-wrapper--img"
-        routerLink="/home"
-      >
-    </div>
-  </div>
-
-  <ng-container *ngIf="(isMobile$ | async); else notMobile">
-    <p-menu 
-      #menu [popup]="true" 
-      [model]="menuItems" 
-      styleClass="frontnav__menu"
-    ></p-menu>
-
-    <button 
-      type="button" 
-      class="btn btn__main--icon"
-      pButton 
-      label="Show" 
-      (click)="menu.toggle($event)"
+@if (frontConfigurationState.confState$ | async; as state) {
+  <div
+    class="frontnav"
+    [class.frontnav--overlay]="overlay"
+    [class.frontnav--scrolled]="scrolled"
     >
-      <i class="pi pi-list"></i>
-    </button>
-  </ng-container>
-
-  <ng-template #notMobile>
-    <div class="frontnav__actions">
-      <ng-container *ngIf="isAuthenticated">
-        <a 
-          class="frontnav__actions__link"
-          routerLink="/client/albums"
-          routerLinkActive="active"
-        >
-          {{ 'common.albums' | translate }}
-        </a>
-        <!-- <a 
-          class="frontnav__actions__link"
-          routerLink="/client/profile"
-          routerLinkActive="active"
-        >
-          {{ 'common.profile' | translate }}
-        </a> -->
-      </ng-container>
-  
-      <ng-container *ngIf="!isAuthenticated && !gallery">
-        <div class="frontnav__actions__middle">
-          <a 
-            class="frontnav__actions__link" 
-            (click)="goToElement.emit('collaboration')">
-            {{ 'common.contact' | translate }}
-          </a>
-
-          <a 
-            class="frontnav__actions__link" 
-            (click)="goToElement.emit('slider')">
-            {{ 'common.gallery' | translate }}
-          </a>
-        </div>
-      </ng-container>
-
-      <ng-container *ngIf="!isAuthenticated && gallery">
-        <a 
-          class="frontnav__actions__link" 
-          routerLink="/home">
-          {{ 'common.home' | translate }}
-        </a>
-      </ng-container>
+    <div class="frontnav__brand">
+      <div class="frontnav__brand--logo-wrapper">
+        <img
+          [src]="state.imageUrl + (overlay && !scrolled ? state.configuration.logo_white : state.configuration.logo)"
+          alt=""
+          class="frontnav__brand--logo-wrapper--img"
+          routerLink="/home"
+          >
+      </div>
     </div>
-  
-    <div class="container__flex gap-2">
-      <app-lang-change></app-lang-change>
-  
-      <button 
-        *ngIf="isAuthenticated"
-        pButton
+    @if ((isMobile$ | async)) {
+      <p-menu
+        #menu [popup]="true"
+        [model]="menuItems"
+        styleClass="frontnav__menu"
+      ></p-menu>
+      <button
         type="button"
-        class="btn btn__main btn__main--icon shadow-sm fw-600"
-        [pTooltip]="'common.signOut' | translate"
-        tooltipPosition="bottom"
-        (click)="logout()"
-      >
-        <i class="pi pi-sign-out"></i>
-      </button>
-  
-      <button 
-        *ngIf="!isAuthenticated"
+        class="btn btn__main--icon"
+        [class.btn__glass]="overlay && !scrolled"
         pButton
-        type="button"
-        class="btn btn__main"
-        routerLink="/auth/client"
-      >
-        {{ 'common.signIn' | translate }}
+        label="Show"
+        (click)="menu.toggle($event)"
+        >
+        <i class="pi pi-bars"></i>
       </button>
-    </div>
-  </ng-template>
-</div>
+    } @else {
+      <div class="frontnav__actions">
+        @if (isAuthenticated) {
+          <a
+            class="frontnav__actions__link"
+            routerLink="/client/albums"
+            routerLinkActive="active"
+            >
+            {{ 'common.albums' | translate }}
+          </a>
+        }
+        @if (!isAuthenticated && !gallery) {
+          <div class="frontnav__actions__middle">
+            <a
+              class="frontnav__actions__link"
+              (click)="goToElement.emit('collaboration')">
+              {{ 'common.contact' | translate }}
+            </a>
+            <a
+              class="frontnav__actions__link"
+              (click)="goToElement.emit('slider')">
+              {{ 'common.gallery' | translate }}
+            </a>
+          </div>
+        }
+        @if (!isAuthenticated && gallery) {
+          <a
+            class="frontnav__actions__link"
+            routerLink="/home">
+            {{ 'common.home' | translate }}
+          </a>
+        }
+      </div>
+      <div class="container__flex gap-2">
+        <app-lang-change></app-lang-change>
+        @if (isAuthenticated) {
+          <button
+            pButton
+            type="button"
+            class="btn btn__main btn__main--icon shadow-sm fw-600"
+            [class.btn__glass]="overlay && !scrolled"
+            [pTooltip]="'common.signOut' | translate"
+            tooltipPosition="bottom"
+            (click)="logout()"
+            >
+            <i class="pi pi-sign-out"></i>
+          </button>
+        }
+        @if (!isAuthenticated) {
+          <button
+            pButton
+            type="button"
+            class="btn"
+            [class.btn__main]="!(overlay && !scrolled)"
+            [class.btn__hero]="overlay && !scrolled"
+            routerLink="/auth/client"
+            >
+            {{ 'common.signIn' | translate }}
+          </button>
+        }
+      </div>
+    }
+  </div>
+}

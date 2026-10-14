@@ -1,119 +1,125 @@
-<div *ngIf="clientStore.state$ | async as state">
-  <div class="clients">
-    <div class="clients__header">
-      <div class="clients__header--buttons">
-        <button
-          class="btn btn__icon btn__icon--blue shadow-small border-none"
-          (click)="location.back()"
-        >
-          <i class="pi pi-arrow-left"></i>
-        </button>
-
-        <div class="container__flex gap-1">
-          <div *ngFor="let tearm of searchTerms; let i = index">
-            <div class="chip">
-              {{ tearm }}
-
-              <i class="pi pi-times" (click)="clearTerm(i)"></i>
-            </div>
-          </div>
-
-          <button 
-            class="btn btn__search px-2"
-            (click)="filterOp.toggle($event)"
-          >
-            {{ 'common.search' | translate }}
-            <!-- <i class="pi pi-search"></i> -->
-          </button>
-
+@if (clientStore.state$ | async; as state) {
+  <div>
+    <div class="clients">
+      <div class="clients__header">
+        <div class="clients__header--buttons">
           <button
-            class="btn btn__main "
-            type="button"
-            (click)="openModal()"
-          >
-            {{ 'clients.newClient' | translate }}
+            class="btn btn__icon btn__icon--blue shadow-small border-none"
+            (click)="location.back()"
+            >
+            <i class="pi pi-arrow-left"></i>
           </button>
+          <div class="container__flex gap-1">
+            @for (tearm of searchTerms; track tearm; let i = $index) {
+              <div>
+                <div class="chip">
+                  {{ tearm }}
+                  <i class="pi pi-times" (click)="clearTerm(i)"></i>
+                </div>
+              </div>
+            }
+            <button
+              class="btn btn__search px-2"
+              (click)="filterOp.toggle($event)"
+              >
+              {{ 'common.search' | translate }}
+              <!-- <i class="pi pi-search"></i> -->
+            </button>
+            <button
+              class="btn btn__main "
+              type="button"
+              (click)="openModal()"
+              >
+              {{ 'clients.newClient' | translate }}
+            </button>
+          </div>
         </div>
       </div>
-    </div>
-
-    <div class="separator"></div>
-
-    <div class="clients__content" *ngIf="state.list.length > 0">
-      <div *ngIf="!state.loading" class="clients__content--items">
-        <div *ngFor="let client of state.list" >
-          <app-client-card
-            [client] = "client"
-            (clientUpdated)="clientStore.getAllClients()"
-          ></app-client-card>
+      <div class="separator"></div>
+      @if (state.list.length > 0) {
+        <div class="clients__content">
+          @if (!state.loading) {
+            <div class="clients__content--items">
+              @for (client of state.list; track client) {
+                <div >
+                  <app-client-card
+                    appReveal [revealDelay]="($index % 8) * 70"
+                    [client] = "client"
+                    (clientUpdated)="clientStore.getAllClients()"
+                  ></app-client-card>
+                </div>
+              }
+            </div>
+          }
+          @if (state.total > state.params.take) {
+            <p-paginator
+              [rows]="state.params.take"
+              [totalRecords]="state.total"
+              (onPageChange)="onPageChange($event)"
+            ></p-paginator>
+          }
         </div>
-      </div>
-  
-      <p-paginator
-        *ngIf="state.total > state.params.take"
-        [rows]="state.params.take"
-        [totalRecords]="state.total"
-        (onPageChange)="onPageChange($event)"
-      ></p-paginator>
-    </div>
-
-    <div class="clients__content" *ngIf="!state.loading && state.list.length === 0">
-      <div class="clients__content--empty">
-        <img src="../../../../assets/img/svg/no-results.svg">
-        {{ 'common.noResults' | translate }}
-      </div>
+      }
+      @if (!state.loading && state.list.length === 0) {
+        <div class="clients__content">
+          <div class="clients__content--empty">
+            <img src="../../../../assets/img/svg/no-results.svg">
+            {{ 'common.noResults' | translate }}
+          </div>
+        </div>
+      }
     </div>
   </div>
-</div>
+}
 
-<p-overlayPanel #filterOp appendTo="body">
+<p-popover #filterOp appendTo="body">
   <div class="clients__header--filter">
-    <input 
-      type="text" 
+    <input
+      type="text"
       pInputText
       class="max-w-3"
       placeholder="{{ 'common.searchName' | translate}}"
       [(ngModel)]="nameSearch"
       (keydown.enter)="filter(); filterOp.toggle($event)"
-    >
-
-    <input 
-      type="text" 
-      pInputText
-      class="max-w-3"
-      placeholder="{{ 'common.searchPhone' | translate}}"
-      [(ngModel)]="phoneSearch"
-      (keydown.enter)="filter(); filterOp.toggle($event)"
-    >
-
-    <p-dropdown
-      [(ngModel)]="statusSearch"
-      [options]="statuses"
-      optionLabel="name"
-      optionValue="value"
-      placeholder="{{ 'properties.status' | translate | lowercase }}..."
-    ></p-dropdown>
-
-    <div class="container__flex gap-1 justify-center">
-      <button 
-        pButton
-        type="button"
-        class="btn btn__icon--orange px-1"
-        (click)="filter(); filterOp.toggle($event)"
       >
-        <i class="pi pi-filter"></i>
-        {{ 'common.search' | translate }}
-      </button>
 
-      <button 
-        pButton
-        type="button"
-        class="btn btn__icon--dark px-1"
-        (click)="clearFilter(); filterOp.toggle($event)"
-      >
-        <i class="pi pi-filter-slash"></i>
-        {{ 'common.reset' | translate }}
-      </button>
-    </div>
-  </div>
-</p-overlayPanel>
+      <input
+        type="text"
+        pInputText
+        class="max-w-3"
+        placeholder="{{ 'common.searchPhone' | translate}}"
+        [(ngModel)]="phoneSearch"
+        (keydown.enter)="filter(); filterOp.toggle($event)"
+        >
+
+        <p-select
+          [(ngModel)]="statusSearch"
+          [options]="statuses"
+          optionLabel="name"
+          optionValue="value"
+          placeholder="{{ 'properties.status' | translate | lowercase }}..."
+        ></p-select>
+
+        <div class="container__flex gap-1 justify-center">
+          <button
+            pButton
+            type="button"
+            class="btn btn__icon--orange px-1"
+            (click)="filter(); filterOp.toggle($event)"
+            >
+            <i class="pi pi-filter"></i>
+            {{ 'common.search' | translate }}
+          </button>
+
+          <button
+            pButton
+            type="button"
+            class="btn btn__icon--dark px-1"
+            (click)="clearFilter(); filterOp.toggle($event)"
+            >
+            <i class="pi pi-filter-slash"></i>
+            {{ 'common.reset' | translate }}
+          </button>
+        </div>
+      </div>
+    </p-popover>

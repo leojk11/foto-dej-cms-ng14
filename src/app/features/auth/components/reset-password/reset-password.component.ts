@@ -1,26 +1,25 @@
-import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
 
 @Component({
-  selector: 'app-reset-password',
-  standalone: true,
-  imports: [
-    CommonModule,
+    selector: 'app-reset-password',
+    imports: [
     FormsModule,
     ReactiveFormsModule,
     InputTextModule,
-    TranslateModule
-  ],
-  providers: [
-    DialogService
-  ],
-  templateUrl: './reset-password.component.html'
+    TranslatePipe
+],
+    providers: [
+        DialogService
+    ],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    templateUrl: './reset-password.component.html'
 })
 export class ResetPasswordComponent implements OnInit {
 

@@ -1,158 +1,152 @@
 <div class="add-new-schedule p-1">
   <div class="add-new-schedule__inner">
-    <div class="w-full" *ngIf="loading">
-      <app-spinner></app-spinner>
-    </div>
+    @if (loading) {
+      <div class="w-full">
+        <app-spinner></app-spinner>
+      </div>
+    }
 
-    <form 
-      *ngIf="!loading" 
-      [formGroup]="form" 
-      (ngSubmit)="handleSubmit()"
-    >
-      <div class="container__flex gap-4 wrap" >
-        <div class="form-field w-full">
-          <label class="form-field__label">
-            {{ 'properties.date' | translate }} (*):
-          </label>
-
-          <input
-            type="text"
-            pInputText
-            formControlName="date"
-            placeholder="2022-09-10..."
-            readonly
-          >
-        </div>
-
-        <div class="form-field w-full">
-          <label class="form-field__label">
-            {{ 'properties.title' | translate }} (*):
-          </label>
-
-          <input
-            type="text"
-            pInputText
-            formControlName="title"
-            placeholder="{{ 'properties.title' | translate | lowercase }}..."
-          >
-        </div>
-
-        <div class="form-field w-full">
-          <label class="form-field__label">
-            {{ 'properties.time' | translate }}:
-          </label>
-
-          <input
-            type="text"
-            pInputText
-            formControlName="time"
-            placeholder="10:00..."
-          >
-        </div>
-
-        <div class="form-field w-full">
-          <label class="form-field__label">
-            {{ 'properties.description' | translate }}:
-          </label>
-
-          <textarea
-            pInputTextarea
-            formControlName="description"
-            placeholder="{{ 'properties.description' | translate | lowercase }}..."
-          ></textarea>
-        </div>
-
-        <div class="form-field w-full">
-          <label class="form-field__label">
-            {{ 'properties.locations' | translate }}:
-          </label>
-
-          <div class="w-full" *ngIf="loadingLocations">
-            <app-spinner></app-spinner>
-          </div>
-
-          <div class="locations" *ngIf="!loadingLocations">
-            <div class="locations__inner">
-              <ng-container *ngIf="locations.length > 0">
-                <p-tag styleClass="mr-2 cp" *ngFor="let location of locations"
-                  value="{{ location.title }} | {{ location.time }}" 
-                  [rounded]="true" (click)="locationDialog(location)"></p-tag>
-              </ng-container>
-              <ng-container *ngIf="locations.length === 0">
-                <p class="text">{{ 'messages.noLocations' | translate }}...</p>
-              </ng-container>
+    @if (!loading) {
+      <form
+        [formGroup]="form"
+        (ngSubmit)="handleSubmit()"
+        >
+        <div class="container__flex gap-4 wrap" >
+          <div class="form-field w-full">
+            <label class="form-field__label">
+              {{ 'properties.date' | translate }} (*):
+            </label>
+            <input
+              type="text"
+              pInputText
+              formControlName="date"
+              placeholder="2022-09-10..."
+              readonly
+              >
+            </div>
+            <div class="form-field w-full">
+              <label class="form-field__label">
+                {{ 'properties.title' | translate }} (*):
+              </label>
+              <input
+                type="text"
+                pInputText
+                formControlName="title"
+                placeholder="{{ 'properties.title' | translate | lowercase }}..."
+                >
+              </div>
+              <div class="form-field w-full">
+                <label class="form-field__label">
+                  {{ 'properties.time' | translate }}:
+                </label>
+                <input
+                  type="text"
+                  pInputText
+                  formControlName="time"
+                  placeholder="10:00..."
+                  >
+                </div>
+                <div class="form-field w-full">
+                  <label class="form-field__label">
+                    {{ 'properties.description' | translate }}:
+                  </label>
+                  <textarea
+                    pTextarea
+                    formControlName="description"
+                    placeholder="{{ 'properties.description' | translate | lowercase }}..."
+                  ></textarea>
+                </div>
+                <div class="form-field w-full">
+                  <label class="form-field__label">
+                    {{ 'properties.locations' | translate }}:
+                  </label>
+                  @if (loadingLocations) {
+                    <div class="w-full">
+                      <app-spinner></app-spinner>
+                    </div>
+                  }
+                  @if (!loadingLocations) {
+                    <div class="locations">
+                      <div class="locations__inner">
+                        @if (locations.length > 0) {
+                          @for (location of locations; track location) {
+                            <p-tag styleClass="mr-2 cp"
+                              value="{{ location.title }} | {{ location.time }}"
+                            [rounded]="true" (click)="locationDialog(location)"></p-tag>
+                          }
+                        }
+                        @if (locations.length === 0) {
+                          <p class="text">{{ 'messages.noLocations' | translate }}...</p>
+                        }
+                      </div>
+                      <div class="locations__btn">
+                        <button
+                          class="btn btn__icon btn__icon--dark"
+                          type="button"
+                          (click)="locationDialog()">
+                          <i class="pi pi-plus fw-500 text-lg"></i>
+                        </button>
+                      </div>
+                    </div>
+                  }
+                </div>
+                <div class="form-field w-full">
+                  <label class="form-field__label">
+                    {{ 'properties.contactNumber' | translate }} 1:
+                  </label>
+                  <input
+                    type="text"
+                    pInputText
+                    formControlName="contact_number_1"
+                    placeholder="{{ 'properties.contactNumber' | translate | lowercase }}..."
+                    >
+                  </div>
+                  <div class="form-field w-full">
+                    <label class="form-field__label">
+                      {{ 'properties.contactNumber' | translate }} 2:
+                    </label>
+                    <input
+                      type="text"
+                      pInputText
+                      formControlName="contact_number_2"
+                      placeholder="{{ 'properties.contactNumber' | translate | lowercase }}..."
+                      >
+                    </div>
+                  </div>
+                  <div class="container__flex justify-center gap-2 mt-5 mb-2">
+                    @if (!editMode) {
+                      <button
+                        class="btn btn__main"
+                        type="submit"
+                        [disabled]="form.invalid"
+                        >
+                        {{ 'common.add' | translate }}
+                      </button>
+                    }
+                    @if (editMode) {
+                      <button
+                        class="btn btn__main"
+                        type="submit"
+                        [disabled]="form.invalid"
+                        >
+                        {{ 'common.edit' | translate }}
+                      </button>
+                    }
+                    @if (editMode) {
+                      <button
+                        class="btn btn__red btn__lg"
+                        type="button"
+                        (click)="handleDelete()"
+                        >
+                        {{ 'common.delete' | translate }}
+                      </button>
+                    }
+                  </div>
+                </form>
+              }
             </div>
 
-            <div class="locations__btn">
-              <button
-                class="btn btn__icon btn__icon--dark"
-                type="button"
-                (click)="locationDialog()">
-                <i class="pi pi-plus fw-500 text-lg"></i>
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-field w-full">
-          <label class="form-field__label">
-            {{ 'properties.contactNumber' | translate }} 1:
-          </label>
-
-          <input
-            type="text"
-            pInputText
-            formControlName="contact_number_1"
-            placeholder="{{ 'properties.contactNumber' | translate | lowercase }}..."
-          >
-        </div>
-
-        <div class="form-field w-full">
-          <label class="form-field__label">
-            {{ 'properties.contactNumber' | translate }} 2:
-          </label>
-
-          <input
-            type="text"
-            pInputText
-            formControlName="contact_number_2"
-            placeholder="{{ 'properties.contactNumber' | translate | lowercase }}..."
-          >
-        </div>
-      </div>
-
-      <div class="container__flex justify-center gap-2 mt-5 mb-2">
-        <button
-          *ngIf="!editMode"
-          class="btn btn__main"
-          type="submit"
-          [disabled]="form.invalid"
-        >
-          {{ 'common.add' | translate }}
-        </button>
-
-        <button
-          *ngIf="editMode"
-          class="btn btn__main"
-          type="submit"
-          [disabled]="form.invalid"
-        >
-          {{ 'common.edit' | translate }}
-        </button>
-
-        <button
-          *ngIf="editMode"
-          class="btn btn__red btn__lg"
-          type="button"
-          (click)="handleDelete()"
-        >
-          {{ 'common.delete' | translate }}
-        </button>
-      </div>
-    </form>
-  </div>
-
-<p-confirmDialog
-  header="{{ 'common.confirmation' | translate }}" 
-  [style]="{width: '100%',  padding: '1rem'}"
-></p-confirmDialog>
+            <p-confirmdialog
+              header="{{ 'common.confirmation' | translate }}"
+              [style]="{width: '100%',  padding: '1rem'}"
+            ></p-confirmdialog>

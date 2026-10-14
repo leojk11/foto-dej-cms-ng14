@@ -1,42 +1,42 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
 import { AlbumsStore } from '../../services/albums.store';
 import { AdminLayoutService } from 'src/app/features/bo/layout/services/admin-layout.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DialogService } from 'primeng/dynamicdialog';
 import { NewAlbumComponent } from '../new-album/new-album.component';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { SingleImageComponent } from '../../components/single-image/single-image.component';
 import { TooltipModule } from 'primeng/tooltip';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmationService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { InputSwitchModule } from 'primeng/inputswitch';
+import { ToggleSwitchModule } from 'primeng/toggleswitch';
 import { FormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { AlbumPreviewComponent } from 'src/app/shared/components/album-preview/album-preview.component';
 
 @Component({
-  selector: 'app-bo-preview',
-  standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule,
-    TranslateModule,
-    SingleImageComponent,
-    TooltipModule,
-    ButtonModule,
-    ConfirmDialogModule,
-    InputSwitchModule,
-    InputTextModule,
-    AlbumPreviewComponent
-  ],
-  providers: [
-    AlbumsStore,
-    DialogService,
-    ConfirmationService
-  ],
-  templateUrl: './bo-preview.component.html'
+    selector: 'app-bo-preview',
+    imports: [
+        CommonModule,
+        FormsModule,
+        TranslatePipe,
+        SingleImageComponent,
+        TooltipModule,
+        ButtonModule,
+        ConfirmDialogModule,
+        ToggleSwitchModule,
+        InputTextModule,
+        AlbumPreviewComponent
+    ],
+    providers: [
+        AlbumsStore,
+        DialogService,
+        ConfirmationService
+    ],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    templateUrl: './bo-preview.component.html'
 })
 export class BoPreviewComponent implements OnInit {
 
@@ -79,7 +79,7 @@ export class BoPreviewComponent implements OnInit {
   }
 
   goToUpload(): void {
-    this.router.navigate(['/bo/albums/upload/' + this.albumsStore.state.previewAlbum?.id]).then();
+    this.router.navigate(['/bo/albums/upload/' + this.albumsStore.snapshot.previewAlbum?.id]).then();
   }
 
   changeStatus(event: any): void {
@@ -104,7 +104,7 @@ export class BoPreviewComponent implements OnInit {
     this.dialog.open(NewAlbumComponent, {
       width: this.modalWidth,
       header: this.translate.instant('albums.editAlbum'),
-      data: this.albumsStore.state.previewAlbum
+      data: this.albumsStore.snapshot.previewAlbum
     });
   }
 }

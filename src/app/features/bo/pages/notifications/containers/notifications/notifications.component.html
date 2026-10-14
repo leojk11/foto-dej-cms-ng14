@@ -1,33 +1,32 @@
-<div class="notifications" *ngIf="notificationStore.state$ | async as state">
-  <div class="notifications__header">
-    <button
-      class="btn btn__icon btn__icon--blue shadow-small border-none"
-      (click)="location.back()"
-    >
-      <i class="pi pi-arrow-left"></i>
-    </button>
-
-    <p 
-      class="notifications-panel__top--seeAll"
-      (click)="markAllRead()"
-    >
-      {{ 'common.markAllRead' | translate }}
-    </p>
+@if (notificationStore.state$ | async; as state) {
+  <div class="notifications">
+    <div class="notifications__header">
+      <button
+        class="btn btn__icon btn__icon--blue shadow-small border-none"
+        (click)="location.back()"
+        >
+        <i class="pi pi-arrow-left"></i>
+      </button>
+      <p
+        class="notifications-panel__top--seeAll"
+        (click)="markAllRead()"
+        >
+        {{ 'common.markAllRead' | translate }}
+      </p>
+    </div>
+    <div class="separator"></div>
+    <div class="notifications__list">
+      @for (notification of state.notifications; track notification; let i = $index) {
+        <app-notification
+          appReveal [revealDelay]="(i % 8) * 60"
+          [notification]="notification"
+        ></app-notification>
+      }
+      <p-paginator
+        [rows]="state.params.take"
+        [totalRecords]="state.total"
+        (onPageChange)="onPageChange($event)"
+      ></p-paginator>
+    </div>
   </div>
-
-  <div class="separator"></div>
-
-  <div class="notifications__list">
-    <ng-container *ngFor="let notification of state.notifications">
-      <app-notification
-        [notification]="notification"
-      ></app-notification>
-    </ng-container>
-
-    <p-paginator
-      [rows]="state.params.take"
-      [totalRecords]="state.total"
-      (onPageChange)="onPageChange($event)"
-    ></p-paginator>
-  </div>
-</div>
+}

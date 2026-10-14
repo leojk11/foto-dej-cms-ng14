@@ -1,46 +1,40 @@
-import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
-import { CommonModule, Location } from '@angular/common';
-import { Calendar, CalendarOptions, FullCalendarComponent, FullCalendarModule } from '@fullcalendar/angular';
+import { ChangeDetectorRef, Component, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { Location } from '@angular/common';
+import { FullCalendarComponent, FullCalendarModule } from '@fullcalendar/angular';
+import { CalendarOptions } from '@fullcalendar/core';
 import { map, Observable, shareReplay } from 'rxjs';
 import { AdminLayoutService } from 'src/app/features/bo/layout/services/admin-layout.service';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { CalendarService } from '../../services/calendar.service';
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs';
 import { DialogService } from 'primeng/dynamicdialog';
 import { AddNewScheduleComponent } from '../../components/add-new-schedule/add-new-schedule.component';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import listPlugin from '@fullcalendar/list';
 import { ToastService } from 'src/app/shared/services/toast.service';
-import { CalendarModule } from 'primeng/calendar';
+import { DatePickerModule } from 'primeng/datepicker';
 import { FormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { SelectDateComponent } from '../../components/select-date/select-date.component';
-import { OverlayPanelModule } from 'primeng/overlaypanel';
-
-FullCalendarModule.registerPlugins([
-  dayGridPlugin,
-  interactionPlugin,
-  listPlugin
-]);
+import { PopoverModule } from 'primeng/popover';
 
 @Component({
-  selector: 'app-calendar',
-  standalone: true,
-  imports: [
-    CommonModule,
-    TranslateModule,
+    selector: 'app-calendar',
+    imports: [
+    TranslatePipe,
     FullCalendarModule,
-    CalendarModule,
+    DatePickerModule,
     FormsModule,
     InputTextModule,
-    OverlayPanelModule
-  ],
-  providers: [
-    DialogService
-  ],
-  templateUrl: './calendar.component.html'
+    PopoverModule
+],
+    providers: [
+        DialogService
+    ],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    templateUrl: './calendar.component.html'
 })
 export class CalendarComponent implements OnInit {
 
@@ -61,6 +55,7 @@ export class CalendarComponent implements OnInit {
   } = {} as { from: string; to: string };
 
   calendarOptions: CalendarOptions = {
+    plugins: [dayGridPlugin, interactionPlugin, listPlugin],
     initialView: 'dayGridMonth',
     headerToolbar: {
       left: 'prev,next,prevYear,nextYear',
@@ -166,7 +161,7 @@ export class CalendarComponent implements OnInit {
       header: this.translate.instant('calendar.newSchedule')
     });
     
-    dialogRef.onClose.subscribe({
+    dialogRef?.onClose.subscribe({
       next: () => {
         const event = {
           start: this.initialDates.from,
@@ -187,7 +182,7 @@ export class CalendarComponent implements OnInit {
       header: this.translate.instant('calendar.editSchedule')
     });
 
-    dialogRef.onClose.subscribe({
+    dialogRef?.onClose.subscribe({
       next: () => {
         const event = {
           start: this.initialDates.from,
@@ -206,7 +201,7 @@ export class CalendarComponent implements OnInit {
       header: this.translate.instant('common.chooseDate')
     });
 
-    dateDialogRef.onClose.subscribe({
+    dateDialogRef?.onClose.subscribe({
       next: (output) => {
         const dialogRef = this.dialog.open(AddNewScheduleComponent, {
           width: this.modalWidth,
@@ -214,7 +209,7 @@ export class CalendarComponent implements OnInit {
           header: this.translate.instant('calendar.newSchedule')
         });
         
-        dialogRef.onClose.subscribe({
+        dialogRef?.onClose.subscribe({
           next: () => {
             const event = {
               start: this.initialDates.from,
@@ -265,7 +260,7 @@ export class CalendarComponent implements OnInit {
       header: this.translate.instant('common.chooseDate')
     });
 
-    dateDialogRef.onClose.subscribe({
+    dateDialogRef?.onClose.subscribe({
       next: data => {
         if (this.calendar) {
           const formattedDate = dayjs(data.date).format();

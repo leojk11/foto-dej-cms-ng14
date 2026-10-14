@@ -1,20 +1,51 @@
+// tinted button used for icon actions: soft background, solid on hover
+@mixin tint($color, $hover-text: $white) {
+  color: $color;
+  background-color: rgba($color, 0.12);
+  min-width: 2rem;
+  padding: 0 1.2rem;
+  box-shadow: none;
+  border: 1px solid transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &:hover {
+    background-color: $color;
+    color: $hover-text;
+    transform: translateY(-1px);
+  }
+
+  &.disabled {
+    cursor: auto;
+    background-color: rgba($color, 0.12);
+    color: $color;
+    transform: none;
+  }
+}
+
 .btn{
-  font-size: 1.6rem;
-  font-family: 'Roboto', serif;
-  letter-spacing: 1.5px;
+  font-size: 1.4rem;
+  font-family: $font-body;
+  letter-spacing: 0.01em;
   font-weight: 500;
   padding: .7rem 0;
   color: #fff;
-  border: none;
-  border-radius: 10px;
-  min-width: 19.7rem;
+  border: 1px solid transparent;
+  border-radius: $radius-pill;
+  min-width: 15rem;
   cursor: pointer;
-  transition: all 0.2s;
-  height: 4rem;
+  transition: transform 0.25s $ease-out, background-color 0.25s, color 0.25s, box-shadow 0.25s, border-color 0.25s;
+  height: 4.2rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: .5rem;
+  gap: .6rem;
+  white-space: nowrap;
+
+  &:active {
+    transform: scale(0.97);
+  }
 
   &__back {
     background-color: transparent;
@@ -24,16 +55,15 @@
   }
 
   &__main {
-    background-color: $color-medium;
-    // font-size: 1.2rem;
-    // font-weight: 500;
+    background-color: $color-dark;
     min-width: 15rem;
-    transition: all 0.2s;
+    box-shadow: 0 6px 16px -6px rgba($color-dark, 0.55);
 
     &:hover{
-      background-color: $color-light !important;
-      color: $color-dark !important;
-      box-shadow: 2px 2px 7px -1px rgba(68, 68, 68, 0.3);
+      background-color: $highlight;
+      color: $white;
+      transform: translateY(-2px);
+      box-shadow: 0 12px 22px -8px rgba($highlight, 0.6);
     }
 
     &--sm{
@@ -43,9 +73,8 @@
     &--icon{
       background-color: $color-dark;
       color: $color-light;
-      min-width: 2rem;
-      box-shadow: 2px 2px 7px -1px rgba(68, 68, 68, 0.3);
-      padding: 0 1rem;
+      min-width: 4.2rem;
+      padding: 0 1.2rem;
       text-align: center;
 
       i{
@@ -63,36 +92,76 @@
 
     &--outline{
       background-color: transparent;
-      color: $color-light;
-      border: 2px solid $color-dark;
-      font-size: 1.8rem;
-      transition: all 0.2s;
-      // font-weight: 700;
-      box-shadow: 2px 2px 7px -1px rgba(68, 68, 68, 0.3);
+      color: $color-dark;
+      border: 1.5px solid $color-dark;
+      box-shadow: none;
 
       &:hover{
-        background-color: $color-light;
-        color: $color-dark;
-        border-color: $color-light;
+        background-color: $color-dark;
+        color: $white;
       }
     }
 
     &--text{
       background-color: transparent;
       color: $color-dark;
-      border: 1px solid transparent;
-      font-size: 1.8rem;
-      transition: all 0.2s;
+      box-shadow: none;
 
       &:hover{
-        border: 1px solid rgba($color-dark, 0.8);
-        font-weight: bold;
+        background-color: rgba($color-dark, 0.08);
+        color: $color-dark;
+        box-shadow: none;
       }
     }
 
     &:disabled {
-      background-color: rgba($color-dark, 0.4);
+      background-color: rgba($color-dark, 0.35);
+      box-shadow: none;
       cursor: not-allowed;
+      transform: none;
+      color: rgba($white, 0.85);
+    }
+  }
+
+  // buttons that sit on top of photos
+  &__hero {
+    background-color: $white;
+    color: $color-dark;
+    min-width: 17rem;
+    font-weight: 600;
+    box-shadow: 0 14px 30px -12px rgba(0, 0, 0, 0.5);
+
+    &:hover {
+      background-color: $color-light;
+      color: $color-dark;
+      transform: translateY(-2px);
+    }
+
+    &--ghost {
+      background-color: rgba($white, 0.08);
+      color: $white;
+      border: 1.5px solid rgba($white, 0.6);
+      backdrop-filter: blur(6px);
+      box-shadow: none;
+
+      &:hover {
+        background-color: $white;
+        color: $color-dark;
+        border-color: $white;
+      }
+    }
+  }
+
+  &__glass {
+    background-color: rgba($white, 0.14);
+    color: $white;
+    border: 1px solid rgba($white, 0.4);
+    backdrop-filter: blur(8px);
+    box-shadow: none;
+
+    &:hover {
+      background-color: $white;
+      color: $color-dark;
     }
   }
 
@@ -101,199 +170,43 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
     background-color: transparent;
-    min-width: 2rem !important;
-
-    border-radius: 5px;
-
-    transition: all 0.3s;
-
+    min-width: 4rem !important;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
     cursor: pointer;
 
-    
+    &--dark { @include tint($dark); }
+    &--orange { @include tint($color-1); }
+    &--red { @include tint($red); }
+    &--blue { @include tint($color-dark); }
+    &--green { @include tint($color-highlight-green, $dark); }
+    &--purple { @include tint($color-highlight-purple); }
+  }
 
-    &--dark {
-      color: $dark;
-      background-color: rgba($dark, 0.1);
+  // the filter buttons use the tinted variants on their own
+  &.btn__icon--dark,
+  &.btn__icon--orange,
+  &.btn__icon--red,
+  &.btn__icon--blue,
+  &.btn__icon--green,
+  &.btn__icon--purple {
+    width: auto;
+    height: 4.2rem;
+    border-radius: $radius-pill;
+  }
 
-      min-width: 2rem;
-      box-shadow: 2px 2px 7px -1px rgba(68, 68, 68, 0.3);
-      padding: 0 1rem;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      &:hover {
-        background-color: $dark;
-        color: $color-light;
-
-        .pi {
-          font-weight: 600 !important;
-        }
-      }
-
-      &.disabled {
-        cursor: auto;
-        background-color: rgba($dark, 0.1);
-        color: $dark;
-
-        .pi {
-          font-weight: 500 !important;
-        }
-      }
-    }
-
-    &--orange{
-      color: $color-1;
-      background-color: rgba($color-1, 0.1);
-      min-width: 2rem;
-      box-shadow: 2px 2px 7px -1px rgba(68, 68, 68, 0.3);
-      padding: 0 1rem;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      &:hover {
-        background-color: $color-1;
-        color: $color-light;
-
-        .pi {
-          font-weight: 600 !important;
-        }
-      }
-
-      &.disabled {
-        cursor: auto;
-        background-color: rgba($color-1, 0.1);
-        color: $color-1;
-
-        .pi {
-          font-weight: 500 !important;
-        }
-      }
-    }
-
-    &--red{
-      color: $red;
-      background-color: rgba($red, 0.1);
-      min-width: 2rem;
-      box-shadow: 2px 2px 7px -1px rgba(68, 68, 68, 0.3);
-      padding: 0 1rem;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      &:hover {
-        background-color: $red;
-        color: $color-light;
-
-        .pi {
-          font-weight: 600 !important;
-        }
-      }
-
-      &.disabled {
-        cursor: auto;
-        background-color: rgba($red, 0.1);
-        color: $red;
-
-        .pi {
-          font-weight: 500 !important;
-        }
-      }
-    }
-
-    &--blue{
-      color: $color-dark;
-      background-color: rgba($color-dark, 0.1);
-
-      min-width: 2rem;
-      box-shadow: 2px 2px 7px -1px rgba(68, 68, 68, 0.3);
-      padding: 0 1rem;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      &:hover {
-        background-color: $color-dark;
-        color: $color-light;
-        .pi {
-          font-weight: 600 !important;
-        }
-      }
-
-      &.disabled {
-        cursor: auto;
-        background-color: rgba($color-dark, 0.1);
-        color: $color-dark;
-
-        .pi {
-          font-weight: 500 !important;
-        }
-      }
-    }
-
-    &--green {
-      color: $color-highlight-green;
-      background-color: rgba($color-highlight-green, 0.1);
-
-      min-width: 2rem;
-      box-shadow: 2px 2px 7px -1px rgba(68, 68, 68, 0.3);
-      padding: 0 1rem;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      &:hover {
-        background-color: $color-highlight-green;
-        color: $color-light;
-        .pi {
-          font-weight: 600 !important;
-        }
-      }
-
-      &.disabled {
-        cursor: auto;
-        background-color: rgba($color-highlight-green, 0.1);
-        color: $color-highlight-green;
-
-        .pi {
-          font-weight: 500 !important;
-        }
-      }
-    }
-
-    &--purple {
-      color: $color-highlight-purple;
-      background-color: rgba($color-highlight-purple, 0.1);
-
-      min-width: 2rem;
-      box-shadow: 2px 2px 7px -1px rgba(68, 68, 68, 0.3);
-      padding: 0 1rem;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      &:hover {
-        background-color: $color-highlight-purple;
-        color: $color-light;
-        .pi {
-          font-weight: 600 !important;
-        }
-      }
-
-      &.disabled {
-        cursor: auto;
-        background-color: rgba($color-highlight-purple, 0.1);
-        color: $color-highlight-purple;
-
-        .pi {
-          font-weight: 500 !important;
-        }
-      }
-    }
-
+  &.btn__icon.btn__icon--dark,
+  &.btn__icon.btn__icon--orange,
+  &.btn__icon.btn__icon--red,
+  &.btn__icon.btn__icon--blue,
+  &.btn__icon.btn__icon--green,
+  &.btn__icon.btn__icon--purple {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    padding: 0;
   }
 
   &__brown{
@@ -302,33 +215,33 @@
 
   &__green{
     background-color: $color-highlight-green;
+    color: $dark;
   }
 
-  
   &__dark{
-    background-color: rgba($dark, 0.8);
+    background-color: $dark;
 
     &:enabled:hover {
-      background: #131313 !important;
+      background: $color-dark !important;
       border-color: transparent !important;
     }
   }
 
   &__red{
-    background-color: rgba($red, 0.9);
+    background-color: $red;
 
     &:enabled:hover {
-      background: $red !important;
+      background: darken($red, 8%) !important;
       border-color: transparent !important;
     }
 
     &--outline {
       background-color: transparent;
       border: 1px solid rgba($red, .7);
-      color: rgba($red, .7);
+      color: rgba($red, .9);
 
       &:enabled:hover {
-        background-color: rgba($red, .7) !important;
+        background-color: $red !important;
         border-color: transparent;
         color: $white;
       }
@@ -340,24 +253,22 @@
   }
 
   &__sm {
-    min-width: 13rem !important;
-    font-size: 1.4rem !important;
+    min-width: 11rem !important;
+    font-size: 1.3rem !important;
+    height: 3.8rem;
   }
 
   &__search {
     min-width: 5rem !important;
-    // height: 4.3rem;
-    
     color: $color-dark;
-    background-color: $sidebar-bg;
-    border: 1px solid rgba($color-dark, 0.2);
-    // cursor: pointer;
-    transition: all .2s;
+    background-color: $surface;
+    border: 1px solid $border-color;
+    box-shadow: none;
 
     &:hover{
-      background-color: rgba($color-dark, 0.8) !important;
-      color: $white !important;
-      border-color: rgba($color-dark, 0.8) !important;
+      background-color: $color-light !important;
+      color: $color-dark !important;
+      border-color: rgba($color-dark, 0.25) !important;
     }
   }
 }
@@ -366,28 +277,58 @@
   box-shadow: none !important;
 }
 
-
 .p-confirm-dialog-accept, .p-confirm-dialog-reject {
   min-width: 9rem !important;
   padding: 0 1.5rem;
-}
-.p-button.p-button-icon-only {
-  background-color: $color-dark !important;
-  border-color: $color-dark !important;
+  border-radius: $radius-pill !important;
 }
 
-// SELECTED BUTTON
+.p-button.p-button-icon-only {
+  background-color: $color-dark;
+  border-color: $color-dark;
+}
+
+// SELECTED BUTTON (language switch)
 .p-selectbutton {
+  background: rgba($color-dark, 0.06);
+  border-radius: $radius-pill;
+  padding: 0.3rem;
+  display: inline-flex;
+  gap: 0.2rem;
+
+  .p-togglebutton,
   .p-button {
-    &.p-highlight {
-      background: rgba($color-dark, 0.6) !important;
-      border-color: rgba($color-dark, 0.4) !important;
+    border: none !important;
+    border-radius: $radius-pill !important;
+    background: transparent;
+    color: $color-dark;
+    font-size: 1.3rem;
+    font-weight: 600;
+    padding: 0.5rem 1.2rem;
+    min-width: 4.2rem;
+    transition: background-color 0.25s, color 0.25s;
+    height: auto;
+
+    &::before {
+      display: none;
     }
 
+    &.p-togglebutton-checked,
+    &.p-highlight {
+      background: $color-dark !important;
+      color: $white;
+      box-shadow: 0 4px 10px -4px rgba($color-dark, 0.6);
+
+      .p-togglebutton-label {
+        color: $white;
+      }
+    }
+
+    .p-togglebutton-label,
     .p-button-label {
-      font-family: 'Noto Serif', serif;
-      font-size: 1.6rem;
-      letter-spacing: 0.08rem;
+      font-family: $font-body;
+      font-size: 1.3rem;
+      letter-spacing: 0.04em;
       font-weight: 600;
     }
   }
@@ -408,5 +349,6 @@
 }
 
 .p-tooltip-text {
-  font-size: 1.4rem !important;
+  font-size: 1.3rem !important;
+  border-radius: $radius-sm;
 }

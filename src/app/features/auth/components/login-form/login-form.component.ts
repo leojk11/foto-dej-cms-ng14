@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { RevealDirective } from 'src/app/shared/directives/reveal.directive';
+import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/core/services/auth.service';
@@ -6,7 +7,7 @@ import { FrontConfigurationState } from 'src/app/shared/services/front-configura
 import { FrontConfigurationService } from 'src/app/shared/services/front-configuration.service';
 import { Router } from '@angular/router';
 import { ToastService } from 'src/app/shared/services/toast.service';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { ResetPasswordComponent } from '../reset-password/reset-password.component';
@@ -15,19 +16,20 @@ import { LangChangeComponent } from 'src/app/shared/components/lang-change/lang-
 import { SpinnerComponent } from 'src/app/shared/components/loading/spinner/spinner.component';
 
 @Component({
-  selector: 'app-login-form',
-  standalone: true,
-  imports: [
-    CommonModule,
-    TranslateModule,
-    ReactiveFormsModule,
-    InputTextModule,
-    PasswordModule,
-    LangChangeComponent,
-    SpinnerComponent
-  ],
-  providers: [DialogService],
-  templateUrl: './login-form.component.html'
+    selector: 'app-login-form',
+    imports: [
+        CommonModule,
+        TranslatePipe,
+        ReactiveFormsModule,
+        InputTextModule,
+        PasswordModule,
+        LangChangeComponent,
+        SpinnerComponent,
+        RevealDirective
+    ],
+    providers: [DialogService],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    templateUrl: './login-form.component.html'
 })
 export class LoginFormComponent implements OnInit {
 
@@ -117,7 +119,7 @@ export class LoginFormComponent implements OnInit {
       data: userInfo
     });
 
-    ref.onClose.subscribe({
+    ref?.onClose.subscribe({
       next: res => {
         console.log('res on close', res);
         this.authService.setAuthToken(res.token);

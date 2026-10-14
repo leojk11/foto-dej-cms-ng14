@@ -1,181 +1,172 @@
-<div 
-  class="invites" 
-  *ngIf="invitesStore.state$ | async as state"
->
-  <div class="invites__header">
-    <div class="invites__header--buttons">
-      <button
-        class="btn btn__icon btn__icon--blue shadow-small border-none"
-        (click)="location.back()"
-      >
-        <i class="pi pi-arrow-left"></i>
-      </button>
-
-      <div class="container__flex gap-2">
-        <div *ngFor="let tearm of searchTerms; let i = index">
-          <div class="chip">
-            {{ tearm }}
-
-            <i class="pi pi-times" (click)="clearTerm(i)"></i>
-          </div>
-        </div>
-
-        <button 
-          class="btn btn__search px-2"
-          (click)="op.toggle($event)"
-        >
-          {{ 'common.search' | translate }}
-          <!-- <i class="pi pi-search"></i> -->
-        </button>
-
+@if (invitesStore.state$ | async; as state) {
+  <div
+    class="invites"
+    >
+    <div class="invites__header">
+      <div class="invites__header--buttons">
         <button
-          class="btn btn__icon--blue btn__main--sm"
-          type="button"
-          (click)="refresh()"
-          pTooltip="{{ 'common.refresh' | translate }}" 
-          tooltipPosition="top">
-          <i class="pi pi-refresh"></i>
+          class="btn btn__icon btn__icon--blue shadow-small border-none"
+          (click)="location.back()"
+          >
+          <i class="pi pi-arrow-left"></i>
         </button>
+        <div class="container__flex gap-2">
+          @for (tearm of searchTerms; track tearm; let i = $index) {
+            <div>
+              <div class="chip">
+                {{ tearm }}
+                <i class="pi pi-times" (click)="clearTerm(i)"></i>
+              </div>
+            </div>
+          }
+          <button
+            class="btn btn__search px-2"
+            (click)="op.toggle($event)"
+            >
+            {{ 'common.search' | translate }}
+            <!-- <i class="pi pi-search"></i> -->
+          </button>
+          <button
+            class="btn btn__icon--blue btn__main--sm"
+            type="button"
+            (click)="refresh()"
+            pTooltip="{{ 'common.refresh' | translate }}"
+            tooltipPosition="top">
+            <i class="pi pi-refresh"></i>
+          </button>
+        </div>
       </div>
     </div>
+    <div class="invites__content">
+      <p-table
+        [value]="state.list"
+        [rows]="10"
+        [paginator]="true"
+        [lazy]="true"
+        (onLazyLoad)="onLazyLoad($event)"
+        [totalRecords]="state.total"
+        >
+        <ng-template pTemplate="header">
+          <tr>
+            <th></th>
+            <th>
+              {{ 'properties.invitedClient' | translate }}
+            </th>
+            <th>
+              {{ 'properties.invitedBy' | translate }}
+            </th>
+            <th>
+              {{ 'properties.date' | translate }}
+            </th>
+            <th>
+              {{ 'properties.status' | translate }}
+            </th>
+            <th></th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="6" class="no-results">{{ 'common.noResults' | translate }}</td>
+          </tr>
+        </ng-template>
+        <ng-template
+          pTemplate="body"
+          let-invite
+          let-index="rowIndex"
+          >
+          <tr appReveal [revealDelay]="(index % 10) * 45">
+            <td>
+              {{ index + 1 }}
+            </td>
+            <td>
+              <p>{{ invite.invited_client.fullname }}</p>
+              <p>{{ invite.invited_client.email }}</p>
+            </td>
+            <td>
+              {{ invite.invited_by.fullname }}
+            </td>
+            <td>
+              {{ invite.date | date: "dd/MM/yyyy" }} {{ invite.time }}
+            </td>
+            <td>
+              <p [ngClass]="invite.status === 'SUCCESSFULL' ? 'isActive' : 'isExpired'"
+                class="mx-auto"
+                >
+                {{ (invite.status === 'SUCCESSFULL' ? 'status.successful' : 'status.failed') | translate | uppercase }}
+              </p>
+            </td>
+            <td >
+              <button
+                class="btn btn__main btn__main--sm"
+                type="button"
+                (click)="resendInvite(invite)"
+                pTooltip="{{ 'common.resend' | translate }}"
+                tooltipPosition="top"
+                [disabled]="invite.status === 'SUCCESSFULL'"
+                >
+                <i class="pi pi-refresh"></i>
+              </button>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
   </div>
+}
 
-  <div class="invites__content">
-    <p-table
-      [value]="state.list"
-      [rows]="10"
-      [paginator]="true"
-      [lazy]="true"
-      (onLazyLoad)="onLazyLoad($event)"
-      [totalRecords]="state.total"
-    >
-      <ng-template pTemplate="header">
-        <tr>
-          <th></th>
-          <th>
-            {{ 'properties.invitedClient' | translate }}
-          </th>
-          <th>
-            {{ 'properties.invitedBy' | translate }}
-          </th>
-          <th>
-            {{ 'properties.date' | translate }}
-          </th>
-          <th>  
-            {{ 'properties.status' | translate }}
-          </th>
-          <th></th>
-        </tr>
-      </ng-template>
-
-      <ng-template pTemplate="emptymessage">
-        <tr>
-          <td colspan="6" class="no-results">{{ 'common.noResults' | translate }}</td>
-        </tr>
-      </ng-template>
-  
-      <ng-template 
-        pTemplate="body" 
-        let-invite 
-        let-index="rowIndex"
-      >
-        <tr>
-          <td>
-            {{ index + 1 }}
-          </td>
-
-          <td>
-            <p>{{ invite.invited_client.fullname }}</p>
-            <p>{{ invite.invited_client.email }}</p>
-          </td>
-
-          <td>
-            {{ invite.invited_by.fullname }}
-          </td>
-
-          <td>
-            {{ invite.date | date: "dd/MM/yyyy" }} {{ invite.time }}
-          </td>
-
-          <td>
-            <p [ngClass]="invite.status === 'SUCCESSFULL' ? 'isActive' : 'isExpired'"
-              class="mx-auto"
-            >
-              {{ (invite.status === 'SUCCESSFULL' ? 'status.successful' : 'status.failed') | translate | uppercase }}
-            </p>
-          </td>
-
-          <td >
-            <button
-              class="btn btn__main btn__main--sm"
-              type="button"
-              (click)="resendInvite(invite)"
-              pTooltip="{{ 'common.resend' | translate }}" 
-              tooltipPosition="top"
-              [disabled]="invite.status === 'SUCCESSFULL'"
-            >
-              <i class="pi pi-refresh"></i>
-            </button>
-          </td>
-        </tr>
-      </ng-template>
-    </p-table>
-  </div>
-</div>
-
-<p-confirmDialog 
+<p-confirmdialog
   [key]="'invite'"
-  header="{{ 'common.confirmation' | translate }}" 
-  [style]="{ width: '30%' }"  
-></p-confirmDialog>
+  header="{{ 'common.confirmation' | translate }}"
+  [style]="{ width: '30%' }"
+></p-confirmdialog>
 
-<p-overlayPanel #op appendTo="body">
+<p-popover #op appendTo="body">
   <div class="invites__header--filter">
-    <input 
-      type="text" 
+    <input
+      type="text"
       pInputText
       class="max-w-3"
       placeholder="{{ 'properties.client' | translate | lowercase }}..."
       [(ngModel)]="filters.client"
       (keydown.enter)="filter(); op.toggle($event)"
-    >
-
-    <p-calendar
-      [(ngModel)]="dateToFilter"
-      placeholder="{{ 'properties.date' | translate | lowercase }}..."
-      [showClear]="true"
-      (onSelect)="onDateSelect()"
-      (onClear)="onDateClear()"
-    ></p-calendar>
-
-    <p-dropdown
-      [(ngModel)]="filters.status"
-      [options]="statuses"
-      optionLabel="name"
-      optionValue="value"
-      placeholder="{{ 'properties.status' | translate | lowercase }}..."
-    ></p-dropdown>
-
-    <div class="container__flex gap-1 justify-center">
-      <button 
-        pButton
-        type="submit"
-        class="btn btn__icon--orange px-1"
-        (click)="filter(); op.toggle($event)"
       >
-        <i class="pi pi-filter"></i>
-        {{ 'common.search' | translate }}
-      </button>
 
-      <button 
-        pButton
-        type="button"
-        class="btn btn__icon--dark px-1"
-        (click)="refresh(); op.toggle($event)"
-      >
-        <i class="pi pi-filter-slash"></i>
-        {{ 'common.reset' | translate }}
-      </button>
+      <p-datepicker
+        [(ngModel)]="dateToFilter"
+        placeholder="{{ 'properties.date' | translate | lowercase }}..."
+        [showClear]="true"
+        (onSelect)="onDateSelect()"
+        (onClear)="onDateClear()"
+      ></p-datepicker>
+
+      <p-select
+        [(ngModel)]="filters.status"
+        [options]="statuses"
+        optionLabel="name"
+        optionValue="value"
+        placeholder="{{ 'properties.status' | translate | lowercase }}..."
+      ></p-select>
+
+      <div class="container__flex gap-1 justify-center">
+        <button
+          pButton
+          type="submit"
+          class="btn btn__icon--orange px-1"
+          (click)="filter(); op.toggle($event)"
+          >
+          <i class="pi pi-filter"></i>
+          {{ 'common.search' | translate }}
+        </button>
+
+        <button
+          pButton
+          type="button"
+          class="btn btn__icon--dark px-1"
+          (click)="refresh(); op.toggle($event)"
+          >
+          <i class="pi pi-filter-slash"></i>
+          {{ 'common.reset' | translate }}
+        </button>
+      </div>
     </div>
-  </div>
-</p-overlayPanel>
+  </p-popover>

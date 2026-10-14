@@ -1,20 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { LanguageService } from '../../services/language-change.store';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-lang-change',
-  standalone: true,
-  imports: [
-    CommonModule,
-    TranslateModule,
-    SelectButtonModule,
-    FormsModule
-  ],
-  templateUrl: './lang-change.component.html'
+    selector: 'app-lang-change',
+    imports: [
+        CommonModule,
+        TranslatePipe,
+        SelectButtonModule,
+        FormsModule
+    ],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    templateUrl: './lang-change.component.html'
 })
 export class LangChangeComponent implements OnInit {
 

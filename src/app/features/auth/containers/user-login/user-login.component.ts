@@ -1,5 +1,6 @@
-import { Component, OnInit, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { RevealDirective } from 'src/app/shared/directives/reveal.directive';
+import { Component, OnInit, ElementRef, ViewChild, AfterViewInit, ChangeDetectionStrategy } from '@angular/core';
+
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
@@ -7,7 +8,7 @@ import { APP_VERSION } from 'src/app/core/data/staticData';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { StorageService } from 'src/app/core/services/storage.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import {InputTextModule} from 'primeng/inputtext';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ResetPasswordComponent } from '../../components/reset-password/reset-password.component';
@@ -17,21 +18,21 @@ import { LangChangeComponent } from 'src/app/shared/components/lang-change/lang-
 import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
-  selector: 'app-user-login',
-  standalone: true,
-  imports: [
-    CommonModule,
+    selector: 'app-user-login',
+    imports: [
     FormsModule,
     ReactiveFormsModule,
-    TranslateModule,
+    TranslatePipe,
     InputTextModule,
     LoginFormComponent,
-    LangChangeComponent
-  ],
-  providers: [
-    DialogService
-  ],
-  templateUrl: './user-login.component.html'
+    LangChangeComponent,
+        RevealDirective
+],
+    providers: [
+        DialogService
+    ],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    templateUrl: './user-login.component.html'
 })
 export class UserLoginComponent implements OnInit, AfterViewInit {
 
@@ -131,7 +132,7 @@ export class UserLoginComponent implements OnInit, AfterViewInit {
       data: userInfo
     });
 
-    ref.onClose.subscribe({
+    ref?.onClose.subscribe({
       next: res => {
         console.log('res on close', res);
         this.authService.setAuthToken(res.token);

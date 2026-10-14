@@ -11,85 +11,86 @@
             type="text"
             pInputText
             formControlName="firstname"
-          >
-        </div>
+            >
+          </div>
 
-        <div class="form-field w-full">
-          <label class="form-field__label">
-            {{ 'properties.lastname' | translate }}:
-          </label>
+          <div class="form-field w-full">
+            <label class="form-field__label">
+              {{ 'properties.lastname' | translate }}:
+            </label>
 
-          <input
-            type="text"
-            pInputText
-            formControlName="lastname"
-          >
-        </div>
+            <input
+              type="text"
+              pInputText
+              formControlName="lastname"
+              >
+            </div>
 
-        <div class="form-field w-full">
-          <label class="form-field__label">
-            {{ 'properties.username' | translate }}:
-          </label>
+            <div class="form-field w-full">
+              <label class="form-field__label">
+                {{ 'properties.username' | translate }}:
+              </label>
 
-          <input
-            type="text"
-            pInputText
-            formControlName="username"
-          >
-        </div>
+              <input
+                type="text"
+                pInputText
+                formControlName="username"
+                >
+              </div>
 
-        <div class="form-field w-full">
-          <label class="form-field__label">
-            {{ 'properties.email' | translate }}:
-          </label>
+              <div class="form-field w-full">
+                <label class="form-field__label">
+                  {{ 'properties.email' | translate }}:
+                </label>
 
-          <input
-            type="text"
-            pInputText
-            formControlName="email"
-          >
-        </div>
+                <input
+                  type="text"
+                  pInputText
+                  formControlName="email"
+                  >
+                </div>
 
-        <div class="form-field w-full" *ngIf="!editMode">
-          <label class="form-field__label">
-            {{ 'properties.password' | translate }}:
-          </label>
+                @if (!editMode) {
+                  <div class="form-field w-full">
+                    <label class="form-field__label">
+                      {{ 'properties.password' | translate }}:
+                    </label>
+                    <input
+                      type="text"
+                      pInputText
+                      formControlName="password"
+                      >
+                    </div>
+                  }
 
-          <input
-            type="text"
-            pInputText
-            formControlName="password"
-          >
-        </div>
+                  <div class="form-field w-full">
+                    <label class="form-field__label">
+                      {{ 'properties.phoneNumber' | translate }}:
+                    </label>
 
-        <div class="form-field w-full">
-          <label class="form-field__label">
-            {{ 'properties.phoneNumber' | translate }}:
-          </label>
+                    <input
+                      type="text"
+                      pInputText
+                      formControlName="phone_number"
+                      >
+                    </div>
 
-          <input
-            type="text"
-            pInputText
-            formControlName="phone_number"
-          >
-        </div>
-
-      </div>
-      <div class="container__flex justify-center mt-5">
-        <button
-          class="btn btn__main"
-          type="submit"
-          [disabled]="form.invalid"
-        >
-          <ng-container *ngIf="editMode">
-            {{ 'common.edit' | translate }}
-          </ng-container>
-          <ng-container *ngIf="!editMode">
-            {{ 'common.add' | translate }}
-          </ng-container>
-        </button>
-      </div>
-    </form>
-  </div>
-</div>
+                  </div>
+                  <div class="container__flex justify-center mt-5">
+                    <button
+                      class="btn btn__main"
+                      type="submit"
+                      [disabled]="form.invalid"
+                      >
+                      @if (editMode) {
+                        {{ 'common.edit' | translate }}
+                      }
+                      @if (!editMode) {
+                        {{ 'common.add' | translate }}
+                      }
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
 

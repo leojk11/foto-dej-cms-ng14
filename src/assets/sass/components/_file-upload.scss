@@ -1,19 +1,22 @@
 .p-fileupload {
+  border-radius: $radius-md !important;
+
   .p-fileupload-content {
-    min-height: 62.5vh;
+    min-height: 40vh;
     overflow: auto !important;
   }
 
   .p-fileupload-buttonbar {
     display: flex;
     align-items: center;
-    gap: 2rem;
+    gap: 1rem;
 
     .p-button {
       margin-right: 0 !important;
       padding: 0 1rem 0 1.5rem !important;
       min-width: 15rem !important;
-      font-size: 1.5rem !important;
+      font-size: 1.3rem !important;
+      border-radius: $radius-pill;
     }
   }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Client } from '../../models/client.model';
 import { ClientsStore } from '../../services/clients.store';
@@ -6,24 +6,24 @@ import { NewClientComponent } from '../../containers/new-client/new-client.compo
 import { DialogService } from 'primeng/dynamicdialog';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {ConfirmationService} from 'primeng/api';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { RouterModule } from '@angular/router';
 import { TooltipModule } from 'primeng/tooltip';
 
 @Component({
-  selector: 'app-client-card',
-  standalone: true,
-  imports: [
-    CommonModule,
-    ConfirmDialogModule,
-    TranslateModule,
-    RouterModule,
-    TooltipModule
-  ],
-  providers: [
-    ConfirmationService
-  ],
-  templateUrl: './client-card.component.html'
+    selector: 'app-client-card',
+    imports: [
+        CommonModule,
+        ConfirmDialogModule,
+        TranslatePipe,
+        RouterModule,
+        TooltipModule
+    ],
+    providers: [
+        ConfirmationService
+    ],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    templateUrl: './client-card.component.html'
 })
 export class ClientCardComponent implements OnInit {
 
@@ -47,7 +47,7 @@ export class ClientCardComponent implements OnInit {
       header: this.translate.instant('clients.editClient')
     });
 
-    ref.onClose.subscribe({
+    ref?.onClose.subscribe({
       next: res => {
         if(res === 'update'){
           this.clientUpdated.emit();

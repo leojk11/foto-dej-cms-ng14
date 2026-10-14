@@ -1,7 +1,10 @@
-<div class="gallery-image w-full flex justify-center align-center" 
-  *ngIf="imagesUrl && image">
-  <app-spinner *ngIf="!loaded"></app-spinner>
-  
-  <img [src]="imagesUrl + image" [alt]="image" class="cp" [class.hidden]="!loaded"
-    (load)="onLoad()" (click)="toggleOverview($event, imagesToDisplay)">
-</div>
+@if (imagesUrl && image) {
+  <div class="gallery-image w-full flex justify-center align-center"
+    >
+    @if (!loaded) {
+      <app-spinner></app-spinner>
+    }
+    <img [src]="imagesUrl + image" [alt]="image" class="cp" [class.hidden]="!loaded"
+      (load)="onLoad()" (click)="toggleOverview($event, imagesToDisplay)">
+    </div>
+  }

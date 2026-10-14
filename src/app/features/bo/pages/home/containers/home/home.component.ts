@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AdminLayoutService } from 'src/app/features/bo/layout/services/admin-layout.service';
 import { ButtonModule } from 'primeng/button';
@@ -6,23 +6,25 @@ import { ToastService } from 'src/app/shared/services/toast.service';
 import { DashboardService } from '../../services/dashboard.service';
 import { DashboardStore } from '../../services/dashboard.store';
 import { DashboardCardComponent } from '../../components/dashboard-card/dashboard-card.component';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { DashboardPendingComponent } from '../../components/dashboard-pending/dashboard-pending.component';
 import { ScheduleCardComponent } from '../../components/schedule-card/schedule-card.component';
+import { RevealDirective } from 'src/app/shared/directives/reveal.directive';
 
 @Component({
-  selector: 'app-home',
-  standalone: true,
-  imports: [
-    CommonModule,
-    ButtonModule,
-    DashboardCardComponent,
-    TranslateModule,
-    DashboardPendingComponent,
-    ScheduleCardComponent
-  ],
-  providers: [DashboardStore],
-  templateUrl: './home.component.html'
+    selector: 'app-home',
+    imports: [
+        CommonModule,
+        ButtonModule,
+        DashboardCardComponent,
+        TranslatePipe,
+        DashboardPendingComponent,
+        ScheduleCardComponent,
+        RevealDirective
+    ],
+    providers: [DashboardStore],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    templateUrl: './home.component.html'
 })
 export class HomeComponent implements OnInit {
 

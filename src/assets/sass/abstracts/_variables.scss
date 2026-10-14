@@ -48,3 +48,24 @@ $color-7: #7B5431;
 // #d0c4bc
 // #b5a094
 
+
+// ---- design tokens (colors above are unchanged) ----
+$font-body: 'Inter', 'Roboto', system-ui, -apple-system, 'Segoe UI', sans-serif;
+$font-display: 'Noto Serif Display', Georgia, serif;
+
+$surface: #fff;
+$border-color: rgba($color-dark, 0.1);
+$text-muted: rgba($color-dark, 0.62);
+
+$radius-sm: 0.8rem;
+$radius-md: 1.2rem;
+$radius-lg: 2rem;
+$radius-pill: 99rem;
+
+$ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+
+$shadow-card: 0 1px 2px rgba($color-dark, 0.05), 0 10px 30px -12px rgba($color-dark, 0.18);
+$shadow-card-hover: 0 2px 4px rgba($color-dark, 0.06), 0 22px 44px -16px rgba($color-dark, 0.28);
+
+$sidebar-width: 25rem;
+$topbar-height: 7.2rem;

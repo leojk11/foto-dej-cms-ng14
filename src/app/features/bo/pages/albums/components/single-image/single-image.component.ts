@@ -1,19 +1,18 @@
-import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges, ChangeDetectionStrategy } from '@angular/core';
+
 import { environment } from 'src/environments/environment';
 import { CheckboxModule } from 'primeng/checkbox';
 import { FormsModule } from '@angular/forms';
 import { Image } from '../../models/image.model';
 
 @Component({
-  selector: 'app-single-image',
-  standalone: true,
-  imports: [
-    CommonModule,
+    selector: 'app-single-image',
+    imports: [
     CheckboxModule,
     FormsModule
-  ],
-  templateUrl: './single-image.component.html'
+],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    templateUrl: './single-image.component.html'
 })
 export class SingleImageComponent implements OnInit, OnChanges {
 

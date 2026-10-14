@@ -33,7 +33,7 @@
             {{ 'properties.assignTo' | translate }}:
           </label>
 
-          <p-autoComplete 
+          <p-autocomplete 
             formControlName="assignTo"
             [suggestions]="clients" 
             (completeMethod)="search($event)"
@@ -41,8 +41,8 @@
             field="fullname"
             placeholder="{{ 'properties.assignTo' | translate }}..."
             [style]="{width: '100% !important'}"
-            (onSelect)="onClientSelected($event)"
-          ></p-autoComplete>
+            (onSelect)="onClientSelected($event.value)"
+          ></p-autocomplete>
         </div>
       </div>
 

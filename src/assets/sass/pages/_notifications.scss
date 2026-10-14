@@ -26,51 +26,59 @@
 }
 
 .notification {
-  height: 6rem;
-  border-bottom: 1px solid $light-grey;
+  min-height: 6.4rem;
+  border: 1px solid $border-color;
   font-size: 1.4rem;
   display: flex;
   align-items: center;
-  gap: 2rem;
-  padding: 1rem ;
+  gap: 1.6rem;
+  padding: 1.2rem 1.6rem;
   color: $dark;
   cursor: pointer;
-  background-color: rgba($light-grey-1, .05);
+  background-color: $surface;
   min-width: 40rem;
   width: 100%;
   margin-bottom: 1rem;
-  border-radius: 5px;
+  border-radius: $radius-md;
+  transition: transform .3s $ease-out, box-shadow .3s $ease-out;
 
   &:hover {
-    box-shadow: $shadow-icon;
+    transform: translateX(3px);
+    box-shadow: $shadow-card;
+  }
+
+  &.read {
+    background-color: rgba($color-light, 0.35);
   }
 
   &__img {
     width: 4rem;
     height: 4rem;
+    flex-shrink: 0;
     border-radius: 50%;
-    background-color: rgba($color-medium, .6);
+    background: linear-gradient(135deg, $highlight, $color-dark);
     color: $white;
     display: flex;
     align-items: center;
     justify-content: center;
     letter-spacing: .8px;
-    box-shadow: $shadow-sm-full;
+    font-size: 1.3rem;
+    font-weight: 600;
   }
 
   &__title {
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     font-weight: 500;
-    margin-bottom: .6rem;
+    margin-bottom: .3rem;
 
     &.read {
-      color: rgba($dark, .7);
+      color: $text-muted;
     }
   }
 
   &__time {
-    color: $light-grey-2;
-    font-size: 1.3rem;
+    color: $text-muted;
+    font-size: 1.2rem;
   }
 }
 

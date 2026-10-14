@@ -1,156 +1,178 @@
 .footer {
   background-color: $color-dark;
   color: $color-light;
-  height: 18rem;
-  padding: 0rem 12rem;
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  overflow: hidden !important;
-  width: 100vw;
+  width: 100%;
   position: relative;
+  overflow: hidden;
 
-  &__contact {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-
-    &--item {
-      display: flex;
-      align-items: center;
-      gap: 1.75rem;
-      cursor: pointer;
-
-      &__text {
-        font-family: 'Roboto', serif;
-        font-weight: 700;
-        font-size: 1.6rem;
-        line-height: 30px;
-        border-bottom: 2px solid $color-light;
-        letter-spacing: .5px;
-      }
-
-      .pi {
-        font-size: 2.4rem !important;
-      }
-    }
+  // soft glow in the corner
+  &::before {
+    content: '';
+    position: absolute;
+    top: -18rem;
+    right: -12rem;
+    width: 42rem;
+    height: 42rem;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba($highlight, 0.55), transparent 70%);
+    pointer-events: none;
   }
 
-  &__socials {
-    width: 39.2rem;
-    height: 39.2rem;
-    background-color: rgba($color-light, 0.32);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    gap: 8rem;
-
-    position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-
-    &--icon {
-      font-size: 5rem !important;
-    }
-
+  &__inner {
+    position: relative;
+    max-width: 130rem;
+    margin: 0 auto;
+    padding: 7rem 6rem 5rem;
+    display: grid;
+    grid-template-columns: 1.2fr 1.4fr 1fr;
+    gap: 5rem;
+    align-items: start;
   }
 
   &__logo {
-    width: 18rem;
-    height: 12rem;
+    width: 16rem;
+    height: 8rem;
 
     img {
       width: 100%;
       height: 100%;
       object-fit: contain;
+      object-position: left center;
     }
+
     .pi{
       font-size: 15rem !important;
     }
   }
 
+  &__title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: $color-2;
+    margin-bottom: 2rem;
+  }
+
+  &__contact {
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+
+    &--item {
+      display: flex;
+      align-items: center;
+      gap: 1.4rem;
+      transition: transform 0.3s $ease-out;
+
+      &:hover {
+        transform: translateX(6px);
+      }
+
+      .pi {
+        width: 4rem;
+        height: 4rem;
+        border-radius: 50%;
+        background: rgba($white, 0.08);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.6rem !important;
+        color: $color-2;
+      }
+
+      &__text {
+        font-size: 1.5rem;
+        font-weight: 400;
+        color: rgba($white, 0.9);
+      }
+    }
+  }
+
+  &__socials {
+    display: flex;
+    gap: 1.4rem;
+
+    a {
+      width: 5rem;
+      height: 5rem;
+      border-radius: 50%;
+      border: 1px solid rgba($white, 0.28);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.35s $ease-out;
+
+      &:hover {
+        background: $white;
+        color: $color-dark;
+        border-color: $white;
+        transform: translateY(-4px);
+      }
+    }
+
+    &--icon {
+      font-size: 2rem !important;
+    }
+  }
+
   @include screen-md {
-    padding: 3rem 0;
-    justify-content: center;
-    position: relative;
-    height: 46rem;
-
-    &__contact {
-      gap: .5rem !important;
-      position: absolute;
-      top: 28%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-
-      &--item {
-        &__text {
-          font-size: 1.4rem;
-        }
-
-        .pi {
-          font-size: 1.8rem !important;
-        }
-      }
-    }
-
-
-    &__socials {
-      width: 40rem;
-      height: 40rem;
-      gap: 4rem;
-      top: 53%;
-
-      &--icon {
-        font-size: 4rem !important;
-      }
-    }
-
-    &__logo {
-      width: 15rem;
-      height: 8rem;
-
-      position: absolute;
-      top: 75%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+    &__inner {
+      grid-template-columns: 1fr;
+      padding: 5rem 2.4rem 3.5rem;
+      gap: 3.5rem;
+      text-align: left;
     }
   }
 }
 
 .info-footer {
-  background-color: $color-dark;
-  color: $color-light;
-  height: 7rem;
-  padding: 0rem 12rem;
+  background-color: darken($color-dark, 4%);
+  color: rgba($color-light, 0.75);
+  padding: 2.4rem 6rem;
+  font-size: 1.3rem;
 
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 20px;
+  gap: 5rem;
+  row-gap: 2rem;
   flex-wrap: wrap;
+  border-top: 1px solid rgba($white, 0.08);
+
+  a {
+    transition: color 0.2s;
+
+    &:hover {
+      color: $white;
+    }
+  }
 
   &__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+    text-align: center;
+
     &__link {
       display: flex;
       justify-content: flex-start;
       align-items: center;
       gap: 6px;
 
-      padding-top: 5px;
+      .pi {
+        font-size: 1.3rem !important;
+      }
     }
 
     &__multi_wrapper {
       display: flex;
-      gap: 20px;
+      gap: 3rem;
     }
   }
 
   @include screen-md {
-    padding: 0rem 10rem;
-    height: 20rem;
-    justify-content: flex-start;
+    padding: 2.4rem 1.6rem;
   }
 }

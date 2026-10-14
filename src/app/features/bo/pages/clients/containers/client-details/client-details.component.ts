@@ -1,10 +1,11 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { RevealDirective } from 'src/app/shared/directives/reveal.directive';
+import { Component, Input, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
 import { AdminLayoutService } from 'src/app/features/bo/layout/services/admin-layout.service';
 import { ClientsService } from '../../services/clients.service'
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Client } from '../../models/client.model';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ClientsStore } from '../../services/clients.store';
@@ -19,21 +20,22 @@ import { Log } from 'src/app/features/bo/pages/logs/models/log.model';
 import { LogComponent } from 'src/app/shared/components/log/log.component';
 
 @Component({
-  selector: 'app-client-details',
-  standalone: true,
-  imports: [
-    CommonModule,
-    TranslateModule,
-    ConfirmDialogModule,
-    RouterModule,
-    LogComponent
-  ],
-  providers: [ 
-    ClientsStore,
-    ConfirmationService,
-    DialogService
-  ],
-  templateUrl: './client-details.component.html'
+    selector: 'app-client-details',
+    imports: [
+        RevealDirective,
+        CommonModule,
+        TranslatePipe,
+        ConfirmDialogModule,
+        RouterModule,
+        LogComponent
+    ],
+    providers: [
+        ClientsStore,
+        ConfirmationService,
+        DialogService
+    ],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    templateUrl: './client-details.component.html'
 })
 export class ClientDetailsComponent implements OnInit, OnDestroy {
 
@@ -118,10 +120,10 @@ export class ClientDetailsComponent implements OnInit, OnDestroy {
     const ref = this.dialog.open(NewAlbumComponent, {
       width: this.modalWidth,
       header: this.translate.instant('albums.addNewAlbum'),
-      data: { client: this.clientStore.state.client }
+      data: { client: this.clientStore.snapshot.client }
     });
 
-    ref.onClose.subscribe({
+    ref?.onClose.subscribe({
       next: res => {
         if (res === 'new') {
           this.getClientAlbums();
@@ -137,11 +139,11 @@ export class ClientDetailsComponent implements OnInit, OnDestroy {
     const ref = this.dialog.open(NewClientComponent, {
       width: this.modalWidth,
       data: {
-        client: this.clientStore.state.client},
+        client: this.clientStore.snapshot.client},
       header: this.translate.instant('clients.editClient')
     });
 
-    ref.onClose.subscribe({
+    ref?.onClose.subscribe({
       next: res => {
         if(res === 'update'){
           this.getClient();

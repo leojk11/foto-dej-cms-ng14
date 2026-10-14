@@ -1,9 +1,10 @@
+import { RevealDirective } from 'src/app/shared/directives/reveal.directive';
 import { CommonModule, Location } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { AdminLayoutService } from 'src/app/features/bo/layout/services/admin-layout.service';
 import { InvitesStore } from '../../services/invites.store';
 import { TableModule } from 'primeng/table';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
 import { ClientsService } from '../../../clients/services/clients.service';
@@ -13,10 +14,10 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastService } from 'src/app/shared/services/toast.service';
 import { FormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
-import { CalendarModule } from 'primeng/calendar';
-import * as dayjs from 'dayjs';
-import { OverlayPanelModule } from 'primeng/overlaypanel';
-import { DropdownModule } from 'primeng/dropdown';
+import { DatePickerModule } from 'primeng/datepicker';
+import dayjs from 'dayjs';
+import { PopoverModule } from 'primeng/popover';
+import { SelectModule } from 'primeng/select';
 
 export interface InviteFilter {
   client: string;
@@ -25,27 +26,28 @@ export interface InviteFilter {
 }
 
 @Component({
-  selector: 'app-invites',
-  standalone: true,
-  imports: [
-    CommonModule,
-    TranslateModule,
-    TableModule,
-    ButtonModule,
-    TooltipModule,
-    ConfirmDialogModule,
-    FormsModule,
-    InputTextModule,
-    TooltipModule,
-    CalendarModule,
-    OverlayPanelModule,
-    DropdownModule
-  ],
-  providers: [
-    ConfirmationService,
-    InvitesStore
-  ],
-  templateUrl: './invites.component.html'
+    selector: 'app-invites',
+    imports: [
+        RevealDirective,
+        CommonModule,
+        TranslatePipe,
+        TableModule,
+        ButtonModule,
+        TooltipModule,
+        ConfirmDialogModule,
+        FormsModule,
+        InputTextModule,
+        TooltipModule,
+        DatePickerModule,
+        PopoverModule,
+        SelectModule
+    ],
+    providers: [
+        ConfirmationService,
+        InvitesStore
+    ],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    templateUrl: './invites.component.html'
 })
 export class InvitesComponent implements OnInit {
 

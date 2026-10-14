@@ -35,7 +35,7 @@ export class DashboardStore extends ComponentStore<DashboardState> {
     super(initialState)
   }
 
-  get state() {
+  get snapshot() {
     return this.get(s => s);
   }
 
@@ -60,7 +60,7 @@ export class DashboardStore extends ComponentStore<DashboardState> {
       }),
       catchError((err)=>{
         this.patchState({
-          ...this.state,
+          ...this.snapshot,
           loading: false,
         });
         this.toastService.addError(err);
@@ -74,13 +74,13 @@ export class DashboardStore extends ComponentStore<DashboardState> {
     _$.pipe(
       switchMap((_) => {
         this.patchState({
-          ...this.state,
+          ...this.snapshot,
           pendingRequests: []
         });
         return this.requestService.getPendingRequests({page: 1, take: 5}).pipe(
           tap((res) => {
             this.patchState({
-              ...this.state,
+              ...this.snapshot,
               pendingRequests: res.list
             });
             this.loadEvents();
@@ -89,7 +89,7 @@ export class DashboardStore extends ComponentStore<DashboardState> {
       }),
       catchError((err)=>{
         this.patchState({
-          ...this.state,
+          ...this.snapshot,
           loading: false,
         });
         this.spinner.hide().then();
@@ -104,14 +104,14 @@ export class DashboardStore extends ComponentStore<DashboardState> {
     _$.pipe(
       switchMap((_) => {
         this.patchState({
-          ...this.state,
+          ...this.snapshot,
           events: []
         });
         // this.spinner.show().then();
         return this.service.getUpcomingEvents(6).pipe(
           tap((res) => {
             this.patchState({
-              ...this.state,
+              ...this.snapshot,
               events: res
             });
             this.spinner.hide().then();
@@ -121,7 +121,7 @@ export class DashboardStore extends ComponentStore<DashboardState> {
       }),
       catchError((err)=>{
         this.patchState({
-          ...this.state,
+          ...this.snapshot,
           loading: false,
         });
         this.spinner.hide().then();

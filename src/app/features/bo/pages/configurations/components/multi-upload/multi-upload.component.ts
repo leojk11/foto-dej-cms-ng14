@@ -1,11 +1,11 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, ElementRef, Input, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+
 import { ToastService } from 'src/app/shared/services/toast.service';
 import { Observable, Subject, finalize, forkJoin, ignoreElements, merge, mergeMap, of, tap } from 'rxjs';
 import { ConfigurationService } from '../../services/configuration.service';
 import { ConfigurationStore } from '../../services/configuration.store';
 import { ImageOverviewService } from 'src/app/shared/services/image-overview.service';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { ConfirmationService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
@@ -13,16 +13,15 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { CONF_SHOW_IMAGES_AMOUNT } from 'src/app/core/data/staticData';
 
 @Component({
-  selector: 'app-multi-upload',
-  standalone: true,
-  imports: [
-    CommonModule,
-    TranslateModule,
+    selector: 'app-multi-upload',
+    imports: [
+    TranslatePipe,
     ProgressBarModule,
     ConfirmDialogModule
-  ],
-  templateUrl: './multi-upload.component.html',
-  styleUrls: ['./multi-upload.component.scss']
+],
+    templateUrl: './multi-upload.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
+    styleUrls: ['./multi-upload.component.scss']
 })
 export class MultiUploadComponent implements OnInit {
 
