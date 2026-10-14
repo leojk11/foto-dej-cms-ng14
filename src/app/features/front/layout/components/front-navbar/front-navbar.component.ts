@@ -113,13 +113,8 @@ export class FrontNavbarComponent implements OnInit, OnDestroy {
         visible: !this.isAuthenticated && !this.gallery
       },
       {
-        label: this.translateService.instant('common.home'), 
-        icon: 'pi pi-home',
-        command: () => this.navigate('/home'),
-        visible: !this.isAuthenticated && this.gallery
-      },
-      {
-        separator: true
+        separator: true,
+        visible: this.isAuthenticated || !this.gallery
       },
       {
         label: this.translateService.instant(
@@ -163,6 +158,14 @@ export class FrontNavbarComponent implements OnInit, OnDestroy {
 
   logout(): void {
     this.authService.userLogout();
+  }
+
+  // the logo is the way back home; on the homepage itself it scrolls to the top
+  onLogoClick(event: Event): void {
+    if (this.router.url.split(/[?#]/)[0] === '/home') {
+      event.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   }
 
   navigate(route: string): void {

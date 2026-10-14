@@ -5,14 +5,18 @@
     [class.frontnav--scrolled]="scrolled"
     >
     <div class="frontnav__brand">
-      <div class="frontnav__brand--logo-wrapper">
+      <a
+        class="frontnav__brand--logo-wrapper"
+        routerLink="/home"
+        [attr.aria-label]="'common.home' | translate"
+        (click)="onLogoClick($event)"
+        >
         <img
           [src]="state.imageUrl + (overlay && !scrolled ? state.configuration.logo_white : state.configuration.logo)"
           alt=""
           class="frontnav__brand--logo-wrapper--img"
-          routerLink="/home"
           >
-      </div>
+      </a>
     </div>
     @if ((isMobile$ | async)) {
       <p-menu
@@ -54,13 +58,6 @@
               {{ 'common.gallery' | translate }}
             </a>
           </div>
-        }
-        @if (!isAuthenticated && gallery) {
-          <a
-            class="frontnav__actions__link"
-            routerLink="/home">
-            {{ 'common.home' | translate }}
-          </a>
         }
       </div>
       <div class="container__flex gap-2">

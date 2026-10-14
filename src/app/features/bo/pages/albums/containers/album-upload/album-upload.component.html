@@ -2,41 +2,93 @@
   <div class="container__flex gap-5 pb-2 border-b">
     <button
       class="btn btn__icon btn__icon--blue shadow-small border-none"
+      type="button"
       (click)="location.back()"
       >
       <i class="pi pi-arrow-left"></i>
     </button>
   </div>
-  <!-- [maxFileSize]="1000000"  -->
 
-  <p-fileupload name="images"
-    [multiple]="true"
-    accept="image/*"
-    chooseLabel="{{ 'common.chooseImages' | translate }}"
-    uploadLabel="{{ 'common.upload' | translate }}"
-    cancelLabel="{{ 'common.cancel' | translate }}"
-    chooseStyleClass="btn btn__search p-0"
-    uploadStyleClass="btn btn__main p-0"
-    cancelStyleClass="btn btn__red p-0"
-    [disabled]="uploadDisabled"
-    (onSelect)="onSelect($event)"
-    (onRemove)="onRemove($event)"
-    (onBeforeUpload)="handleUpload($event)">
-    <ng-template pTemplate="content">
-      @if (uploadedFiles.length) {
-        <ul>
-          @for (file of uploadedFiles; track file) {
-            <li>
-              {{ file.name }} - {{ file.size }} bytes
-            </li>
-          }
-        </ul>
-      }
-    </ng-template>
-  </p-fileupload>
+  <div class="upload-images__body mt-2">
+    <label
+      class="upload-dropzone"
+      [class.upload-dropzone--active]="dragOver"
+      [class.upload-dropzone--compact]="selected.length"
+      [class.upload-dropzone--disabled]="uploading"
+      for="album-images-input"
+      (dragover)="onDragOver($event)"
+      (dragleave)="dragOver = false"
+      (drop)="onDrop($event)">
+      <i class="pi pi-cloud-upload upload-dropzone__icon"></i>
+      <span class="upload-dropzone__title">{{ 'common.dropImagesHere' | translate }}</span>
+      <span class="upload-dropzone__hint">{{ 'common.orClickToChoose' | translate }}</span>
+      <span class="upload-dropzone__hint">{{ 'common.imagesSizeInfo' | translate }}</span>
+    </label>
 
-  <div class="upload-images__progress mt-2">
-    <p-progressbar [value]="progressValue"></p-progressbar>
+    <input
+      id="album-images-input"
+      class="upload-images__input"
+      type="file"
+      accept="image/*"
+      multiple
+      [disabled]="uploading"
+      (change)="onInputChange($event)">
+
+    @if (selected.length) {
+      <div class="upload-images__toolbar">
+        <span class="upload-images__count">
+          <i class="pi pi-images"></i>
+          {{ selected.length }} {{ 'common.imagesSelected' | translate }} · {{ formatSize(totalSize) }}
+        </span>
+
+        <div class="container__flex gap-2">
+          <button
+            class="btn btn__dark"
+            type="button"
+            [disabled]="uploading"
+            (click)="clearAll()">
+            <i class="pi pi-trash"></i>
+            {{ 'common.clear' | translate }}
+          </button>
+          <button
+            class="btn btn__main"
+            type="button"
+            [disabled]="uploading"
+            (click)="handleUpload()">
+            <i class="pi pi-upload"></i>
+            {{ 'common.upload' | translate }} ({{ selected.length }})
+          </button>
+        </div>
+      </div>
+
+      <div class="upload-grid">
+        @for (item of selected; track item.id) {
+          <div class="upload-grid__item">
+            <img [src]="item.preview" [alt]="item.file.name">
+
+            <button
+              class="upload-grid__remove"
+              type="button"
+              [attr.aria-label]="'common.delete' | translate"
+              [disabled]="uploading"
+              (click)="removeFile(item)">
+              <i class="pi pi-times"></i>
+            </button>
+
+            <div class="upload-grid__meta">
+              <span class="upload-grid__name">{{ item.file.name }}</span>
+              <span class="upload-grid__size">{{ formatSize(item.file.size) }}</span>
+            </div>
+          </div>
+        }
+      </div>
+    }
+
+    @if (uploading) {
+      <div class="upload-images__progress">
+        <p-progressbar [value]="progressValue"></p-progressbar>
+      </div>
+    }
   </div>
 </div>
 

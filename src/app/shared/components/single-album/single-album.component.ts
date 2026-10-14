@@ -2,8 +2,6 @@ import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core
 
 import { Album } from '../../../features/bo/pages/albums/models/album.model';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/core/services/auth.service';
-import { PermissionsType } from 'src/app/core/data/permissions.enum';
 
 @Component({
     selector: 'app-single-album',
@@ -16,19 +14,16 @@ export class SingleAlbumComponent implements OnInit {
   @Input() album: Album | null = null;
 
   constructor(
-    private router: Router,
-    private authStore: AuthService
+    private router: Router
   ) { }
 
   ngOnInit(): void {
   }
 
   goToPreview(): void {
-    const role = this.authStore.user.role;
-    if(role === PermissionsType.CLIENT){
-      this.router.navigate(['/client/albums/' + this.album?.id]).then();
-    } else {
-      this.router.navigate(['/bo/albums/' + this.album?.id]).then();
-    }
+    // decided by the current route: the stored user's role can be missing, or belong to a
+    // different session, which sent clients to the guarded bo routes (and the bo login page)
+    const base = this.router.url.startsWith('/client') ? '/client/albums/' : '/bo/albums/';
+    this.router.navigate([base + this.album?.id]).then();
   }
 }

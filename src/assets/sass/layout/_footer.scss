@@ -1,3 +1,9 @@
+// pins the footer to the bottom of a flex column page when the content is short
+app-footer {
+  display: block;
+  margin-top: auto;
+}
+
 .footer {
   background-color: $color-dark;
   color: $color-light;

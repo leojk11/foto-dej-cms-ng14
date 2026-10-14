@@ -1,91 +1,129 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, ElementRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { ButtonModule } from 'primeng/button';
+import { TranslatePipe } from '@ngx-translate/core';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { FrontConfigurationState } from 'src/app/shared/services/front-configuration.store';
 import { FooterComponent } from 'src/app/features/front/layout/components/footer/footer.component';
 import { FrontNavbarComponent } from 'src/app/features/front/layout/components/front-navbar/front-navbar.component';
-import { TranslatePipe } from '@ngx-translate/core';
 import { ConfigurationService } from 'src/app/features/bo/pages/configurations/services/configuration.service';
-import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastService } from 'src/app/shared/services/toast.service';
 import { environment } from 'src/environments/environment';
 import { ImageOverviewService } from 'src/app/shared/services/image-overview.service';
 import { ImageOverviewComponent } from 'src/app/shared/components/image-overview/image-overview.component';
-import { GALLERY_PAGE_IMAGES_AMOUNT } from 'src/app/core/data/staticData';
-import { FrontSingleImageComponent } from 'src/app/shared/components/front-single-image/front-single-image.component';
 import { RevealDirective } from 'src/app/shared/directives/reveal.directive';
+
+const PAGE_SIZE = 12;
 
 @Component({
     selector: 'app-gallery',
     imports: [
         CommonModule,
+        RouterModule,
+        ButtonModule,
         FooterComponent,
         FrontNavbarComponent,
         TranslatePipe,
         ImageOverviewComponent,
-        FrontSingleImageComponent,
         RevealDirective
     ],
     templateUrl: './gallery.component.html',
     changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./gallery.component.scss']
 })
-export class GalleryComponent implements OnInit {
+export class GalleryComponent implements OnInit, OnDestroy {
 
   imagesUrl: string = `${ environment.apiUrl }/images/`;
 
-  defaultImagesAmoutToShow: number = GALLERY_PAGE_IMAGES_AMOUNT;
-  imagesAmountToShow: number = GALLERY_PAGE_IMAGES_AMOUNT;
-  imagesToDisplay: string[] | undefined = [];
-  leftImagesToDisplay: string[] | undefined = [];
+  images: string[] = [];
+  visibleImages: string[] = [];
+  loading: boolean = true;
+  skeletons: number[] = Array.from({ length: 6 }, (_, i) => i);
+
+  private visibleCount: number = PAGE_SIZE;
+  private loadedImages = new Set<string>();
+  private observer: IntersectionObserver | null = null;
+
+  // the "see all" button doubles as the infinite scroll trigger
+  @ViewChild('sentinel')
+  set sentinel(ref: ElementRef<HTMLElement> | undefined) {
+    this.observer?.disconnect();
+
+    if (ref && typeof IntersectionObserver !== 'undefined') {
+      this.observer = this.observer ?? new IntersectionObserver(entries => {
+        if (entries.some(entry => entry.isIntersecting)) {
+          this.loadMore();
+          this.cdr.detectChanges();
+        }
+      }, { rootMargin: '0px 0px 400px 0px' });
+
+      this.observer.observe(ref.nativeElement);
+    }
+  }
+
+  get hasMore(): boolean {
+    return this.visibleImages.length < this.images.length;
+  }
 
   constructor(
     public frontConfigurationState: FrontConfigurationState,
     private configurationService: ConfigurationService,
     private spinner: NgxSpinnerService,
     private toastService: ToastService,
-    private imageOverviewState: ImageOverviewService
+    private imageOverviewState: ImageOverviewService,
+    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
-    if (!this.frontConfigurationState.state.configuration.id) {
-      this.spinner.show().then();
+    const configuration = this.frontConfigurationState.state.configuration;
 
-      this.configurationService.getConfiguration().subscribe({
-        next: configuration => {
-          this.frontConfigurationState.setConfiguration(configuration);
-          this.spinner.hide().then();
-
-          this.imagesToDisplay = configuration.promo_images.slice(0, this.imagesAmountToShow);
-          this.leftImagesToDisplay = configuration.promo_images.slice(this.imagesAmountToShow, configuration.promo_images.length);
-        },
-        error: error => {
-          this.toastService.addError(error.error.message);
-          this.spinner.hide().then();
-        }
-      });
-    } else {
-      this.imagesToDisplay = this.frontConfigurationState.state.configuration.promo_images.slice(0, this.imagesAmountToShow);
-      this.leftImagesToDisplay = this.frontConfigurationState.state.configuration.promo_images.slice(this.imagesAmountToShow, 
-        this.frontConfigurationState.state.configuration.promo_images.length);
+    if (configuration.id) {
+      this.setImages(configuration.promo_images);
+      return;
     }
+
+    this.spinner.show().then();
+
+    this.configurationService.getConfiguration().subscribe({
+      next: res => {
+        this.frontConfigurationState.setConfiguration(res);
+        this.setImages(res.promo_images);
+        this.spinner.hide().then();
+      },
+      error: error => {
+        this.loading = false;
+        this.toastService.addError(error.error.message);
+        this.spinner.hide().then();
+      }
+    });
   }
 
-  seeMoreImages(): void {
-    this.imagesAmountToShow = this.imagesAmountToShow + this.defaultImagesAmoutToShow;
-    this.imagesToDisplay = this.frontConfigurationState.state.configuration.promo_images.slice(0, this.imagesAmountToShow);
-    this.leftImagesToDisplay = this.frontConfigurationState.state.configuration.promo_images.slice(this.imagesAmountToShow, 
-      this.frontConfigurationState.state.configuration.promo_images.length);
+  ngOnDestroy(): void {
+    this.observer?.disconnect();
   }
 
-  goToElement(el: HTMLElement, offset: number): void {
-    let element = el;
-
-    const y = element.getBoundingClientRect().top + window.pageYOffset + offset;
-    window.scrollTo({ top: y, behavior: 'smooth'});
+  loadMore(): void {
+    this.visibleCount += PAGE_SIZE;
+    this.visibleImages = this.images.slice(0, this.visibleCount);
   }
 
-  toggleOverview(event: any, images: any): void {
+  onImageLoad(image: string): void {
+    this.loadedImages.add(image);
+  }
+
+  isLoaded(image: string): boolean {
+    return this.loadedImages.has(image);
+  }
+
+  openImage(image: string): void {
     this.imageOverviewState.toggleOverview();
-    this.imageOverviewState.setImages(event.target.src, images);
+    this.imageOverviewState.setImages(this.imagesUrl + image, this.images);
+  }
+
+  private setImages(images: string[] | undefined): void {
+    this.images = images ?? [];
+    this.visibleImages = this.images.slice(0, this.visibleCount);
+    this.loading = false;
   }
 }

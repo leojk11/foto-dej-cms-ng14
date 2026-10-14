@@ -152,18 +152,6 @@
               }
             </div>
           </div>
-          <div class="client__logs">
-            <p class="client__details--label">
-              {{ 'clients.clientActivity' | translate }}
-            </p>
-            @for (log of clientLogs; track log) {
-              <div>
-                <app-log
-                  [log]="log"
-                ></app-log>
-              </div>
-            }
-          </div>
         </div>
       </div>
     }

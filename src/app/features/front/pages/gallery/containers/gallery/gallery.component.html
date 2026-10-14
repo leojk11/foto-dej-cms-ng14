@@ -1,41 +1,74 @@
 @if (frontConfigurationState.confState$ | async; as state) {
   <div class="gallery">
-    <app-front-navbar
-      (goToElement)="goToElement($event, -100)"
-      [gallery]="true"
-    ></app-front-navbar>
+    <app-front-navbar [gallery]="true"></app-front-navbar>
 
-    <div class="gallery__intro" appReveal>
-      <div class="section-head">
-        <span class="section-head__eyebrow">{{ 'common.name' | translate }}</span>
-        <h1 class="section-head__title">{{ 'common.gallery' | translate }}</h1>
-        <span class="section-head__line"></span>
-      </div>
-    </div>
+    <main class="gallery__main">
+      <header class="gallery__intro">
+        <a routerLink="/home" class="gallery__back">
+          <i class="pi pi-arrow-left"></i>
+          {{ 'common.backHome' | translate }}
+        </a>
 
-    <div class="gallery__images">
-      @for (image of imagesToDisplay; track image; let i = $index) {
-        <div class="gallery__images__image" appReveal [revealDelay]="(i % 3) * 100">
-          <front-single-image [imagesUrl]="imagesUrl" [image]="image"
-          [imagesToDisplay]="imagesToDisplay"></front-single-image>
+        <div class="section-head" appReveal>
+          <span class="section-head__eyebrow">{{ 'common.name' | translate }}</span>
+          <h1 class="section-head__title">{{ 'common.gallery' | translate }}</h1>
+          <span class="section-head__line"></span>
+          @if (!loading && images.length) {
+            <p class="gallery__count">{{ images.length }} {{ 'common.photos' | translate }}</p>
+          }
         </div>
-      }
-    </div>
+      </header>
 
-    <div class="gallery__more" appReveal>
-      <button
-        pButton
-        type="button"
-        class="btn btn__main"
-        (click)="seeMoreImages()"
-        [disabled]="leftImagesToDisplay?.length === 0 || imagesToDisplay!.length === 0"
-        >
-        {{ 'common.seeAll' | translate }}
-      </button>
-    </div>
-    <app-footer
-      [configuration]="state.configuration"
-    ></app-footer>
+      @if (loading) {
+        <div class="gallery__grid">
+          @for (item of skeletons; track item) {
+            <div class="gallery__tile gallery__tile--skeleton"></div>
+          }
+        </div>
+      } @else if (!images.length) {
+        <div class="gallery__empty">
+          <i class="pi pi-images"></i>
+          <p>{{ 'common.noPhotos' | translate }}</p>
+        </div>
+      } @else {
+        <div class="gallery__grid">
+          @for (image of visibleImages; track image; let i = $index) {
+            <button
+              type="button"
+              class="gallery__tile"
+              [class.gallery__tile--loaded]="isLoaded(image)"
+              appReveal
+              [revealDelay]="(i % 4) * 80"
+              (click)="openImage(image)"
+              >
+              <img
+                [src]="imagesUrl + image"
+                alt=""
+                loading="lazy"
+                (load)="onImageLoad(image)"
+                (error)="onImageLoad(image)"
+                >
+              <span class="gallery__tile--zoom"><i class="pi pi-search-plus"></i></span>
+            </button>
+          }
+        </div>
+
+        @if (hasMore) {
+          <div class="gallery__more" #sentinel>
+            <button
+              pButton
+              type="button"
+              class="btn btn__main"
+              (click)="loadMore()"
+              >
+              {{ 'common.seeAll' | translate }}
+            </button>
+          </div>
+        }
+      }
+    </main>
+
+    <app-footer [configuration]="state.configuration"></app-footer>
   </div>
 }
 

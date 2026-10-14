@@ -38,7 +38,7 @@
             [suggestions]="clients" 
             (completeMethod)="search($event)"
             appendTo="body"
-            field="fullname"
+            optionLabel="fullname"
             placeholder="{{ 'properties.assignTo' | translate }}..."
             [style]="{width: '100% !important'}"
             (onSelect)="onClientSelected($event.value)"

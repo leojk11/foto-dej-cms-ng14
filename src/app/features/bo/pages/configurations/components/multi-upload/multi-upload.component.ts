@@ -54,7 +54,7 @@ export class MultiUploadComponent {
 
   toggleOverview(event: any): void {
     this.imageOverviewState.toggleOverview();
-    this.imageOverviewState.setImages(event.target.src, this.preselected);
+    this.imageOverviewState.setImages(event.target.src, this.preselected ?? []);
   }
 
   seeMoreImages(): void {
@@ -88,7 +88,7 @@ export class MultiUploadComponent {
     });
 
     forkJoin(uploads).subscribe({
-      next: () => this.saveImages([ ...new Set([ ...this.preselected, ...files.map(file => file.name) ]) ]),
+      next: () => this.saveImages([ ...new Set([ ...(this.preselected ?? []), ...files.map(file => file.name) ]) ]),
       error: error => {
         this.toastService.addError(error.error.message);
         this.uploadInProgress = false;
@@ -133,7 +133,7 @@ export class MultiUploadComponent {
   }
 
   deleteSavedImage(index: number): void {
-    const image = this.preselected[index];
+    const image = this.preselected?.[index];
     if (!image) {
       return;
     }
@@ -141,7 +141,7 @@ export class MultiUploadComponent {
     this.confirm('messages.deleteImage', () => {
       this.spinner.show().then();
       this.configurationService.deleteSingleImage(image.split('.')[0]).subscribe({
-        next: () => this.saveImages(this.preselected.filter((_, i) => i !== index)),
+        next: () => this.saveImages((this.preselected ?? []).filter((_, i) => i !== index)),
         error: error => {
           this.toastService.addError(error.error.message);
           this.spinner.hide().then();

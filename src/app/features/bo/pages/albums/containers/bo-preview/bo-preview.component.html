@@ -23,10 +23,16 @@
     <div class="container__flex ml-auto">
       @if (state.previewAlbum) {
         <p-toggleswitch
-          class="mr-1"
+          class="status-switch mr-1"
           [(ngModel)]="state.previewAlbum.active"
           (onChange)="changeStatus($event)"
-        ></p-toggleswitch>
+          pTooltip="{{ (state.previewAlbum.active ? 'status.active' : 'status.inactive') | translate }}"
+          tooltipPosition="top"
+        >
+          <ng-template #handle let-checked="checked">
+            <i class="pi" [class.pi-check]="checked" [class.pi-times]="!checked"></i>
+          </ng-template>
+        </p-toggleswitch>
       }
       <button
         class="btn btn__icon--blue btn__main--sm mr-1"

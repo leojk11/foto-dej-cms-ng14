@@ -1,7 +1,7 @@
 <div class="cfg-field">
   <div class="cfg-field__header">
     <span class="cfg-field__label">{{ label | translate }}</span>
-    @if (preselected?.length > 0) {
+    @if (preselected?.length) {
       <button class="btn btn__red" type="button" (click)="clearPromoImages()">
         <i class="pi pi-trash"></i>
         {{ 'common.clear' | translate }}

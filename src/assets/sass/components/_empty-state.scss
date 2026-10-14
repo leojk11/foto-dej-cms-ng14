@@ -1,0 +1,11 @@
+.empty-state__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 9rem;
+  height: 9rem;
+  border-radius: 50%;
+  background: rgba($color-dark, 0.06);
+  color: rgba($color-dark, 0.45);
+  font-size: 4rem;
+}

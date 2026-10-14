@@ -16,36 +16,32 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { AlbumsService } from '../../../albums/services/albums.service';
 import { Album } from '../../../albums/models/album.model';
 import { NewAlbumComponent } from '../../../albums/containers/new-album/new-album.component';
-import { Log } from 'src/app/features/bo/pages/logs/models/log.model';
-import { LogComponent } from 'src/app/shared/components/log/log.component';
 
 @Component({
-    selector: 'app-client-details',
-    imports: [
-        RevealDirective,
-        CommonModule,
-        TranslatePipe,
-        ConfirmDialogModule,
-        RouterModule,
-        LogComponent
-    ],
-    providers: [
-        ClientsStore,
-        ConfirmationService,
-        DialogService
-    ],
-    changeDetection: ChangeDetectionStrategy.Eager,
-    templateUrl: './client-details.component.html'
+  selector: 'app-client-details',
+  imports: [
+    RevealDirective,
+    CommonModule,
+    TranslatePipe,
+    ConfirmDialogModule,
+    RouterModule,
+  ],
+  providers: [
+    ClientsStore,
+    ConfirmationService,
+    DialogService
+  ],
+  changeDetection: ChangeDetectionStrategy.Eager,
+  templateUrl: './client-details.component.html'
 })
 export class ClientDetailsComponent implements OnInit, OnDestroy {
 
   client: Client = {} as Client;
   id: string = '';
   isMobile: boolean = false;
-  imageUrl: string = `${ environment.apiUrl }/images/`;
+  imageUrl: string = `${environment.apiUrl}/images/`;
 
   clientAlbums: Album[] = [];
-  clientLogs: Log[] = [];
 
   @Input() modalWidth: string = '';
 
@@ -70,7 +66,6 @@ export class ClientDetailsComponent implements OnInit, OnDestroy {
         this.id = params['id'];
         this.getClient();
         this.getClientAlbums();
-        this.getClientLogs();
       }
     });
     this.adminLayoutService.setTitle('common.clients');
@@ -89,18 +84,6 @@ export class ClientDetailsComponent implements OnInit, OnDestroy {
 
   getClient(): void {
     this.clientStore.getSingleClient(this.id);
-  }
-
-  getClientLogs(): void {
-    this.clientService.getLatestClientLogs(this.id).subscribe({
-      next: logs => {
-        // console.log('CLIENT LOGS', logs);
-        this.clientLogs = logs;
-      },
-      error: err => {
-        console.error(err);
-      }
-    });
   }
 
   getClientAlbums(): void {
@@ -137,26 +120,27 @@ export class ClientDetailsComponent implements OnInit, OnDestroy {
 
   onEditClient(): void {
     console.log("CLIENT", this.client);
-    
+
     const ref = this.dialog.open(NewClientComponent, {
       dismissableMask: true,
       closable: true,
       width: this.modalWidth,
       data: {
-        client: this.clientStore.snapshot.client},
+        client: this.clientStore.snapshot.client
+      },
       header: this.translate.instant('clients.editClient')
     });
 
     ref?.onClose.subscribe({
       next: res => {
-        if(res === 'update'){
+        if (res === 'update') {
           this.getClient();
         }
       }
     })
   }
 
-  deleteClient(event: any): void { 
+  deleteClient(event: any): void {
     event.stopPropagation();
 
     this.confirmationService.confirm({

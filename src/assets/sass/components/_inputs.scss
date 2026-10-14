@@ -184,13 +184,123 @@ input[type="radio"]{
   }
 }
 
+// album active / inactive switch: green + check when active, grey + cross when not
+.status-switch.p-toggleswitch {
+  position: relative;
+  display: inline-block;
+  flex-shrink: 0;
+  width: 5.2rem;
+  height: 2.8rem;
+  margin-right: 1.6rem;
+
+  .p-toggleswitch-input {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    opacity: 0;
+    z-index: 1;
+    cursor: pointer;
+  }
+
+  .p-toggleswitch-slider {
+    position: absolute;
+    inset: 0;
+    border-radius: 2.8rem;
+    background: rgba($color-dark, 0.28) !important;
+    transition: background-color 0.25s;
+  }
+
+  .p-toggleswitch-handle {
+    position: absolute;
+    top: 0.3rem;
+    left: 0.3rem;
+    width: 2.2rem;
+    height: 2.2rem;
+    margin: 0;
+    border-radius: 50%;
+    background: $white !important;
+    color: rgba($color-dark, 0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 1px 3px rgba($color-dark, 0.3);
+    transition: left 0.25s, color 0.25s;
+
+    .pi {
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+  }
+
+  &.p-toggleswitch-checked {
+    .p-toggleswitch-slider {
+      background: $color-highlight-green !important;
+    }
+
+    .p-toggleswitch-handle {
+      left: calc(100% - 2.5rem);
+      color: darken($color-highlight-green, 18%);
+    }
+  }
+
+  &:has(.p-toggleswitch-input:focus-visible) .p-toggleswitch-slider {
+    box-shadow: 0 0 0 4px rgba($highlight, 0.25);
+  }
+}
+
 .p-autocomplete {
   display: block !important;
   width: 100%;
 }
 
-.p-autocomplete-panel {
+.p-autocomplete-input {
+  min-width: 0;
+}
+
+.p-autocomplete-overlay {
+  border-radius: $radius-md !important;
+  border: 1px solid $border-color !important;
+  box-shadow: $shadow-card-hover !important;
+  background: $surface;
+  font-family: $font-body;
+  overflow: hidden;
+  margin-top: 0.4rem;
+}
+
+.p-autocomplete-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  margin: 0;
+  padding: 0.6rem !important;
+  list-style: none;
+}
+
+.p-autocomplete-option {
   font-size: 1.4rem !important;
+  padding: 1rem 1.2rem !important;
+  border-radius: $radius-sm;
+  color: $color-dark;
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  &:hover,
+  &.p-focus {
+    background: rgba($color-dark, 0.06);
+  }
+
+  &.p-autocomplete-option-selected {
+    background: rgba($highlight, 0.12);
+    font-weight: 500;
+  }
+}
+
+.p-autocomplete-empty-message {
+  padding: 1rem 1.2rem;
+  font-size: 1.4rem;
+  color: $text-muted;
 }
 
 .p-inputwrapper {

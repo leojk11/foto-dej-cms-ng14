@@ -134,7 +134,7 @@
 
   @if (showSelected && selectedImages.length === 0) {
     <p class="album__empty">
-      <img src="../../../../assets//img/svg/no-results.svg" alt="">
+      <i class="pi pi-search empty-state__icon"></i>
       {{ (imageSearch ? 'common.noResults' : 'albums.noImagesSelected') | translate }}
     </p>
   }
@@ -142,10 +142,10 @@
   @if (!showSelected && images?.length === 0) {
     <p class="album__empty">
       @if (!imageSearch) {
-        <img src="../../../../assets//img/svg/empty.svg">
+        <i class="pi pi-inbox empty-state__icon"></i>
       }
       @if (imageSearch) {
-        <img src="../../../../assets//img/svg/no-results.svg">
+        <i class="pi pi-search empty-state__icon"></i>
       }
       {{ (imageSearch ? 'common.noResults' : 'albums.noImages') | translate }}
     </p>
