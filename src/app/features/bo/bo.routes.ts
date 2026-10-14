@@ -52,19 +52,9 @@ export const BO_ROUTES: Route[] = [
           .then((m) => m.RequestsComponent)
       },
       {
-        path: 'logs',
-        loadComponent: () => import('./pages/logs/containers/logs/logs.component')
-          .then(c => c.LogsComponent)
-      },
-      {
         path: 'notifications',
         loadComponent: () => import('./pages/notifications/containers/notifications/notifications.component')
           .then((m) => m.NotificationsComponent)
-      },
-      {
-        path: 'back-logs',
-        loadComponent: () => import('./pages/back-logs/containers/back-logs.component')
-          .then((m) => m.BackLogsComponent)
       },
     ]
   },

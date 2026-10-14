@@ -14,7 +14,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastService } from 'src/app/shared/services/toast.service';
 import { FormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
-import { DatePickerModule } from 'primeng/datepicker';
+import { DatePicker, DatePickerModule } from 'primeng/datepicker';
 import dayjs from 'dayjs';
 import { PopoverModule } from 'primeng/popover';
 import { SelectModule } from 'primeng/select';
@@ -130,6 +130,12 @@ export class InvitesComponent implements OnInit {
     this.dateToFilter = null;
     this.searchTerms = [];
     this.getInvites()
+  }
+
+  openDatePicker(event: Event, datePicker: DatePicker): void {
+    if ((event.target as HTMLElement).tagName === 'INPUT' && !datePicker.overlayVisible) {
+      datePicker.showOverlay();
+    }
   }
 
   onDateSelect(): void {

@@ -1,28 +1,17 @@
-<form [formGroup]="form">
-  <div class="configuration-wrapper__configuration__item align-center">
-    <div class="left">
-      <label>{{ label | translate }}</label>
-    </div>
-  
-    <div class="right">
-      <input 
-        type="text" 
-        placeholder="{{ placeholder | translate | lowercase }}..."
-        [formControlName]="controlName"
-        pInputText>
-  
-      <div class="w-full">
-        <input 
-          type="text" 
-          placeholder="{{ placeholder | translate | lowercase }}..."
-          [formControlName]="secondFormControlName"
-          pInputText
-          class="mb-1">
-
-        <span>
-          {{ message | translate }}
-        </span>
-      </div>
-    </div>
+<div class="cfg-field" [formGroup]="form">
+  <label class="cfg-field__label" [for]="controlName">{{ label | translate }}</label>
+  <div class="cfg-field__pair">
+    <textarea
+      rows="2"
+      [id]="controlName"
+      placeholder="{{ placeholder | translate | lowercase }}..."
+      [formControlName]="controlName"
+      pInputText></textarea>
+    <textarea
+      rows="2"
+      placeholder="{{ placeholder | translate | lowercase }}..."
+      [formControlName]="secondFormControlName"
+      pInputText></textarea>
   </div>
-</form>
+  <span class="cfg-field__hint">{{ message | translate }}</span>
+</div>

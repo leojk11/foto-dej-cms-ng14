@@ -9,125 +9,122 @@
 <div class="separator"></div>
 
 @if (configurationStore.state$ | async; as state) {
-  <form [formGroup]="form" (ngSubmit)="handleSubmit()"
-    >
-    <p-tabs value="0">
-      <p-tablist>
-        <p-tab value="0">{{ 'common.settings' | translate }}</p-tab>
-        <p-tab value="1">{{ 'common.inviteSettings' | translate }}</p-tab>
-      </p-tablist>
-      <p-tabpanels>
-      <p-tabpanel value="0">
-        @if (state.configuration) {
-          <div class="configuration-wrapper">
-            <div class="configuration-wrapper__configuration">
-              <div class="configuration-wrapper__configuration__multi">
-                <app-upload appReveal [label]="'properties.logo'" [id]="'logo'" [style]="{ 'width': '100%' }"
-                [imagesUrl]="imagesUrl" [preselected]="state.configuration.logo"></app-upload>
-                <app-upload appReveal [label]="'properties.mainImage'" [id]="'main_image'" [style]="{ 'width': '100%' }"
-                [imagesUrl]="imagesUrl" [preselected]="state.configuration.main_image"></app-upload>
+  @if (state.configuration) {
+    <form class="cfg" [formGroup]="form" (ngSubmit)="handleSubmit()">
+      <p-tabs value="0">
+        <p-tablist>
+          <p-tab value="0">{{ 'common.settings' | translate }}</p-tab>
+          <p-tab value="1">{{ 'common.inviteSettings' | translate }}</p-tab>
+        </p-tablist>
+
+        <p-tabpanels>
+          <p-tabpanel value="0">
+            <section class="cfg-section">
+              <h2 class="cfg-section__title">{{ 'common.branding' | translate }}</h2>
+              <p class="cfg-section__hint">{{ 'common.imageSizeInfo' | translate }}</p>
+
+              <div class="cfg-tiles">
+                <app-upload [label]="'properties.logo'" [id]="'logo'"
+                  [imagesUrl]="imagesUrl" [preselected]="state.configuration.logo"></app-upload>
+                <app-upload [label]="'properties.logoWhite'" [id]="'logo_white'" [darkBg]="true"
+                  [imagesUrl]="imagesUrl" [preselected]="state.configuration.logo_white"></app-upload>
+                <app-upload [label]="'properties.logoIcon'" [id]="'logo_icon'"
+                  [imagesUrl]="imagesUrl" [preselected]="state.configuration.logo_icon"></app-upload>
+                <app-upload [label]="'properties.mainImage'" [id]="'main_image'"
+                  [imagesUrl]="imagesUrl" [preselected]="state.configuration.main_image"></app-upload>
               </div>
-              <div class="configuration-wrapper__configuration__multi">
-                <app-upload appReveal [label]="'properties.logoWhite'" [id]="'logo_white'" [style]="{ 'width': '100%' }"
-                [darkBg]="true" [imagesUrl]="imagesUrl" [preselected]="state.configuration.logo_white"></app-upload>
-                <app-upload appReveal [label]="'properties.logoIcon'" [id]="'logo_icon'" [style]="{ 'width': '100%' }"
-                [imagesUrl]="imagesUrl" [preselected]="state.configuration.logo_icon"></app-upload>
+            </section>
+
+            <section class="cfg-section">
+              <h2 class="cfg-section__title">{{ 'common.homepage' | translate }}</h2>
+
+              <div class="cfg-grid">
+                <app-regular-input-double class="cfg-wide" [form]="form" [controlName]="'main_title'"
+                  [label]="'properties.mainTitle'" [placeholder]="'properties.mainTitle'"
+                  [secondFormControlName]="'main_title_tr'" [message]="'messages.translateMainTitle'"></app-regular-input-double>
+                <app-regular-input-double class="cfg-wide" [form]="form" [controlName]="'second_title'"
+                  [label]="'properties.secondTitle'" [placeholder]="'properties.secondTitle'"
+                  [secondFormControlName]="'second_title_tr'" [message]="'messages.translateSecondTitle'"></app-regular-input-double>
+                <app-multi-upload class="cfg-wide" [label]="'properties.promoImages'" [id]="'promo_images'"
+                  [imagesUrl]="imagesUrl" [preselected]="state.configuration.promo_images"></app-multi-upload>
+                <app-video-regular-input class="cfg-wide" [form]="form" [id]="'promo_videos'" [preview]="true"
+                  [label]="'properties.promoVideo'" [placeholder]="'properties.promoVideo'"></app-video-regular-input>
               </div>
-              <app-regular-input-double appReveal [form]="form" [controlName]="'main_title'"
-                [label]="'properties.mainTitle'" [placeholder]="'properties.mainTitle'"
-              [secondFormControlName]="'main_title_tr'" [message]="'messages.translateMainTitle'"></app-regular-input-double>
-              <app-regular-input-double appReveal [form]="form" [controlName]="'second_title'"
-                [label]="'properties.secondTitle'" [placeholder]="'properties.secondTitle'"
-              [secondFormControlName]="'second_title_tr'" [message]="'messages.translateSecondTitle'"></app-regular-input-double>
-              <app-multi-upload appReveal [label]="'properties.promoImages'" [id]="'promo_images'"
-              [imagesUrl]="imagesUrl" [preselected]="state.configuration.promo_images"></app-multi-upload>
-              <app-video-regular-input appReveal [form]="form" (onSave)="handleSubmit()" [id]="'promo_videos'" [preview]="true"
-              [label]="'properties.promoVideo'" [placeholder]="'properties.promoVideo'"></app-video-regular-input>
-              <app-regular-input appReveal [form]="form" [controlName]="'phone_number'"
-              [label]="'properties.phoneNumber'" [placeholder]="'properties.phoneNumber'"></app-regular-input>
-              <app-regular-input appReveal [form]="form" [controlName]="'email'"
-              [label]="'properties.email'" [placeholder]="'properties.email'"></app-regular-input>
-              <app-regular-input appReveal [form]="form" [controlName]="'address'"
-              [label]="'properties.address'" [placeholder]="'properties.address'"></app-regular-input>
-              <app-regular-input appReveal [form]="form" [controlName]="'facebook_link'"
-              [label]="'Facebook'" [placeholder]="'facebook'"></app-regular-input>
-              <app-regular-input appReveal [form]="form" [controlName]="'insta_link'"
-              [label]="'Instagram'" [placeholder]="'instagram'"></app-regular-input>
-              <app-video-regular-input appReveal [form]="form" (onSave)="handleSubmit()" [id]="'emails_for_notifications'"
-              [label]="'properties.emailsForNotifications'" [placeholder]="'properties.emailsForNotifications'"></app-video-regular-input>
-              <div class="configuration-wrapper__configuration__buttons">
-                <button
-                  class="btn btn__red btn__lg"
-                  type="button"
-                  (click)="cancel()">
-                  {{ 'common.cancel' | translate }}
-                </button>
-                <button
-                  class="btn btn__dark btn__lg"
-                  type="submit">
-                  {{ 'common.save' | translate }}
-                </button>
+            </section>
+
+            <section class="cfg-section">
+              <h2 class="cfg-section__title">{{ 'common.contact' | translate }}</h2>
+
+              <div class="cfg-grid">
+                <app-regular-input [form]="form" [controlName]="'phone_number'"
+                  [label]="'properties.phoneNumber'" [placeholder]="'properties.phoneNumber'"></app-regular-input>
+                <app-regular-input [form]="form" [controlName]="'email'"
+                  [label]="'properties.email'" [placeholder]="'properties.email'"></app-regular-input>
+                <app-regular-input class="cfg-wide" [form]="form" [controlName]="'address'"
+                  [label]="'properties.address'" [placeholder]="'properties.address'"></app-regular-input>
+                <app-regular-input [form]="form" [controlName]="'facebook_link'"
+                  [label]="'Facebook'" [placeholder]="'facebook'"></app-regular-input>
+                <app-regular-input [form]="form" [controlName]="'insta_link'"
+                  [label]="'Instagram'" [placeholder]="'instagram'"></app-regular-input>
+                <app-video-regular-input class="cfg-wide" [form]="form" [id]="'emails_for_notifications'"
+                  [label]="'properties.emailsForNotifications'" [placeholder]="'properties.emailsForNotifications'"></app-video-regular-input>
               </div>
-            </div>
-          </div>
-        }
-      </p-tabpanel>
-      <p-tabpanel value="1">
-        <div class="w-full flex justify-end p-1">
-          <button class="btn btn__main" type="button"
-            (click)="previewInvitation()">
-            {{ 'common.preview' | translate }}
-          </button>
-        </div>
-        @if (state.configuration) {
-          <div class="configuration-wrapper">
-            <div class="configuration-wrapper__configuration">
-              <div class="configuration-wrapper__configuration__multi">
-                <app-upload appReveal [label]="'properties.invitePhoneNumberIcon'" [id]="'invite_phone_number_icon'"
-                  [style]="{ 'width': '100%' }" [imagesUrl]="imagesUrl"
-                [preselected]="state.configuration.invite_phone_number_icon"></app-upload>
-                <app-upload appReveal [label]="'properties.inviteEmailIcon'" [id]="'invite_email_icon'"
-                  [style]="{ 'width': '100%' }" [imagesUrl]="imagesUrl"
-                [preselected]="state.configuration.invite_email_icon"></app-upload>
-              </div>
-              <div class="configuration-wrapper__configuration__multi">
-                <app-upload appReveal [label]="'properties.inviteLocationIcon'" [id]="'invite_location_icon'"
-                  [style]="{ 'width': '100%' }" [imagesUrl]="imagesUrl"
-                [preselected]="state.configuration.invite_location_icon"></app-upload>
-              </div>
-              <app-regular-input appReveal [form]="form" [controlName]="'invite_from'"
-              [label]="'properties.inviteFrom'" [placeholder]="'properties.inviteFrom'"></app-regular-input>
-              <app-regular-input appReveal [form]="form" [controlName]="'invite_subject'"
-              [label]="'properties.inviteSubject'" [placeholder]="'properties.inviteSubject'"></app-regular-input>
-              <app-regular-input appReveal [form]="form" [controlName]="'invite_credentials_message'"
-                [label]="'properties.inviteCredentialsMessage'"
-              [placeholder]="'properties.inviteCredentialsMessage'"></app-regular-input>
-              <app-regular-input appReveal [form]="form" [controlName]="'invite_credentials_email_label'"
-              [label]="'properties.inviteEmailLabel'" [placeholder]="'properties.inviteEmailLabel'"></app-regular-input>
-              <app-regular-input appReveal [form]="form" [controlName]="'invite_credentials_password_label'"
-              [label]="'properties.invitePasswordLabel'" [placeholder]="'properties.invitePasswordLabel'"></app-regular-input>
-              <app-regular-input appReveal [form]="form" [controlName]="'invite_login_message'"
-              [label]="'properties.inviteLoginMessage'" [placeholder]="'properties.inviteLoginMessage'"></app-regular-input>
-              <app-regular-input appReveal [form]="form" [controlName]="'invite_thank_you_message'"
-              [label]="'properties.inviteThankYouMessage'" [placeholder]="'properties.inviteThankYouMessage'"></app-regular-input>
-              <div class="configuration-wrapper__configuration__buttons">
-                <button
-                  class="btn btn__red btn__lg"
-                  type="button"
-                  (click)="cancel()">
-                  {{ 'common.cancel' | translate }}
-                </button>
-                <button
-                  class="btn btn__dark btn__lg"
-                  type="submit">
-                  {{ 'common.save' | translate }}
+            </section>
+          </p-tabpanel>
+
+          <p-tabpanel value="1">
+            <section class="cfg-section">
+              <div class="cfg-field__header">
+                <h2 class="cfg-section__title">{{ 'common.inviteIcons' | translate }}</h2>
+                <button class="btn btn__main" type="button" (click)="previewInvitation()">
+                  <i class="pi pi-eye"></i>
+                  {{ 'common.preview' | translate }}
                 </button>
               </div>
-            </div>
-          </div>
-        }
-      </p-tabpanel>
-      </p-tabpanels>
-    </p-tabs>
-  </form>
+              <p class="cfg-section__hint">{{ 'common.imageSizeInfo' | translate }}</p>
+
+              <div class="cfg-tiles">
+                <app-upload [label]="'properties.invitePhoneNumberIcon'" [id]="'invite_phone_number_icon'"
+                  [imagesUrl]="imagesUrl" [preselected]="state.configuration.invite_phone_number_icon"></app-upload>
+                <app-upload [label]="'properties.inviteEmailIcon'" [id]="'invite_email_icon'"
+                  [imagesUrl]="imagesUrl" [preselected]="state.configuration.invite_email_icon"></app-upload>
+                <app-upload [label]="'properties.inviteLocationIcon'" [id]="'invite_location_icon'"
+                  [imagesUrl]="imagesUrl" [preselected]="state.configuration.invite_location_icon"></app-upload>
+              </div>
+            </section>
+
+            <section class="cfg-section">
+              <h2 class="cfg-section__title">{{ 'common.inviteMessages' | translate }}</h2>
+
+              <div class="cfg-grid">
+                <app-regular-input [form]="form" [controlName]="'invite_from'"
+                  [label]="'properties.inviteFrom'" [placeholder]="'properties.inviteFrom'"></app-regular-input>
+                <app-regular-input [form]="form" [controlName]="'invite_subject'"
+                  [label]="'properties.inviteSubject'" [placeholder]="'properties.inviteSubject'"></app-regular-input>
+                <app-regular-input class="cfg-wide" [form]="form" [controlName]="'invite_credentials_message'"
+                  [label]="'properties.inviteCredentialsMessage'" [placeholder]="'properties.inviteCredentialsMessage'"></app-regular-input>
+                <app-regular-input [form]="form" [controlName]="'invite_credentials_email_label'"
+                  [label]="'properties.inviteEmailLabel'" [placeholder]="'properties.inviteEmailLabel'"></app-regular-input>
+                <app-regular-input [form]="form" [controlName]="'invite_credentials_password_label'"
+                  [label]="'properties.invitePasswordLabel'" [placeholder]="'properties.invitePasswordLabel'"></app-regular-input>
+                <app-regular-input class="cfg-wide" [form]="form" [controlName]="'invite_login_message'"
+                  [label]="'properties.inviteLoginMessage'" [placeholder]="'properties.inviteLoginMessage'"></app-regular-input>
+                <app-regular-input class="cfg-wide" [form]="form" [controlName]="'invite_thank_you_message'"
+                  [label]="'properties.inviteThankYouMessage'" [placeholder]="'properties.inviteThankYouMessage'"></app-regular-input>
+              </div>
+            </section>
+          </p-tabpanel>
+        </p-tabpanels>
+      </p-tabs>
+
+      <div class="cfg-savebar">
+        <button class="btn btn__red btn__lg" type="button" (click)="cancel()">
+          {{ 'common.cancel' | translate }}
+        </button>
+        <button class="btn btn__dark btn__lg" type="submit">
+          {{ 'common.save' | translate }}
+        </button>
+      </div>
+    </form>
+  }
 }

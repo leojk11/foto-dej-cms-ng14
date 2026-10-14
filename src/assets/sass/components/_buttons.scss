@@ -358,3 +358,30 @@
   padding: 0.9rem 1.4rem !important;
   border-radius: $radius-sm;
 }
+
+// language switch (flags)
+.lang-switch {
+  .p-togglebutton {
+    padding: 0.5rem 0.9rem !important;
+    min-width: 0 !important;
+  }
+
+  &__flag {
+    display: block;
+    width: 2.4rem;
+    height: 2.4rem;
+    border-radius: 50%;
+    object-fit: cover;
+    opacity: 0.55;
+    transition: opacity 0.25s, transform 0.25s;
+  }
+
+  .p-togglebutton:hover &__flag {
+    opacity: 0.85;
+  }
+
+  .p-togglebutton-checked &__flag {
+    opacity: 1;
+    box-shadow: 0 0 0 2px rgba($white, 0.9);
+  }
+}

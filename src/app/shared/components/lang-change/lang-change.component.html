@@ -6,8 +6,19 @@
       [options]="languageOptions"
       [(ngModel)]="state.language"
       (onChange)="changeLang($event)"
+      [allowEmpty]="false"
       optionLabel="label"
       optionValue="value"
-    ></p-selectbutton>
+      styleClass="lang-switch"
+    >
+      <ng-template #item let-option>
+        <img
+          class="lang-switch__flag"
+          [src]="'assets/img/flags/' + option.value + '.svg'"
+          [alt]="option.label"
+          [title]="option.label"
+        >
+      </ng-template>
+    </p-selectbutton>
   </div>
 }

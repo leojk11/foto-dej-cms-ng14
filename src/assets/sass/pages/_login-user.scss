@@ -3,7 +3,7 @@
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 8rem;
+  gap: 6rem;
   width: 100%;
   min-height: 100vh;
   padding: 8rem 2rem 4rem;
@@ -65,7 +65,7 @@
   &__content{
     position: relative;
     z-index: 2;
-    width: min(100%, 46rem);
+    width: 100%;
     background: rgba($white, 0.88);
     backdrop-filter: blur(16px);
     border: 1px solid rgba($white, 0.9);
@@ -90,7 +90,7 @@
 
     &--title {
       font-family: $font-display;
-      font-size: 3rem;
+      font-size: 3.6rem;
       font-weight: 600;
       text-align: center;
       color: $color-dark;
@@ -98,19 +98,35 @@
 
     &--submit {
       width: 100%;
-      height: 4.8rem;
+      height: 5rem;
+      font-size: 1.5rem;
+    }
+
+    // roomier inputs to match the wider card
+    .form-field {
+      row-gap: 1rem;
+
+      &__label {
+        font-size: 1.4rem;
+      }
+    }
+
+    .p-inputtext,
+    .p-password-input {
+      padding: 1.5rem 1.8rem;
+      font-size: 1.5rem;
     }
 
     @media (min-width: 1100px) {
-      padding: 4.4rem 5rem 5rem;
+      padding: 4.8rem 7rem 5.4rem;
     }
   }
 
   &__image {
     position: relative;
     z-index: 2;
-    width: 44rem;
-    max-width: 44%;
+    width: 40rem;
+    max-width: 36%;
     display: none;
 
     img{
@@ -145,4 +161,12 @@
   border-radius: $radius-pill;
   font-size: 1.3rem;
   z-index: 10;
+}
+
+// the form component host is the flex item, so the width has to be set on it
+.login > app-login-form {
+  display: block;
+  position: relative;
+  z-index: 2;
+  width: min(100%, 62rem);
 }

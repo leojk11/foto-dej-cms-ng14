@@ -1,48 +1,38 @@
-import { Component, ElementRef, Input, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
-
-import { ToastService } from 'src/app/shared/services/toast.service';
-import { Observable, Subject, finalize, forkJoin, ignoreElements, merge, mergeMap, of, tap } from 'rxjs';
-import { ConfigurationService } from '../../services/configuration.service';
-import { ConfigurationStore } from '../../services/configuration.store';
-import { ImageOverviewService } from 'src/app/shared/services/image-overview.service';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Observable, forkJoin } from 'rxjs';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { ConfirmationService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastService } from 'src/app/shared/services/toast.service';
+import { ImageOverviewService } from 'src/app/shared/services/image-overview.service';
 import { CONF_SHOW_IMAGES_AMOUNT } from 'src/app/core/data/staticData';
+import { ConfigurationService } from '../../services/configuration.service';
+import { ConfigurationStore } from '../../services/configuration.store';
 
+// A gallery of saved images: pick files and they are uploaded and saved straight away.
 @Component({
     selector: 'app-multi-upload',
     imports: [
-    TranslatePipe,
-    ProgressBarModule,
-    ConfirmDialogModule
-],
+        TranslatePipe,
+        ProgressBarModule,
+        ConfirmDialogModule
+    ],
     templateUrl: './multi-upload.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
-    styleUrls: ['./multi-upload.component.scss']
+    changeDetection: ChangeDetectionStrategy.Eager
 })
-export class MultiUploadComponent implements OnInit {
+export class MultiUploadComponent {
 
   @Input() label: string = '';
   @Input() id: string = '';
-
   @Input() imagesUrl: string = '';
   @Input() preselected: string[] = [];
 
-  @ViewChild('fileUploader') fileUploader: ElementRef = {} as ElementRef;
-
-  selectedFiles: File[] = [];
-  selectedFilesPreview: string[] = [];
-
-  uploadInPorgress: boolean = false;
+  uploadInProgress: boolean = false;
   uploadProgressValue: number = 0;
 
-  defaultImagesAmoutToShow: number = CONF_SHOW_IMAGES_AMOUNT;
-  imagesAmountToShow: number = CONF_SHOW_IMAGES_AMOUNT;
-  imagesToDisplay: string[] | undefined = [];
-  leftImagesToDisplay: string[] | undefined = [];
+  private imagesAmountToShow: number = CONF_SHOW_IMAGES_AMOUNT;
 
   constructor(
     private toastService: ToastService,
@@ -54,203 +44,121 @@ export class MultiUploadComponent implements OnInit {
     private spinner: NgxSpinnerService
   ) { }
 
-  ngOnInit(): void { 
-    if (this.preselected) {
-      this.imagesToDisplay = this.preselected?.slice(0, this.imagesAmountToShow);
-      this.leftImagesToDisplay = this.preselected?.slice(this.imagesAmountToShow, this.preselected.length);
-    }
+  get visibleImages(): string[] {
+    return (this.preselected ?? []).slice(0, this.imagesAmountToShow);
   }
 
-  toggleOverview(event: any, images: any): void {
+  get hiddenCount(): number {
+    return Math.max((this.preselected?.length ?? 0) - this.imagesAmountToShow, 0);
+  }
+
+  toggleOverview(event: any): void {
     this.imageOverviewState.toggleOverview();
-    this.imageOverviewState.setImages(event.target.src, images);
+    this.imageOverviewState.setImages(event.target.src, this.preselected);
   }
 
   seeMoreImages(): void {
-    this.imagesAmountToShow = this.imagesAmountToShow + this.defaultImagesAmoutToShow;
-    this.imagesToDisplay = this.preselected?.slice(0, this.imagesAmountToShow);
-    this.leftImagesToDisplay = this.preselected?.slice(this.imagesAmountToShow, this.preselected.length);
+    this.imagesAmountToShow += CONF_SHOW_IMAGES_AMOUNT;
   }
 
   selectFiles(event: any): void {
-    let files: any = [];
+    const files: File[] = Array.from(event.target.files ?? []);
+    event.target.value = '';
 
-    for (const file of event.target.files) {
-      files.push(file);
-
-      const reader = new FileReader();
-      reader.onload = () => {
-        this.selectedFilesPreview.push(reader.result as string);
-      };
-      reader.readAsDataURL(file);
+    if (files.length > 0) {
+      this.uploadFiles(files);
     }
-
-    this.selectedFiles = files;
   }
 
-  uploadFiles(): void {
-    this.uploadInPorgress = true;
+  private uploadFiles(files: File[]): void {
+    this.uploadInProgress = true;
+    this.uploadProgressValue = 0;
 
-    let imagesToSave: string[] = [];
-    if (this.preselected) {
-      imagesToSave = this.preselected;
-    }
+    let done = 0;
+    const uploads: Observable<any>[] = files.map(file => {
+      const upload$ = this.configurationService.uploadImage(file, this.id);
+      return new Observable(subscriber => upload$.subscribe({
+        next: value => subscriber.next(value),
+        error: error => subscriber.error(error),
+        complete: () => {
+          this.uploadProgressValue = Math.round(++done * 100 / files.length);
+          subscriber.complete();
+        }
+      }));
+    });
 
-    const toUpload: Observable<any>[] = [];
-    for (const file of this.selectedFiles) {
-      imagesToSave.push(file.name);
-      toUpload.push(this.configurationService.uploadImage(file, this.id));
-    };
+    forkJoin(uploads).subscribe({
+      next: () => this.saveImages([ ...new Set([ ...this.preselected, ...files.map(file => file.name) ]) ]),
+      error: error => {
+        this.toastService.addError(error.error.message);
+        this.uploadInProgress = false;
+      }
+    });
+  }
 
-    this.forkJoinWithProgress(toUpload).pipe(
-      mergeMap(([finalResult, progress]) => merge(
-        progress.pipe(
-          tap((value: number) => { this.uploadProgressValue = value; }),
-          ignoreElements()
-        ), finalResult
-      ))
-    ).subscribe(() => {
-      imagesToSave = [ ...new Set(imagesToSave) ];
-      this.configurationService.updateConfiguration({
-        [this.id]: JSON.stringify(imagesToSave)
-      }).subscribe({
-        next: updateConfRes => {
-          this.selectedFilesPreview = [];
-          this.configurationStore.patchConfiguration(updateConfRes.configuration);
-          this.toastService.addSuccess(updateConfRes.message);
+  private saveImages(images: string[]): void {
+    this.configurationService.updateConfiguration({
+      [this.id]: JSON.stringify(images)
+    }).subscribe({
+      next: res => {
+        this.configurationStore.patchConfiguration(res.configuration);
+        this.toastService.addSuccess(res.message);
+        this.uploadInProgress = false;
+        this.uploadProgressValue = 0;
+        this.spinner.hide().then();
+      },
+      error: error => {
+        this.toastService.addError(error.error.message);
+        this.uploadInProgress = false;
+        this.spinner.hide().then();
+      }
+    });
+  }
 
-          this.selectedFiles = [];
-          this.uploadInPorgress = false;
-          this.uploadProgressValue = 0;
-
-          if (this.preselected) {
-            this.imagesToDisplay = this.preselected?.slice(0, this.imagesAmountToShow);
-            this.leftImagesToDisplay = this.preselected?.slice(this.imagesAmountToShow, this.preselected.length);
-          } else {
-            this.imagesToDisplay = updateConfRes.configuration.promo_images.slice(0, this.imagesAmountToShow);
-            this.leftImagesToDisplay = updateConfRes.configuration.promo_images.slice(this.imagesAmountToShow, updateConfRes.configuration.promo_images.length);
-          }
+  clearPromoImages(): void {
+    this.confirm('messages.clearPromoImages', () => {
+      this.spinner.show().then();
+      this.configurationService.clearPromoImages().subscribe({
+        next: res => {
+          this.configurationStore.patchConfiguration(res.configuration);
+          this.toastService.addSuccess(res.message);
+          this.spinner.hide().then();
         },
         error: error => {
           this.toastService.addError(error.error.message);
-          this.uploadInPorgress = false;
+          this.spinner.hide().then();
         }
       });
     });
   }
 
-  forkJoinWithProgress(toUpload: Observable<any>[]): Observable<any> {
-    let counter = 0;
-    const percent$ = new Subject();
+  deleteSavedImage(index: number): void {
+    const image = this.preselected[index];
+    if (!image) {
+      return;
+    }
 
-    const modifiedObservablesList = toUpload.map(
-      (item, index) => item.pipe(
-        finalize(() => {
-          const percentValue = ++counter * 100 / toUpload.length;
-          percent$.next(percentValue);
-        })
-      )
-    );
-
-    const finalResult$ = forkJoin(modifiedObservablesList).pipe(
-      tap(() => {
-        percent$.next(100);
-        percent$.complete();
-      })
-    );
-
-    return of([finalResult$, percent$.asObservable()]);
-  }
-
-  clearPromoImages(): void {
-    this.confirmationService.confirm({
-      key: 'clearPromoImages',
-      message: this.translate.instant('messages.clearPromoImages'),
-      acceptButtonStyleClass: 'btn btn__red text',
-      rejectButtonStyleClass: 'btn btn__dark text',
-      acceptLabel: this.translate.instant('common.yes'),
-      rejectLabel: this.translate.instant('common.no'),
-      accept: () => {
-        if (!this.preselected) {
-          this.selectedFiles = [];
-          this.selectedFilesPreview = [];
-
-          if (this.fileUploader) {
-            this.fileUploader.nativeElement.value = null;
-          }
-        } else {
-          this.spinner.show().then();
-          this.configurationService.clearPromoImages().subscribe({
-            next: res => {
-              this.preselected = [];
-              this.configurationStore.patchConfiguration(res.configuration);
-              this.toastService.addSuccess(res.message);
-
-              this.imagesToDisplay = this.preselected?.slice(0, this.imagesAmountToShow);
-              this.leftImagesToDisplay = this.preselected?.slice(this.imagesAmountToShow, this.preselected.length);
-
-              this.spinner.hide().then();
-            },
-            error: error => {
-              this.toastService.addError(error.error.message);
-              this.spinner.hide().then();
-            }
-          });
+    this.confirm('messages.deleteImage', () => {
+      this.spinner.show().then();
+      this.configurationService.deleteSingleImage(image.split('.')[0]).subscribe({
+        next: () => this.saveImages(this.preselected.filter((_, i) => i !== index)),
+        error: error => {
+          this.toastService.addError(error.error.message);
+          this.spinner.hide().then();
         }
-      }
+      });
     });
   }
 
-  deletePreviewImage(index: number): void {
-    this.selectedFiles.splice(index, 1);
-    this.selectedFilesPreview.splice(index, 1);
-  }
-
-  deleteSavedImage(index: number): void {
-    console.log('here');
-    
+  private confirm(messageKey: string, accept: () => void): void {
     this.confirmationService.confirm({
       key: 'clearPromoImages',
-      message: this.translate.instant('messages.deleteImage'),
+      message: this.translate.instant(messageKey),
       acceptButtonStyleClass: 'btn btn__red text',
       rejectButtonStyleClass: 'btn btn__dark text',
       acceptLabel: this.translate.instant('common.yes'),
       rejectLabel: this.translate.instant('common.no'),
-      accept: () => {
-        if (this.preselected) {
-          if (this.preselected[index]) {
-            this.spinner.show().then();
-
-            this.configurationService.deleteSingleImage(this.preselected[index].split('.')[0]).subscribe({
-              next: () => {
-                this.preselected.splice(index, 1);
-
-                this.imagesToDisplay = this.preselected?.slice(0, this.imagesAmountToShow);
-                this.leftImagesToDisplay = this.preselected?.slice(this.imagesAmountToShow, this.preselected.length);
-
-                this.configurationService.updateConfiguration({
-                  [this.id]: JSON.stringify(this.preselected)
-                }).subscribe({
-                  next: res => {
-                    this.configurationStore.patchConfiguration(res.configuration);
-                    this.toastService.addSuccess(res.message);
-                    
-                    this.spinner.hide().then();
-                  },
-                  error: error => {
-                    this.toastService.addError(error.error.message);
-                    this.spinner.hide().then();
-                  }
-                });
-              },
-              error: error => {
-                this.toastService.addError(error.error.message);
-                this.spinner.hide().then();
-              }
-            });
-          }
-        }
-      }
+      accept
     });
   }
 }

@@ -1,15 +1,9 @@
-<form [formGroup]="form">
-  <div class="configuration-wrapper__configuration__item align-center">
-    <div class="left">
-      <label>{{ label | translate }}</label>
-    </div>
-
-    <div class="right">
-      <input 
-        type="text" 
-        placeholder="{{ placeholder | translate | lowercase }}..."
-        [formControlName]="controlName"
-        pInputText>
-    </div>
-  </div>
-</form>
+<div class="cfg-field" [formGroup]="form">
+  <label class="cfg-field__label" [for]="controlName">{{ label | translate }}</label>
+  <input
+    type="text"
+    [id]="controlName"
+    placeholder="{{ placeholder | translate | lowercase }}..."
+    [formControlName]="controlName"
+    pInputText>
+</div>

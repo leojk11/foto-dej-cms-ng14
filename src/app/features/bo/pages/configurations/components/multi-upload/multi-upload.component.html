@@ -1,115 +1,60 @@
-<div class="configuration-wrapper__configuration__item">
-  <div class="left">
-    <label>{{ label | translate }}</label>
+<div class="cfg-field">
+  <div class="cfg-field__header">
+    <span class="cfg-field__label">{{ label | translate }}</span>
+    @if (preselected?.length > 0) {
+      <button class="btn btn__red" type="button" (click)="clearPromoImages()">
+        <i class="pi pi-trash"></i>
+        {{ 'common.clear' | translate }}
+      </button>
+    }
   </div>
 
-  <div class="right">
-    <div class="right__top">
-      <input #fileUploader [id]="id"
-        type="file" accept="image/*"
-        class="upload-input" multiple
-        (change)="selectFiles($event)" pInputText>
-
-        <label
-          class="btn btn__main upload-btn"
-          [for]="id">
-          <i class="pi pi-plus"></i>
-          {{ 'common.chooseImages' | translate }}
-        </label>
-
-        <button class="btn btn__main upload-btn" type="button"
-          (click)="clearPromoImages()">
-          {{ 'common.clear' | translate }}
+  <div class="cfg-gallery">
+    @for (image of visibleImages; track image; let i = $index) {
+      <div class="cfg-gallery__item">
+        <img [src]="imagesUrl + image" (click)="toggleOverview($event)">
+        <button
+          class="cfg-gallery__item__delete"
+          type="button"
+          [attr.aria-label]="'common.delete' | translate"
+          (click)="deleteSavedImage(i)">
+          <i class="pi pi-trash"></i>
         </button>
       </div>
+    }
 
-      <div class="right__bottom">
-        @if (selectedFilesPreview.length > 0) {
-          <p class="info-label"
-          >{{ 'common.imagesReadyToUpload' | translate }}</p>
-        }
-        @if (selectedFilesPreview.length > 0) {
-          <div class="images">
-            @for (preview of selectedFilesPreview; track preview; let i = $index) {
-              <div
-                class="single-image cp">
-                <div class="delete-icon" (click)="deletePreviewImage(i)">
-                  <i class="pi pi-trash"></i>
-                </div>
-                <img [src]="preview">
-              </div>
-            }
-          </div>
-        }
+    <label class="cfg-gallery__add" [for]="id">
+      <i class="pi pi-plus"></i>
+      {{ 'common.chooseImages' | translate }}
+    </label>
+  </div>
 
-        @if (uploadInPorgress) {
-          <div
-            class="w-full mt-2"
-            >
-            <p-progressbar [value]="uploadProgressValue"></p-progressbar>
-          </div>
-        }
+  <input
+    [id]="id"
+    type="file"
+    class="cfg-gallery__input"
+    accept="image/*"
+    multiple
+    [disabled]="uploadInProgress"
+    (change)="selectFiles($event)">
 
-        <div class="w-full flex justify-end pt-2">
-          @if (selectedFiles.length > 0) {
-            <button
-              class="btn btn__main upload-btn"
-              type="button"
-              (click)="uploadFiles()"
-              [disabled]="uploadInPorgress"
-              >
-              <i class="pi pi_upload"></i>
-              {{ 'common.upload' | translate }}
-            </button>
-          }
-        </div>
+  @if (uploadInProgress) {
+    <p-progressbar [value]="uploadProgressValue"></p-progressbar>
+  }
 
-        @if (preselected) {
-          <p class="info-label"
-          >{{ 'common.alreadyUploadedImages' | translate }}</p>
-        }
-        @if (preselected) {
-          <div class="images">
-            @for (image of imagesToDisplay; track image; let i = $index) {
-              <div
-                class="single-image cp">
-                <div class="delete-icon" (click)="deleteSavedImage(i)">
-                  <i class="pi pi-trash"></i>
-                </div>
-                <img
-                  [src]="imagesUrl + image"
-                  (click)="toggleOverview($event, imagesToDisplay)">
-                </div>
-              }
-            </div>
-          }
-
-          @if (imagesToDisplay!.length > 0) {
-            <div class="w-full flex justify-center align-center mt-2"
-              >
-              <button
-                pButton
-                type="button"
-                class="btn btn__main"
-                (click)="seeMoreImages()"
-                [disabled]="leftImagesToDisplay?.length === 0"
-                >
-                {{ 'common.seeAll' | translate }}
-              </button>
-            </div>
-          }
-
-          <div class="buttons">
-            <p class="buttons__label">
-              {{ 'common.imagesSizeInfo' | translate }}
-            </p>
-          </div>
-        </div>
-      </div>
+  @if (hiddenCount > 0) {
+    <div class="cfg-more">
+      <button class="btn btn__main" type="button" (click)="seeMoreImages()">
+        {{ 'common.seeAll' | translate }} ({{ hiddenCount }})
+      </button>
     </div>
+  }
 
-    <p-confirmdialog [dismissableMask]="true"
-      [key]="'clearPromoImages'"
-      header="{{ 'common.confirmation' | translate }}"
-      [style]="{ width: '50%',  padding: '1rem' }"
-    ></p-confirmdialog>
+  <span class="cfg-field__hint">{{ 'common.imagesSizeInfo' | translate }}</span>
+</div>
+
+<p-confirmdialog [dismissableMask]="true"
+  [key]="'clearPromoImages'"
+  header="{{ 'common.confirmation' | translate }}"
+  [style]="{ width: '50%',  padding: '1rem' }"
+></p-confirmdialog>

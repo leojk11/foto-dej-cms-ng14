@@ -50,8 +50,8 @@ $color-7: #7B5431;
 
 
 // ---- design tokens (colors above are unchanged) ----
+$font-display: 'Nunito', 'Inter', system-ui, sans-serif;
 $font-body: 'Inter', 'Roboto', system-ui, -apple-system, 'Segoe UI', sans-serif;
-$font-display: 'Noto Serif Display', Georgia, serif;
 
 $surface: #fff;
 $border-color: rgba($color-dark, 0.1);

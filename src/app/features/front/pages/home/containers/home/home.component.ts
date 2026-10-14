@@ -20,36 +20,36 @@ import { RevealDirective } from 'src/app/shared/directives/reveal.directive';
 import { ParallaxDirective } from 'src/app/shared/directives/parallax.directive';
 
 @Component({
-    selector: 'app-home',
-    imports: [
-        CommonModule,
-        TranslatePipe,
-        RouterModule,
-        SliderComponent,
-        ContactFormComponent,
-        FooterComponent,
-        FrontNavbarComponent,
-        YouTubePlayerModule,
-        SpinnerComponent,
-        StartLoaderComponent,
-        RevealDirective,
-        ParallaxDirective
-    ],
-    templateUrl: './home.component.html',
-    styleUrls: ['./home.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    animations: [
-        trigger('enterAnimation', [
-            transition(':enter', [
-                style({ transform: 'translateX(100%)', opacity: 0 }),
-                animate('500ms', style({ transform: 'translateX(0)', opacity: 1 }))
-            ]),
-            transition(':leave', [
-                style({ transform: 'translateX(0)', opacity: 1 }),
-                animate('500ms', style({ transform: 'translateX(100%)', opacity: 0 }))
-            ])
-        ])
-    ]
+  selector: 'app-home',
+  imports: [
+    CommonModule,
+    TranslatePipe,
+    RouterModule,
+    SliderComponent,
+    ContactFormComponent,
+    FooterComponent,
+    FrontNavbarComponent,
+    YouTubePlayerModule,
+    SpinnerComponent,
+    StartLoaderComponent,
+    RevealDirective,
+    ParallaxDirective
+  ],
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [
+    trigger('enterAnimation', [
+      transition(':enter', [
+        style({ transform: 'translateX(100%)', opacity: 0 }),
+        animate('500ms', style({ transform: 'translateX(0)', opacity: 1 }))
+      ]),
+      transition(':leave', [
+        style({ transform: 'translateX(0)', opacity: 1 }),
+        animate('500ms', style({ transform: 'translateX(100%)', opacity: 0 }))
+      ])
+    ])
+  ]
 })
 export class HomeComponent implements OnInit {
 
@@ -94,7 +94,7 @@ export class HomeComponent implements OnInit {
     document.body.style.overflowY = 'hidden';
 
     this.translateService.onLangChange.subscribe({
-      next: (res:any) => {
+      next: (res: any) => {
         this.selectedLang = res.lang;
         this.getTitles();
       }
@@ -102,17 +102,19 @@ export class HomeComponent implements OnInit {
 
     this.service.getConfiguration().subscribe({
       next: res => {
-        const promoImagesCopy = JSON.parse(JSON.stringify(res.promo_images));
-        this.promoImagesForSlider = promoImagesCopy.splice(0, 6);
-        
+        if (res.promo_images) {
+          const promoImagesCopy = JSON.parse(JSON.stringify(res.promo_images));
+          this.promoImagesForSlider = promoImagesCopy.splice(0, 6);
+        }
+
         for (const video of res.promo_videos) {
           const splittedPromoVideUrl = video.split('=');
           const videoId = splittedPromoVideUrl[1].split('&');
           this.videoIds.push(videoId[0]);
         }
-        
+
         this.showVideo = true;
-        
+
         this.configuration = res;
         this.frontConfigurationState.setConfiguration(res);
         this.getTitles();
@@ -143,7 +145,7 @@ export class HomeComponent implements OnInit {
   }
 
   getTitles(): void {
-    if(this.selectedLang === 'mk') {
+    if (this.selectedLang === 'mk') {
       this.mainTitle = this.configuration.main_title;
       this.secondTitle = this.configuration.second_title
     } else {
@@ -155,16 +157,16 @@ export class HomeComponent implements OnInit {
   goToElement(el: HTMLElement, offset: number): void {
     let element = el;
 
-    if(typeof(el) !== 'string'){
+    if (typeof (el) !== 'string') {
       element = el;
-    } else if(el === 'collaboration') {
+    } else if (el === 'collaboration') {
       element = Object.entries(this.collaboration)[0][1];
     } else if (el === 'slider') {
       element = Object.entries(this.slider)[0][1];
     }
 
     const y = element.getBoundingClientRect().top + window.pageYOffset + offset;
-    window.scrollTo({ top: y, behavior: 'smooth'});
+    window.scrollTo({ top: y, behavior: 'smooth' });
   }
 
   onMainImageLoad(): void {

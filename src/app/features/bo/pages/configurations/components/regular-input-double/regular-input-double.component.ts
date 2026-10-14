@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { LowerCasePipe } from '@angular/common';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { TranslatePipe } from '@ngx-translate/core';
 import { InputTextModule } from 'primeng/inputtext';
@@ -7,7 +7,7 @@ import { InputTextModule } from 'primeng/inputtext';
 @Component({
     selector: 'app-regular-input-double',
     imports: [
-        CommonModule,
+        LowerCasePipe,
         ReactiveFormsModule,
         TranslatePipe,
         InputTextModule

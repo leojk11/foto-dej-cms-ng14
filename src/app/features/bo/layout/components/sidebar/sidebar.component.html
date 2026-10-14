@@ -1,104 +1,78 @@
 @if (!isMobile) {
-  <div>
-    <div class="sidebar" [class.hide]="hideSidebar && !isMobile">
-      <div>
-        @if (frontConfigurationState.confState$ | async; as config) {
-          <div class="sidebar__brand">
-            <div class="sidebar__logo-wrapper">
-              <img
-                [src]="config.imageUrl + config.configuration.logo"
-                class="sidebar__logo-wrapper--img"
-                >
-              </div>
-            </div>
-          }
-          <ul class="sidebar__list">
-            @for (item of sidebarItems; track item) {
-              <li
-                class="sidebar__list--item"
-                >
-                <a
-                  class="sidebar__link"
-                  [routerLink]="item.redirectTo"
-                  [routerLinkActive]="'active-link'"
-                  *permit="item.perm"
-                  >
-                  <span class="sidebar__link--icon">
-                    <i [class]="item.icon"></i>
-                  </span>
-                  <p class="sidebar__link--title">
-                    {{ item.title | translate }}
-                  </p>
-                </a>
-              </li>
-            }
-          </ul>
+<div>
+  <div class="sidebar" [class.hide]="hideSidebar && !isMobile">
+    <div>
+      @if (frontConfigurationState.confState$ | async; as config) {
+      <div class="sidebar__brand">
+        <div class="sidebar__logo-wrapper">
+          <img [src]="config.imageUrl + config.configuration.logo" class="sidebar__logo-wrapper--img">
         </div>
-        <app-lang-change></app-lang-change>
       </div>
+      }
+      <ul class="sidebar__list">
+        @for (item of sidebarItems; track item) {
+        <li class="sidebar__list--item">
+          <a class="sidebar__link" [routerLink]="item.redirectTo" [routerLinkActive]="'active-link'"
+            *permit="item.perm">
+            <span class="sidebar__link--icon">
+              <i [class]="item.icon"></i>
+            </span>
+            <p class="sidebar__link--title">
+              {{ item.title | translate }}
+            </p>
+          </a>
+        </li>
+        }
+      </ul>
     </div>
-  }
+    <app-lang-change></app-lang-change>
+  </div>
+</div>
+}
 
-  <p-drawer
-    [visible]="isMobile && hideSidebar" (visibleChange)="isMobile && (hideSidebar = $event)"
-    [style]="{width:'25rem'}"
-    (onHide)="onHide.emit()"
-    >
-    <div class="sidebar">
-      <div class="mb-4">
-        <div class="sidebar__brand mb-1">
-          @if (frontConfigurationState.confState$ | async; as config) {
-            <div
-              class="sidebar__logo-wrapper"
-              >
-              <img
-                [src]="config.imageUrl + config.configuration.logo"
-                class="sidebar__logo-wrapper--img"
-                >
-              </div>
-            }
-          </div>
-
-          @if (authService.user$ | async; as user) {
-            <div class="sidebar__user mb-2">
-              <i class="pi pi-user"></i>
-              <p class="text-lg c-dark">
-                {{ user.firstname }} {{ user.lastname }}
-              </p>
-            </div>
-          }
-
-          <ul class="sidebar__list">
-            @for (item of sidebarItems; track item) {
-              <li
-                class="sidebar__list--item"
-                >
-                <a
-                  class="sidebar__link"
-                  [routerLink]="item.redirectTo"
-                  [routerLinkActive]="'active-link'"
-                  (click)="onHide.emit($event)"
-                  >
-                  <span class="sidebar__link--icon">
-                    <i [class]="item.icon"></i>
-                  </span>
-                  <p class="sidebar__link--title">
-                    {{ item.title | translate }}
-                  </p>
-                </a>
-              </li>
-            }
-          </ul>
-
-          <button
-            class="btn btn__main mx-auto mt-3"
-            (click)="authService.boLogout()"
-            >
-            {{ 'common.signOut' | translate }}
-            <!-- <i class="pi pi-sign-out"></i> -->
-          </button>
+<p-drawer [visible]="isMobile && hideSidebar" (visibleChange)="isMobile && (hideSidebar = $event)"
+  [style]="{width:'25rem'}" (onHide)="onHide.emit()">
+  <div class="sidebar">
+    <div class="mb-4">
+      <div class="sidebar__brand mb-1">
+        @if (frontConfigurationState.confState$ | async; as config) {
+        <div class="sidebar__logo-wrapper">
+          <img [src]="config.imageUrl + config.configuration.logo" class="sidebar__logo-wrapper--img">
         </div>
-
-        <app-lang-change></app-lang-change>
+        }
       </div>
-    </p-drawer>
+
+      @if (authService.user$ | async; as user) {
+      <div class="sidebar__user mb-2">
+        <i class="pi pi-user"></i>
+        <p class="text-lg c-dark">
+          {{ user.firstname }} {{ user.lastname }}
+        </p>
+      </div>
+      }
+
+      <ul class="sidebar__list">
+        @for (item of sidebarItems; track item) {
+        <li class="sidebar__list--item">
+          <a class="sidebar__link" [routerLink]="item.redirectTo" [routerLinkActive]="'active-link'"
+            (click)="onHide.emit($event)">
+            <span class="sidebar__link--icon">
+              <i [class]="item.icon"></i>
+            </span>
+            <p class="sidebar__link--title">
+              {{ item.title | translate }}
+            </p>
+          </a>
+        </li>
+        }
+      </ul>
+
+      <button class="btn btn__main mx-auto mt-3" (click)="authService.boLogout()">
+        {{ 'common.signOut' | translate }}
+        <!-- <i class="pi pi-sign-out"></i> -->
+      </button>
+    </div>
+
+    <app-lang-change></app-lang-change>
+  </div>
+</p-drawer>

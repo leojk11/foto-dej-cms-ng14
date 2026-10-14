@@ -1,40 +1,33 @@
-import { RevealDirective } from 'src/app/shared/directives/reveal.directive';
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
-import { environment } from 'src/environments/environment';
 import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { ConfirmationService } from 'primeng/api';
+import { DialogService } from 'primeng/dynamicdialog';
+import { TabsModule } from 'primeng/tabs';
+import { environment } from 'src/environments/environment';
 import { AdminLayoutService } from 'src/app/features/bo/layout/services/admin-layout.service';
+import { ToastService } from 'src/app/shared/services/toast.service';
 import { ConfigurationStore } from '../../services/configuration.store';
 import { ConfigurationService } from '../../services/configuration.service';
-import { TranslatePipe, TranslateService } from '@ngx-translate/core';
-import { InputTextModule } from 'primeng/inputtext';
-import { ToastService } from 'src/app/shared/services/toast.service';
-import { ProgressBarModule } from 'primeng/progressbar';
+import { Configuration } from '../../models/configuration.model';
 import { RegularInputComponent } from '../../components/regular-input/regular-input.component';
 import { RegularInputDoubleComponent } from '../../components/regular-input-double/regular-input-double.component';
 import { UploadComponent } from '../../components/upload/upload.component';
 import { MultiUploadComponent } from '../../components/multi-upload/multi-upload.component';
-import { YouTubePlayerModule } from '@angular/youtube-player';
 import { VideoRegularInputComponent } from '../../components/video-regular-input/video-regular-input.component';
-import { ConfirmationService } from 'primeng/api';
-import { TabsModule } from 'primeng/tabs';
-import { DialogService } from 'primeng/dynamicdialog';
 import { InvitationPreviewComponent } from '../../components/invitation-preview/invitation-preview.component';
 
 @Component({
     selector: 'app-configuration',
     imports: [
-        RevealDirective,
         CommonModule,
         ReactiveFormsModule,
         TranslatePipe,
-        InputTextModule,
-        ProgressBarModule,
         RegularInputComponent,
         RegularInputDoubleComponent,
         UploadComponent,
         MultiUploadComponent,
-        YouTubePlayerModule,
         VideoRegularInputComponent,
         TabsModule
     ],
@@ -48,16 +41,10 @@ import { InvitationPreviewComponent } from '../../components/invitation-preview/
 })
 export class ConfigurationComponent implements OnInit {
 
-  loaded: boolean = true;
-  logoLoaded: boolean = true;
-  whiteLogoLoaded: boolean = true;
-  logoIconLoaded: boolean = true;
-
   imagesUrl: string = `${ environment.apiUrl }/images/`;
-  albumImagesUrl: string = `${ environment.apiUrl }/images/album_image/`;
 
+  // text fields and lists are saved with the form; images save themselves when picked
   form: FormGroup = this.fb.group({
-    logo: [''],
     main_title: [''],
     main_title_tr: [''],
     second_title: [''],
@@ -80,6 +67,8 @@ export class ConfigurationComponent implements OnInit {
     invite_thank_you_message: ['']
   });
 
+  private formLoaded = false;
+
   constructor(
     private adminLayoutService: AdminLayoutService,
     public configurationStore: ConfigurationStore,
@@ -91,45 +80,15 @@ export class ConfigurationComponent implements OnInit {
     private translateService: TranslateService
   ) { }
 
-  get promoVideos() {
-    return this.form.get('promo_videos') as FormArray;
-  }
-  get emailsForNotifications() {
-    return this.form.get('emails_for_notifications') as FormArray;
-  }
-
   ngOnInit(): void {
     this.adminLayoutService.setTitle('common.settings');
 
     this.configurationStore.getConfiguration();
-    this.configurationStore.state$.subscribe({
-      next: state => {
-        if (!!state.configuration) {
-          this.form.patchValue({
-            ...state.configuration
-          });
-
-          if (state.configuration.promo_videos) {
-            this.promoVideos.clear();
-            this.form.get('promo_videos')?.patchValue([]);
-            for (const video of state.configuration.promo_videos) {
-              const formControl = new FormControl(video);
-              this.promoVideos.push(formControl);
-            }
-          }
-
-          if (state.configuration.emails_for_notifications) {
-            this.emailsForNotifications.clear();
-            this.form.get('emails_for_notifications')?.patchValue([]);
-            for (const email of state.configuration.emails_for_notifications) {
-              const formControl = new FormControl(email);
-              this.emailsForNotifications.push(formControl);
-            }
-          }
-        }
-      },
-      error: error => {
-        this.toastService.addError(error.error.message);
+    this.configurationStore.state$.subscribe(state => {
+      // fill the form once; later store updates (image uploads) must not wipe unsaved edits
+      if (state.configuration && !this.formLoaded) {
+        this.formLoaded = true;
+        this.resetForm(state.configuration);
       }
     });
   }
@@ -147,16 +106,8 @@ export class ConfigurationComponent implements OnInit {
   }
 
   cancel(): void {
-    this.form.patchValue({
-      ...this.configurationStore.snapshot.configuration
-    });
-
-    if (this.configurationStore.snapshot.configuration?.promo_videos) {
-      this.form.get('promo_videos')?.patchValue([]);
-      for (const video of this.configurationStore.snapshot.configuration.promo_videos) {
-        const formControl = new FormControl(video);
-        this.promoVideos.push(formControl);
-      }
+    if (this.configurationStore.snapshot.configuration) {
+      this.resetForm(this.configurationStore.snapshot.configuration);
     }
   }
 
@@ -171,5 +122,19 @@ export class ConfigurationComponent implements OnInit {
         imagesUrl: this.imagesUrl
       }
     });
+  }
+
+  private resetForm(configuration: Configuration): void {
+    this.form.patchValue({ ...configuration });
+    this.fillList('promo_videos', configuration.promo_videos);
+    this.fillList('emails_for_notifications', configuration.emails_for_notifications);
+  }
+
+  private fillList(name: string, values: string[] | null | undefined): void {
+    const list = this.form.get(name) as FormArray;
+    list.clear();
+    for (const value of values ?? []) {
+      list.push(new FormControl(value));
+    }
   }
 }

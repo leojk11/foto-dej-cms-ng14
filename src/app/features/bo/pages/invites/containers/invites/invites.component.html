@@ -132,7 +132,12 @@
       >
 
       <p-datepicker
+        #datePicker
+        (click)="openDatePicker($event, datePicker)"
         [(ngModel)]="dateToFilter"
+        [showOnFocus]="false"
+        [showIcon]="true"
+        iconDisplay="input"
         placeholder="{{ 'properties.date' | translate | lowercase }}..."
         [showClear]="true"
         (onSelect)="onDateSelect()"

@@ -1,58 +1,41 @@
-<form [formGroup]="form">
-  <div class="configuration-wrapper__configuration__item">
-    <div class="left">
-      <label>{{ label | translate }}</label>
-    </div>
+<div class="cfg-field" [formGroup]="form">
+  <div class="cfg-field__header">
+    <span class="cfg-field__label">{{ label | translate }}</span>
+    <button class="btn btn__main" type="button" (click)="addElement()">
+      <i class="pi pi-plus"></i>
+      {{ 'common.add' | translate }}
+    </button>
+  </div>
 
-    <div class="right">
-      <div class="right__top">
-        <label
-          class="btn btn__main upload-btn"
-          (click)="addElement()">
-          <i class="pi pi-plus"></i>
-          {{ 'common.add' | translate }}
-        </label>
-
-        <label
-          class="btn btn__main upload-btn"
-          (click)="onSave.emit()">
-          {{ 'common.save' | translate }}
-        </label>
+  <div class="cfg-field__list" [formArrayName]="id">
+    @for (control of elements.controls; track control; let i = $index) {
+      <div class="cfg-field__row">
+        <input
+          type="text"
+          placeholder="{{ placeholder | translate | lowercase }}..."
+          [formControlName]="i"
+          pInputText>
+        @if (preview) {
+          <button
+            class="btn btn__icon--blue"
+            type="button"
+            pTooltip="{{ 'common.preview' | translate }}"
+            tooltipPosition="top"
+            [disabled]="!control.value"
+            [class.disabled]="!control.value"
+            (click)="togglePreview(i)">
+            <i class="pi pi-youtube"></i>
+          </button>
+        }
+        <button
+          class="btn btn__icon--red"
+          type="button"
+          pTooltip="{{ 'common.delete' | translate }}"
+          tooltipPosition="top"
+          (click)="delete(i)">
+          <i class="pi pi-trash"></i>
+        </button>
       </div>
-
-      <ng-container [formArrayName]="id">
-        @for (form of elements.controls; track form; let i = $index) {
-          <div class="w-full flex gap-2">
-            <input
-              type="text"
-              placeholder="{{ placeholder | translate | lowercase }}..."
-              [formControlName]="i"
-              pInputText>
-              @if (preview) {
-                <button
-                  class="btn btn__icon--blue"
-                  type="button"
-                  pTooltip="{{ 'common.preview' | translate }}"
-                  tooltipPosition="top"
-                  [disabled]="!elements.controls[i].value"
-                  [class.disabled]="!elements.controls[i].value"
-                  (click)="togglePreview(i)"
-                  >
-                  <i class="pi pi-youtube"></i>
-                </button>
-              }
-              <button
-                class="btn btn__icon--red"
-                type="button"
-                (click)="delete(i)"
-                pTooltip="{{ 'common.delete' | translate }}"
-                tooltipPosition="top"
-                >
-                <i class="pi pi-trash"></i>
-              </button>
-            </div>
-          }
-        </ng-container>
-      </div>
-    </div>
-  </form>
+    }
+  </div>
+</div>
